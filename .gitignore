@@ -4,6 +4,7 @@
 /Logs
 /UserSettings
 /.vs
+/Assets/StarterAssets/ThirdPersonController/Character/Textures
 
 *.csproj
 *.sln
