@@ -48,6 +48,9 @@ namespace StarterAssets
         [Tooltip("What layers the character uses as ground")]
         public LayerMask GroundLayers;
 
+        [Tooltip("What layers the character uses as Inner ground")]
+        public LayerMask InnerRoomLayers;
+
         [Header("Cinemachine")]
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
         public GameObject CinemachineCameraTarget;
@@ -63,6 +66,9 @@ namespace StarterAssets
 
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
+
+        [Tooltip("CamerasController script")]
+        public CamerasController camerasController;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -165,8 +171,16 @@ namespace StarterAssets
             // set sphere position, with offset
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
                 transform.position.z);
-            Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
-                QueryTriggerInteraction.Ignore);
+
+            bool isInnerRoom = Physics.CheckSphere(spherePosition, GroundedRadius, InnerRoomLayers, QueryTriggerInteraction.Ignore);
+            Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore) || isInnerRoom;
+
+            //Controla trasicao de cameras da areaInterna
+            if (isInnerRoom)
+                camerasController.ActivateCamera((int)CamerasController.cam.Close);
+            else
+                camerasController.ActivateCamera((int)CamerasController.cam.Default);
+
 
             // update animator if using character
             if (_hasAnimator)
