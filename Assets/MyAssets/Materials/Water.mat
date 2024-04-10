@@ -60,11 +60,11 @@ Material:
     m_Floats:
     - _Death: 0.11
     - _Displacement: 0.1
-    - _NormalStrength: 0.722
-    - _NormalStrength2: 0.154
+    - _NormalStrength: 0.397
+    - _NormalStrength2: 0.779
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smoothness: 0.095
+    - _Smoothness: 0.374
     - _Strength: 3.42
     - _Strength2: 0
     m_Colors:

@@ -67,9 +67,6 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
-        [Tooltip("CamerasController script")]
-        public CamerasController camerasController;
-
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -171,16 +168,7 @@ namespace StarterAssets
             // set sphere position, with offset
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
                 transform.position.z);
-
-            bool isInnerRoom = Physics.CheckSphere(spherePosition, GroundedRadius, InnerRoomLayers, QueryTriggerInteraction.Ignore);
-            Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore) || isInnerRoom;
-
-            //Controla trasicao de cameras da areaInterna
-            if (isInnerRoom)
-                camerasController.ActivateCamera((int)CamerasController.cam.Close);
-            else
-                camerasController.ActivateCamera((int)CamerasController.cam.Default);
-
+            Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
 
             // update animator if using character
             if (_hasAnimator)
