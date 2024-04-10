@@ -1,5 +1,5 @@
 {
-    "name": "StarterAssets",
+    "name": "InputControllers",
     "maps": [
         {
             "name": "Player",
@@ -28,6 +28,15 @@
                     "type": "PassThrough",
                     "id": "980e881e-182c-404c-8cbf-3d09fdb48fef",
                     "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Workbench",
+                    "type": "Button",
+                    "id": "fc641341-a948-4ebd-bbf5-2df0ce5091da",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -185,6 +194,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d9c59c3-2221-4ae2-a704-c088998e5a1b",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Workbench",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "78ee407c-9621-41c7-a9a8-b0f429c34327",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Workbench",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
 
-namespace StarterAssets
+namespace PlayerInputs
 {
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM 
@@ -93,7 +93,7 @@ namespace StarterAssets
 #endif
         private Animator _animator;
         private CharacterController _controller;
-        private StarterAssetsInputs _input;
+        private InputsMovement _input;
         private GameObject _mainCamera;
 
         private const float _threshold = 0.01f;
@@ -113,6 +113,10 @@ namespace StarterAssets
         }
 
 
+        // adicionadas
+        private bool enableMovement = true;
+
+
         private void Awake()
         {
             // get a reference to our main camera
@@ -128,7 +132,7 @@ namespace StarterAssets
             
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
-            _input = GetComponent<StarterAssetsInputs>();
+            _input = GetComponent<InputsMovement>();
 #if ENABLE_INPUT_SYSTEM 
             _playerInput = GetComponent<PlayerInput>();
 #else
@@ -205,6 +209,9 @@ namespace StarterAssets
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? 30f : MoveSpeed;
 
+            if (!enableMovement)
+                targetSpeed = 0f;
+
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -250,9 +257,13 @@ namespace StarterAssets
                     RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                if (enableMovement)
+                    transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                else
+                    transform.rotation = transform.rotation;
             }
 
+            
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
@@ -351,6 +362,21 @@ namespace StarterAssets
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
+        }
+
+
+        //PUBLICOS
+        public void moveTo(Transform destination)
+        {
+            Debug.Log(transform.position);
+            transform.position = destination.position;
+            Debug.Log(transform.position);
+            Debug.Log("Previsto: "+ destination.position);
+        }
+
+        public void enablePlayerMovement(bool state)
+        {
+            enableMovement = state;
         }
     }
 }

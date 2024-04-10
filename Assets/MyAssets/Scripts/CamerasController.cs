@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class CamerasController : MonoBehaviour
 {
-    public enum cam { Default, Close, Workbench, Cat };
+    public enum cam { Default, Close, Workbench, Cat, Shop };
 
     [Header("Cameras")]
     public GameObject[] Cameras;
@@ -16,11 +16,13 @@ public class CamerasController : MonoBehaviour
         {
             if (i == index)
             {
-                Cameras[i].SetActive(true);
+                if(Cameras[i] != null)
+                    Cameras[i].SetActive(true);
             }
             else
             {
-                Cameras[i].SetActive(false);
+                if (Cameras[i] != null)
+                    Cameras[i].SetActive(false);
             }
         }
     }
