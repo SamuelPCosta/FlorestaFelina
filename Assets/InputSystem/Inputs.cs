@@ -62,6 +62,15 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Collet"",
+                    ""type"": ""Button"",
+                    ""id"": ""4449344b-e854-47f8-b187-d9939bbb82a4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -240,6 +249,28 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""Workbench"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9dd1c640-c82c-4c2e-a859-6e8134302747"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Collet"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c97c9bd-ab43-4eb8-862b-956d71679250"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Collet"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -300,6 +331,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Workbench = m_Player.FindAction("Workbench", throwIfNotFound: true);
+        m_Player_Collet = m_Player.FindAction("Collet", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -365,6 +397,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Workbench;
+    private readonly InputAction m_Player_Collet;
     public struct PlayerActions
     {
         private @Inputs m_Wrapper;
@@ -373,6 +406,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Workbench => m_Wrapper.m_Player_Workbench;
+        public InputAction @Collet => m_Wrapper.m_Player_Collet;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -394,6 +428,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Workbench.started += instance.OnWorkbench;
             @Workbench.performed += instance.OnWorkbench;
             @Workbench.canceled += instance.OnWorkbench;
+            @Collet.started += instance.OnCollet;
+            @Collet.performed += instance.OnCollet;
+            @Collet.canceled += instance.OnCollet;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -410,6 +447,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Workbench.started -= instance.OnWorkbench;
             @Workbench.performed -= instance.OnWorkbench;
             @Workbench.canceled -= instance.OnWorkbench;
+            @Collet.started -= instance.OnCollet;
+            @Collet.performed -= instance.OnCollet;
+            @Collet.canceled -= instance.OnCollet;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -469,5 +509,6 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnWorkbench(InputAction.CallbackContext context);
+        void OnCollet(InputAction.CallbackContext context);
     }
 }

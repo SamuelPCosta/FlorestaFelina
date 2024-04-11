@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [ExecuteAlways]
-public class BoxCastController : MonoBehaviour
+public class ProximityController : MonoBehaviour
 {
     [Header("Boxcast options")]
     public float maxDistance = 1f;
@@ -14,20 +14,45 @@ public class BoxCastController : MonoBehaviour
         
     }
 
-    public bool checkBoxCast(int layer)
+    public Collider checkProximity(int layer)
     {
-
         int layerMask = 1 << layer;
 
-        return
-          Physics.BoxCast(
+        Collider collider = checkBoxcast(layerMask);
+        if (collider != null)
+            return collider;
+        else
+            collider = checkOverlap(layerMask);
+
+        return collider;
+    }
+
+    private Collider checkBoxcast(int layerMask)
+    {
+        RaycastHit hit = new RaycastHit();
+        Physics.BoxCast(
             transform.position,
             dimensions * 0.5f,
             transform.forward,
+            out hit,
             Quaternion.identity,
             maxDistance,
             layerMask
-          );
+        );
+
+        return hit.collider;
+    }
+
+    private Collider checkOverlap(int layerMask)
+    {
+        Collider[] colliders = Physics.OverlapBox(
+            transform.position,
+            dimensions * 0.5f,
+            Quaternion.identity,
+            layerMask
+        );
+
+        return colliders.Length > 0 ? colliders[0] : null;
     }
 
     private void OnDrawGizmos()
@@ -42,7 +67,7 @@ public class BoxCastController : MonoBehaviour
             {
                 Gizmos.color = Color.red;
                 Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
-                Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, transform.lossyScale);
+                Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, dimensions);
             }
             else
             {

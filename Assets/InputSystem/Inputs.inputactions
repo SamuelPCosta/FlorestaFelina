@@ -1,5 +1,5 @@
 {
-    "name": "InputControllers",
+    "name": "Inputs",
     "maps": [
         {
             "name": "Player",
@@ -36,6 +36,15 @@
                     "name": "Workbench",
                     "type": "Button",
                     "id": "fc641341-a948-4ebd-bbf5-2df0ce5091da",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Collet",
+                    "type": "Button",
+                    "id": "4449344b-e854-47f8-b187-d9939bbb82a4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -216,6 +225,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Workbench",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9dd1c640-c82c-4c2e-a859-6e8134302747",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Collet",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4c97c9bd-ab43-4eb8-862b-956d71679250",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Collet",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

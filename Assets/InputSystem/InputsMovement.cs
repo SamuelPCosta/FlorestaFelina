@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace PlayerInputs
-{
-	[RequireComponent(typeof(PlayerInput))]
+
 	public class InputsMovement : MonoBehaviour
 	{
 		
@@ -69,4 +67,3 @@ namespace PlayerInputs
 		}
 	}
 	
-}

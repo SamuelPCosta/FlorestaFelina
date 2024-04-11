@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace PlayerInputs
-{
-#if ENABLE_INPUT_SYSTEM
-    [RequireComponent(typeof(PlayerInput))]
-#endif
+
     public class InteractionsController : MonoBehaviour
     {    
         
         [Header("Player object")]
         public GameObject PlayerRoot;
-        public BoxCastController boxcast;
+        public ProximityController boxcast;
 
         [Header("Workbench")]
         public Transform workbenchOrigin;
@@ -30,7 +26,7 @@ namespace PlayerInputs
         private bool _ShopCam = false;
 
         private InputAction workbench;
-        //private InputAction <>;
+        private InputAction collet;
 
         private void Awake()
         {
@@ -50,7 +46,7 @@ namespace PlayerInputs
         void Start()
         {
            workbench = input.Player.Workbench;
-           //<> = input.Player.<>;
+           collet = input.Player.Collet;
         }
 
         // Update is called once per frame
@@ -61,34 +57,48 @@ namespace PlayerInputs
             checkCameras();
         }
 
+        //CONTROLA COLETA E CONEXAO COM INVENTARIO
         private void checkCollectibles()
         {
-            if (boxcast.checkBoxCast(LayerMask.NameToLayer("Collectible")))
-                print("Coletavel");
+            Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Collectible"));
+            if (collider != null)
+            {
+                Collectible collectible = collider.GetComponent<Collectible>();
+                Debug.Log("Coletar!");
+                if (collet.triggered && collectible != null)
+                {
+                    Debug.Log("Coletou - "+ collectible.getQuantityOfItems() +" "+ collectible.getNameOfItem());
+                    collectible.collectItem();
+                }
+            }  
         }
 
+        //CONTROLA INTERACAO COM A BANCADA E MENUS
         private void checkWorkbench()
         {
-            if (boxcast.checkBoxCast(LayerMask.NameToLayer("Workbench")))
+        Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Workbench"));
+        if (collider != null)
+        {
+            Debug.Log("Workbench a frente");
+            if (workbench.triggered)
             {
-                print("Workbench a frente");
-                if (workbench.triggered)
+                WorkbenchController workbenchController = GameObject.FindObjectOfType<WorkbenchController>();
+                if (_workebenchCam)
                 {
-                    print("Interagindo com a workbench");
-                    if (_workebenchCam)
-                    {
-                        _workebenchCam = false;
-                        transform.GetComponent<MovementController>().enablePlayerMovement(true);
-                    }
-                    else
-                    {
-                        _workebenchCam = true;
-                        transform.GetComponent<MovementController>().enablePlayerMovement(false);
-                        transform.GetComponent<MovementController>().moveTo(workbenchOrigin); //TODO CORRIGIR COMPORTAMENTO
-                    }
+                    _workebenchCam = false;
+                    workbenchController.turnOffMenu();
+                    transform.GetComponent<MovementController>().enablePlayerMovement(true);
+                }
+                else
+                {
+                    _workebenchCam = true;
+                    workbenchController.turnOnMenu();
+                    transform.GetComponent<MovementController>().enablePlayerMovement(false);
+                    transform.GetComponent<MovementController>().moveTo(workbenchOrigin); //TODO: CORRIGIR COMPORTAMENTO
                 }
             }
         }
+    }
 
         private void checkCameras()
         {
@@ -111,4 +121,3 @@ namespace PlayerInputs
             }
         }
     }
-}

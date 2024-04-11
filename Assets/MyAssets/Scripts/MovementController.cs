@@ -6,12 +6,6 @@ using UnityEngine.InputSystem;
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
 
-namespace PlayerInputs
-{
-    [RequireComponent(typeof(CharacterController))]
-#if ENABLE_INPUT_SYSTEM 
-    [RequireComponent(typeof(PlayerInput))]
-#endif
     public class MovementController : MonoBehaviour
     {
         [Header("Player")]
@@ -368,10 +362,10 @@ namespace PlayerInputs
         //PUBLICOS
         public void moveTo(Transform destination)
         {
-            Debug.Log(transform.position);
+           // Debug.Log(transform.position);
             transform.position = destination.position;
-            Debug.Log(transform.position);
-            Debug.Log("Previsto: "+ destination.position);
+           // Debug.Log(transform.position);
+           // Debug.Log("Previsto: "+ destination.position);
         }
 
         public void enablePlayerMovement(bool state)
@@ -379,4 +373,3 @@ namespace PlayerInputs
             enableMovement = state;
         }
     }
-}
