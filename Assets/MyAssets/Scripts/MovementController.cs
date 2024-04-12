@@ -1,4 +1,5 @@
 ﻿ using UnityEngine;
+using System.Collections;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -109,6 +110,8 @@ using UnityEngine.InputSystem;
 
         // adicionadas
         private bool enableMovement = true;
+        private bool alignmentWalk = false;
+        private Transform destination;
 
 
         private void Awake()
@@ -146,7 +149,10 @@ using UnityEngine.InputSystem;
             FallAndGravity();
             GroundedCheck();
             Move();
-        }
+            if (alignmentWalk)
+                StartCoroutine(MoveToDestinationCoroutine(1f));
+                
+    }
 
         private void LateUpdate()
         {
@@ -203,9 +209,6 @@ using UnityEngine.InputSystem;
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? 30f : MoveSpeed;
 
-            if (!enableMovement)
-                targetSpeed = 0f;
-
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -214,6 +217,9 @@ using UnityEngine.InputSystem;
 
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
+
+            if (!enableMovement)
+                targetSpeed = 0f;
 
             float speedOffset = 0.1f;
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
@@ -359,13 +365,32 @@ using UnityEngine.InputSystem;
         }
 
 
-        //PUBLICOS
+    //PUBLICOS
         public void moveTo(Transform destination)
         {
-           // Debug.Log(transform.position);
-            transform.position = destination.position;
-           // Debug.Log(transform.position);
-           // Debug.Log("Previsto: "+ destination.position);
+            alignmentWalk = true;
+            this.destination = destination;
+        }
+
+        IEnumerator MoveToDestinationCoroutine(float duration)
+        {
+            alignmentWalk = false;
+            Vector3 startPosition = transform.position;
+            Vector3 targetPosition = destination.position;
+            targetPosition.y = startPosition.y;
+
+            float startTime = Time.time;
+
+            while (Time.time - startTime < duration)
+            {
+                float t = (Time.time - startTime) / duration;
+                Vector3 newPosition = Vector3.Lerp(startPosition, targetPosition, t);
+                newPosition.y = transform.position.y;
+                transform.position = newPosition;
+
+                yield return null;
+            }
+            transform.position = targetPosition;
         }
 
         public void enablePlayerMovement(bool state)

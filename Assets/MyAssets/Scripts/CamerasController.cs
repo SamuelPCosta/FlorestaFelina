@@ -10,8 +10,9 @@ public class CamerasController : MonoBehaviour
     [Header("Cameras")]
     public GameObject[] Cameras;
 
-    public void ActivateCamera(int index)
+    public void ActivateCamera(cam camera)
     {
+        int index = (int)camera;
         for (int i = 0; i < Cameras.Length; i++)
         {
             if (i == index)

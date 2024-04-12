@@ -11,6 +11,9 @@ using UnityEngine.InputSystem;
         public GameObject PlayerRoot;
         public ProximityController boxcast;
 
+        [Header("Inventory")]
+        public InventoryController inventoryController;
+
         [Header("Workbench")]
         public Transform workbenchOrigin;
 
@@ -25,8 +28,11 @@ using UnityEngine.InputSystem;
         private bool _workebenchCam = false;
         private bool _ShopCam = false;
 
+
+        //ACTIONS
         private InputAction workbench;
         private InputAction collet;
+
 
         private void Awake()
         {
@@ -67,7 +73,10 @@ using UnityEngine.InputSystem;
                 Debug.Log("Coletar!");
                 if (collet.triggered && collectible != null)
                 {
-                    Debug.Log("Coletou - "+ collectible.getQuantityOfItems() +" "+ collectible.getNameOfItem());
+
+                    int quantityCollected = collectible.getQuantityOfItems();
+                    Debug.Log("Coletou - "+ quantityCollected + " "+ collectible.getNameOfItem());
+                    inventoryController.addColletible(collectible.getType(), quantityCollected);
                     collectible.collectItem();
                 }
             }  
@@ -94,7 +103,7 @@ using UnityEngine.InputSystem;
                     _workebenchCam = true;
                     workbenchController.turnOnMenu();
                     transform.GetComponent<MovementController>().enablePlayerMovement(false);
-                    transform.GetComponent<MovementController>().moveTo(workbenchOrigin); //TODO: CORRIGIR COMPORTAMENTO
+                    transform.GetComponent<MovementController>().moveTo(workbenchOrigin);
                 }
             }
         }
@@ -107,15 +116,15 @@ using UnityEngine.InputSystem;
             if (Physics.Raycast(PlayerRoot.transform.position, Vector3.down, out hit))
             {
                 if (!hit.collider.CompareTag("InnerRoom")) //AREA EXTERNA
-                    camerasController.ActivateCamera((int)CamerasController.cam.Default);
+                    camerasController.ActivateCamera(CamerasController.cam.Default);
                 else //AREA INTERNA
                 {
                     if(_workebenchCam)
-                        camerasController.ActivateCamera((int)CamerasController.cam.Workbench);
+                        camerasController.ActivateCamera(CamerasController.cam.Workbench);
                     else if(_ShopCam)
-                        camerasController.ActivateCamera((int)CamerasController.cam.Workbench);
+                        camerasController.ActivateCamera(CamerasController.cam.Workbench);
                     else
-                        camerasController.ActivateCamera((int)CamerasController.cam.Close);
+                        camerasController.ActivateCamera(CamerasController.cam.Close);
                 }
                     
             }

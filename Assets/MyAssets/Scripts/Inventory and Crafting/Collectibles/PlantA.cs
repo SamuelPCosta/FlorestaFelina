@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class PlantA : Collectible
 {
-
+    PlantA()
+    {
+        type = CollectiblesEnum.PLANT1;
+    }
 }

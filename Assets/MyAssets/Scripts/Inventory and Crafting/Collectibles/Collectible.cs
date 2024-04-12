@@ -6,6 +6,7 @@ public abstract class Collectible : MonoBehaviour
 {
     public int quantityOfItems = 3;
     public string nameOfItem = "Plantinha A";
+    protected CollectiblesEnum type;
     //protected int quantityOfItems;
 
     // Start is called before the first frame update
@@ -32,5 +33,10 @@ public abstract class Collectible : MonoBehaviour
     public int getQuantityOfItems()
     {
         return quantityOfItems;
+    }
+
+    public CollectiblesEnum getType()
+    {
+        return type;
     }
 }
