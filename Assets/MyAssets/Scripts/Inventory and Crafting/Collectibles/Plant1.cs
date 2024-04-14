@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlantA : Collectible
+public class Plant1 : Collectible
 {
-    PlantA()
+    Plant1()
     {
         type = CollectibleType.PLANT1;
     }

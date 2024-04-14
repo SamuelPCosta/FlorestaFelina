@@ -8,26 +8,19 @@ public class InventoryController : MonoBehaviour
     private int plant2;
     private int water;
 
-    private int product1;
-    private int product2;
-    private int product3;
+    private int potion1;
+    private int potion2;
+    private int potion3;
 
-    // Start is called before the first frame update
     void Start()
     {
         //TODO: GET SAVE
         plant1 = 0;
         plant2 = 0;
         water = 0;
-        product1 = 0;
-        product2 = 0;
-        product3 = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        potion1 = 0;
+        potion2 = 0;
+        potion3 = 0;
     }
 
     public bool addCollectible(CollectibleType item, int quantity)
@@ -58,6 +51,22 @@ public class InventoryController : MonoBehaviour
         return true;
     }
 
+    public void addPotion(PotionType item)
+    {
+        switch (item)
+        {
+            case PotionType.POTION1:
+                potion1 ++;
+                break;
+            case PotionType.POTION2:
+                potion2 ++;
+                break;
+            case PotionType.POTION3:
+                potion3 ++;
+                break;
+        }
+    }
+
     public int getCollectible(CollectibleType item)
     {
         int quantity = -1;
@@ -71,6 +80,25 @@ public class InventoryController : MonoBehaviour
                 break;
             case CollectibleType.WATER:
                 quantity = water;
+                break;
+        }
+
+        return quantity;
+    }
+
+    public int getPotion(PotionType item)
+    {
+        int quantity = -1;
+        switch (item)
+        {
+            case PotionType.POTION1:
+                quantity = potion1;
+                break;
+            case PotionType.POTION2:
+                quantity = potion2;
+                break;
+            case PotionType.POTION3:
+                quantity = potion3;
                 break;
         }
 
@@ -98,6 +126,34 @@ public class InventoryController : MonoBehaviour
             if (water - quantity < 0)
                 return false;
             water -= quantity;
+        }
+
+        return true;
+    }
+
+    public bool consumePotion(PotionType item, int quantity)
+    {
+        if (PotionType.POTION1 == item)
+        {
+            if (potion1 - quantity < 0)
+                return false;
+            potion1 -= quantity;
+        }
+        else
+
+        if (PotionType.POTION2 == item)
+        {
+            if (potion2 - quantity < 0)
+                return false;
+            potion2 -= quantity;
+        }
+        else
+
+        if (PotionType.POTION3 == item)
+        {
+            if (potion3 - quantity < 0)
+                return false;
+            potion3 -= quantity;
         }
 
         return true;

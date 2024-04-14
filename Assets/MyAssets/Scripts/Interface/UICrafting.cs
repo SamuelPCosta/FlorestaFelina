@@ -2,13 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class UIController : MonoBehaviour
+public class UICrafting : MonoBehaviour
 {
     public TextMeshProUGUI colletText;
     public TextMeshProUGUI water;
     public TextMeshProUGUI plant1;
     public TextMeshProUGUI plant2;
+
+    public TextMeshProUGUI potion1;
+    public TextMeshProUGUI potion2;
+    public TextMeshProUGUI potion3;
+
+    [Header("Colors")]
+    public Color color1;
+    public Color color2;
 
 
     // PRIVATE
@@ -23,12 +33,27 @@ public class UIController : MonoBehaviour
         water.text = "" + 0;
         plant1.text = "" + 0;
         plant2.text = "" + 0;
+
+        potion1.text = "" + 0;
+        potion2.text = "" + 0;
+        potion3.text = "" + 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Button[] buttons = FindObjectsOfType<Button>();
+        foreach (Button button in buttons)
+        {
+            TextMeshProUGUI btnText = button.GetComponentInChildren<TextMeshProUGUI>();
+            btnText.color = color2;
+        }
+        GameObject btnSelected = EventSystem.current.currentSelectedGameObject;
+        if(btnSelected != null)
+        {
+            TextMeshProUGUI btnSelectedText = btnSelected.GetComponentInChildren<TextMeshProUGUI>();
+            btnSelectedText.color = color1;
+        }
     }
 
     public void spawnCollectText(CollectibleType type, string itemName, int quantity, bool allowed)
@@ -81,6 +106,22 @@ public class UIController : MonoBehaviour
                 break;
             case CollectibleType.WATER:
                 water.text = "" + quantity;
+                break;
+        }
+    }
+
+    public void refreshInventory(PotionType type, int quantity)
+    {
+        switch (type)
+        {
+            case PotionType.POTION1:
+                potion1.text = "" + quantity;
+                break;
+            case PotionType.POTION2:
+                potion2.text = "" + quantity;
+                break;
+            case PotionType.POTION3:
+                potion3.text = "" + quantity;
                 break;
         }
     }

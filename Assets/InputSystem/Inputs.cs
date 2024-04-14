@@ -71,6 +71,42 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Craft"",
+                    ""type"": ""Button"",
+                    ""id"": ""0da1a330-396c-4ef2-b329-2e64c490dbe0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""extraW"",
+                    ""type"": ""Button"",
+                    ""id"": ""d2bf6da6-c41d-469a-bfc6-36cc3de9c29a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""extraP1"",
+                    ""type"": ""Button"",
+                    ""id"": ""ece2bbf8-a8b2-4529-81cf-e3c9272687b7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""extraP2"",
+                    ""type"": ""Button"",
+                    ""id"": ""cff26eb9-4df3-4da3-b00d-edfb14ef1416"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -271,6 +307,61 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""Collet"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ccac2999-4e3b-4ea3-aa53-0f8042d8a652"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Craft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""893e0e73-3b2e-471a-b7b5-cda6314cfdbc"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Craft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11a5bead-cf4c-47e2-be17-452cf8419d91"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""extraW"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c4e6ea5f-2e0c-4839-b510-3c8583ade7e6"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""extraP1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cae65e86-b542-404f-a1df-05d6f25038e9"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""extraP2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -332,6 +423,10 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Workbench = m_Player.FindAction("Workbench", throwIfNotFound: true);
         m_Player_Collet = m_Player.FindAction("Collet", throwIfNotFound: true);
+        m_Player_Craft = m_Player.FindAction("Craft", throwIfNotFound: true);
+        m_Player_extraW = m_Player.FindAction("extraW", throwIfNotFound: true);
+        m_Player_extraP1 = m_Player.FindAction("extraP1", throwIfNotFound: true);
+        m_Player_extraP2 = m_Player.FindAction("extraP2", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -398,6 +493,10 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Workbench;
     private readonly InputAction m_Player_Collet;
+    private readonly InputAction m_Player_Craft;
+    private readonly InputAction m_Player_extraW;
+    private readonly InputAction m_Player_extraP1;
+    private readonly InputAction m_Player_extraP2;
     public struct PlayerActions
     {
         private @Inputs m_Wrapper;
@@ -407,6 +506,10 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Workbench => m_Wrapper.m_Player_Workbench;
         public InputAction @Collet => m_Wrapper.m_Player_Collet;
+        public InputAction @Craft => m_Wrapper.m_Player_Craft;
+        public InputAction @extraW => m_Wrapper.m_Player_extraW;
+        public InputAction @extraP1 => m_Wrapper.m_Player_extraP1;
+        public InputAction @extraP2 => m_Wrapper.m_Player_extraP2;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -431,6 +534,18 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Collet.started += instance.OnCollet;
             @Collet.performed += instance.OnCollet;
             @Collet.canceled += instance.OnCollet;
+            @Craft.started += instance.OnCraft;
+            @Craft.performed += instance.OnCraft;
+            @Craft.canceled += instance.OnCraft;
+            @extraW.started += instance.OnExtraW;
+            @extraW.performed += instance.OnExtraW;
+            @extraW.canceled += instance.OnExtraW;
+            @extraP1.started += instance.OnExtraP1;
+            @extraP1.performed += instance.OnExtraP1;
+            @extraP1.canceled += instance.OnExtraP1;
+            @extraP2.started += instance.OnExtraP2;
+            @extraP2.performed += instance.OnExtraP2;
+            @extraP2.canceled += instance.OnExtraP2;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -450,6 +565,18 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Collet.started -= instance.OnCollet;
             @Collet.performed -= instance.OnCollet;
             @Collet.canceled -= instance.OnCollet;
+            @Craft.started -= instance.OnCraft;
+            @Craft.performed -= instance.OnCraft;
+            @Craft.canceled -= instance.OnCraft;
+            @extraW.started -= instance.OnExtraW;
+            @extraW.performed -= instance.OnExtraW;
+            @extraW.canceled -= instance.OnExtraW;
+            @extraP1.started -= instance.OnExtraP1;
+            @extraP1.performed -= instance.OnExtraP1;
+            @extraP1.canceled -= instance.OnExtraP1;
+            @extraP2.started -= instance.OnExtraP2;
+            @extraP2.performed -= instance.OnExtraP2;
+            @extraP2.canceled -= instance.OnExtraP2;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -510,5 +637,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnWorkbench(InputAction.CallbackContext context);
         void OnCollet(InputAction.CallbackContext context);
+        void OnCraft(InputAction.CallbackContext context);
+        void OnExtraW(InputAction.CallbackContext context);
+        void OnExtraP1(InputAction.CallbackContext context);
+        void OnExtraP2(InputAction.CallbackContext context);
     }
 }

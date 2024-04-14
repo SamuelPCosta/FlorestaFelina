@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
         public ProximityController boxcast;
 
         [Header("UI")]
-        public UIController _UIController;
+        public UICrafting _UICrafting;
 
         [Header("Inventory")]
         public InventoryController inventoryController;
@@ -80,15 +80,15 @@ using UnityEngine.InputSystem;
                     CollectibleType type = collectible.getType();
                     bool isAdded = inventoryController.addCollectible(type, quantityCollected);
 
-                    _UIController.spawnCollectText(type, collectible.getNameOfItem(), quantityCollected, isAdded);
-                    _UIController.refreshInventory(type, inventoryController.getCollectible(type));
+                    _UICrafting.spawnCollectText(type, collectible.getNameOfItem(), quantityCollected, isAdded);
+                    _UICrafting.refreshInventory(type, inventoryController.getCollectible(type));
 
                     collectible.collectItem();
                 }
             }  
         }
 
-        //CONTROLA INTERACAO COM A BANCADA E MENUS
+        //CONTROLA INTERACAO COM A BANCADA
         private void checkWorkbench()
         {
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Workbench"));

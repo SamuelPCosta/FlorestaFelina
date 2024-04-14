@@ -4,22 +4,9 @@ using UnityEngine;
 
 public abstract class Collectible : MonoBehaviour
 {
-    public int quantityOfItems = 3;
+    public int quantityOfItems;
     public string nameOfItem;
     protected CollectibleType type;
-    //protected int quantityOfItems;
-
-    // Start is called before the first frame update
-    protected void Start()
-    {
-
-    }
-
-// Update is called once per frame
-    protected void Update()
-    {
-
-    }
 
     public virtual void collectItem() { 
         Destroy(gameObject); 
