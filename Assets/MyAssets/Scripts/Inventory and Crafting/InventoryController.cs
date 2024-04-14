@@ -30,35 +30,46 @@ public class InventoryController : MonoBehaviour
         
     }
 
-    public void addColletible(CollectiblesEnum item, int quantity)
+    public bool addCollectible(CollectibleType item, int quantity)
     {
+        int maxWaterCanteen = 2;
+        if(CollectibleType.WATER == item)
+        {
+            if (water == maxWaterCanteen)
+                return false;
+        }
+
         switch (item)
         {
-            case CollectiblesEnum.PLANT1:
+            case CollectibleType.PLANT1:
                 plant1 += quantity;
-                print(plant1);
                 break;
-            case CollectiblesEnum.PLANT2:
+            case CollectibleType.PLANT2:
                 plant2 += quantity;
                 break;
-            case CollectiblesEnum.WATER:
+            case CollectibleType.WATER:
                 water += quantity;
                 break;
         }
+
+        if(water > maxWaterCanteen)
+            water = maxWaterCanteen;
+
+        return true;
     }
 
-    public int getColletible(CollectiblesEnum item)
+    public int getCollectible(CollectibleType item)
     {
         int quantity = -1;
         switch (item)
         {
-            case CollectiblesEnum.PLANT1:
+            case CollectibleType.PLANT1:
                 quantity = plant1;
                 break;
-            case CollectiblesEnum.PLANT2:
+            case CollectibleType.PLANT2:
                 quantity = plant2;
                 break;
-            case CollectiblesEnum.WATER:
+            case CollectibleType.WATER:
                 quantity = water;
                 break;
         }
@@ -66,23 +77,23 @@ public class InventoryController : MonoBehaviour
         return quantity;
     }
 
-    public bool consumeColletible(CollectiblesEnum item, int quantity)
+    public bool consumeCollectible(CollectibleType item, int quantity)
     {
-        if (CollectiblesEnum.PLANT1 == item)
+        if (CollectibleType.PLANT1 == item)
         {
             if(plant1 - quantity < 0)
                 return false;
             plant1 -= quantity;
         }else
 
-        if (CollectiblesEnum.PLANT2 == item)
+        if (CollectibleType.PLANT2 == item)
         {
             if (plant2 - quantity < 0)
                 return false;
             plant2 -= quantity;
         }else
 
-        if (CollectiblesEnum.WATER == item)
+        if (CollectibleType.WATER == item)
         {
             if (water - quantity < 0)
                 return false;

@@ -11,6 +11,9 @@ using UnityEngine.InputSystem;
         public GameObject PlayerRoot;
         public ProximityController boxcast;
 
+        [Header("UI")]
+        public UIController _UIController;
+
         [Header("Inventory")]
         public InventoryController inventoryController;
 
@@ -73,10 +76,13 @@ using UnityEngine.InputSystem;
                 Debug.Log("Coletar!");
                 if (collet.triggered && collectible != null)
                 {
-
                     int quantityCollected = collectible.getQuantityOfItems();
-                    Debug.Log("Coletou - "+ quantityCollected + " "+ collectible.getNameOfItem());
-                    inventoryController.addColletible(collectible.getType(), quantityCollected);
+                    CollectibleType type = collectible.getType();
+                    bool isAdded = inventoryController.addCollectible(type, quantityCollected);
+
+                    _UIController.spawnCollectText(type, collectible.getNameOfItem(), quantityCollected, isAdded);
+                    _UIController.refreshInventory(type, inventoryController.getCollectible(type));
+
                     collectible.collectItem();
                 }
             }  

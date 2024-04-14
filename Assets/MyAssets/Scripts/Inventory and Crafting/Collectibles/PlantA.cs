@@ -6,6 +6,6 @@ public class PlantA : Collectible
 {
     PlantA()
     {
-        type = CollectiblesEnum.PLANT1;
+        type = CollectibleType.PLANT1;
     }
 }

@@ -5,8 +5,8 @@ using UnityEngine;
 public abstract class Collectible : MonoBehaviour
 {
     public int quantityOfItems = 3;
-    public string nameOfItem = "Plantinha A";
-    protected CollectiblesEnum type;
+    public string nameOfItem;
+    protected CollectibleType type;
     //protected int quantityOfItems;
 
     // Start is called before the first frame update
@@ -35,7 +35,7 @@ public abstract class Collectible : MonoBehaviour
         return quantityOfItems;
     }
 
-    public CollectiblesEnum getType()
+    public CollectibleType getType()
     {
         return type;
     }

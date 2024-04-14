@@ -6,7 +6,7 @@ public class Water : Collectible
 {
     Water()
     {
-        type = CollectiblesEnum.WATER;
+        type = CollectibleType.WATER;
     }
     override public void collectItem()
     {
