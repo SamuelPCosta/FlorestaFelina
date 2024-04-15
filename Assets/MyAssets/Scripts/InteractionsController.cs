@@ -54,8 +54,10 @@ using UnityEngine.InputSystem;
 
         void Start()
         {
-           workbench = input.Player.Workbench;
-           collet = input.Player.Collet;
+            workbench = input.Player.Workbench;
+            collet = input.Player.Collet;
+            InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
+            inputsCursor.SetCursorState(true);
         }
 
         // Update is called once per frame
@@ -98,16 +100,19 @@ using UnityEngine.InputSystem;
             if (workbench.triggered)
             {
                 WorkbenchController workbenchController = GameObject.FindObjectOfType<WorkbenchController>();
+                InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
                 if (_workebenchCam)
                 {
                     _workebenchCam = false;
                     workbenchController.turnOffMenu();
+                    inputsCursor.SetCursorState(true);
                     transform.GetComponent<MovementController>().enablePlayerMovement(true);
                 }
                 else
                 {
                     _workebenchCam = true;
                     workbenchController.turnOnMenu();
+                    inputsCursor.SetCursorState(false);
                     transform.GetComponent<MovementController>().enablePlayerMovement(false);
                     transform.GetComponent<MovementController>().moveTo(workbenchOrigin);
                 }

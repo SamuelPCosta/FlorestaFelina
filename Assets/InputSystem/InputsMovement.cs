@@ -17,11 +17,11 @@ using UnityEngine.InputSystem;
 
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
-		public bool cursorInputForLook = true;
+		public bool cursorInputForLook = false;
 
 #if ENABLE_INPUT_SYSTEM
 
-        public void OnMove(InputValue value)
+	public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -40,8 +40,7 @@ using UnityEngine.InputSystem;
 		}
 #endif
 
-
-		public void MoveInput(Vector2 newMoveDirection)
+	public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
 		} 
@@ -56,12 +55,12 @@ using UnityEngine.InputSystem;
 			sprint = newSprintState;
 		}
 
-		private void OnApplicationFocus(bool hasFocus)
-		{
-			SetCursorState(cursorLocked);
-		}
+		//private void OnApplicationFocus(bool hasFocus)
+		//{
+		//	SetCursorState(cursorLocked);
+		//}
 
-		private void SetCursorState(bool newState)
+		public void SetCursorState(bool newState)
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}

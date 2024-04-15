@@ -25,8 +25,6 @@ public class WorkbenchController : MonoBehaviour
     public int potion3Item1;
     public int potion3Item2;
 
-
-    private GameObject btnCurrent;
     private InventoryController inventoryController;
     private UICrafting _UICrafting;
 
@@ -57,7 +55,6 @@ public class WorkbenchController : MonoBehaviour
         inventoryController = FindObjectOfType<InventoryController>();
         _UICrafting = FindObjectOfType<UICrafting>();
 
-        btnCurrent = null;
         potion = null;
         craftingMenu.SetActive(false);
     }
@@ -65,19 +62,8 @@ public class WorkbenchController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (craftingMenu.activeSelf)
-        {
-            GameObject btnSelected = EventSystem.current.currentSelectedGameObject;
-            if (btnSelected == null && btnCurrent != null)
-            {
-                btnSelected = btnCurrent;
-                EventSystem.current.SetSelectedGameObject(btnSelected);
-            }
-            //print(EventSystem.current.currentSelectedGameObject);
-
-            if (craft.triggered)
-                craftPotion();
-        }
+        if (craftingMenu.activeSelf && craft.triggered)
+            craftPotion();
 
         GodMode();
     }
@@ -132,18 +118,37 @@ public class WorkbenchController : MonoBehaviour
         bool enableOption2 = (plant2 >= potion2Item1 && water >= potion2Water);
         bool enableOption3 = (potion1 >= potion3Item1 && potion2 >= potion3Item2);
 
+        int[] inventory = {plant1, plant2, water, potion1, potion2};
+        int[] craft1 = {potion1Item1, potion1Water};
+        int[] craft2 = {potion2Item1, potion2Water};
+        int[] craft3 = {potion3Item1, potion3Item2};
+
+        _UICrafting.refreshWorkbench(inventory, craft1, craft2, craft3);
+
         setOptions(option1, enableOption1);
         setOptions(option2, enableOption2);
         setOptions(option3, enableOption3);
 
-        if (enableOption1)
-            return option1;
-        if (enableOption2)
-            return option2;
+        _UICrafting.disableOptions();
+        GameObject firstOption = null;
+        //Ordem inversa para a reescrita sempre sobrescrever com um numero menor
         if (enableOption3)
-            return option3;
+        {
+            _UICrafting.enableOption(UICrafting.PotionsOption.OPTION3);
+            firstOption = option3;
+        }
+        if (enableOption2)
+        {
+            _UICrafting.enableOption(UICrafting.PotionsOption.OPTION2);
+            firstOption = option2;
+        }
+        if (enableOption1)
+        {
+            _UICrafting.enableOption(UICrafting.PotionsOption.OPTION1);
+            firstOption = option1;
+        }
 
-        return null;
+        return firstOption;
     }
 
     private void setOptions(GameObject button, bool condition)
