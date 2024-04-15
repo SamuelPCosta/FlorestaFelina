@@ -75,20 +75,22 @@ using UnityEngine.InputSystem;
             if (collider != null)
             {
                 Collectible collectible = collider.GetComponent<Collectible>();
-                Debug.Log("Coletar!");
+                //Debug.Log("Coletar!");
+                _UICrafting.spawnCollectText(true);
                 if (collet.triggered && collectible != null)
-                {
+                    {
                     int quantityCollected = collectible.getQuantityOfItems();
                     CollectibleType type = collectible.getType();
                     bool isAdded = inventoryController.addCollectible(type, quantityCollected);
 
-                    _UICrafting.spawnCollectText(type, collectible.getNameOfItem(), quantityCollected, isAdded);
+                    _UICrafting.spawnCollectedItemText(type, collectible.getNameOfItem(), quantityCollected, isAdded);
                     _UICrafting.refreshInventory(type, inventoryController.getCollectible(type));
 
                     collectible.collectItem();
                 }
-            }  
-        }
+            }else
+                _UICrafting.spawnCollectText(false);
+    }
 
         //CONTROLA INTERACAO COM A BANCADA
         private void checkWorkbench()

@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class UICrafting : MonoBehaviour
 {
     [Header("Collect texts")]
-    public TextMeshProUGUI collectText;
+    public TextMeshProUGUI collectedItemText;
+    public GameObject collectText;
     public TextMeshProUGUI water;
     public TextMeshProUGUI plant1;
     public TextMeshProUGUI plant2;
@@ -53,7 +54,7 @@ public class UICrafting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        collectText.gameObject.SetActive(false);
+        collectedItemText.gameObject.SetActive(false);
 
         //TODO: get save
         water.text = "" + 0;
@@ -155,9 +156,17 @@ public class UICrafting : MonoBehaviour
         indicator.SetActive(true);
     }
 
-    public void spawnCollectText(CollectibleType type, string itemName, int quantity, bool allowed)
+    public void spawnCollectText(bool state)
+    {
+        if (state)
+            collectText.gameObject.SetActive(true);
+        else
+            collectText.gameObject.SetActive(false);
+    }
+
+    public void spawnCollectedItemText(CollectibleType type, string itemName, int quantity, bool allowed)
     {   
-        collectText.gameObject.SetActive(true);
+        collectedItemText.gameObject.SetActive(true);
         
         //Collectible collectible = null;
         //switch (type)
@@ -175,21 +184,21 @@ public class UICrafting : MonoBehaviour
 
         //string itemName = collectible.getNameOfItem();
 
-        collectText.text = "Coletou <b>" + itemName + "</b>";
+        collectedItemText.text = "Coletou <b>" + itemName + "</b>";
         if (type != CollectibleType.WATER)
-            collectText.text += " (" + quantity + "x).";
+            collectedItemText.text += " (" + quantity + "x).";
         else
-            collectText.text += ".";
+            collectedItemText.text += ".";
 
         if (!allowed) //excecao da agua no maximo
-            collectText.text = "Seu cantil já está cheio!";
+            collectedItemText.text = "Seu cantil já está cheio!";
 
         //Lista controla comportamento de animacoes em cima de outra
         foreach (Coroutine c in collectCoroutines)
             StopCoroutine(c);
 
         //Anima opacidade do texto
-        Coroutine coroutine = StartCoroutine(animateOpacity(collectText.gameObject));
+        Coroutine coroutine = StartCoroutine(animateOpacity(collectedItemText.gameObject));
         collectCoroutines.Add(coroutine);
     }
 
@@ -248,6 +257,6 @@ public class UICrafting : MonoBehaviour
         textAnimator.Play("FadeOutText");
 
         yield return new WaitForSeconds(.5f);
-        collectText.gameObject.SetActive(false);
+        collectedItemText.gameObject.SetActive(false);
     }
 }
