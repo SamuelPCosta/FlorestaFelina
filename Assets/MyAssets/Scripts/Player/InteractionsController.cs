@@ -111,10 +111,11 @@ using UnityEngine.InputSystem;
             if (collider != null)
             {
                 print("Barreira "+ collider.gameObject.name);
+                BarrierController barrier = collider.GetComponent<BarrierController>();
                 //_UICrafting.spawnCollectText(true); TODO UI - way
-                if (makeWay.triggered) { }
+                if (makeWay.triggered)
                     //Chamar animacao --- e a animacao chama o metodo abaixo
-                    //barrier.makeWay(); TODO
+                    barrier.destroy();
             }else { }
                 //_UICrafting.spawnCollectText(true); TODO UI - way
         }
