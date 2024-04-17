@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    [Header("Colors")]
-    public Color color1;
-    public Color color2;
-
     protected IEnumerator animateOpacity(GameObject text)
     {
         float duration = 2.5f;

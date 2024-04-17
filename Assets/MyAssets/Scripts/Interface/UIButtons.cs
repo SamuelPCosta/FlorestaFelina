@@ -48,7 +48,7 @@ public class UIButtons : UIController
             //Altera cor dos textos
             texts = button.GetComponentsInChildren<TextMeshProUGUI>();
             foreach (TextMeshProUGUI text in texts)
-                text.color = color2;
+                text.color = ColorPalette.disableText;
 
             //Desliga indicadores
             getIndicator(button.gameObject).SetActive(false);
@@ -60,7 +60,7 @@ public class UIButtons : UIController
         //Altera cor dos textos
         TextMeshProUGUI[] texts = buttons[index].GetComponentsInChildren<TextMeshProUGUI>();
         foreach (TextMeshProUGUI text in texts)
-            text.color = color1;
+            text.color = ColorPalette.enableText;
     }
 
     private void selectOption(GameObject btnSelected)

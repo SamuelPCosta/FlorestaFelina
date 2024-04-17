@@ -10,10 +10,7 @@ using UnityEngine.InputSystem;
         [Header("Player object")]
         public GameObject PlayerRoot;
         public ProximityController boxcast;
-
-        [Header("UI")]
-        public UICrafting _UICrafting;
-
+        
         [Header("Inventory")]
         public InventoryController inventoryController;
 
@@ -31,6 +28,7 @@ using UnityEngine.InputSystem;
         private bool _workebenchCam = false;
         private bool _ShopCam = false;
 
+        private UICollect _UICollect;
 
         //ACTIONS
         private InputAction workbench;
@@ -55,6 +53,8 @@ using UnityEngine.InputSystem;
 
         void Start()
         {
+            _UICollect = FindObjectOfType<UICollect>();
+
             workbench = input.Player.Workbench;
             collet = input.Player.Collet;
             makeWay = input.Player.MakeWay;
@@ -80,20 +80,20 @@ using UnityEngine.InputSystem;
             {
                 Collectible collectible = collider.GetComponent<Collectible>();
                 //Debug.Log("Coletar!");
-                _UICrafting.spawnCollectText(true);
+                _UICollect.spawnCollectText(true);
                 if (collet.triggered && collectible != null)
                     {
                     int quantityCollected = collectible.getQuantityOfItems();
                     CollectibleType type = collectible.getType();
                     bool isAdded = inventoryController.addCollectible(type, quantityCollected);
 
-                    _UICrafting.spawnCollectedItemText(type, collectible.getNameOfItem(), quantityCollected, isAdded);
-                    _UICrafting.refreshInventory(type, inventoryController.getCollectible(type));
+                    _UICollect.spawnCollectedItemText(type, collectible.getNameOfItem(), quantityCollected, isAdded);
+                    _UICollect.refreshInventory(type, inventoryController.getCollectible(type));
 
                     collectible.collectItem();
                 }
             }else
-                _UICrafting.spawnCollectText(false);
+                _UICollect.spawnCollectText(false);
         }
 
         //CONTROLA A INTERACAO COM BARREIRAS

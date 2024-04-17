@@ -1605,16 +1605,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c36f7ca714bfa941a41dc78c5fc7491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color1: {r: 1, g: 1, b: 1, a: 0}
-  color2: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 1}
-  collectedItemText: {fileID: 2135668338}
-  collectText: {fileID: 1964506199}
-  water: {fileID: 786376738}
-  plant1: {fileID: 1000120356}
-  plant2: {fileID: 1192492833}
-  potion1: {fileID: 798177177}
-  potion2: {fileID: 234541306}
-  potion3: {fileID: 276972259}
   option1item1: {fileID: 1795833550}
   option1item2: {fileID: 1423964115}
   option2item1: {fileID: 429810190}
@@ -5973,6 +5963,52 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &826981494
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 826981495}
+  - component: {fileID: 826981496}
+  m_Layer: 0
+  m_Name: ColorPalette
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &826981495
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826981494}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1114735260}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &826981496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826981494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f48ad0c54900a40a995faf20e520cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enableText: {r: 1, g: 1, b: 1, a: 1}
+  _disableText: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
 --- !u!1 &830918015
 GameObject:
   m_ObjectHideFlags: 0
@@ -7157,6 +7193,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 826981495}
   - {fileID: 436508862}
   - {fileID: 388375160}
   m_Father: {fileID: 0}
@@ -7173,8 +7210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 176847e93a15c6f4a9ff45ef9961ec3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color1: {r: 1, g: 1, b: 1, a: 1}
-  color2: {r: 0.5764706, g: 0.5764706, b: 0.5764706, a: 1}
 --- !u!114 &1114735263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7187,8 +7222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 963226d29f194d740927fc805ff58d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color1: {r: 1, g: 1, b: 1, a: 1}
-  color2: {r: 0.5764706, g: 0.5764706, b: 0.5764706, a: 1}
 --- !u!43 &1122630920
 Mesh:
   m_ObjectHideFlags: 0
@@ -14187,7 +14220,7 @@ PrefabInstance:
     - target: {fileID: 7319157162590642336, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: _UICrafting
       value: 
-      objectReference: {fileID: 82178179}
+      objectReference: {fileID: 0}
     - target: {fileID: 7319157162590642336, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: BoxcastOrigin
       value: 
@@ -14596,6 +14629,7 @@ GameObject:
   - component: {fileID: 1699155766}
   - component: {fileID: 1699155768}
   - component: {fileID: 1699155767}
+  - component: {fileID: 1699155769}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -14664,6 +14698,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699155765}
   m_CullTransparentMesh: 1
+--- !u!114 &1699155769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699155765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c072adb4d21294c4e9b0e7162d6747f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectedItemText: {fileID: 2135668338}
+  collectText: {fileID: 1964506199}
+  water: {fileID: 786376738}
+  plant1: {fileID: 1000120356}
+  plant2: {fileID: 1192492833}
+  potion1: {fileID: 798177177}
+  potion2: {fileID: 234541306}
+  potion3: {fileID: 276972259}
 --- !u!1 &1703496012
 GameObject:
   m_ObjectHideFlags: 0

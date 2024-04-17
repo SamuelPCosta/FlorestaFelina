@@ -30,6 +30,7 @@ public class WorkbenchController : MonoBehaviour
 
     private InventoryController inventoryController;
     private UICrafting _UICrafting;
+    private UICollect _UICollect;
     private UIButtons _UIButtons;
 
     private GameObject potion;
@@ -59,7 +60,8 @@ public class WorkbenchController : MonoBehaviour
     {
         craft = input.Player.Craft;
         inventoryController = FindObjectOfType<InventoryController>();
-        _UICrafting = FindObjectOfType<UICrafting>();
+        _UICrafting = FindObjectOfType<UICrafting>(); //TODO APENAS NIVEL 1
+        _UICollect = FindObjectOfType<UICollect>();
         _UIButtons = FindAnyObjectByType<UIButtons>();
 
         potion = null;
@@ -81,17 +83,17 @@ public class WorkbenchController : MonoBehaviour
         if (input.Player.extraW.triggered)
         {
             inventoryController.addCollectible(CollectibleType.WATER, 2);
-            _UICrafting.refreshInventory(CollectibleType.WATER, inventoryController.getCollectible(CollectibleType.WATER));
+            _UICollect.refreshInventory(CollectibleType.WATER, inventoryController.getCollectible(CollectibleType.WATER));
         }
         if (input.Player.extraP1.triggered)
         {
             inventoryController.addCollectible(CollectibleType.PLANT1, 2);
-            _UICrafting.refreshInventory(CollectibleType.PLANT1, inventoryController.getCollectible(CollectibleType.PLANT1));
+            _UICollect.refreshInventory(CollectibleType.PLANT1, inventoryController.getCollectible(CollectibleType.PLANT1));
         }
         if (input.Player.extraP2.triggered)
         {
             inventoryController.addCollectible(CollectibleType.PLANT2, 2);
-            _UICrafting.refreshInventory(CollectibleType.PLANT2, inventoryController.getCollectible(CollectibleType.PLANT2));
+            _UICollect.refreshInventory(CollectibleType.PLANT2, inventoryController.getCollectible(CollectibleType.PLANT2));
         }
     }
 
@@ -195,13 +197,13 @@ public class WorkbenchController : MonoBehaviour
             inventoryController.addPotion(PotionType.POTION3);
         }
 
-        _UICrafting.refreshInventory(CollectibleType.PLANT1, inventoryController.getCollectible(CollectibleType.PLANT1));
-        _UICrafting.refreshInventory(CollectibleType.PLANT2, inventoryController.getCollectible(CollectibleType.PLANT2));
-        _UICrafting.refreshInventory(CollectibleType.WATER, inventoryController.getCollectible(CollectibleType.WATER));
+        _UICollect.refreshInventory(CollectibleType.PLANT1, inventoryController.getCollectible(CollectibleType.PLANT1));
+        _UICollect.refreshInventory(CollectibleType.PLANT2, inventoryController.getCollectible(CollectibleType.PLANT2));
+        _UICollect.refreshInventory(CollectibleType.WATER, inventoryController.getCollectible(CollectibleType.WATER));
 
-        _UICrafting.refreshInventory(PotionType.POTION1, inventoryController.getPotion(PotionType.POTION1));
-        _UICrafting.refreshInventory(PotionType.POTION2, inventoryController.getPotion(PotionType.POTION2));
-        _UICrafting.refreshInventory(PotionType.POTION3, inventoryController.getPotion(PotionType.POTION3));
+        _UICollect.refreshInventory(PotionType.POTION1, inventoryController.getPotion(PotionType.POTION1));
+        _UICollect.refreshInventory(PotionType.POTION2, inventoryController.getPotion(PotionType.POTION2));
+        _UICollect.refreshInventory(PotionType.POTION3, inventoryController.getPotion(PotionType.POTION3));
 
         potion = null;
         EventSystem.current.SetSelectedGameObject(checkOption());
