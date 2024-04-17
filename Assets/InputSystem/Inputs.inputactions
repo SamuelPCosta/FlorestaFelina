@@ -69,6 +69,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Dialog",
+                    "type": "Button",
+                    "id": "e1e63f3a-0d51-4cc8-a85c-542d6e26d749",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "extraW",
                     "type": "Button",
                     "id": "d2bf6da6-c41d-469a-bfc6-36cc3de9c29a",
@@ -369,6 +378,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "MakeWay",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d9e4ad72-ce83-41c1-8f7c-fbe16b3df06a",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dialog",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "35bf7369-2c78-4985-b0ba-11325a908014",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dialog",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a519f22a-b6bb-4928-8972-f0062680ed80",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dialog",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "918b48f1-d1af-42c4-bb99-8694dd913040",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dialog",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

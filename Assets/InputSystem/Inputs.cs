@@ -91,6 +91,15 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Dialog"",
+                    ""type"": ""Button"",
+                    ""id"": ""e1e63f3a-0d51-4cc8-a85c-542d6e26d749"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""extraW"",
                     ""type"": ""Button"",
                     ""id"": ""d2bf6da6-c41d-469a-bfc6-36cc3de9c29a"",
@@ -393,6 +402,50 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""MakeWay"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9e4ad72-ce83-41c1-8f7c-fbe16b3df06a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dialog"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""35bf7369-2c78-4985-b0ba-11325a908014"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dialog"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a519f22a-b6bb-4928-8972-f0062680ed80"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dialog"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""918b48f1-d1af-42c4-bb99-8694dd913040"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dialog"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -456,6 +509,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player_Collet = m_Player.FindAction("Collet", throwIfNotFound: true);
         m_Player_Craft = m_Player.FindAction("Craft", throwIfNotFound: true);
         m_Player_MakeWay = m_Player.FindAction("MakeWay", throwIfNotFound: true);
+        m_Player_Dialog = m_Player.FindAction("Dialog", throwIfNotFound: true);
         m_Player_extraW = m_Player.FindAction("extraW", throwIfNotFound: true);
         m_Player_extraP1 = m_Player.FindAction("extraP1", throwIfNotFound: true);
         m_Player_extraP2 = m_Player.FindAction("extraP2", throwIfNotFound: true);
@@ -527,6 +581,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Collet;
     private readonly InputAction m_Player_Craft;
     private readonly InputAction m_Player_MakeWay;
+    private readonly InputAction m_Player_Dialog;
     private readonly InputAction m_Player_extraW;
     private readonly InputAction m_Player_extraP1;
     private readonly InputAction m_Player_extraP2;
@@ -541,6 +596,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @Collet => m_Wrapper.m_Player_Collet;
         public InputAction @Craft => m_Wrapper.m_Player_Craft;
         public InputAction @MakeWay => m_Wrapper.m_Player_MakeWay;
+        public InputAction @Dialog => m_Wrapper.m_Player_Dialog;
         public InputAction @extraW => m_Wrapper.m_Player_extraW;
         public InputAction @extraP1 => m_Wrapper.m_Player_extraP1;
         public InputAction @extraP2 => m_Wrapper.m_Player_extraP2;
@@ -574,6 +630,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @MakeWay.started += instance.OnMakeWay;
             @MakeWay.performed += instance.OnMakeWay;
             @MakeWay.canceled += instance.OnMakeWay;
+            @Dialog.started += instance.OnDialog;
+            @Dialog.performed += instance.OnDialog;
+            @Dialog.canceled += instance.OnDialog;
             @extraW.started += instance.OnExtraW;
             @extraW.performed += instance.OnExtraW;
             @extraW.canceled += instance.OnExtraW;
@@ -608,6 +667,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @MakeWay.started -= instance.OnMakeWay;
             @MakeWay.performed -= instance.OnMakeWay;
             @MakeWay.canceled -= instance.OnMakeWay;
+            @Dialog.started -= instance.OnDialog;
+            @Dialog.performed -= instance.OnDialog;
+            @Dialog.canceled -= instance.OnDialog;
             @extraW.started -= instance.OnExtraW;
             @extraW.performed -= instance.OnExtraW;
             @extraW.canceled -= instance.OnExtraW;
@@ -679,6 +741,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnCollet(InputAction.CallbackContext context);
         void OnCraft(InputAction.CallbackContext context);
         void OnMakeWay(InputAction.CallbackContext context);
+        void OnDialog(InputAction.CallbackContext context);
         void OnExtraW(InputAction.CallbackContext context);
         void OnExtraP1(InputAction.CallbackContext context);
         void OnExtraP2(InputAction.CallbackContext context);

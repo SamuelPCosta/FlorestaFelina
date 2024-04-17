@@ -17,6 +17,9 @@ using UnityEngine.InputSystem;
         [Header("Workbench")]
         public Transform workbenchOrigin;
 
+        [Header("Dialog")]
+        public DialogController dialogController;
+
         [Header("Cameras")]
         [Tooltip("CamerasController script")]
         public CamerasController camerasController;
@@ -28,12 +31,15 @@ using UnityEngine.InputSystem;
         private bool _workebenchCam = false;
         private bool _ShopCam = false;
 
+        private bool inDialog = false;
+
         private UICollect _UICollect;
 
         //ACTIONS
         private InputAction workbench;
         private InputAction collet;
         private InputAction makeWay;
+        private InputAction dialog;
 
 
         private void Awake()
@@ -58,6 +64,7 @@ using UnityEngine.InputSystem;
             workbench = input.Player.Workbench;
             collet = input.Player.Collet;
             makeWay = input.Player.MakeWay;
+            dialog = input.Player.Dialog;
 
             InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
             inputsCursor.SetCursorState(true);
@@ -68,6 +75,7 @@ using UnityEngine.InputSystem;
         {
             checkCollectibles();
             checkWay();
+            checkNPC();
             checkWorkbench();
             checkCameras();
         }
@@ -111,35 +119,63 @@ using UnityEngine.InputSystem;
                 //_UICrafting.spawnCollectText(true); TODO UI - way
         }
 
+        //CONTROLA A INTERACAO COM NPCs
+        private void checkNPC()
+        {
+            Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("NPC"));
+            if (collider != null)
+            {
+                if(!inDialog)
+                    dialogController.spawnNPCTextIndicator(true);
+                else
+                    dialogController.spawnNPCTextIndicator(false);
+
+                if (dialog.triggered && !inDialog) {
+                    Speeches.Speech[]  speechs = collider.GetComponent<Speeches>().getSpeeches();
+                    dialogController.setSpeeches(speechs);
+                    dialogController.turnOnDialog();
+                    inDialog = true;
+                    transform.GetComponent<MovementController>().enablePlayerMovement(false);
+                }
+            }else
+                dialogController.spawnNPCTextIndicator(false);
+        }
+        
+        public void exitDialog()
+        {
+            inDialog = false;
+            transform.GetComponent<MovementController>().enablePlayerMovement(true);
+        }
+
         //CONTROLA INTERACAO COM A BANCADA
         private void checkWorkbench()
         {
-        Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Workbench"));
-        if (collider != null)
-        {
-            Debug.Log("Workbench a frente");
-            if (workbench.triggered)
+            Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Workbench"));
+            if (collider != null)
             {
-                WorkbenchController workbenchController = GameObject.FindObjectOfType<WorkbenchController>();
-                InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
-                if (_workebenchCam)
+                Debug.Log("Workbench a frente");
+                if (workbench.triggered)
                 {
-                    _workebenchCam = false;
-                    workbenchController.turnOffMenu();
-                    inputsCursor.SetCursorState(true);
-                    transform.GetComponent<MovementController>().enablePlayerMovement(true);
-                }
-                else
-                {
-                    _workebenchCam = true;
-                    workbenchController.turnOnMenu();
-                    inputsCursor.SetCursorState(false);
-                    transform.GetComponent<MovementController>().enablePlayerMovement(false);
-                    transform.GetComponent<MovementController>().moveTo(workbenchOrigin);
+                    WorkbenchController workbenchController = GameObject.FindObjectOfType<WorkbenchController>();
+                    InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
+                    if (_workebenchCam)
+                    {
+                        _workebenchCam = false;
+                        workbenchController.turnOffMenu();
+                        inputsCursor.SetCursorState(true);
+                        transform.GetComponent<MovementController>().enablePlayerMovement(true);
+                    }
+                    else
+                    {
+                        _workebenchCam = true;
+                        workbenchController.turnOnMenu();
+                        inputsCursor.SetCursorState(false);
+                        transform.GetComponent<MovementController>().enablePlayerMovement(false);
+                        transform.GetComponent<MovementController>().moveTo(workbenchOrigin);
+                    }
                 }
             }
         }
-    }
 
         private void checkCameras()
         {
