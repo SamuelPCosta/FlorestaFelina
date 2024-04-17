@@ -35,6 +35,7 @@ using UnityEngine.InputSystem;
         //ACTIONS
         private InputAction workbench;
         private InputAction collet;
+        private InputAction makeWay;
 
 
         private void Awake()
@@ -56,6 +57,8 @@ using UnityEngine.InputSystem;
         {
             workbench = input.Player.Workbench;
             collet = input.Player.Collet;
+            makeWay = input.Player.MakeWay;
+
             InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
             inputsCursor.SetCursorState(true);
         }
@@ -64,6 +67,7 @@ using UnityEngine.InputSystem;
         void Update()
         {
             checkCollectibles();
+            checkWay();
             checkWorkbench();
             checkCameras();
         }
@@ -90,7 +94,22 @@ using UnityEngine.InputSystem;
                 }
             }else
                 _UICrafting.spawnCollectText(false);
-    }
+        }
+
+        //CONTROLA A INTERACAO COM BARREIRAS
+        private void checkWay()
+        {
+            Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Barrier"));
+            if (collider != null)
+            {
+                print("Barreira "+ collider.gameObject.name);
+                //_UICrafting.spawnCollectText(true); TODO UI - way
+                if (makeWay.triggered) { }
+                    //Chamar animacao --- e a animacao chama o metodo abaixo
+                    //barrier.makeWay(); TODO
+            }else { }
+                //_UICrafting.spawnCollectText(true); TODO UI - way
+        }
 
         //CONTROLA INTERACAO COM A BANCADA
         private void checkWorkbench()

@@ -25,14 +25,20 @@ public class WorkbenchController : MonoBehaviour
     public int potion3Item1;
     public int potion3Item2;
 
+    [Header("Buttons")]
+    public Button[] buttons;
+
     private InventoryController inventoryController;
     private UICrafting _UICrafting;
+    private UIButtons _UIButtons;
 
     private GameObject potion;
 
     //ACTIONS
     private Inputs input;
     private InputAction craft;
+
+    public enum PotionsOption { OPTION1, OPTION2, OPTION3 };
 
     private void Awake()
     {
@@ -54,6 +60,7 @@ public class WorkbenchController : MonoBehaviour
         craft = input.Player.Craft;
         inventoryController = FindObjectOfType<InventoryController>();
         _UICrafting = FindObjectOfType<UICrafting>();
+        _UIButtons = FindAnyObjectByType<UIButtons>();
 
         potion = null;
         craftingMenu.SetActive(false);
@@ -92,6 +99,7 @@ public class WorkbenchController : MonoBehaviour
     public void turnOnMenu()
     {
         craftingMenu.SetActive(true);
+        _UIButtons.setButtons(buttons);
         potion = null;
         EventSystem.current.SetSelectedGameObject(checkOption());
     }
@@ -129,22 +137,22 @@ public class WorkbenchController : MonoBehaviour
         setOptions(option2, enableOption2);
         setOptions(option3, enableOption3);
 
-        _UICrafting.disableOptions();
+        _UIButtons.disableOptions();
         GameObject firstOption = null;
         //Ordem inversa para a reescrita sempre sobrescrever com um numero menor
         if (enableOption3)
         {
-            _UICrafting.enableOption(UICrafting.PotionsOption.OPTION3);
+            _UIButtons.enableOption((int)PotionsOption.OPTION3);
             firstOption = option3;
         }
         if (enableOption2)
         {
-            _UICrafting.enableOption(UICrafting.PotionsOption.OPTION2);
+            _UIButtons.enableOption((int)PotionsOption.OPTION2);
             firstOption = option2;
         }
         if (enableOption1)
         {
-            _UICrafting.enableOption(UICrafting.PotionsOption.OPTION1);
+            _UIButtons.enableOption((int)PotionsOption.OPTION1);
             firstOption = option1;
         }
 

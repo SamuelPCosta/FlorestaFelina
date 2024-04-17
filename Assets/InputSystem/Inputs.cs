@@ -82,6 +82,15 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""MakeWay"",
+                    ""type"": ""Button"",
+                    ""id"": ""ec2608f4-b808-4ae1-8aa6-827140f86b95"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""extraW"",
                     ""type"": ""Button"",
                     ""id"": ""d2bf6da6-c41d-469a-bfc6-36cc3de9c29a"",
@@ -362,6 +371,28 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""extraP2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6904e42a-83a7-48db-a1e4-9c587d0e4991"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MakeWay"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40d0a8f5-371f-43ae-9f53-ff7ef54cd8ec"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MakeWay"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -424,6 +455,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player_Workbench = m_Player.FindAction("Workbench", throwIfNotFound: true);
         m_Player_Collet = m_Player.FindAction("Collet", throwIfNotFound: true);
         m_Player_Craft = m_Player.FindAction("Craft", throwIfNotFound: true);
+        m_Player_MakeWay = m_Player.FindAction("MakeWay", throwIfNotFound: true);
         m_Player_extraW = m_Player.FindAction("extraW", throwIfNotFound: true);
         m_Player_extraP1 = m_Player.FindAction("extraP1", throwIfNotFound: true);
         m_Player_extraP2 = m_Player.FindAction("extraP2", throwIfNotFound: true);
@@ -494,6 +526,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Workbench;
     private readonly InputAction m_Player_Collet;
     private readonly InputAction m_Player_Craft;
+    private readonly InputAction m_Player_MakeWay;
     private readonly InputAction m_Player_extraW;
     private readonly InputAction m_Player_extraP1;
     private readonly InputAction m_Player_extraP2;
@@ -507,6 +540,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @Workbench => m_Wrapper.m_Player_Workbench;
         public InputAction @Collet => m_Wrapper.m_Player_Collet;
         public InputAction @Craft => m_Wrapper.m_Player_Craft;
+        public InputAction @MakeWay => m_Wrapper.m_Player_MakeWay;
         public InputAction @extraW => m_Wrapper.m_Player_extraW;
         public InputAction @extraP1 => m_Wrapper.m_Player_extraP1;
         public InputAction @extraP2 => m_Wrapper.m_Player_extraP2;
@@ -537,6 +571,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Craft.started += instance.OnCraft;
             @Craft.performed += instance.OnCraft;
             @Craft.canceled += instance.OnCraft;
+            @MakeWay.started += instance.OnMakeWay;
+            @MakeWay.performed += instance.OnMakeWay;
+            @MakeWay.canceled += instance.OnMakeWay;
             @extraW.started += instance.OnExtraW;
             @extraW.performed += instance.OnExtraW;
             @extraW.canceled += instance.OnExtraW;
@@ -568,6 +605,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Craft.started -= instance.OnCraft;
             @Craft.performed -= instance.OnCraft;
             @Craft.canceled -= instance.OnCraft;
+            @MakeWay.started -= instance.OnMakeWay;
+            @MakeWay.performed -= instance.OnMakeWay;
+            @MakeWay.canceled -= instance.OnMakeWay;
             @extraW.started -= instance.OnExtraW;
             @extraW.performed -= instance.OnExtraW;
             @extraW.canceled -= instance.OnExtraW;
@@ -638,6 +678,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnWorkbench(InputAction.CallbackContext context);
         void OnCollet(InputAction.CallbackContext context);
         void OnCraft(InputAction.CallbackContext context);
+        void OnMakeWay(InputAction.CallbackContext context);
         void OnExtraW(InputAction.CallbackContext context);
         void OnExtraP1(InputAction.CallbackContext context);
         void OnExtraP2(InputAction.CallbackContext context);

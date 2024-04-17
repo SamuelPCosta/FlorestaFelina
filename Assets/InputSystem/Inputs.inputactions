@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "MakeWay",
+                    "type": "Button",
+                    "id": "ec2608f4-b808-4ae1-8aa6-827140f86b95",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "extraW",
                     "type": "Button",
                     "id": "d2bf6da6-c41d-469a-bfc6-36cc3de9c29a",
@@ -338,6 +347,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "extraP2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6904e42a-83a7-48db-a1e4-9c587d0e4991",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MakeWay",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40d0a8f5-371f-43ae-9f53-ff7ef54cd8ec",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MakeWay",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
