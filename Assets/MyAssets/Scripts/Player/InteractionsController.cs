@@ -20,6 +20,12 @@ using UnityEngine.InputSystem;
         [Header("Dialog")]
         public DialogController dialogController;
 
+        [Header("Cat")]
+        public CatMenuController catMenuController;
+
+        [Header("PlayerModel")]
+        public GameObject PlayerModel;
+
         [Header("Cameras")]
         [Tooltip("CamerasController script")]
         public CamerasController camerasController;
@@ -30,6 +36,7 @@ using UnityEngine.InputSystem;
 
         private bool _workebenchCam = false;
         private bool _ShopCam = false;
+        private bool _catInteraction = false;
 
         private bool inDialog = false;
 
@@ -40,6 +47,7 @@ using UnityEngine.InputSystem;
         private InputAction collet;
         private InputAction makeWay;
         private InputAction dialog;
+        private InputAction cat;
 
 
         private void Awake()
@@ -65,6 +73,7 @@ using UnityEngine.InputSystem;
             collet = input.Player.Collet;
             makeWay = input.Player.MakeWay;
             dialog = input.Player.Dialog;
+            cat = input.Player.Dialog;
 
             InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
             inputsCursor.SetCursorState(true);
@@ -76,6 +85,7 @@ using UnityEngine.InputSystem;
             checkCollectibles();
             checkWay();
             checkNPC();
+            checkCat();
             checkWorkbench();
             checkCameras();
         }
@@ -116,6 +126,35 @@ using UnityEngine.InputSystem;
                 if (makeWay.triggered)
                     //Chamar animacao --- e a animacao chama o metodo abaixo
                     barrier.destroy();
+            }else { }
+                //_UICrafting.spawnCollectText(true); TODO UI - way
+        }
+
+        //CONTROLA A INTERACAO COM GATOS
+        private void checkCat()
+        {
+            Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Cat"));
+            if (collider != null)
+            {
+                print("Gato");
+                //TODO textos indicadores
+                CatController catController = collider.GetComponent<CatController>();
+                
+                if (cat.triggered){
+                    //Chamar animacao --- e a animacao chama o metodo abaixo
+                    if (!_catInteraction)
+                    {
+                        catMenuController.turnOn();
+                        _catInteraction = true;
+                        //PlayerModel.GetComponent<Renderer>().enabled = false;
+                    }
+                    else { 
+                        catMenuController.turnOff();
+                        _catInteraction = false;
+                        //PlayerModel.GetComponent<Renderer>().enabled = true;
+                    }
+                }
+                    
             }else { }
                 //_UICrafting.spawnCollectText(true); TODO UI - way
         }

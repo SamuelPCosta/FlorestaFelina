@@ -55,6 +55,15 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""MoveFast"",
+                    ""type"": ""Value"",
+                    ""id"": ""c1177de8-9a69-4cb8-96a1-4fdf903693a2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Workbench"",
                     ""type"": ""Button"",
                     ""id"": ""fc641341-a948-4ebd-bbf5-2df0ce5091da"",
@@ -67,6 +76,15 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""name"": ""Collet"",
                     ""type"": ""Button"",
                     ""id"": ""4449344b-e854-47f8-b187-d9939bbb82a4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cat"",
+                    ""type"": ""Button"",
+                    ""id"": ""c257a71b-fd13-4a6e-8482-3d0b64bce9b1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -446,6 +464,50 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""Dialog"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ff0c25b-62ad-49f1-a1fd-f697fd21e210"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""MoveFast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3f3a8963-07f8-4f0e-a422-ef5ca59bcf16"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""MoveFast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6a96ab2e-9065-4e55-9986-f8d36dd9cdb6"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""699be067-ece2-49a7-8629-856df1d64966"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -505,8 +567,10 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+        m_Player_MoveFast = m_Player.FindAction("MoveFast", throwIfNotFound: true);
         m_Player_Workbench = m_Player.FindAction("Workbench", throwIfNotFound: true);
         m_Player_Collet = m_Player.FindAction("Collet", throwIfNotFound: true);
+        m_Player_Cat = m_Player.FindAction("Cat", throwIfNotFound: true);
         m_Player_Craft = m_Player.FindAction("Craft", throwIfNotFound: true);
         m_Player_MakeWay = m_Player.FindAction("MakeWay", throwIfNotFound: true);
         m_Player_Dialog = m_Player.FindAction("Dialog", throwIfNotFound: true);
@@ -577,8 +641,10 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Sprint;
+    private readonly InputAction m_Player_MoveFast;
     private readonly InputAction m_Player_Workbench;
     private readonly InputAction m_Player_Collet;
+    private readonly InputAction m_Player_Cat;
     private readonly InputAction m_Player_Craft;
     private readonly InputAction m_Player_MakeWay;
     private readonly InputAction m_Player_Dialog;
@@ -592,8 +658,10 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+        public InputAction @MoveFast => m_Wrapper.m_Player_MoveFast;
         public InputAction @Workbench => m_Wrapper.m_Player_Workbench;
         public InputAction @Collet => m_Wrapper.m_Player_Collet;
+        public InputAction @Cat => m_Wrapper.m_Player_Cat;
         public InputAction @Craft => m_Wrapper.m_Player_Craft;
         public InputAction @MakeWay => m_Wrapper.m_Player_MakeWay;
         public InputAction @Dialog => m_Wrapper.m_Player_Dialog;
@@ -618,12 +686,18 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+            @MoveFast.started += instance.OnMoveFast;
+            @MoveFast.performed += instance.OnMoveFast;
+            @MoveFast.canceled += instance.OnMoveFast;
             @Workbench.started += instance.OnWorkbench;
             @Workbench.performed += instance.OnWorkbench;
             @Workbench.canceled += instance.OnWorkbench;
             @Collet.started += instance.OnCollet;
             @Collet.performed += instance.OnCollet;
             @Collet.canceled += instance.OnCollet;
+            @Cat.started += instance.OnCat;
+            @Cat.performed += instance.OnCat;
+            @Cat.canceled += instance.OnCat;
             @Craft.started += instance.OnCraft;
             @Craft.performed += instance.OnCraft;
             @Craft.canceled += instance.OnCraft;
@@ -655,12 +729,18 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+            @MoveFast.started -= instance.OnMoveFast;
+            @MoveFast.performed -= instance.OnMoveFast;
+            @MoveFast.canceled -= instance.OnMoveFast;
             @Workbench.started -= instance.OnWorkbench;
             @Workbench.performed -= instance.OnWorkbench;
             @Workbench.canceled -= instance.OnWorkbench;
             @Collet.started -= instance.OnCollet;
             @Collet.performed -= instance.OnCollet;
             @Collet.canceled -= instance.OnCollet;
+            @Cat.started -= instance.OnCat;
+            @Cat.performed -= instance.OnCat;
+            @Cat.canceled -= instance.OnCat;
             @Craft.started -= instance.OnCraft;
             @Craft.performed -= instance.OnCraft;
             @Craft.canceled -= instance.OnCraft;
@@ -737,8 +817,10 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnMoveFast(InputAction.CallbackContext context);
         void OnWorkbench(InputAction.CallbackContext context);
         void OnCollet(InputAction.CallbackContext context);
+        void OnCat(InputAction.CallbackContext context);
         void OnCraft(InputAction.CallbackContext context);
         void OnMakeWay(InputAction.CallbackContext context);
         void OnDialog(InputAction.CallbackContext context);

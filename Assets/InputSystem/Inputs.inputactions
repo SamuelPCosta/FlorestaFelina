@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "MoveFast",
+                    "type": "Value",
+                    "id": "c1177de8-9a69-4cb8-96a1-4fdf903693a2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Workbench",
                     "type": "Button",
                     "id": "fc641341-a948-4ebd-bbf5-2df0ce5091da",
@@ -45,6 +54,15 @@
                     "name": "Collet",
                     "type": "Button",
                     "id": "4449344b-e854-47f8-b187-d9939bbb82a4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Cat",
+                    "type": "Button",
+                    "id": "c257a71b-fd13-4a6e-8482-3d0b64bce9b1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -422,6 +440,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "Dialog",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0ff0c25b-62ad-49f1-a1fd-f697fd21e210",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "MoveFast",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f3a8963-07f8-4f0e-a422-ef5ca59bcf16",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "MoveFast",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a96ab2e-9065-4e55-9986-f8d36dd9cdb6",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cat",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "699be067-ece2-49a7-8629-856df1d64966",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -12,6 +12,7 @@ using UnityEngine.InputSystem;
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 4.0f;
+        public float FastMoveSpeed = 14.0f;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
