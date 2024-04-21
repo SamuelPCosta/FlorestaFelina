@@ -66,6 +66,7 @@ Material:
     - _Death: 0
     - _Depth: 0.8
     - _Displacement: 0.11
+    - _EmissionIntensity: 30
     - _NormalStrength: 0.1
     - _NormalStrength2: 0.4
     - _QueueControl: 0
@@ -73,6 +74,7 @@ Material:
     - _Smoothness: 0.3
     - _Strength: 1.8
     - _Strength2: 0
+    - _TillingNormal: 15
     - _tillingNormal: 15
     m_Colors:
     - _Deep_Water_Color: {r: 0, g: 0.43981582, b: 0.6698113, a: 0.7647059}

@@ -48,6 +48,7 @@ using UnityEngine.InputSystem;
         private InputAction makeWay;
         private InputAction dialog;
         private InputAction cat;
+        private InputAction moveFast;
 
 
         private void Awake()
@@ -74,6 +75,7 @@ using UnityEngine.InputSystem;
             makeWay = input.Player.MakeWay;
             dialog = input.Player.Dialog;
             cat = input.Player.Dialog;
+            moveFast = input.Player.MoveFast;
 
             InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
             inputsCursor.SetCursorState(true);
@@ -88,6 +90,9 @@ using UnityEngine.InputSystem;
             checkCat();
             checkWorkbench();
             checkCameras();
+
+            if (moveFast.triggered)
+                transform.GetComponent<MovementController>().changeLocomotion();
         }
 
         //CONTROLA COLETA E CONEXAO COM INVENTARIO

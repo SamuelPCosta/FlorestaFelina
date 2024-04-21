@@ -83,6 +83,7 @@ using UnityEngine.InputSystem;
         private int _animIDGrounded;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
+        private int _roomba;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -113,6 +114,7 @@ using UnityEngine.InputSystem;
         private bool enableMovement = true;
         private bool alignmentWalk = false;
         private Transform destination;
+        private bool moveFast = false;
 
 
         private void Awake()
@@ -166,6 +168,7 @@ using UnityEngine.InputSystem;
             _animIDGrounded = Animator.StringToHash("Grounded");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+            _roomba = Animator.StringToHash("Roomba");
         }
 
         private void GroundedCheck()
@@ -209,6 +212,8 @@ using UnityEngine.InputSystem;
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? 30f : MoveSpeed;
+
+            targetSpeed = moveFast ? FastMoveSpeed : targetSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -397,5 +402,12 @@ using UnityEngine.InputSystem;
         public void enablePlayerMovement(bool state)
         {
             enableMovement = state;
+        }
+
+        public void changeLocomotion()
+        {
+            moveFast = !moveFast;
+            if (_hasAnimator)
+                _animator.SetBool(_roomba, moveFast);
         }
     }
