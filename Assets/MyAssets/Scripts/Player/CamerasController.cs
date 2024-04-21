@@ -28,5 +28,15 @@ public class CamerasController : MonoBehaviour
         }
     }
 
+    public void ActivateDynamicCamera(GameObject camera)
+    {
+        foreach (var cam in Cameras)
+        {
+            if (cam != null)
+                cam.SetActive(false);
+        }
+        camera.SetActive(true);
+    }
+
     //CinemachineVirtualCamera.m_Lens.FieldOfView = FOVClose;
 }
