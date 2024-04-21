@@ -36,6 +36,8 @@ public class InteractionsController : MonoBehaviour
     private GameObject catCamera;
 
     private bool inDialog = false;
+    private bool inTutorial = false;
+    private string nameOfTutorial = "";
 
     private UICollect _UICollect;
 
@@ -86,6 +88,7 @@ public class InteractionsController : MonoBehaviour
         checkCollectibles();
         checkWay();
         checkNPC();
+        checkTutorial();
         checkCat();
         checkWorkbench();
         checkCameras();
@@ -188,10 +191,45 @@ public class InteractionsController : MonoBehaviour
         }else
             dialogController.spawnNPCTextIndicator(false);
     }
-        
+
+    //CONTROLA A INTERACAO COM TUTORIAIS AUTOMATICOS
+    private void checkTutorial()
+    {
+        string disableOnMove = "TutorialMovimentacao";
+        Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Tutorial"));
+        if (collider != null)
+        {
+            inTutorial = true;
+            Speeches tutorial = collider.GetComponent<Speeches>();
+            Speeches.Speech[] speechs = tutorial.getSpeeches();
+            dialogController.setSpeeches(speechs);
+            dialogController.turnOnDialog();
+
+            nameOfTutorial = collider.gameObject.name;
+            if (nameOfTutorial != disableOnMove)
+                transform.GetComponent<MovementController>().enablePlayerMovement(false);
+
+            tutorial.markTutorial();
+        }
+        else
+        {
+            if (inTutorial)
+            {
+                //Execao do tutorial de movimento
+                Vector2 playerMovement = GetComponent<InputsMovement>().move;
+                if (nameOfTutorial.Equals(disableOnMove) & playerMovement != Vector2.zero)
+                {
+                    dialogController.turnOffDialog();
+                    inTutorial = false;
+                }
+            }
+        }
+    }
+
     public void exitDialog()
     {
         inDialog = false;
+        inTutorial = false;
         transform.GetComponent<MovementController>().enablePlayerMovement(true);
     }
 

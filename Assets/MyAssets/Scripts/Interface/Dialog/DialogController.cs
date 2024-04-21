@@ -56,7 +56,7 @@ public class DialogController : MonoBehaviour
             if (!onDialog)
             {
                 FindObjectOfType<InteractionsController>().exitDialog();
-                dialogPanel.SetActive(false);
+                turnOffDialog();
             }
         }
     }
@@ -71,6 +71,11 @@ public class DialogController : MonoBehaviour
         dialogPanel.SetActive(true);
         index = 0;
         refreshDialog();
+    }
+
+    public void turnOffDialog()
+    {
+        dialogPanel.SetActive(false);
     }
 
     public bool refreshDialog()

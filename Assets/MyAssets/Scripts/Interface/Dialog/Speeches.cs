@@ -20,4 +20,10 @@ public class Speeches : MonoBehaviour
     {
         return speeches;
     }
+
+    public void markTutorial()
+    {
+        FindObjectOfType<TutorialSave>().saveTutorial(gameObject);
+        gameObject.SetActive(false);
+    }
 }

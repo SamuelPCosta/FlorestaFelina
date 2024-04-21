@@ -44,9 +44,6 @@ using UnityEngine.InputSystem;
         [Tooltip("What layers the character uses as ground")]
         public LayerMask GroundLayers;
 
-        [Tooltip("What layers the character uses as Inner ground")]
-        public LayerMask InnerRoomLayers;
-
         [Header("Cinemachine")]
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
         public GameObject CinemachineCameraTarget;
