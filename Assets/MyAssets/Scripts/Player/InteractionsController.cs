@@ -13,18 +13,24 @@ public class InteractionsController : MonoBehaviour
     [Header("Inventory")]
     public InventoryController inventoryController;
 
-    [Header("Workbench")]
+    [Header("WorkbenchOriginPoint")]
     public Transform workbenchOrigin;
 
     [Header("Dialog")]
     public DialogController dialogController;
 
-    [Header("Cat")]
+    [Header("BarrierUI")]
+    public UIBarrier _UIBarrier;
+
+    [Header("CatMenu")]
     public CatMenuController catMenuController;
 
     [Header("Cameras")]
     [Tooltip("CamerasController script")]
     public CamerasController camerasController;
+
+    [Header("MagicMakeWay")]
+    public MagicController magic;
 
 
     //PRIVATES
@@ -127,14 +133,14 @@ public class InteractionsController : MonoBehaviour
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Barrier"));
         if (collider != null)
         {
-            print("Barreira "+ collider.gameObject.name);
-            BarrierController barrier = collider.GetComponent<BarrierController>();
-            //_UICrafting.spawnCollectText(true); TODO UI - way
+            //print("Barreira");
+            GameObject barrier = collider.gameObject;
+            _UIBarrier.spawnTextIndicator(true);
             if (makeWay.triggered)
-                //Chamar animacao --- e a animacao chama o metodo abaixo
-                barrier.destroy();
-        }else { }
-            //_UICrafting.spawnCollectText(true); TODO UI - way
+                magic.castMagic(barrier);
+        }
+        else 
+            _UIBarrier.spawnTextIndicator(false);
     }
 
     //CONTROLA A INTERACAO COM GATOS

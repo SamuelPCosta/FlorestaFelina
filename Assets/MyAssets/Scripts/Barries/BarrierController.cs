@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class BarrierController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerEnter(Collider collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (collision.gameObject.tag == "MakeWay")
+            //Chama animacao
+            destroy();
     }
 
     public void makeWay()
