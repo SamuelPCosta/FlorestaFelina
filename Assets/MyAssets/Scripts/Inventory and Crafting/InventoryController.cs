@@ -12,15 +12,27 @@ public class InventoryController : MonoBehaviour
     private int potion2;
     private int potion3;
 
+    public UICollect _UICollect;
+
     void Start()
     {
         //TODO: GET SAVE
-        plant1 = 0;
-        plant2 = 0;
-        water = 0;
-        potion1 = 0;
-        potion2 = 0;
-        potion3 = 0;
+        Save save = FindObjectOfType<SaveLoad>().loadGame();
+        plant1 = save != null ? save.plant1 : 0;
+        plant2 = save != null ? save.plant2 : 0;
+        water = save != null ? save.water : 0;
+
+        potion1 = save != null ? save.potion1 : 0;
+        potion2 = save != null ? save.potion2 : 0;
+        potion3 = save != null ? save.potion3 : 0;
+
+        _UICollect.refreshInventory(CollectibleType.PLANT1, plant1);
+        _UICollect.refreshInventory(CollectibleType.PLANT2, plant2);
+        _UICollect.refreshInventory(CollectibleType.WATER, water);
+
+        _UICollect.refreshInventory(PotionType.POTION1, potion1);
+        _UICollect.refreshInventory(PotionType.POTION2, potion2);
+        _UICollect.refreshInventory(PotionType.POTION3, potion3);
     }
 
     public bool addCollectible(CollectibleType item, int quantity)
@@ -48,6 +60,8 @@ public class InventoryController : MonoBehaviour
         if(water > maxWaterCanteen)
             water = maxWaterCanteen;
 
+        FindObjectOfType<SaveLoad>().saveInventoryCollectibles(water, plant1, plant2);
+
         return true;
     }
 
@@ -65,6 +79,8 @@ public class InventoryController : MonoBehaviour
                 potion3 ++;
                 break;
         }
+
+        FindObjectOfType<SaveLoad>().saveInventoryPotions(potion1, potion2, potion3);
     }
 
     public int getCollectible(CollectibleType item)
@@ -128,6 +144,8 @@ public class InventoryController : MonoBehaviour
             water -= quantity;
         }
 
+        FindObjectOfType<SaveLoad>().saveInventoryCollectibles(water, plant1, plant2);
+
         return true;
     }
 
@@ -155,6 +173,8 @@ public class InventoryController : MonoBehaviour
                 return false;
             potion3 -= quantity;
         }
+
+        FindObjectOfType<SaveLoad>().saveInventoryPotions(potion1, potion2, potion3);
 
         return true;
     }

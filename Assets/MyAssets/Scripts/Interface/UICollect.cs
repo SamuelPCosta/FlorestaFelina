@@ -28,15 +28,6 @@ public class UICollect : UIController
     void Start()
     {
         collectedItemText.gameObject.SetActive(false);
-
-        //TODO: get save
-        water.text = "" + 0;
-        plant1.text = "" + 0;
-        plant2.text = "" + 0;
-
-        potion1.text = "" + 0;
-        potion2.text = "" + 0;
-        potion3.text = "" + 0;
     }
 
     public void spawnCollectText(bool state)

@@ -21,9 +21,9 @@ public class Speeches : MonoBehaviour
         return speeches;
     }
 
-    public void markTutorial()
+    public void markDialog()
     {
-        FindObjectOfType<TutorialSave>().saveTutorial(gameObject);
+        FindObjectOfType<DialogSave>().saveDialog(gameObject);
         gameObject.SetActive(false);
     }
 }

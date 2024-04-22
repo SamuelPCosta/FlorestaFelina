@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveLoad : MonoBehaviour
 {
@@ -16,12 +17,6 @@ public class SaveLoad : MonoBehaviour
     {
         save = new Save();
         nameOfSave = "save0";
-    }
-
-    public void saveTutorial(int index)
-    {
-        save.tutorialsLvl1[index] = false;
-        saveGame(save);
     }
 
     private void saveGame(Save save)
@@ -56,4 +51,42 @@ public class SaveLoad : MonoBehaviour
         }
         return null;
     }
+
+    public void saveDialog(int index)
+    {
+        string level = SceneManager.GetActiveScene().name;
+        if (level == "Level1")
+            save.dialogsLvl1[index] = false;
+        else if (level == "Level2")
+            save.dialogsLvl2[index] = false;
+        else if (level == "Level3")
+            save.dialogsLvl3[index] = false;
+        else if (level == "Level4")
+            save.dialogsLvl4[index] = false;
+        else if (level == "Level5")
+            save.dialogsLvl5[index] = false;
+
+        saveGame(save);
+    }
+
+    public void saveInventoryCollectibles(int water, int plant1, int plant2)
+    {
+        save.water = water;
+        save.plant1 = plant1;
+        save.plant2 = plant2;
+
+        print(save.plant1);
+
+        saveGame(save);
+    }
+
+    public void saveInventoryPotions(int potion1, int potion2, int potion3)
+    {
+        save.potion1 = potion1;
+        save.potion2 = potion2;
+        save.potion3 = potion3;
+
+        saveGame(save);
+    }
+    
 }

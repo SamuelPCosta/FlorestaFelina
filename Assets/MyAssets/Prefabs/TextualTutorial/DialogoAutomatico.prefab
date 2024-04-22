@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7396696741697932291}
   - component: {fileID: 6219850623730145625}
   m_Layer: 11
-  m_Name: Tutorial
+  m_Name: DialogoAutomatico
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

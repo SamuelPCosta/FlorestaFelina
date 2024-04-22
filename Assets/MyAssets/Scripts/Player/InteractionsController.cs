@@ -36,7 +36,7 @@ public class InteractionsController : MonoBehaviour
     private GameObject catCamera;
 
     private bool inDialog = false;
-    private bool inTutorial = false;
+    private bool inDynamicDialog = false;
     private string nameOfTutorial = "";
 
     private UICollect _UICollect;
@@ -88,7 +88,7 @@ public class InteractionsController : MonoBehaviour
         checkCollectibles();
         checkWay();
         checkNPC();
-        checkTutorial();
+        checkDialogs();
         checkCat();
         checkWorkbench();
         checkCameras();
@@ -193,15 +193,15 @@ public class InteractionsController : MonoBehaviour
     }
 
     //CONTROLA A INTERACAO COM TUTORIAIS AUTOMATICOS
-    private void checkTutorial()
+    private void checkDialogs()
     {
         string disableOnMove = "TutorialMovimentacao";
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Tutorial"));
         if (collider != null)
         {
-            inTutorial = true;
-            Speeches tutorial = collider.GetComponent<Speeches>();
-            Speeches.Speech[] speechs = tutorial.getSpeeches();
+            inDynamicDialog = true;
+            Speeches dialog = collider.GetComponent<Speeches>();
+            Speeches.Speech[] speechs = dialog.getSpeeches();
             dialogController.setSpeeches(speechs);
             dialogController.turnOnDialog();
 
@@ -209,18 +209,18 @@ public class InteractionsController : MonoBehaviour
             if (nameOfTutorial != disableOnMove)
                 transform.GetComponent<MovementController>().enablePlayerMovement(false);
 
-            tutorial.markTutorial();
+            dialog.markDialog();
         }
         else
         {
-            if (inTutorial)
+            if (inDynamicDialog)
             {
                 //Execao do tutorial de movimento
                 Vector2 playerMovement = GetComponent<InputsMovement>().move;
                 if (nameOfTutorial.Equals(disableOnMove) & playerMovement != Vector2.zero)
                 {
                     dialogController.turnOffDialog();
-                    inTutorial = false;
+                    inDynamicDialog = false;
                 }
             }
         }
@@ -229,7 +229,7 @@ public class InteractionsController : MonoBehaviour
     public void exitDialog()
     {
         inDialog = false;
-        inTutorial = false;
+        inDynamicDialog = false;
         transform.GetComponent<MovementController>().enablePlayerMovement(true);
     }
 
