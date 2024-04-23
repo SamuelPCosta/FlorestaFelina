@@ -22,7 +22,8 @@ public class MagicController : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        disable();
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Barrier"))
+            disable();
     }
 
     IEnumerator MoveToObject(GameObject targetObject, float time)

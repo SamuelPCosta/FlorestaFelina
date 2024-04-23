@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InteractionsController : MonoBehaviour
-{    
-        
+{       
     [Header("Player object")]
     public GameObject PlayerRoot;
     public ProximityController boxcast;
@@ -54,7 +53,6 @@ public class InteractionsController : MonoBehaviour
     private InputAction dialog;
     private InputAction cat;
     private InputAction moveFast;
-
 
     private void Awake()
     {
@@ -110,7 +108,6 @@ public class InteractionsController : MonoBehaviour
         if (collider != null)
         {
             Collectible collectible = collider.GetComponent<Collectible>();
-            //Debug.Log("Coletar!");
             _UICollect.spawnCollectText(true);
             if (collet.triggered && collectible != null)
                 {
@@ -133,7 +130,6 @@ public class InteractionsController : MonoBehaviour
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Barrier"));
         if (collider != null)
         {
-            //print("Barreira");
             GameObject barrier = collider.gameObject;
             _UIBarrier.spawnTextIndicator(true);
             if (makeWay.triggered)
@@ -294,7 +290,6 @@ public class InteractionsController : MonoBehaviour
                     
         }
     }
-
 
     private GameObject getCatCamera(GameObject cat)
     {
