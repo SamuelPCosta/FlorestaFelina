@@ -11,22 +11,35 @@ public class DialogSave : MonoBehaviour
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null)
         {
+            string level = SceneManager.GetActiveScene().name;
+            bool[] levelDialogs;
+
+            switch (level)
+            {
+                case "Level1":
+                    levelDialogs = save.dialogsLvl1;
+                    break;
+                case "Level2":
+                    levelDialogs = save.dialogsLvl2;
+                    break;
+                case "Level3":
+                    levelDialogs = save.dialogsLvl3;
+                    break;
+                case "Level4":
+                    levelDialogs = save.dialogsLvl4;
+                    break;
+                case "Level5":
+                    levelDialogs = save.dialogsLvl5;
+                    break;
+                default:
+                    levelDialogs = null;
+                    break;
+            }
+
             for (int i = 0; i < dialogs.Length; i++)
             {
-                string level = SceneManager.GetActiveScene().name;
-                bool state;
-                if (level == "Level1")
-                    state = save.dialogsLvl1[i];
-                else if (level == "Level2")
-                    state = save.dialogsLvl2[i];
-                else if (level == "Level3")
-                    state = save.dialogsLvl3[i];
-                else if (level == "Level4")
-                    state = save.dialogsLvl4[i];
-                else if (level == "Level5")
-                    state = save.dialogsLvl5[i];
-                else
-                    state = true;
+                bool state = true;
+                state = levelDialogs[i];
 
                 if (!state)
                     dialogs[i].SetActive(false);
@@ -34,13 +47,13 @@ public class DialogSave : MonoBehaviour
         }
     }
 
-    public void saveDialog(GameObject tdialogAtual)
+    public void saveDialog(GameObject currentDialog)
     {
         for (int i = 0; i < dialogs.Length; i++)
         {
-            if (tdialogAtual == dialogs[i])
+            if (currentDialog == dialogs[i])
             {
-                FindFirstObjectByType<SaveLoad>().saveDialog(i);
+                FindObjectOfType<SaveLoad>().saveDialog(i);
                 return;
             }
         }

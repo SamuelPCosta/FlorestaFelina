@@ -80,17 +80,17 @@ public class WorkbenchController : MonoBehaviour
     //PRIVATES 
     private void GodMode()
     {
-        if (input.Player.extraW.triggered)
+        if (input.Godmode.extraW.triggered)
         {
             inventoryController.addCollectible(CollectibleType.WATER, 2);
             _UICollect.refreshInventory(CollectibleType.WATER, inventoryController.getCollectible(CollectibleType.WATER));
         }
-        if (input.Player.extraP1.triggered)
+        if (input.Godmode.extraP1.triggered)
         {
             inventoryController.addCollectible(CollectibleType.PLANT1, 2);
             _UICollect.refreshInventory(CollectibleType.PLANT1, inventoryController.getCollectible(CollectibleType.PLANT1));
         }
-        if (input.Player.extraP2.triggered)
+        if (input.Godmode.extraP2.triggered)
         {
             inventoryController.addCollectible(CollectibleType.PLANT2, 2);
             _UICollect.refreshInventory(CollectibleType.PLANT2, inventoryController.getCollectible(CollectibleType.PLANT2));

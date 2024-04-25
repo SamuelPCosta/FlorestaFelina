@@ -24,7 +24,6 @@ public class Save
     //Salvar posicao, X, Y, Z
     //Se está com gato nas costas
     //    Salva atributos do gato
-    //Salvar os 5 itens do inventário
     //Salvar missão atual
     //Salvar estados das plantas coletadas
     //Salvar portais usados

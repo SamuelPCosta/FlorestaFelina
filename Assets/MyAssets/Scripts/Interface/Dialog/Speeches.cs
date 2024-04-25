@@ -12,6 +12,7 @@ public class Speeches : MonoBehaviour
     {
         [SerializeField] public Character character = new Character();
         public string speech;
+        public string speechInEnglish;
     }
 
     [SerializeField] public Speech[] speeches;

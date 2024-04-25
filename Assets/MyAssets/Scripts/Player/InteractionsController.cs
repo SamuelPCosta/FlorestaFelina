@@ -53,6 +53,7 @@ public class InteractionsController : MonoBehaviour
     private InputAction dialog;
     private InputAction cat;
     private InputAction moveFast;
+    private InputAction nextLevel;
 
     private void Awake()
     {
@@ -79,6 +80,7 @@ public class InteractionsController : MonoBehaviour
         dialog = input.Player.Dialog;
         cat = input.Player.Dialog;
         moveFast = input.Player.MoveFast;
+        nextLevel = input.Player.NextLevel;
 
         catCamera = null;
 
@@ -95,6 +97,7 @@ public class InteractionsController : MonoBehaviour
         checkDialogs();
         checkCat();
         checkWorkbench();
+        checkGate();
         checkCameras();
 
         if (moveFast.triggered)
@@ -263,6 +266,22 @@ public class InteractionsController : MonoBehaviour
                 }
             }
         }
+    }
+
+    //CONTROLA INTERACAO COM PORTOES
+    public void checkGate()
+    {
+        Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Gate"));
+        if (collider != null)
+        {
+            //_UICollect.spawnCollectText(true);
+            if (nextLevel.triggered)
+            {
+                FindObjectOfType<GameController>().nextScene();
+            }
+        }
+        //else
+            //_UICollect.spawnCollectText(false);
     }
 
     private void checkCameras()

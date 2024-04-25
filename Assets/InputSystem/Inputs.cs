@@ -109,36 +109,18 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""NextLevel"",
+                    ""type"": ""Button"",
+                    ""id"": ""00770e6d-4a59-4582-9337-7c1a0c4b87f1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Dialog"",
                     ""type"": ""Button"",
                     ""id"": ""e1e63f3a-0d51-4cc8-a85c-542d6e26d749"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""extraW"",
-                    ""type"": ""Button"",
-                    ""id"": ""d2bf6da6-c41d-469a-bfc6-36cc3de9c29a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""extraP1"",
-                    ""type"": ""Button"",
-                    ""id"": ""ece2bbf8-a8b2-4529-81cf-e3c9272687b7"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""extraP2"",
-                    ""type"": ""Button"",
-                    ""id"": ""cff26eb9-4df3-4da3-b00d-edfb14ef1416"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -336,7 +318,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4c97c9bd-ab43-4eb8-862b-956d71679250"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -363,39 +345,6 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Craft"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""11a5bead-cf4c-47e2-be17-452cf8419d91"",
-                    ""path"": ""<Keyboard>/z"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""extraW"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c4e6ea5f-2e0c-4839-b510-3c8583ade7e6"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""extraP1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""cae65e86-b542-404f-a1df-05d6f25038e9"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""extraP2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -479,7 +428,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3f3a8963-07f8-4f0e-a422-ef5ca59bcf16"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -506,6 +455,96 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Cat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0f3f8cf-f1e3-4aab-8a50-6feaa9174808"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a9b5222e-e6b4-4f86-bdae-7dbc5e0e1478"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Godmode"",
+            ""id"": ""cde3d0aa-2705-411e-adfc-02c2fb1c702c"",
+            ""actions"": [
+                {
+                    ""name"": ""extraW"",
+                    ""type"": ""Button"",
+                    ""id"": ""067057ed-b447-43e1-9550-d94b7385f1ac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""extraP1"",
+                    ""type"": ""Button"",
+                    ""id"": ""ad76ae8b-d4c1-493f-b142-05ff70a26c1c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""extraP2"",
+                    ""type"": ""Button"",
+                    ""id"": ""28457737-ede4-4263-a9c0-60eac3993115"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""25cb1210-5df5-44e3-b6bd-2ab54f4d9bd2"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""extraW"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cf868e00-e07d-490d-8e58-ddfe76f082ca"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""extraP1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84031ee4-0b2a-4e86-98bf-38998e74458d"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""extraP2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -573,10 +612,13 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player_Cat = m_Player.FindAction("Cat", throwIfNotFound: true);
         m_Player_Craft = m_Player.FindAction("Craft", throwIfNotFound: true);
         m_Player_MakeWay = m_Player.FindAction("MakeWay", throwIfNotFound: true);
+        m_Player_NextLevel = m_Player.FindAction("NextLevel", throwIfNotFound: true);
         m_Player_Dialog = m_Player.FindAction("Dialog", throwIfNotFound: true);
-        m_Player_extraW = m_Player.FindAction("extraW", throwIfNotFound: true);
-        m_Player_extraP1 = m_Player.FindAction("extraP1", throwIfNotFound: true);
-        m_Player_extraP2 = m_Player.FindAction("extraP2", throwIfNotFound: true);
+        // Godmode
+        m_Godmode = asset.FindActionMap("Godmode", throwIfNotFound: true);
+        m_Godmode_extraW = m_Godmode.FindAction("extraW", throwIfNotFound: true);
+        m_Godmode_extraP1 = m_Godmode.FindAction("extraP1", throwIfNotFound: true);
+        m_Godmode_extraP2 = m_Godmode.FindAction("extraP2", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -647,10 +689,8 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Cat;
     private readonly InputAction m_Player_Craft;
     private readonly InputAction m_Player_MakeWay;
+    private readonly InputAction m_Player_NextLevel;
     private readonly InputAction m_Player_Dialog;
-    private readonly InputAction m_Player_extraW;
-    private readonly InputAction m_Player_extraP1;
-    private readonly InputAction m_Player_extraP2;
     public struct PlayerActions
     {
         private @Inputs m_Wrapper;
@@ -664,10 +704,8 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @Cat => m_Wrapper.m_Player_Cat;
         public InputAction @Craft => m_Wrapper.m_Player_Craft;
         public InputAction @MakeWay => m_Wrapper.m_Player_MakeWay;
+        public InputAction @NextLevel => m_Wrapper.m_Player_NextLevel;
         public InputAction @Dialog => m_Wrapper.m_Player_Dialog;
-        public InputAction @extraW => m_Wrapper.m_Player_extraW;
-        public InputAction @extraP1 => m_Wrapper.m_Player_extraP1;
-        public InputAction @extraP2 => m_Wrapper.m_Player_extraP2;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -704,18 +742,12 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @MakeWay.started += instance.OnMakeWay;
             @MakeWay.performed += instance.OnMakeWay;
             @MakeWay.canceled += instance.OnMakeWay;
+            @NextLevel.started += instance.OnNextLevel;
+            @NextLevel.performed += instance.OnNextLevel;
+            @NextLevel.canceled += instance.OnNextLevel;
             @Dialog.started += instance.OnDialog;
             @Dialog.performed += instance.OnDialog;
             @Dialog.canceled += instance.OnDialog;
-            @extraW.started += instance.OnExtraW;
-            @extraW.performed += instance.OnExtraW;
-            @extraW.canceled += instance.OnExtraW;
-            @extraP1.started += instance.OnExtraP1;
-            @extraP1.performed += instance.OnExtraP1;
-            @extraP1.canceled += instance.OnExtraP1;
-            @extraP2.started += instance.OnExtraP2;
-            @extraP2.performed += instance.OnExtraP2;
-            @extraP2.canceled += instance.OnExtraP2;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -747,18 +779,12 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @MakeWay.started -= instance.OnMakeWay;
             @MakeWay.performed -= instance.OnMakeWay;
             @MakeWay.canceled -= instance.OnMakeWay;
+            @NextLevel.started -= instance.OnNextLevel;
+            @NextLevel.performed -= instance.OnNextLevel;
+            @NextLevel.canceled -= instance.OnNextLevel;
             @Dialog.started -= instance.OnDialog;
             @Dialog.performed -= instance.OnDialog;
             @Dialog.canceled -= instance.OnDialog;
-            @extraW.started -= instance.OnExtraW;
-            @extraW.performed -= instance.OnExtraW;
-            @extraW.canceled -= instance.OnExtraW;
-            @extraP1.started -= instance.OnExtraP1;
-            @extraP1.performed -= instance.OnExtraP1;
-            @extraP1.canceled -= instance.OnExtraP1;
-            @extraP2.started -= instance.OnExtraP2;
-            @extraP2.performed -= instance.OnExtraP2;
-            @extraP2.canceled -= instance.OnExtraP2;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -776,6 +802,68 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Godmode
+    private readonly InputActionMap m_Godmode;
+    private List<IGodmodeActions> m_GodmodeActionsCallbackInterfaces = new List<IGodmodeActions>();
+    private readonly InputAction m_Godmode_extraW;
+    private readonly InputAction m_Godmode_extraP1;
+    private readonly InputAction m_Godmode_extraP2;
+    public struct GodmodeActions
+    {
+        private @Inputs m_Wrapper;
+        public GodmodeActions(@Inputs wrapper) { m_Wrapper = wrapper; }
+        public InputAction @extraW => m_Wrapper.m_Godmode_extraW;
+        public InputAction @extraP1 => m_Wrapper.m_Godmode_extraP1;
+        public InputAction @extraP2 => m_Wrapper.m_Godmode_extraP2;
+        public InputActionMap Get() { return m_Wrapper.m_Godmode; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GodmodeActions set) { return set.Get(); }
+        public void AddCallbacks(IGodmodeActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GodmodeActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GodmodeActionsCallbackInterfaces.Add(instance);
+            @extraW.started += instance.OnExtraW;
+            @extraW.performed += instance.OnExtraW;
+            @extraW.canceled += instance.OnExtraW;
+            @extraP1.started += instance.OnExtraP1;
+            @extraP1.performed += instance.OnExtraP1;
+            @extraP1.canceled += instance.OnExtraP1;
+            @extraP2.started += instance.OnExtraP2;
+            @extraP2.performed += instance.OnExtraP2;
+            @extraP2.canceled += instance.OnExtraP2;
+        }
+
+        private void UnregisterCallbacks(IGodmodeActions instance)
+        {
+            @extraW.started -= instance.OnExtraW;
+            @extraW.performed -= instance.OnExtraW;
+            @extraW.canceled -= instance.OnExtraW;
+            @extraP1.started -= instance.OnExtraP1;
+            @extraP1.performed -= instance.OnExtraP1;
+            @extraP1.canceled -= instance.OnExtraP1;
+            @extraP2.started -= instance.OnExtraP2;
+            @extraP2.performed -= instance.OnExtraP2;
+            @extraP2.canceled -= instance.OnExtraP2;
+        }
+
+        public void RemoveCallbacks(IGodmodeActions instance)
+        {
+            if (m_Wrapper.m_GodmodeActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IGodmodeActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GodmodeActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GodmodeActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public GodmodeActions @Godmode => new GodmodeActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -823,7 +911,11 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnCat(InputAction.CallbackContext context);
         void OnCraft(InputAction.CallbackContext context);
         void OnMakeWay(InputAction.CallbackContext context);
+        void OnNextLevel(InputAction.CallbackContext context);
         void OnDialog(InputAction.CallbackContext context);
+    }
+    public interface IGodmodeActions
+    {
         void OnExtraW(InputAction.CallbackContext context);
         void OnExtraP1(InputAction.CallbackContext context);
         void OnExtraP2(InputAction.CallbackContext context);
