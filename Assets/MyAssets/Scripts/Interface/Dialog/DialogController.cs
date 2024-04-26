@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
-public class DialogController : MonoBehaviour
+public class DialogController : UIController
 {
     [Header("Dialog attributes")]
     public GameObject dialogPanel;
@@ -16,6 +16,8 @@ public class DialogController : MonoBehaviour
 
     [Header("Photos")]
     public Sprite[] photos;
+
+    public float timeBtwChars = 0.3f;
 
     private Speeches.Speech[] speeches;
     private Inputs input;
@@ -44,19 +46,25 @@ public class DialogController : MonoBehaviour
         speeches = null;
         index  = 0;
         dialogPanel.SetActive(false);
-        spawnNPCTextIndicator(false);
     }
 
     void Update()
     {
-        if (gameObject.activeSelf && dialog.triggered)
+        if (dialog.triggered && gameObject.activeSelf)
         {
-            //TODO: passar falas
-            bool onDialog = refreshDialog();
-            if (!onDialog)
+            if(speechOfCharacter.maxVisibleCharacters < speechOfCharacter.textInfo.characterCount)
             {
-                FindObjectOfType<InteractionsController>().exitDialog();
-                turnOffDialog();
+                StopAllCoroutines();
+                speechOfCharacter.maxVisibleCharacters = speechOfCharacter.textInfo.characterCount;
+            }
+            else
+            {
+                bool onDialog = refreshDialog();
+                if (!onDialog)
+                {
+                    FindObjectOfType<InteractionsController>().exitDialog();
+                    turnOffDialog();
+                }
             }
         }
     }
@@ -84,9 +92,10 @@ public class DialogController : MonoBehaviour
             return false;
 
         Speeches.Character character = speeches[index].character;
-        string speech = speeches[index].speech;
 
+        string speech = speeches[index].speech;
         speechOfCharacter.text = speech;
+        StartCoroutine(textEffect());
 
         string name = "";
         Speeches.Character photo = 0;
@@ -111,11 +120,22 @@ public class DialogController : MonoBehaviour
         return true;
     }
 
-    public void spawnNPCTextIndicator(bool state)
+    private IEnumerator textEffect()
     {
-        if (state)
-            dialogIndicator.SetActive(true);
-        else
-            dialogIndicator.SetActive(false);
+        speechOfCharacter.ForceMeshUpdate();
+        int totalVisibleCharacters = speechOfCharacter.textInfo.characterCount;
+        int counter = 0;
+
+        while (true)
+        {
+            int visibleCounter = counter % (totalVisibleCharacters + 1);
+            speechOfCharacter.maxVisibleCharacters = visibleCounter;
+
+            if (visibleCounter >= totalVisibleCharacters)
+                break;
+
+            ++counter;
+            yield return new WaitForSeconds(timeBtwChars);
+        }
     }
 }

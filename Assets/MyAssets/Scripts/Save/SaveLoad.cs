@@ -88,5 +88,16 @@ public class SaveLoad : MonoBehaviour
 
         saveGame(save);
     }
+
+    public void savePlayerPosition(Transform player)
+    {
+        save.playerX = player.position.x;
+        save.playerY = player.position.y;
+        save.playerZ = player.position.z;
+    }
     
+    public void saveLevel()
+    {
+        save.level = SceneManager.GetActiveScene().buildIndex;
+    }
 }

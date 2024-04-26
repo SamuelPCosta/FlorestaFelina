@@ -9,7 +9,6 @@ public class UICollect : UIController
 {
     [Header("Collect texts")]
     public TextMeshProUGUI collectedItemText;
-    public GameObject collectText;
 
     [Header("Collectibles texts")]
     public TextMeshProUGUI water;
@@ -28,14 +27,6 @@ public class UICollect : UIController
     void Start()
     {
         collectedItemText.gameObject.SetActive(false);
-    }
-
-    public void spawnCollectText(bool state)
-    {
-        if (state)
-            collectText.gameObject.SetActive(true);
-        else
-            collectText.gameObject.SetActive(false);
     }
 
     public void spawnCollectedItemText(CollectibleType type, string itemName, int quantity, bool allowed)

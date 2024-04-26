@@ -18,9 +18,6 @@ public class InteractionsController : MonoBehaviour
     [Header("Dialog")]
     public DialogController dialogController;
 
-    [Header("BarrierUI")]
-    public UIBarrier _UIBarrier;
-
     [Header("CatMenu")]
     public CatMenuController catMenuController;
 
@@ -30,6 +27,9 @@ public class InteractionsController : MonoBehaviour
 
     [Header("MagicMakeWay")]
     public MagicController magic;
+
+    [Header("UITextIndicator")]
+    public UITextIndicator _UITextIndicator;
 
 
     //PRIVATES
@@ -45,6 +45,8 @@ public class InteractionsController : MonoBehaviour
     private string nameOfTutorial = "";
 
     private UICollect _UICollect;
+
+    private bool fastMovementAllowed = false;
 
     //ACTIONS
     private InputAction workbench;
@@ -100,7 +102,7 @@ public class InteractionsController : MonoBehaviour
         checkGate();
         checkCameras();
 
-        if (moveFast.triggered)
+        if (moveFast.triggered && fastMovementAllowed)
             transform.GetComponent<MovementController>().changeLocomotion();
     }
 
@@ -111,7 +113,7 @@ public class InteractionsController : MonoBehaviour
         if (collider != null)
         {
             Collectible collectible = collider.GetComponent<Collectible>();
-            _UICollect.spawnCollectText(true);
+            _UITextIndicator.enableIndicator(IndicatorText.COLLECT, true);
             if (collet.triggered && collectible != null)
                 {
                 int quantityCollected = collectible.getQuantityOfItems();
@@ -124,7 +126,7 @@ public class InteractionsController : MonoBehaviour
                 collectible.collectItem();
             }
         }else
-            _UICollect.spawnCollectText(false);
+            _UITextIndicator.enableIndicator(IndicatorText.COLLECT, false);
     }
 
     //CONTROLA A INTERACAO COM BARREIRAS
@@ -133,13 +135,13 @@ public class InteractionsController : MonoBehaviour
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Barrier"));
         if (collider != null)
         {
+            _UITextIndicator.enableIndicator(IndicatorText.BARRIER, true);
             GameObject barrier = collider.gameObject;
-            _UIBarrier.spawnTextIndicator(true);
             if (makeWay.triggered)
                 magic.castMagic(barrier);
         }
-        else 
-            _UIBarrier.spawnTextIndicator(false);
+        else
+            _UITextIndicator.enableIndicator(IndicatorText.BARRIER, false);
     }
 
     //CONTROLA A INTERACAO COM GATOS
@@ -148,31 +150,32 @@ public class InteractionsController : MonoBehaviour
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Cat"));
         if (collider != null)
         {
-            print("Gato");
-            //TODO textos indicadores
+            if(!_catInteraction)
+                _UITextIndicator.enableIndicator(IndicatorText.CAT, true);
+
             CatController catController = collider.GetComponent<CatController>();
-                
             if (cat.triggered){
 
                 InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
-                if (!_catInteraction)
+                if (_catInteraction)
                 {
+                    _catInteraction = false;
+                    catMenuController.turnOff();
+                    transform.GetComponent<MovementController>().enablePlayerMovement(true);
+                    inputsCursor.SetCursorState(true);
+                }
+                else {
+                    _catInteraction = true;
                     catMenuController.turnOn();
                     transform.GetComponent<MovementController>().enablePlayerMovement(false);
                     catCamera = getCatCamera(collider.gameObject);
                     inputsCursor.SetCursorState(false);
-                    _catInteraction = true;
-                }
-                else { 
-                    catMenuController.turnOff();
-                    transform.GetComponent<MovementController>().enablePlayerMovement(true);
-                    inputsCursor.SetCursorState(true);
-                    _catInteraction = false;
+                    _UITextIndicator.enableIndicator(IndicatorText.CAT, false);
                 }
             }
                     
-        }else { }
-            //_UICrafting.spawnCollectText(true); TODO UI - way
+        }else 
+            _UITextIndicator.enableIndicator(IndicatorText.CAT, false);
     }
 
     //CONTROLA A INTERACAO COM NPCs
@@ -182,9 +185,9 @@ public class InteractionsController : MonoBehaviour
         if (collider != null)
         {
             if(!inDialog)
-                dialogController.spawnNPCTextIndicator(true);
+                _UITextIndicator.enableIndicator(IndicatorText.NPC, true);
             else
-                dialogController.spawnNPCTextIndicator(false);
+                _UITextIndicator.enableIndicator(IndicatorText.NPC, false);
 
             if (dialog.triggered && !inDialog) {
                 Speeches.Speech[]  speechs = collider.GetComponent<Speeches>().getSpeeches();
@@ -193,8 +196,14 @@ public class InteractionsController : MonoBehaviour
                 inDialog = true;
                 transform.GetComponent<MovementController>().enablePlayerMovement(false);
             }
-        }else
-            dialogController.spawnNPCTextIndicator(false);
+
+            fastMovementAllowed = false;
+        }
+        else
+        {
+            _UITextIndicator.enableIndicator(IndicatorText.NPC, false);
+            fastMovementAllowed = true;
+        }
     }
 
     //CONTROLA A INTERACAO COM TUTORIAIS AUTOMATICOS
@@ -215,6 +224,8 @@ public class InteractionsController : MonoBehaviour
                 transform.GetComponent<MovementController>().enablePlayerMovement(false);
 
             dialog.markDialog();
+
+            fastMovementAllowed = false;
         }
         else
         {
@@ -228,6 +239,7 @@ public class InteractionsController : MonoBehaviour
                     inDynamicDialog = false;
                 }
             }
+            fastMovementAllowed = true;
         }
     }
 
@@ -244,7 +256,8 @@ public class InteractionsController : MonoBehaviour
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Workbench"));
         if (collider != null)
         {
-            Debug.Log("Workbench a frente");
+            if(!_workebenchCam)
+                _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, true);
             if (workbench.triggered)
             {
                 WorkbenchController workbenchController = GameObject.FindObjectOfType<WorkbenchController>();
@@ -263,9 +276,12 @@ public class InteractionsController : MonoBehaviour
                     inputsCursor.SetCursorState(false);
                     transform.GetComponent<MovementController>().enablePlayerMovement(false);
                     transform.GetComponent<MovementController>().moveTo(workbenchOrigin);
+
+                    _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, false);
                 }
             }
-        }
+        }else
+            _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, false);
     }
 
     //CONTROLA INTERACAO COM PORTOES
@@ -274,14 +290,14 @@ public class InteractionsController : MonoBehaviour
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Gate"));
         if (collider != null)
         {
-            //_UICollect.spawnCollectText(true);
+            _UITextIndicator.enableIndicator(IndicatorText.GATE, true);
             if (nextLevel.triggered)
             {
                 FindObjectOfType<GameController>().nextScene();
             }
         }
-        //else
-            //_UICollect.spawnCollectText(false);
+        else
+            _UITextIndicator.enableIndicator(IndicatorText.GATE, false);
     }
 
     private void checkCameras()
