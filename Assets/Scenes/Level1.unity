@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44929343, g: 0.49936265, b: 0.57570815, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028502, g: 0.22571492, b: 0.3069231, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9028,17 +9028,17 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 0.9649556, b: 0.8537736, a: 1}
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.6
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -9087,13 +9087,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 993159953}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.9261684, y: -0.048729062, z: 0.12851658, w: -0.35117114}
+  m_LocalRotation: {x: -0.15737861, y: 0.41619775, z: -0.892539, w: -0.07338685}
   m_LocalPosition: {x: 589.02875, y: 441.07343, z: 904.1035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 138.47, y: -344.2, z: 0}
+  m_LocalEulerAnglesHint: {x: 130, y: 200, z: 0}
 --- !u!43 &1004247578
 Mesh:
   m_ObjectHideFlags: 0
@@ -17416,6 +17416,22 @@ PrefabInstance:
     - target: {fileID: 1485681955723314266, guid: dc7318f8a01b4ca49a47799b897f2a8a, type: 3}
       propertyPath: m_Name
       value: CAMERA
+      objectReference: {fileID: 0}
+    - target: {fileID: 4362772954912260897, guid: dc7318f8a01b4ca49a47799b897f2a8a, type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4362772954912260897, guid: dc7318f8a01b4ca49a47799b897f2a8a, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4362772954912260897, guid: dc7318f8a01b4ca49a47799b897f2a8a, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.6363636
+      objectReference: {fileID: 0}
+    - target: {fileID: 4362772954912260897, guid: dc7318f8a01b4ca49a47799b897f2a8a, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4621173934063029640, guid: dc7318f8a01b4ca49a47799b897f2a8a, type: 3}
       propertyPath: m_LocalPosition.z
