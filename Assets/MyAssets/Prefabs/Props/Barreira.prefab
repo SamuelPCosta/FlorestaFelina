@@ -196,30 +196,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5486690511178162196, guid: b3eb269629fab294580f63ab897ce65a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9914449
-      objectReference: {fileID: 0}
-    - target: {fileID: 5486690511178162196, guid: b3eb269629fab294580f63ab897ce65a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.13052624
-      objectReference: {fileID: 0}
-    - target: {fileID: 5486690511178162196, guid: b3eb269629fab294580f63ab897ce65a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6421699774408059120, guid: b3eb269629fab294580f63ab897ce65a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9914449
-      objectReference: {fileID: 0}
-    - target: {fileID: 6421699774408059120, guid: b3eb269629fab294580f63ab897ce65a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.13052616
-      objectReference: {fileID: 0}
-    - target: {fileID: 6421699774408059120, guid: b3eb269629fab294580f63ab897ce65a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 8609574246868382140, guid: b3eb269629fab294580f63ab897ce65a, type: 3}
       propertyPath: m_Name
       value: MagicHead

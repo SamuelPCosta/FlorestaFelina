@@ -11,7 +11,7 @@ public class BarrierController : MonoBehaviour
         orb.SetActive(false);
     }
 
-    //TOPO: conferir metodo de liberar caminho e remover ou trazer de volta
+    //TODO: conferir metodo de liberar caminho e remover ou trazer de volta
     void OnTriggerEnter(Collider collision)
     {
         //if (collision.gameObject.tag == "MakeWay")

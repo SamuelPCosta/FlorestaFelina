@@ -12,9 +12,20 @@ public class SaveLoad : MonoBehaviour
     private string nameOfSave;
 
     public bool _ignoreSave = false;
+    public static SaveLoad instance = null;
 
     void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+
         save = new Save();
         nameOfSave = "save0";
     }

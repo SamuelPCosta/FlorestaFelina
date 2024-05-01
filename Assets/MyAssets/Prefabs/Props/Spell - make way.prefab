@@ -45,7 +45,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.93273544, g: 1, b: 0, a: 1}
-  m_Intensity: 0.12
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -14793,15 +14793,15 @@ VisualEffect:
       m_Array:
       - m_Value:
           serializedVersion: 2
-          key0: {r: 2.9960785, g: 2.1913671, b: 0.1568627, a: 1}
-          key1: {r: 12.844467, g: 11.822114, b: 9.148654, a: 1}
-          key2: {r: 2.9960785, g: 2.1913671, b: 0.1568627, a: 0.8}
+          key0: {r: 1.4980392, g: 1.0956836, b: 0.07843135, a: 1}
+          key1: {r: 1.4980392, g: 1.3788031, b: 1.0669997, a: 1}
+          key2: {r: 1.4980392, g: 1.0956836, b: 0.07843135, a: 0.8}
           key3: {r: 0, g: 0, b: 0, a: 0}
           key4: {r: 0, g: 0, b: 0, a: 0}
           key5: {r: 0, g: 0, b: 0, a: 0}
           key6: {r: 0, g: 0, b: 0, a: 0}
           key7: {r: 0, g: 0, b: 0, a: 0}
-          ctime0: 0
+          ctime0: 193
           ctime1: 31804
           ctime2: 65535
           ctime3: 0
