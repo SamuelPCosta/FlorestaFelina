@@ -20,10 +20,11 @@ public class MagicController : MonoBehaviour
         StartCoroutine(MoveToObject(barrier, 3f));
     }
 
+    //TODO: conferir metodo de liberar caminho e remover ou trazer de volta
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Barrier"))
-            disable();
+        //if (collision.gameObject.layer == LayerMask.NameToLayer("Barrier"))
+        //    disable();
     }
 
     IEnumerator MoveToObject(GameObject targetObject, float time)

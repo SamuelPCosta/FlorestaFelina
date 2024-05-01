@@ -9066,7 +9066,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 16375
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -17646,6 +17646,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6727498107290785901, guid: c2e47219589fdac4f9fc23299aff072f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.78
+      objectReference: {fileID: 0}
     - target: {fileID: 7717635267219181593, guid: c2e47219589fdac4f9fc23299aff072f, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -17663,6 +17667,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 593970621}
     m_Modifications:
+    - target: {fileID: 833445136457734228, guid: c2e47219589fdac4f9fc23299aff072f, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180101746310478508, guid: c2e47219589fdac4f9fc23299aff072f, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3741686833815608408, guid: c2e47219589fdac4f9fc23299aff072f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -136,9 +136,10 @@ public class InteractionsController : MonoBehaviour
         if (collider != null)
         {
             _UITextIndicator.enableIndicator(IndicatorText.BARRIER, true);
-            GameObject barrier = collider.gameObject;
+            //GameObject barrier = collider.gameObject;
             if (makeWay.triggered)
-                magic.castMagic(barrier);
+                collider.GetComponent<BarrierController>().makeWay();
+                //magic.castMagic(barrier);
         }
         else
             _UITextIndicator.enableIndicator(IndicatorText.BARRIER, false);
