@@ -63,21 +63,30 @@ public class SaveLoad : MonoBehaviour
         return null;
     }
 
+    //void PrintAllDialogs()
+    //{
+    //    string table = "";
+
+    //    for (int row = 0; row < loadGame().dialogs.GetLength(0); row++)
+    //    {
+    //        for (int col = 0; col < loadGame().dialogs.GetLength(1); col++)
+    //        {
+    //            bool value = save.dialogs[row, col];
+    //            table += value ? "1 " : "0 ";
+    //        }
+    //        table += "\n";
+    //    }
+
+    //    Debug.Log(table);
+    //}
+
     public void saveDialog(int index)
     {
-        string level = SceneManager.GetActiveScene().name;
-        if (level == "Level1")
-            save.dialogsLvl1[index] = false;
-        else if (level == "Level2")
-            save.dialogsLvl2[index] = false;
-        else if (level == "Level3")
-            save.dialogsLvl3[index] = false;
-        else if (level == "Level4")
-            save.dialogsLvl4[index] = false;
-        else if (level == "Level5")
-            save.dialogsLvl5[index] = false;
-
-        saveGame(save);
+        Save loadedSave = loadGame();
+        if (loadedSave == null)
+            loadedSave = new Save();
+        loadedSave.dialogs[GameController.getLevelIndex(), index] = true;
+        saveGame(loadedSave);
     }
 
     public void saveInventoryCollectibles(int water, int plant1, int plant2)

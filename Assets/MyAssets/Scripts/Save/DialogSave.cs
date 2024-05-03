@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class DialogSave : MonoBehaviour
 {
@@ -11,39 +10,18 @@ public class DialogSave : MonoBehaviour
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null)
         {
-            string level = SceneManager.GetActiveScene().name;
-            bool[] levelDialogs;
-
-            switch (level)
-            {
-                case "Level1":
-                    levelDialogs = save.dialogsLvl1;
-                    break;
-                case "Level2":
-                    levelDialogs = save.dialogsLvl2;
-                    break;
-                case "Level3":
-                    levelDialogs = save.dialogsLvl3;
-                    break;
-                case "Level4":
-                    levelDialogs = save.dialogsLvl4;
-                    break;
-                case "Level5":
-                    levelDialogs = save.dialogsLvl5;
-                    break;
-                default:
-                    levelDialogs = null;
-                    break;
-            }
-
+            int LevelIndex = GameController.getLevelIndex();
             for (int i = 0; i < dialogs.Length; i++)
             {
-                bool state = true;
-                state = levelDialogs[i];
-
-                if (!state)
-                    dialogs[i].SetActive(false);
+                bool checkedDialog = save.dialogs[LevelIndex, i];
+                if (!checkedDialog)
+                    dialogs[i].SetActive(true);
             }
+        }
+        else
+        {
+            foreach (GameObject dialog in dialogs)
+                dialog.SetActive(true);
         }
     }
 

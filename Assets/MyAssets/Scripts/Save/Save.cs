@@ -7,6 +7,8 @@ public enum levels {LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5}
 [System.Serializable]
 public class Save
 {
+    public static int numberOfLevels = 5;
+
     public float playerX = 0;
     public float playerY = 0;
     public float playerZ = 0;
@@ -20,11 +22,7 @@ public class Save
     public int potion2 = 0;
     public int potion3 = 0;
 
-    public bool[] dialogsLvl1 = new bool[5];
-    public bool[] dialogsLvl2 = new bool[5];
-    public bool[] dialogsLvl3 = new bool[5];
-    public bool[] dialogsLvl4 = new bool[5];
-    public bool[] dialogsLvl5 = new bool[5];
+    public bool[,] dialogs = new bool[numberOfLevels, 5];
 
     //Salvar nível(E PORTAL ANTERIOR)
     //Se está com gato nas costas
