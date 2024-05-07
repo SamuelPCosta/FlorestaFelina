@@ -24,8 +24,7 @@ public class Save
 
     public bool[,] dialogs = new bool[numberOfLevels, 5];
 
-    public bool objective1Level1;
-    public bool objective2Level1;
+    public bool objectiveFloorDestroy;
 
     //Salvar nível(E PORTAL ANTERIOR)
     //Se está com gato nas costas

@@ -6763,7 +6763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 1.5
-  barrierDistance: 5
+  barrierDistance: 3
   draw: 1
 --- !u!1 &5112656827887055998
 GameObject:

@@ -126,13 +126,10 @@ public class SaveLoad : MonoBehaviour
         save.level = SceneManager.GetActiveScene().buildIndex;
     }
 
-    public void checkCameraObjective(int index)
+    public void checkCameraObjective()
     {
         Save save = loadGameInternal();
-        if (index == 1)
-            save.objective1Level1 = true;
-        else
-            save.objective2Level1 = true;
+        save.objectiveFloorDestroy = true;
         saveGame(save);
     }
 }

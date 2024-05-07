@@ -6,9 +6,9 @@ public class CameraCheckObjectives : MonoBehaviour
 {
     public GameObject floor;
 
-    public void visited(int index)
+    public void visited()
     {
         floor.SetActive(false);
-        FindObjectOfType<SaveLoad>().checkCameraObjective(index);
+        FindObjectOfType<SaveLoad>().checkCameraObjective();
     }   
 }

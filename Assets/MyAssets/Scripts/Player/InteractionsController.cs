@@ -313,6 +313,8 @@ public class InteractionsController : MonoBehaviour
                 {
                     if(hit.collider.CompareTag("EnvironmentView"))
                         camerasController.ActivateCamera(CamerasController.cam.Objective);
+                    else if (hit.collider.CompareTag("EnvironmentViewDontReload"))
+                        camerasController.ActivateCamera(CamerasController.cam.ObjectiveDontReload);
                     else
                         camerasController.ActivateCamera(CamerasController.cam.Default);
                 }

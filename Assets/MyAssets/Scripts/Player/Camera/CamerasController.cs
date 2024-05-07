@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class CamerasController : MonoBehaviour
 {
-    public enum cam { Default, Close, Workbench, Objective, Objective2 };
+    public enum cam { Default, Close, Workbench, Objective, ObjectiveDontReload };
 
     [Header("Cameras")]
     public GameObject[] Cameras;

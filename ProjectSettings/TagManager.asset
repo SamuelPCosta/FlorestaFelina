@@ -7,7 +7,7 @@ TagManager:
   - CinemachineTarget
   - InnerRoom
   - EnvironmentView
-  - MakeWay
+  - EnvironmentViewDontReload
   layers:
   - Default
   - TransparentFX
