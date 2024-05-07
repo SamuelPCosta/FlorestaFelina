@@ -9,7 +9,7 @@ public class SaveLoad : MonoBehaviour
 {
     //Save jogo
     private Save save;
-    private string nameOfSave;
+    private string nameOfSave = "save0";
 
     public bool _ignoreSave = false;
     public static SaveLoad instance = null;
@@ -27,7 +27,6 @@ public class SaveLoad : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         save = new Save();
-        nameOfSave = "save0";
     }
 
     private void saveGame(Save save)
@@ -63,6 +62,11 @@ public class SaveLoad : MonoBehaviour
         return null;
     }
 
+    private Save loadGameInternal() {
+        Save save = loadGame();
+        return save ?? new Save();
+    } 
+
     //void PrintAllDialogs()
     //{
     //    string table = "";
@@ -82,26 +86,25 @@ public class SaveLoad : MonoBehaviour
 
     public void saveDialog(int index)
     {
-        Save loadedSave = loadGame();
-        if (loadedSave == null)
-            loadedSave = new Save();
-        loadedSave.dialogs[GameController.getLevelIndex(), index] = true;
-        saveGame(loadedSave);
+        Save save = loadGameInternal();
+        save.dialogs[GameController.getLevelIndex(), index] = true;
+        saveGame(save);
     }
 
     public void saveInventoryCollectibles(int water, int plant1, int plant2)
     {
+        Save save = loadGameInternal();
         save.water = water;
         save.plant1 = plant1;
         save.plant2 = plant2;
 
-        print(save.plant1);
-
+        Debug.Log(save.water +" - "+ save.plant1 + " - " + save.plant2);
         saveGame(save);
     }
 
     public void saveInventoryPotions(int potion1, int potion2, int potion3)
     {
+        Save save = loadGameInternal();
         save.potion1 = potion1;
         save.potion2 = potion2;
         save.potion3 = potion3;
@@ -111,6 +114,7 @@ public class SaveLoad : MonoBehaviour
 
     public void savePlayerPosition(Transform player)
     {
+        Save save = loadGameInternal();
         save.playerX = player.position.x;
         save.playerY = player.position.y;
         save.playerZ = player.position.z;
@@ -118,6 +122,17 @@ public class SaveLoad : MonoBehaviour
     
     public void saveLevel()
     {
+        Save save = loadGameInternal();
         save.level = SceneManager.GetActiveScene().buildIndex;
+    }
+
+    public void checkCameraObjective(int index)
+    {
+        Save save = loadGameInternal();
+        if (index == 1)
+            save.objective1Level1 = true;
+        else
+            save.objective2Level1 = true;
+        saveGame(save);
     }
 }

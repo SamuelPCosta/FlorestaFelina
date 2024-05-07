@@ -309,8 +309,13 @@ public class InteractionsController : MonoBehaviour
         {
             if (!hit.collider.CompareTag("InnerRoom")) //AREA EXTERNA
             {
-                if(!_catInteraction)
-                    camerasController.ActivateCamera(CamerasController.cam.Default);
+                if (!_catInteraction)
+                {
+                    if(hit.collider.CompareTag("EnvironmentView"))
+                        camerasController.ActivateCamera(CamerasController.cam.Objective);
+                    else
+                        camerasController.ActivateCamera(CamerasController.cam.Default);
+                }
                 else
                     camerasController.ActivateDynamicCamera(catCamera);
             }
