@@ -80,7 +80,7 @@ public class InteractionsController : MonoBehaviour
         collet = input.Player.Collet;
         makeWay = input.Player.MakeWay;
         dialog = input.Player.Dialog;
-        cat = input.Player.Dialog;
+        cat = input.Player.Cat;
         moveFast = input.Player.MoveFast;
         nextLevel = input.Player.NextLevel;
 
@@ -266,7 +266,7 @@ public class InteractionsController : MonoBehaviour
                 if (_workebenchCam)
                 {
                     _workebenchCam = false;
-                    workbenchController.turnOffMenu();
+                    workbenchController.turnOff();
                     inputsCursor.SetCursorState(true);
                     transform.GetComponent<MovementController>().enablePlayerMovement(true);
                 }

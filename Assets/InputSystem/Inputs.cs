@@ -91,7 +91,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Craft"",
+                    ""name"": ""ConfirmOption"",
                     ""type"": ""Button"",
                     ""id"": ""0da1a330-396c-4ef2-b329-2e64c490dbe0"",
                     ""expectedControlType"": ""Button"",
@@ -329,11 +329,11 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ccac2999-4e3b-4ea3-aa53-0f8042d8a652"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Craft"",
+                    ""action"": ""ConfirmOption"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -344,7 +344,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Craft"",
+                    ""action"": ""ConfirmOption"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -610,7 +610,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player_Workbench = m_Player.FindAction("Workbench", throwIfNotFound: true);
         m_Player_Collet = m_Player.FindAction("Collet", throwIfNotFound: true);
         m_Player_Cat = m_Player.FindAction("Cat", throwIfNotFound: true);
-        m_Player_Craft = m_Player.FindAction("Craft", throwIfNotFound: true);
+        m_Player_ConfirmOption = m_Player.FindAction("ConfirmOption", throwIfNotFound: true);
         m_Player_MakeWay = m_Player.FindAction("MakeWay", throwIfNotFound: true);
         m_Player_NextLevel = m_Player.FindAction("NextLevel", throwIfNotFound: true);
         m_Player_Dialog = m_Player.FindAction("Dialog", throwIfNotFound: true);
@@ -687,7 +687,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Workbench;
     private readonly InputAction m_Player_Collet;
     private readonly InputAction m_Player_Cat;
-    private readonly InputAction m_Player_Craft;
+    private readonly InputAction m_Player_ConfirmOption;
     private readonly InputAction m_Player_MakeWay;
     private readonly InputAction m_Player_NextLevel;
     private readonly InputAction m_Player_Dialog;
@@ -702,7 +702,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @Workbench => m_Wrapper.m_Player_Workbench;
         public InputAction @Collet => m_Wrapper.m_Player_Collet;
         public InputAction @Cat => m_Wrapper.m_Player_Cat;
-        public InputAction @Craft => m_Wrapper.m_Player_Craft;
+        public InputAction @ConfirmOption => m_Wrapper.m_Player_ConfirmOption;
         public InputAction @MakeWay => m_Wrapper.m_Player_MakeWay;
         public InputAction @NextLevel => m_Wrapper.m_Player_NextLevel;
         public InputAction @Dialog => m_Wrapper.m_Player_Dialog;
@@ -736,9 +736,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Cat.started += instance.OnCat;
             @Cat.performed += instance.OnCat;
             @Cat.canceled += instance.OnCat;
-            @Craft.started += instance.OnCraft;
-            @Craft.performed += instance.OnCraft;
-            @Craft.canceled += instance.OnCraft;
+            @ConfirmOption.started += instance.OnConfirmOption;
+            @ConfirmOption.performed += instance.OnConfirmOption;
+            @ConfirmOption.canceled += instance.OnConfirmOption;
             @MakeWay.started += instance.OnMakeWay;
             @MakeWay.performed += instance.OnMakeWay;
             @MakeWay.canceled += instance.OnMakeWay;
@@ -773,9 +773,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Cat.started -= instance.OnCat;
             @Cat.performed -= instance.OnCat;
             @Cat.canceled -= instance.OnCat;
-            @Craft.started -= instance.OnCraft;
-            @Craft.performed -= instance.OnCraft;
-            @Craft.canceled -= instance.OnCraft;
+            @ConfirmOption.started -= instance.OnConfirmOption;
+            @ConfirmOption.performed -= instance.OnConfirmOption;
+            @ConfirmOption.canceled -= instance.OnConfirmOption;
             @MakeWay.started -= instance.OnMakeWay;
             @MakeWay.performed -= instance.OnMakeWay;
             @MakeWay.canceled -= instance.OnMakeWay;
@@ -909,7 +909,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnWorkbench(InputAction.CallbackContext context);
         void OnCollet(InputAction.CallbackContext context);
         void OnCat(InputAction.CallbackContext context);
-        void OnCraft(InputAction.CallbackContext context);
+        void OnConfirmOption(InputAction.CallbackContext context);
         void OnMakeWay(InputAction.CallbackContext context);
         void OnNextLevel(InputAction.CallbackContext context);
         void OnDialog(InputAction.CallbackContext context);

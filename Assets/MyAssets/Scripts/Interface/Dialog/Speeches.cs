@@ -15,6 +15,7 @@ public class Speeches : MonoBehaviour
         public string speechInEnglish;
     }
 
+    [SerializeField] public bool reload = false;
     [SerializeField] public Speech[] speeches;
 
     public Speech[] getSpeeches()
@@ -22,9 +23,14 @@ public class Speeches : MonoBehaviour
         return speeches;
     }
 
+    public void activeDialog(bool state)
+    {
+        gameObject.SetActive(state);
+    }
+
     public void markDialog()
     {
         FindObjectOfType<DialogSave>().saveDialog(gameObject);
-        gameObject.SetActive(false);
+        activeDialog(false);
     }
 }

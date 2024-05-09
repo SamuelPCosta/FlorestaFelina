@@ -5,14 +5,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class WorkbenchController : MonoBehaviour
+public class WorkbenchController : PanelController
 {
-    [Header("Crafting Menu")]
-    public GameObject craftingMenu;
-    public GameObject option1;
-    public GameObject option2;
-    public GameObject option3;
-
     [Header("Workbench values - Potion 1")]
     public int potion1Item1;
     public int potion1Water;
@@ -25,53 +19,27 @@ public class WorkbenchController : MonoBehaviour
     public int potion3Item1;
     public int potion3Item2;
 
-    [Header("Buttons")]
-    public Button[] buttons;
-
     private InventoryController inventoryController;
     private UICrafting _UICrafting;
     private UICollect _UICollect;
-    private UIButtons _UIButtons;
 
     private GameObject potion;
 
-    //ACTIONS
-    private Inputs input;
-    private InputAction craft;
-
-    public enum PotionsOption { OPTION1, OPTION2, OPTION3 };
-
-    private void Awake()
-    {
-        input = new Inputs();
-    }
-
-    private void OnEnable()
-    {
-        input.Enable();
-    }
-
-    private void OnDisable()
-    {
-        input.Disable();
-    }
-
     void Start()
     {
-        craft = input.Player.Craft;
         inventoryController = FindObjectOfType<InventoryController>();
         _UICrafting = FindObjectOfType<UICrafting>(); //TODO APENAS NIVEL 1
         _UICollect = FindObjectOfType<UICollect>();
         _UIButtons = FindAnyObjectByType<UIButtons>();
 
         potion = null;
-        craftingMenu.SetActive(false);
+        menu.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (craftingMenu.activeSelf && craft.triggered)
+        if (menu.activeSelf && confirmOption.triggered)
             craftPotion();
 
         GodMode();
@@ -100,15 +68,10 @@ public class WorkbenchController : MonoBehaviour
     //PUBLICS
     public void turnOnMenu()
     {
-        craftingMenu.SetActive(true);
+        menu?.SetActive(true);
         _UIButtons.setButtons(buttons);
         potion = null;
         EventSystem.current.SetSelectedGameObject(checkOption());
-    }
-
-    public void turnOffMenu()
-    {
-        craftingMenu.SetActive(false);
     }
 
     public void selectPotion(GameObject potionButton)
@@ -135,45 +98,37 @@ public class WorkbenchController : MonoBehaviour
 
         _UICrafting.refreshWorkbench(inventory, craft1, craft2, craft3);
 
-        setOptions(option1, enableOption1);
-        setOptions(option2, enableOption2);
-        setOptions(option3, enableOption3);
+        setOptions(options[0], enableOption1);
+        setOptions(options[1], enableOption2);
+        setOptions(options[2], enableOption3);
 
         _UIButtons.disableOptions();
         GameObject firstOption = null;
         //Ordem inversa para a reescrita sempre sobrescrever com um numero menor
         if (enableOption3)
         {
-            _UIButtons.enableOption((int)PotionsOption.OPTION3);
-            firstOption = option3;
+            _UIButtons.enableOption((int)MenuOption.OPTION3);
+            firstOption = options[2];
         }
         if (enableOption2)
         {
-            _UIButtons.enableOption((int)PotionsOption.OPTION2);
-            firstOption = option2;
+            _UIButtons.enableOption((int)MenuOption.OPTION2);
+            firstOption = options[1];
         }
         if (enableOption1)
         {
-            _UIButtons.enableOption((int)PotionsOption.OPTION1);
-            firstOption = option1;
+            _UIButtons.enableOption((int)MenuOption.OPTION1);
+            firstOption = options[0];
         }
 
         return firstOption;
-    }
-
-    private void setOptions(GameObject button, bool condition)
-    {
-        if (condition)
-            button.GetComponent<Button>().interactable = true;
-        else
-            button.GetComponent<Button>().interactable = false;
     }
 
     public void craftPotion()
     {
         if(potion == null)
             return;
-        if (potion == option1)
+        if (potion == options[0])
         {
             inventoryController.consumeCollectible(CollectibleType.PLANT1, potion1Item1);
             inventoryController.consumeCollectible(CollectibleType.WATER, potion1Water);
@@ -181,7 +136,7 @@ public class WorkbenchController : MonoBehaviour
             inventoryController.addPotion(PotionType.POTION1);
         }
         else
-        if (potion == option2)
+        if (potion == options[1])
         {
             inventoryController.consumeCollectible(CollectibleType.PLANT2, potion2Item1);
             inventoryController.consumeCollectible(CollectibleType.WATER, potion2Water);
@@ -189,7 +144,7 @@ public class WorkbenchController : MonoBehaviour
             inventoryController.addPotion(PotionType.POTION2);
         }
         else
-        if (potion == option3)
+        if (potion == options[2])
         {
             inventoryController.consumePotion(PotionType.POTION1, potion3Item1);
             inventoryController.consumePotion(PotionType.POTION2, potion3Item2);
