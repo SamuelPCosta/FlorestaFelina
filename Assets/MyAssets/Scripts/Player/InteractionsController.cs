@@ -207,7 +207,7 @@ public class InteractionsController : MonoBehaviour
         }
     }
 
-    //CONTROLA A INTERACAO COM TUTORIAIS AUTOMATICOS
+    //CONTROLA A INTERACAO COM DIALOGOS AUTOMATICOS
     private void checkDialogs()
     {
         string disableOnMove = "TutorialMovimentacao";

@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 346943421125861834}
   serializedVersion: 2
   m_LocalRotation: {x: 0.10461868, y: 0.059633765, z: -0.0062846676, w: 0.992703}
-  m_LocalPosition: {x: 1.5624084, y: 0.9, z: -4.3200073}
+  m_LocalPosition: {x: 1.1848145, y: 0.6, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 7694301108040140873}
   - component: {fileID: 5376293784542893065}
   - component: {fileID: 356126846747936109}
+  - component: {fileID: 3519650098422620469}
   m_Layer: 11
   m_Name: Cat
   m_TagString: Untagged
@@ -969,6 +970,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &3519650098422620469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275963203281180733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33aa3e5a79181354690881442888c4cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _catWaterConsumption: 1
 --- !u!1 &7058969001734742292
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,10 +1042,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damping: {x: 0.1, y: 0.5, z: 0.3}
-  ShoulderOffset: {x: 6.51, y: 0.9, z: 0}
+  ShoulderOffset: {x: 6.51, y: 0.6, z: 0}
   VerticalArmLength: 0
-  CameraSide: 0.62
-  CameraDistance: 4.32
+  CameraSide: 0.591
+  CameraDistance: 3
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 0

@@ -13,8 +13,6 @@ public class CatMenuController : PanelController
     private InventoryController inventoryController;
     private UICollect _UICollect;
 
-    public int catWaterConsumption;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -87,7 +85,7 @@ public class CatMenuController : PanelController
             return;
         if (option == options[0])
         {
-            inventoryController.consumeCollectible(CollectibleType.WATER, catWaterConsumption);
+            inventoryController.consumeCollectible(CollectibleType.WATER, CatController.catWaterConsumption);
         }
         else
         if (option == options[1])

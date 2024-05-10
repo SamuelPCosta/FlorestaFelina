@@ -9,7 +9,7 @@ public class PanelController : MonoBehaviour
 {
     [Header("Buttons")]
     public Button[] buttons;
-    public GameObject[] options;
+    protected GameObject[] options;
 
     [Header("Menu")]
     public GameObject menu;
@@ -26,6 +26,10 @@ public class PanelController : MonoBehaviour
     {
         input = new Inputs();
         confirmOption = input.Player.ConfirmOption;
+
+        options = new GameObject[buttons.Length];
+        for (int i = 0; i < buttons.Length; i++)
+            options[i] = buttons[i].gameObject;
     }
 
     protected void OnEnable()

@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    public enum Missions { WATER, POTION1, POTION2, POTION3 }
+    public int CurrentMission;
+
     public static GameController instance = null;
     void Start()
     {
@@ -40,5 +43,26 @@ public class GameController : MonoBehaviour
     public void newChance(int scene)
     {
         SceneManager.LoadScene(scene);
+    }
+
+    public void setMission(Missions mission)
+    {
+        switch (mission)
+        {
+            case Missions.WATER:
+                CurrentMission = (int) Missions.WATER;
+                break;
+            case Missions.POTION1:
+                CurrentMission = (int)Missions.POTION1;
+                break;
+            case Missions.POTION2:
+                CurrentMission = (int)Missions.POTION2;
+                break;
+            case Missions.POTION3:
+                CurrentMission = (int)Missions.POTION3;
+                break;
+        }
+
+        print("tua missao eh: " + CurrentMission);
     }
 }
