@@ -42,7 +42,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Workbench",
+                    "name": "Menu",
                     "type": "Button",
                     "id": "fc641341-a948-4ebd-bbf5-2df0ce5091da",
                     "expectedControlType": "Button",
@@ -51,18 +51,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Collet",
+                    "name": "Collect",
                     "type": "Button",
                     "id": "4449344b-e854-47f8-b187-d9939bbb82a4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Cat",
-                    "type": "Button",
-                    "id": "c257a71b-fd13-4a6e-8482-3d0b64bce9b1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -85,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ShowAffection",
+                    "type": "Value",
+                    "id": "a677d08f-4e42-4bb6-b14e-1769068acbbe",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "NextLevel",
@@ -267,7 +267,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Workbench",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -278,7 +278,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Workbench",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -289,7 +289,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Collet",
+                    "action": "Collect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -300,7 +300,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Collet",
+                    "action": "Collect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -416,28 +416,6 @@
                 },
                 {
                     "name": "",
-                    "id": "6a96ab2e-9065-4e55-9986-f8d36dd9cdb6",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Cat",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "699be067-ece2-49a7-8629-856df1d64966",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Cat",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "a0f3f8cf-f1e3-4aab-8a50-6feaa9174808",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -455,6 +433,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "NextLevel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e596e44-6343-4456-bcbd-7f915ead6ff4",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "ShowAffection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d1200fac-222b-4725-a15a-2668b2013db9",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ShowAffection",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

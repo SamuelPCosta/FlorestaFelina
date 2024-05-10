@@ -30,6 +30,11 @@ public class CatController : MonoBehaviour
         
     }
 
+    public bool getAnalyzedStts()
+    {
+        return analyzed;
+    }
+
     public void analyzeCat()
     {
         analyzed = true;

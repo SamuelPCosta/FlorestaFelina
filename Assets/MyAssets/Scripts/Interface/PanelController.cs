@@ -48,14 +48,6 @@ public class PanelController : MonoBehaviour
         
     }
 
-    protected void setOptions(GameObject button, bool condition)
-    {
-        if (condition)
-            button.GetComponent<Button>().interactable = true;
-        else
-            button.GetComponent<Button>().interactable = false;
-    }
-
     public void turnOff()
     {
         menu?.SetActive(false);

@@ -49,13 +49,13 @@ public class InteractionsController : MonoBehaviour
     private bool fastMovementAllowed = false;
 
     //ACTIONS
-    private InputAction workbench;
-    private InputAction collet;
+    private InputAction menu;
+    private InputAction collect;
     private InputAction makeWay;
     private InputAction dialog;
-    private InputAction cat;
     private InputAction moveFast;
     private InputAction nextLevel;
+    private InputAction showAffection;
 
     private void Awake()
     {
@@ -76,13 +76,13 @@ public class InteractionsController : MonoBehaviour
     {
         _UICollect = FindObjectOfType<UICollect>();
 
-        workbench = input.Player.Workbench;
-        collet = input.Player.Collet;
+        menu = input.Player.Menu;
+        collect = input.Player.Collect;
         makeWay = input.Player.MakeWay;
         dialog = input.Player.Dialog;
-        cat = input.Player.Cat;
         moveFast = input.Player.MoveFast;
         nextLevel = input.Player.NextLevel;
+        showAffection = input.Player.ShowAffection;
 
         catCamera = null;
 
@@ -114,7 +114,7 @@ public class InteractionsController : MonoBehaviour
         {
             Collectible collectible = collider.GetComponent<Collectible>();
             _UITextIndicator.enableIndicator(IndicatorText.COLLECT, true);
-            if (collet.triggered && collectible != null)
+            if (collect.triggered && collectible != null)
                 {
                 int quantityCollected = collectible.getQuantityOfItems();
                 CollectibleType type = collectible.getType();
@@ -149,17 +149,38 @@ public class InteractionsController : MonoBehaviour
     private void checkCat()
     {
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Cat"));
-        if (collider != null)
-        {
-            if(!_catInteraction)
-                _UITextIndicator.enableIndicator(IndicatorText.CAT, true);
+        if (collider != null){
+            fastMovementAllowed = false;
 
             CatController catController = collider.GetComponent<CatController>();
-            if (cat.triggered){
+            bool analyzed = catController.getAnalyzedStts();
 
+            if (!_catInteraction)
+                _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, true);
+
+            if (analyzed)
+            {
+                _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
+                if(!_catInteraction)
+                    _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, true);
+            }
+            else
+                _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, true);
+
+            if (showAffection.triggered && !_catInteraction) //impede carinho quando o menu esta aberto
+            {
+                print("carinho");
+            }
+
+            if (!analyzed && menu.triggered)
+            {
+                catController.analyzeCat();
+                //TODO: setar missao na HUD
+            } 
+
+            if (analyzed && menu.triggered){
                 InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
-                if (_catInteraction)
-                {
+                if (_catInteraction) {
                     _catInteraction = false;
                     catMenuController.turnOff();
                     transform.GetComponent<MovementController>().enablePlayerMovement(true);
@@ -171,12 +192,18 @@ public class InteractionsController : MonoBehaviour
                     transform.GetComponent<MovementController>().enablePlayerMovement(false);
                     catCamera = getCatCamera(collider.gameObject);
                     inputsCursor.SetCursorState(false);
-                    _UITextIndicator.enableIndicator(IndicatorText.CAT, false);
+                    _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, false);
+                    _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, false);
+                    _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
                 }
-            }
-                    
-        }else 
-            _UITextIndicator.enableIndicator(IndicatorText.CAT, false);
+            }    
+        }else
+        {
+            fastMovementAllowed = true;
+            _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, false);
+            _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, false);
+            _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
+        }
     }
 
     //CONTROLA A INTERACAO COM NPCs
@@ -259,7 +286,7 @@ public class InteractionsController : MonoBehaviour
         {
             if(!_workebenchCam)
                 _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, true);
-            if (workbench.triggered)
+            if (menu.triggered)
             {
                 WorkbenchController workbenchController = GameObject.FindObjectOfType<WorkbenchController>();
                 InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();

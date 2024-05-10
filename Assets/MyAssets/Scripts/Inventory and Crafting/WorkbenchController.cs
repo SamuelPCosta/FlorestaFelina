@@ -98,9 +98,9 @@ public class WorkbenchController : PanelController
 
         _UICrafting.refreshWorkbench(inventory, craft1, craft2, craft3);
 
-        setOptions(options[0], enableOption1);
-        setOptions(options[1], enableOption2);
-        setOptions(options[2], enableOption3);
+        _UIButtons.setOptions(options[0], enableOption1);
+        _UIButtons.setOptions(options[1], enableOption2);
+        _UIButtons.setOptions(options[2], enableOption3);
 
         _UIButtons.disableOptions();
         GameObject firstOption = null;

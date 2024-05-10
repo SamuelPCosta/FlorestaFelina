@@ -16573,6 +16573,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UITextIndicators
       objectReference: {fileID: 0}
+    - target: {fileID: 5429677965448454726, guid: 21200b5c6853698488c24e3912ecbed2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5578110534119875099, guid: 21200b5c6853698488c24e3912ecbed2, type: 3}
       propertyPath: menu
       value: 
@@ -16597,6 +16601,14 @@ PrefabInstance:
       propertyPath: options.Array.data[2]
       value: 
       objectReference: {fileID: 207332428}
+    - target: {fileID: 6911436099356988093, guid: 21200b5c6853698488c24e3912ecbed2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6911436099356988093, guid: 21200b5c6853698488c24e3912ecbed2, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7444798666459056306, guid: 21200b5c6853698488c24e3912ecbed2, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

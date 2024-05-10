@@ -21,14 +21,17 @@ public class UIButtons : UIController
     void Update()
     {
         GameObject btnSelected = EventSystem.current.currentSelectedGameObject;
-        if (btnSelected == null && btnCurrent != null)
+        if ((btnSelected == null || !btnSelected.GetComponent<Button>().interactable) && btnCurrent != null)
         {
             btnSelected = btnCurrent;
             EventSystem.current.SetSelectedGameObject(btnSelected);
         }
 
         if (btnSelected != null)
+        {
+            btnCurrent = btnSelected;
             selectOption(btnSelected);
+        }
 
         //print(EventSystem.current.currentSelectedGameObject);
     }
@@ -38,6 +41,14 @@ public class UIButtons : UIController
         this.buttons = buttons;
         //foreach (Button button in buttons)
         //    print(button);
+    }
+
+    public void setOptions(GameObject button, bool condition)
+    {
+        if (condition)
+            button.GetComponent<Button>().interactable = true;
+        else
+            button.GetComponent<Button>().interactable = false;
     }
 
     public void disableOptions()

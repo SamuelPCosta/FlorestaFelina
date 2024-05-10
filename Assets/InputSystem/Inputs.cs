@@ -64,7 +64,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Workbench"",
+                    ""name"": ""Menu"",
                     ""type"": ""Button"",
                     ""id"": ""fc641341-a948-4ebd-bbf5-2df0ce5091da"",
                     ""expectedControlType"": ""Button"",
@@ -73,18 +73,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Collet"",
+                    ""name"": ""Collect"",
                     ""type"": ""Button"",
                     ""id"": ""4449344b-e854-47f8-b187-d9939bbb82a4"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Cat"",
-                    ""type"": ""Button"",
-                    ""id"": ""c257a71b-fd13-4a6e-8482-3d0b64bce9b1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -107,6 +98,15 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShowAffection"",
+                    ""type"": ""Value"",
+                    ""id"": ""a677d08f-4e42-4bb6-b14e-1769068acbbe"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""NextLevel"",
@@ -289,7 +289,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
-                    ""action"": ""Workbench"",
+                    ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -300,7 +300,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Workbench"",
+                    ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -311,7 +311,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Collet"",
+                    ""action"": ""Collect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -322,7 +322,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Collet"",
+                    ""action"": ""Collect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -438,28 +438,6 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6a96ab2e-9065-4e55-9986-f8d36dd9cdb6"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Cat"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""699be067-ece2-49a7-8629-856df1d64966"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Cat"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a0f3f8cf-f1e3-4aab-8a50-6feaa9174808"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -477,6 +455,28 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""NextLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e596e44-6343-4456-bcbd-7f915ead6ff4"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""ShowAffection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d1200fac-222b-4725-a15a-2668b2013db9"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ShowAffection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -607,11 +607,11 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_MoveFast = m_Player.FindAction("MoveFast", throwIfNotFound: true);
-        m_Player_Workbench = m_Player.FindAction("Workbench", throwIfNotFound: true);
-        m_Player_Collet = m_Player.FindAction("Collet", throwIfNotFound: true);
-        m_Player_Cat = m_Player.FindAction("Cat", throwIfNotFound: true);
+        m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
+        m_Player_Collect = m_Player.FindAction("Collect", throwIfNotFound: true);
         m_Player_ConfirmOption = m_Player.FindAction("ConfirmOption", throwIfNotFound: true);
         m_Player_MakeWay = m_Player.FindAction("MakeWay", throwIfNotFound: true);
+        m_Player_ShowAffection = m_Player.FindAction("ShowAffection", throwIfNotFound: true);
         m_Player_NextLevel = m_Player.FindAction("NextLevel", throwIfNotFound: true);
         m_Player_Dialog = m_Player.FindAction("Dialog", throwIfNotFound: true);
         // Godmode
@@ -684,11 +684,11 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_MoveFast;
-    private readonly InputAction m_Player_Workbench;
-    private readonly InputAction m_Player_Collet;
-    private readonly InputAction m_Player_Cat;
+    private readonly InputAction m_Player_Menu;
+    private readonly InputAction m_Player_Collect;
     private readonly InputAction m_Player_ConfirmOption;
     private readonly InputAction m_Player_MakeWay;
+    private readonly InputAction m_Player_ShowAffection;
     private readonly InputAction m_Player_NextLevel;
     private readonly InputAction m_Player_Dialog;
     public struct PlayerActions
@@ -699,11 +699,11 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @MoveFast => m_Wrapper.m_Player_MoveFast;
-        public InputAction @Workbench => m_Wrapper.m_Player_Workbench;
-        public InputAction @Collet => m_Wrapper.m_Player_Collet;
-        public InputAction @Cat => m_Wrapper.m_Player_Cat;
+        public InputAction @Menu => m_Wrapper.m_Player_Menu;
+        public InputAction @Collect => m_Wrapper.m_Player_Collect;
         public InputAction @ConfirmOption => m_Wrapper.m_Player_ConfirmOption;
         public InputAction @MakeWay => m_Wrapper.m_Player_MakeWay;
+        public InputAction @ShowAffection => m_Wrapper.m_Player_ShowAffection;
         public InputAction @NextLevel => m_Wrapper.m_Player_NextLevel;
         public InputAction @Dialog => m_Wrapper.m_Player_Dialog;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -727,21 +727,21 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @MoveFast.started += instance.OnMoveFast;
             @MoveFast.performed += instance.OnMoveFast;
             @MoveFast.canceled += instance.OnMoveFast;
-            @Workbench.started += instance.OnWorkbench;
-            @Workbench.performed += instance.OnWorkbench;
-            @Workbench.canceled += instance.OnWorkbench;
-            @Collet.started += instance.OnCollet;
-            @Collet.performed += instance.OnCollet;
-            @Collet.canceled += instance.OnCollet;
-            @Cat.started += instance.OnCat;
-            @Cat.performed += instance.OnCat;
-            @Cat.canceled += instance.OnCat;
+            @Menu.started += instance.OnMenu;
+            @Menu.performed += instance.OnMenu;
+            @Menu.canceled += instance.OnMenu;
+            @Collect.started += instance.OnCollect;
+            @Collect.performed += instance.OnCollect;
+            @Collect.canceled += instance.OnCollect;
             @ConfirmOption.started += instance.OnConfirmOption;
             @ConfirmOption.performed += instance.OnConfirmOption;
             @ConfirmOption.canceled += instance.OnConfirmOption;
             @MakeWay.started += instance.OnMakeWay;
             @MakeWay.performed += instance.OnMakeWay;
             @MakeWay.canceled += instance.OnMakeWay;
+            @ShowAffection.started += instance.OnShowAffection;
+            @ShowAffection.performed += instance.OnShowAffection;
+            @ShowAffection.canceled += instance.OnShowAffection;
             @NextLevel.started += instance.OnNextLevel;
             @NextLevel.performed += instance.OnNextLevel;
             @NextLevel.canceled += instance.OnNextLevel;
@@ -764,21 +764,21 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @MoveFast.started -= instance.OnMoveFast;
             @MoveFast.performed -= instance.OnMoveFast;
             @MoveFast.canceled -= instance.OnMoveFast;
-            @Workbench.started -= instance.OnWorkbench;
-            @Workbench.performed -= instance.OnWorkbench;
-            @Workbench.canceled -= instance.OnWorkbench;
-            @Collet.started -= instance.OnCollet;
-            @Collet.performed -= instance.OnCollet;
-            @Collet.canceled -= instance.OnCollet;
-            @Cat.started -= instance.OnCat;
-            @Cat.performed -= instance.OnCat;
-            @Cat.canceled -= instance.OnCat;
+            @Menu.started -= instance.OnMenu;
+            @Menu.performed -= instance.OnMenu;
+            @Menu.canceled -= instance.OnMenu;
+            @Collect.started -= instance.OnCollect;
+            @Collect.performed -= instance.OnCollect;
+            @Collect.canceled -= instance.OnCollect;
             @ConfirmOption.started -= instance.OnConfirmOption;
             @ConfirmOption.performed -= instance.OnConfirmOption;
             @ConfirmOption.canceled -= instance.OnConfirmOption;
             @MakeWay.started -= instance.OnMakeWay;
             @MakeWay.performed -= instance.OnMakeWay;
             @MakeWay.canceled -= instance.OnMakeWay;
+            @ShowAffection.started -= instance.OnShowAffection;
+            @ShowAffection.performed -= instance.OnShowAffection;
+            @ShowAffection.canceled -= instance.OnShowAffection;
             @NextLevel.started -= instance.OnNextLevel;
             @NextLevel.performed -= instance.OnNextLevel;
             @NextLevel.canceled -= instance.OnNextLevel;
@@ -906,11 +906,11 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnMoveFast(InputAction.CallbackContext context);
-        void OnWorkbench(InputAction.CallbackContext context);
-        void OnCollet(InputAction.CallbackContext context);
-        void OnCat(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
+        void OnCollect(InputAction.CallbackContext context);
         void OnConfirmOption(InputAction.CallbackContext context);
         void OnMakeWay(InputAction.CallbackContext context);
+        void OnShowAffection(InputAction.CallbackContext context);
         void OnNextLevel(InputAction.CallbackContext context);
         void OnDialog(InputAction.CallbackContext context);
     }

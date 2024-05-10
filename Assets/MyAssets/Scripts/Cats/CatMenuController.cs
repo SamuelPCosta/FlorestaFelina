@@ -7,11 +7,12 @@ using UnityEngine.UI;
 
 public class CatMenuController : PanelController
 {
-
     private GameObject option;
 
     private InventoryController inventoryController;
     private UICollect _UICollect;
+
+    private bool isThirsty = true;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,7 @@ public class CatMenuController : PanelController
         menu?.SetActive(true);
         _UIButtons.setButtons(buttons);
         option = null;
+        isThirsty = true;
         EventSystem.current.SetSelectedGameObject(checkOption());
     }
 
@@ -48,13 +50,13 @@ public class CatMenuController : PanelController
     {
         int water = inventoryController.getCollectible(CollectibleType.WATER);
 
-        bool enableOption1 = water > 0;
+        bool enableOption1 = water > 0 && isThirsty;
         bool enableOption2 = true;
         bool enableOption3 = false;
 
-        setOptions(options[0], enableOption1);
-        setOptions(options[1], enableOption2);
-        setOptions(options[2], enableOption3);
+        _UIButtons.setOptions(options[0], enableOption1);
+        _UIButtons.setOptions(options[1], enableOption2);
+        _UIButtons.setOptions(options[2], enableOption3);
 
         _UIButtons.disableOptions();
         GameObject firstOption = null;
@@ -86,6 +88,7 @@ public class CatMenuController : PanelController
         if (option == options[0])
         {
             inventoryController.consumeCollectible(CollectibleType.WATER, CatController.catWaterConsumption);
+            isThirsty = false;
         }
         else
         if (option == options[1])
