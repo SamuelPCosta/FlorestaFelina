@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public enum Missions { WATER, POTION1, POTION2, POTION3 }
+    public enum Mission { MISSION1, MISSION2, MISSION3, MISSION4 }
     public int CurrentMission;
 
     public static GameController instance = null;
@@ -20,6 +20,8 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+      
+        //TODO: chamar save e save.currentMission
     }
 
     // Update is called once per frame
@@ -45,24 +47,31 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(scene);
     }
 
-    public void setMission(Missions mission)
+    public void setMission(Mission mission)
     {
         switch (mission)
         {
-            case Missions.WATER:
-                CurrentMission = (int) Missions.WATER;
+            case Mission.MISSION1:
+                CurrentMission = (int) Mission.MISSION1;
                 break;
-            case Missions.POTION1:
-                CurrentMission = (int)Missions.POTION1;
+            case Mission.MISSION2:
+                CurrentMission = (int) Mission.MISSION2;
                 break;
-            case Missions.POTION2:
-                CurrentMission = (int)Missions.POTION2;
+            case Mission.MISSION3:
+                CurrentMission = (int) Mission.MISSION3;
                 break;
-            case Missions.POTION3:
-                CurrentMission = (int)Missions.POTION3;
+            case Mission.MISSION4:
+                CurrentMission = (int) Mission.MISSION4;
                 break;
         }
 
+        //TODO: save CurrentMission
+
         print("tua missao eh: " + CurrentMission);
+    }
+
+    public Mission getMission()
+    {
+        return (Mission) CurrentMission;
     }
 }

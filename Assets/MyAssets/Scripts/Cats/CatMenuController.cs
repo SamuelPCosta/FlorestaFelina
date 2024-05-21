@@ -13,6 +13,7 @@ public class CatMenuController : PanelController
     private UICollect _UICollect;
 
     private bool isThirsty = true;
+    private CatController catController;
 
     // Start is called before the first frame update
     void Start()
@@ -81,24 +82,40 @@ public class CatMenuController : PanelController
         return firstOption;
     }
 
+    //public void setCat(CatController cat)
+    //{
+    //    catController = cat;
+    //}
+
     public void interactWithCat()
     {
+        GameController gameController = FindObjectOfType<GameController>();
+        if (gameController == null)
+            return;
+        GameController.Mission mission = gameController.getMission();
+
         if (option == null)
             return;
         if (option == options[0])
         {
             inventoryController.consumeCollectible(CollectibleType.WATER, CatController.catWaterConsumption);
             isThirsty = false;
+
+            if(mission == GameController.Mission.MISSION1)
+            {
+                //TODO: avisar gameController
+                print("missao concluida");
+            }
         }
         else
         if (option == options[1])
         {
-
+            
         }
         else
         if (option == options[2])
         {
-
+            //TODO: cena de alimentacao
         }
 
         _UICollect.refreshInventory(CollectibleType.WATER, inventoryController.getCollectible(CollectibleType.WATER));

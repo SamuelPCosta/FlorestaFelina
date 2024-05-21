@@ -3690,7 +3690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5912254647416893913, guid: c7034955d2f882f49859bd673f1efe03, type: 3}
       propertyPath: m_text
-      value: Alimentar
+      value: Curar
       objectReference: {fileID: 0}
     - target: {fileID: 8341483920037235234, guid: c7034955d2f882f49859bd673f1efe03, type: 3}
       propertyPath: m_Pivot.x
@@ -3926,7 +3926,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5912254647416893913, guid: c7034955d2f882f49859bd673f1efe03, type: 3}
       propertyPath: m_text
-      value: Curar
+      value: Alimentar
       objectReference: {fileID: 0}
     - target: {fileID: 8341483920037235234, guid: c7034955d2f882f49859bd673f1efe03, type: 3}
       propertyPath: m_Pivot.x

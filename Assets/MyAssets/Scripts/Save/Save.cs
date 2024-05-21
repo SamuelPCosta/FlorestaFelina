@@ -15,6 +15,8 @@ public class Save
 
     public int level = 0;
 
+    public int currentMission = -1;
+
     public int water = 0;
     public int plant1 = 0;
     public int plant2 = 0;
