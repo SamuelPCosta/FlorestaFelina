@@ -6,7 +6,13 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     public enum Mission { MISSION1, MISSION2, MISSION3, MISSION4 }
-    public int CurrentMission;
+    private int CurrentMission;
+    private int CurrentStageMission;
+
+    [Header("Itens level 1")]
+    public GameObject FirstCat;
+    public GameObject catDialog;
+
 
     public static GameController instance = null;
     void Start()
@@ -20,10 +26,12 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-      
-        //TODO: chamar save e save.currentMission
-    }
 
+        FirstCat?.SetActive(false);
+
+        //TODO: chamar save e save.currentMission
+        //TODO: stageMission tb
+    }
     // Update is called once per frame
     void Update()
     {
@@ -47,6 +55,15 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(scene);
     }
 
+    public void enableFirstCat()
+    {
+        FirstCat.SetActive(true);
+    }
+    public void enableCatDialog(bool stts)
+    {
+        catDialog?.SetActive(stts);
+    }
+
     public void setMission(Mission mission)
     {
         switch (mission)
@@ -64,14 +81,22 @@ public class GameController : MonoBehaviour
                 CurrentMission = (int) Mission.MISSION4;
                 break;
         }
+        CurrentStageMission = 0;
 
-        //TODO: save CurrentMission
+        //TODO: save CurrentMission e CurrentStageMission
 
-        print("tua missao eh: " + CurrentMission);
+        UIMission _UIMission = FindFirstObjectByType<UIMission>();
+        _UIMission.setMission((Mission)CurrentMission);
+        _UIMission.setStageMission(0);
     }
 
     public Mission getMission()
     {
         return (Mission) CurrentMission;
+    }
+
+    public int getStageMission()
+    {
+        return CurrentStageMission;
     }
 }

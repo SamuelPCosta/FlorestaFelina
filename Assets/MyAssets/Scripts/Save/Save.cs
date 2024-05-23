@@ -24,7 +24,7 @@ public class Save
     public int potion2 = 0;
     public int potion3 = 0;
 
-    public bool[,] dialogs = new bool[numberOfLevels, 5];
+    public bool[,] dialogs = new bool[numberOfLevels, 6];
 
     public bool objectiveFloorDestroy;
 

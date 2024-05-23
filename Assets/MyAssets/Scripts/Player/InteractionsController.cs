@@ -42,6 +42,7 @@ public class InteractionsController : MonoBehaviour
 
     private bool inDialog = false;
     private bool inDynamicDialog = false;
+    private bool executeActionByDialog = true;
     private string nameOfTutorial = "";
 
     private UICollect _UICollect;
@@ -170,6 +171,7 @@ public class InteractionsController : MonoBehaviour
             if (showAffection.triggered && !_catInteraction) //impede carinho quando o menu esta aberto
             {
                 print("carinho");
+                //TODO: ativar animacao
             }
 
             if (!analyzed && menu.triggered)
@@ -237,7 +239,7 @@ public class InteractionsController : MonoBehaviour
     //CONTROLA A INTERACAO COM DIALOGOS AUTOMATICOS
     private void checkDialogs()
     {
-        string disableOnMove = "TutorialMovimentacao";
+        string disableOnMove = "MoveTutorial";
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Tutorial"));
         if (collider != null)
         {
@@ -250,6 +252,9 @@ public class InteractionsController : MonoBehaviour
             nameOfTutorial = collider.gameObject.name;
             if (nameOfTutorial != disableOnMove)
                 transform.GetComponent<MovementController>().enablePlayerMovement(false);
+
+            if (executeActionByDialog)
+                enableElements(nameOfTutorial);
 
             dialog.markDialog();
 
@@ -268,6 +273,7 @@ public class InteractionsController : MonoBehaviour
                 }
             }
             fastMovementAllowed = true;
+            executeActionByDialog = true;
         }
     }
 
@@ -338,6 +344,12 @@ public class InteractionsController : MonoBehaviour
             {
                 if (!_catInteraction)
                 {
+                    if(hit.collider.CompareTag("EnvironmentView") 
+                        || hit.collider.CompareTag("EnvironmentViewDontReload"))
+                        transform.GetComponent<MovementController>().enablePlayerMovement(false);
+                    else
+                        transform.GetComponent<MovementController>().enablePlayerMovement(true);
+
                     if (hit.collider.CompareTag("EnvironmentView"))
                         camerasController.ActivateCamera(CamerasController.cam.Objective);
                     else if (hit.collider.CompareTag("EnvironmentViewDontReload"))
@@ -364,5 +376,21 @@ public class InteractionsController : MonoBehaviour
     private GameObject getCatCamera(GameObject cat)
     {
         return cat.transform.GetChild(0).gameObject;
+    }
+
+    private void enableElements(string name)
+    {
+        GameController gameController = FindFirstObjectByType<GameController>();
+
+        if (name.Equals("MoveTutorial"))
+            gameController.enableCatDialog(false);
+
+        if (name.Equals("WorkbenchTutorial"))
+        {
+            gameController.enableFirstCat();
+            gameController.enableCatDialog(true);
+        }
+
+        executeActionByDialog = false;
     }
 }

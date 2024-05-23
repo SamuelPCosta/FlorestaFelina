@@ -38,25 +38,27 @@ public class CatController : MonoBehaviour
     public void analyzeCat()
     {
         analyzed = true;
+        GameController.Mission mission;
 
         switch (symptoms)
         {
             case Symptoms.THIRST:
-                FindObjectOfType<GameController>().setMission(GameController.Mission.MISSION1);
+                mission = GameController.Mission.MISSION1;
                 break;
             case Symptoms.PAIN:
-                FindObjectOfType<GameController>().setMission(GameController.Mission.MISSION2);
+                mission = GameController.Mission.MISSION2;
                 break;
             case Symptoms.INJURED:
-                FindObjectOfType<GameController>().setMission(GameController.Mission.MISSION3);
+                mission = GameController.Mission.MISSION3;
                 break;
             case Symptoms.VERY_INJURED:
-                FindObjectOfType<GameController>().setMission(GameController.Mission.MISSION4);
+                mission = GameController.Mission.MISSION4;
                 break;
             default:
-                FindObjectOfType<GameController>().setMission(GameController.Mission.MISSION1);
+                mission = GameController.Mission.MISSION1;
                 break;
-
         }
+
+        FindObjectOfType<GameController>().setMission(mission);
     }
 }
