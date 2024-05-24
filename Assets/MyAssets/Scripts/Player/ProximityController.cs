@@ -22,9 +22,7 @@ public class ProximityController : MonoBehaviour
         if (collider != null)
             return collider;
         else
-            collider = checkOverlap(layerMask);
-
-        return collider;
+            return collider = checkOverlap(layerMask);
     }
 
     private Collider checkBoxcast(int layerMask, float distance)

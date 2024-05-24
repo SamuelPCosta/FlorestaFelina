@@ -25,11 +25,13 @@ public class Speeches : MonoBehaviour
 
     public void activeDialog(bool state)
     {
-        gameObject.SetActive(state);
+        GetComponent<BoxCollider>().enabled = state;
     }
 
     public void markDialog()
     {
+        if (reload)
+            return;
         FindObjectOfType<DialogSave>().saveDialog(gameObject);
         activeDialog(false);
     }

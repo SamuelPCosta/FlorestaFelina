@@ -15,13 +15,13 @@ public class DialogSave : MonoBehaviour
             {
                 bool checkedDialog = save.dialogs[LevelIndex, i];
                 if (!checkedDialog)
-                    dialogs[i].SetActive(true);
+                    dialogs[i].GetComponent<BoxCollider>().enabled = true;
             }
         }
         else
         {
             foreach (GameObject dialog in dialogs)
-                dialog.SetActive(true);
+                dialog.GetComponent<BoxCollider>().enabled = true;
         }
     }
 

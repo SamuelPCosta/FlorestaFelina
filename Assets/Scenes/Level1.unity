@@ -13540,7 +13540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 628617187421528347, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: m_Name
-      value: BarrierDialog
+      value: BarrierDialogReload
       objectReference: {fileID: 0}
     - target: {fileID: 628617187421528347, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: m_IsActive
@@ -17577,7 +17577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7984087387535997288, guid: da9f8de867e43bb45a99cf49560d4152, type: 3}
       propertyPath: MoveSpeed
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7984087387535997288, guid: da9f8de867e43bb45a99cf49560d4152, type: 3}
       propertyPath: CinemachineCameraTarget
