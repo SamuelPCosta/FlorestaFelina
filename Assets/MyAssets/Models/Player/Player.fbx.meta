@@ -3,7 +3,87 @@ guid: c874f8bf253239e4da9ceac857f43eaf
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bag
+    second: {fileID: 2100000, guid: 930f6f50b9b4bad4b8afd7cd762bb65b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: canteen
+    second: {fileID: 2100000, guid: ecd0a9b35857a094ba837bdb2c9205c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: canteenLid
+    second: {fileID: 2100000, guid: b1d139ace2bd19f42bebfe6b240a0d3e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dress
+    second: {fileID: 2100000, guid: c3b833d99b372db4eae82835f0ee02d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dressBand
+    second: {fileID: 2100000, guid: 188e7bb730800384c89f0083b510dac6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye
+    second: {fileID: 2100000, guid: fad8aa144161abf4bbe1379f58a12853, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eyelash
+    second: {fileID: 2100000, guid: 1ac5f839c5919c54888e1bcb8ff93a51, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hair
+    second: {fileID: 2100000, guid: 4e77a341fac335445b69aff03674c76a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hat
+    second: {fileID: 2100000, guid: b8328cf6174856f4492053b510df266f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hatBand
+    second: {fileID: 2100000, guid: db2c0ac0ec269ae48afb974d32bf9170, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: leather
+    second: {fileID: 2100000, guid: f04e004dbcaa74b4eafcd6591dc4cc7d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pendent
+    second: {fileID: 2100000, guid: 5b675a34eaa59394993a34e7e072ea2c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pouchOne
+    second: {fileID: 2100000, guid: ff13338e4717d0c409e62da9ab0978db, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pouchTwo
+    second: {fileID: 2100000, guid: 06e3fe681d01e534ab8da19fde7b52ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shoes
+    second: {fileID: 2100000, guid: df12f147714c6644dbf150a13675010d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin
+    second: {fileID: 2100000, guid: c304be757e3d0ec4caebee16bad7550c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

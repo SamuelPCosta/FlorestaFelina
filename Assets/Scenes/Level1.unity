@@ -1789,7 +1789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 628617187421528347, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6219850623730145625, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: speeches.Array.size
@@ -1802,6 +1802,10 @@ PrefabInstance:
     - target: {fileID: 6219850623730145625, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: speeches.Array.data[1].speech
       value: Tutorial gato
+      objectReference: {fileID: 0}
+    - target: {fileID: 8659536251838691188, guid: f324fc04b108a224c83d130d8857f690, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13544,7 +13548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 628617187421528347, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6219850623730145625, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: reload
@@ -16486,7 +16490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 628617187421528347, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6219850623730145625, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: speeches.Array.data[0].speech
@@ -16900,7 +16904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 628617187421528347, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6219850623730145625, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: speeches.Array.size
@@ -16994,7 +16998,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 628617187421528347, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6219850623730145625, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: speeches.Array.data[0].speech
@@ -17303,7 +17307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 628617187421528347, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6219850623730145625, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: speeches.Array.size
@@ -17316,6 +17320,14 @@ PrefabInstance:
     - target: {fileID: 6219850623730145625, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: speeches.Array.data[1].speech
       value: 'Para andar use '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7396696741697932291, guid: f324fc04b108a224c83d130d8857f690, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8659536251838691188, guid: f324fc04b108a224c83d130d8857f690, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17515,6 +17527,18 @@ PrefabInstance:
       propertyPath: inventoryController
       value: 
       objectReference: {fileID: 4651108374031051361}
+    - target: {fileID: 1193745383574945053, guid: da9f8de867e43bb45a99cf49560d4152, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 6728736049189609223, guid: c874f8bf253239e4da9ceac857f43eaf, type: 3}
+    - target: {fileID: 1193745383574945053, guid: da9f8de867e43bb45a99cf49560d4152, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2724793829582150741, guid: c874f8bf253239e4da9ceac857f43eaf, type: 3}
+    - target: {fileID: 1193745383574945053, guid: da9f8de867e43bb45a99cf49560d4152, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 5666886406901182353, guid: c874f8bf253239e4da9ceac857f43eaf, type: 3}
     - target: {fileID: 1680071393918511899, guid: da9f8de867e43bb45a99cf49560d4152, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -17575,6 +17599,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4588670666793516723, guid: da9f8de867e43bb45a99cf49560d4152, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 6728736049189609223, guid: c874f8bf253239e4da9ceac857f43eaf, type: 3}
+    - target: {fileID: 4748048989233972260, guid: da9f8de867e43bb45a99cf49560d4152, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 8920715119993884992, guid: c874f8bf253239e4da9ceac857f43eaf, type: 3}
+    - target: {fileID: 5350892701713791456, guid: da9f8de867e43bb45a99cf49560d4152, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 6820516627615473367, guid: c874f8bf253239e4da9ceac857f43eaf, type: 3}
     - target: {fileID: 7984087387535997288, guid: da9f8de867e43bb45a99cf49560d4152, type: 3}
       propertyPath: MoveSpeed
       value: 2.5

@@ -277,7 +277,6 @@ public class InteractionsController : MonoBehaviour
 
             //Execao do tutorial de movimento
             Vector2 playerMovement = GetComponent<InputsMovement>().move;
-            print(playerMovement);
             if (nameOfTutorial.Equals(disableOnMove) && playerMovement != Vector2.zero)
                 dialogController.turnOffDialog();
 
