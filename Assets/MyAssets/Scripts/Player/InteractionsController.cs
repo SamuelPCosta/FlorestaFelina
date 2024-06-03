@@ -46,6 +46,7 @@ public class InteractionsController : MonoBehaviour
     private bool inDynamicDialog = false;
     private bool executeActionByDialog = true;
     private string nameOfTutorial = "";
+    private bool unlock = false;
 
     private UICollect _UICollect;
 
@@ -138,14 +139,22 @@ public class InteractionsController : MonoBehaviour
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Barrier"));
         if (collider != null)
         {
-            _UITextIndicator.enableIndicator(IndicatorText.BARRIER, true);
+            if(!unlock)
+                _UITextIndicator.enableIndicator(IndicatorText.BARRIER, true);
+            else
+                _UITextIndicator.enableIndicator(IndicatorText.BARRIER, false);
             //GameObject barrier = collider.gameObject;
-            if (makeWay.triggered)
+            if (makeWay.triggered && !unlock){
                 collider.GetComponent<BarrierController>().makeWay();
                 //magic.castMagic(barrier);
+                unlock = true;
+            }
         }
-        else
+        else{
             _UITextIndicator.enableIndicator(IndicatorText.BARRIER, false);
+            unlock = false;
+        }
+            
     }
 
     //CONTROLA A INTERACAO COM GATOS
@@ -242,7 +251,7 @@ public class InteractionsController : MonoBehaviour
     private void checkDialogs()
     {
         Speeches.Speech[] speechs;
-        string disableOnMove = "MoveTutorial";
+        
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Tutorial"));
         if (collider != null)
         {
@@ -255,11 +264,12 @@ public class InteractionsController : MonoBehaviour
             speechs = dialog.getSpeeches();
             dialogController.setSpeeches(speechs);
             dialogController.turnOnDialog();
+            nameOfTutorial = collider.gameObject.name;
+            enableMovement = false;
 
             //excecao do tutorial de movimento
-            nameOfTutorial = collider.gameObject.name;
-            if (nameOfTutorial != disableOnMove)
-                enableMovement = false;
+            //if (nameOfTutorial != disableOnMove)
+            //    enableMovement = false;
 
             //gatilho pra acoes
             if (executeActionByDialog)
@@ -276,9 +286,10 @@ public class InteractionsController : MonoBehaviour
                 inDynamicDialog = false;
 
             //Execao do tutorial de movimento
-            Vector2 playerMovement = GetComponent<InputsMovement>().move;
-            if (nameOfTutorial.Equals(disableOnMove) && playerMovement != Vector2.zero)
-                dialogController.turnOffDialog();
+            //Vector2 playerMovement = GetComponent<InputsMovement>().move;
+            //string disableOnMove = "MoveTutorial";
+            //if (nameOfTutorial.Equals(disableOnMove) && playerMovement != Vector2.zero)
+            //    dialogController.turnOffDialog();
 
             fastMovementAllowed = true;
             executeActionByDialog = true;

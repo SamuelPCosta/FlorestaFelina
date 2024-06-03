@@ -61,7 +61,7 @@ public class GameController : MonoBehaviour
     }
     public void enableCatDialog(bool stts)
     {
-        catDialog?.SetActive(stts);
+        catDialog.SetActive(stts);
     }
 
     public void setMission(Mission mission)
