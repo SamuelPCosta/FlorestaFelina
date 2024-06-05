@@ -13,10 +13,12 @@ public class InventoryController : MonoBehaviour
     private int potion3;
 
     public UICollect _UICollect;
+    public MissionController missionController;
+
+    public int maxWaterCanteen = 2;
 
     void Start()
     {
-        //TODO: GET SAVE
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         plant1 = save != null ? save.plant1 : 0;
         plant2 = save != null ? save.plant2 : 0;
@@ -37,7 +39,6 @@ public class InventoryController : MonoBehaviour
 
     public bool addCollectible(CollectibleType item, int quantity)
     {
-        int maxWaterCanteen = 2;
         if(CollectibleType.WATER == item)
         {
             if (water == maxWaterCanteen)
@@ -61,6 +62,7 @@ public class InventoryController : MonoBehaviour
             water = maxWaterCanteen;
 
         FindObjectOfType<SaveLoad>().saveInventoryCollectibles(water, plant1, plant2);
+        missionController.setMissionStage();
 
         return true;
     }

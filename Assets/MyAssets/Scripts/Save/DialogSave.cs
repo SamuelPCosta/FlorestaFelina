@@ -16,6 +16,8 @@ public class DialogSave : MonoBehaviour
                 bool checkedDialog = save.dialogs[LevelIndex, i];
                 if (!checkedDialog)
                     dialogs[i].GetComponent<BoxCollider>().enabled = true;
+                else
+                    dialogs[i].GetComponent<BoxCollider>().enabled = false;
             }
         }
         else
@@ -27,8 +29,7 @@ public class DialogSave : MonoBehaviour
 
     public void saveDialog(GameObject currentDialog)
     {
-        for (int i = 0; i < dialogs.Length; i++)
-        {
+        for (int i = 0; i < dialogs.Length; i++){
             if (currentDialog == dialogs[i])
             {
                 FindObjectOfType<SaveLoad>().saveDialog(i);

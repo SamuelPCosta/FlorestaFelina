@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CatController : MonoBehaviour
 {
-    public enum Symptoms { THIRST, PAIN, INJURED, VERY_INJURED }
+    public enum Symptoms { THIRST, PAIN, INJURED, VERY_INJURED, TUTORIAL }
 
     public static int catWaterConsumption;
     public int _catWaterConsumption;
@@ -38,27 +38,27 @@ public class CatController : MonoBehaviour
     public void analyzeCat()
     {
         analyzed = true;
-        GameController.Mission mission;
+        Mission mission;
 
         switch (symptoms)
         {
             case Symptoms.THIRST:
-                mission = GameController.Mission.MISSION1;
+                mission = Mission.THIRST;
                 break;
             case Symptoms.PAIN:
-                mission = GameController.Mission.MISSION2;
+                mission = Mission.MISSION3;
                 break;
             case Symptoms.INJURED:
-                mission = GameController.Mission.MISSION3;
+                mission = Mission.MISSION4;
                 break;
             case Symptoms.VERY_INJURED:
-                mission = GameController.Mission.MISSION4;
+                mission = Mission.MISSION5;
                 break;
             default:
-                mission = GameController.Mission.MISSION1;
+                mission = Mission.TUTORIAL;
                 break;
         }
 
-        FindObjectOfType<GameController>().setMission(mission);
+        FindObjectOfType<MissionController>().setMission(mission);
     }
 }

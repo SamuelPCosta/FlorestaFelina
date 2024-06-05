@@ -89,10 +89,10 @@ public class CatMenuController : PanelController
 
     public void interactWithCat()
     {
-        GameController gameController = FindObjectOfType<GameController>();
-        if (gameController == null)
+        MissionController missionController = FindObjectOfType<MissionController>();
+        if (missionController == null)
             return;
-        GameController.Mission mission = gameController.getMission();
+        Mission mission = missionController.getMission();
 
         if (option == null)
             return;
@@ -101,11 +101,7 @@ public class CatMenuController : PanelController
             inventoryController.consumeCollectible(CollectibleType.WATER, CatController.catWaterConsumption);
             isThirsty = false;
 
-            if(mission == GameController.Mission.MISSION1)
-            {
-                //TODO: avisar gameController
-                print("missao concluida");
-            }
+            missionController.setMissionStage();
         }
         else
         if (option == options[1])

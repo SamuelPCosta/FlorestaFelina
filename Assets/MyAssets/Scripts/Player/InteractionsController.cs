@@ -188,7 +188,6 @@ public class InteractionsController : MonoBehaviour
             if (!analyzed && menu.triggered)
             {
                 catController.analyzeCat();
-                //TODO: setar missao na HUD
             } 
 
             if (analyzed && menu.triggered){
@@ -403,12 +402,15 @@ public class InteractionsController : MonoBehaviour
         GameController gameController = FindFirstObjectByType<GameController>();
 
         if (name.Equals("MoveTutorial"))
-            gameController.enableCatDialog(false);
+        {
+            gameController.enableDialog(gameController.catDialog, false);
+            gameController.enableTutorialCat(false);
+        }
 
         if (name.Equals("WorkbenchTutorial"))
         {
-            gameController.enableFirstCat();
-            gameController.enableCatDialog(true);
+            gameController.enableTutorialCat(true);
+            gameController.enableDialog(gameController.catDialog, true);
         }
 
         executeActionByDialog = false;

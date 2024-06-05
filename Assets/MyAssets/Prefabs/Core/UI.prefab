@@ -681,22 +681,6 @@ MonoBehaviour:
   missionTitle: {fileID: 2172410676493345338}
   missionDescription: {fileID: 346765779324390394}
   title: "Miss\xE3o: "
-  mission1:
-  - "Va at\xE9 uma fonte de \xE1gua e colete \xE1gua."
-  - "V\xE1 para pr\xF3ximo do gato."
-  - "Ofere\xE7a \xE1gua."
-  mission2:
-  - 
-  - 
-  - 
-  mission3:
-  - 
-  - 
-  - 
-  mission4:
-  - 
-  - 
-  - 
 --- !u!1 &3132751867098811759
 GameObject:
   m_ObjectHideFlags: 0
@@ -5461,7 +5445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5912254647416893913, guid: c7034955d2f882f49859bd673f1efe03, type: 3}
       propertyPath: m_text
-      value: "Dar \xE1gua"
+      value: "Oferecer \xE1gua"
       objectReference: {fileID: 0}
     - target: {fileID: 8341483920037235234, guid: c7034955d2f882f49859bd673f1efe03, type: 3}
       propertyPath: m_Pivot.x

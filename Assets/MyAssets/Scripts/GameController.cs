@@ -5,14 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public enum Mission { MISSION1, MISSION2, MISSION3, MISSION4 }
-    private int CurrentMission;
-    private int CurrentStageMission;
 
     [Header("Itens level 1")]
     public GameObject FirstCat;
     public GameObject catDialog;
-
+    public GameObject catDialog2;
 
     public static GameController instance = null;
     void Start()
@@ -26,11 +23,7 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-
-        FirstCat?.SetActive(false);
-
-        //TODO: chamar save e save.currentMission
-        //TODO: stageMission tb
+        enableDialog(catDialog2, false);
     }
     // Update is called once per frame
     void Update()
@@ -55,48 +48,12 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(scene);
     }
 
-    public void enableFirstCat()
+    public void enableTutorialCat(bool state)
     {
-        FirstCat.SetActive(true);
+        FirstCat.SetActive(state);
     }
-    public void enableCatDialog(bool stts)
+    public void enableDialog(GameObject dialog, bool stts)
     {
-        catDialog.SetActive(stts);
-    }
-
-    public void setMission(Mission mission)
-    {
-        switch (mission)
-        {
-            case Mission.MISSION1:
-                CurrentMission = (int) Mission.MISSION1;
-                break;
-            case Mission.MISSION2:
-                CurrentMission = (int) Mission.MISSION2;
-                break;
-            case Mission.MISSION3:
-                CurrentMission = (int) Mission.MISSION3;
-                break;
-            case Mission.MISSION4:
-                CurrentMission = (int) Mission.MISSION4;
-                break;
-        }
-        CurrentStageMission = 0;
-
-        //TODO: save CurrentMission e CurrentStageMission
-
-        UIMission _UIMission = FindFirstObjectByType<UIMission>();
-        _UIMission.setMission((Mission)CurrentMission);
-        _UIMission.setStageMission(0);
-    }
-
-    public Mission getMission()
-    {
-        return (Mission) CurrentMission;
-    }
-
-    public int getStageMission()
-    {
-        return CurrentStageMission;
+        dialog.SetActive(stts);
     }
 }

@@ -98,7 +98,7 @@ public class SaveLoad : MonoBehaviour
         save.plant1 = plant1;
         save.plant2 = plant2;
 
-        Debug.Log(save.water +" - "+ save.plant1 + " - " + save.plant2);
+        //Debug.Log(save.water +" - "+ save.plant1 + " - " + save.plant2);
         saveGame(save);
     }
 
@@ -108,6 +108,15 @@ public class SaveLoad : MonoBehaviour
         save.potion1 = potion1;
         save.potion2 = potion2;
         save.potion3 = potion3;
+
+        saveGame(save);
+    }
+
+    public void saveMission(int mission, int stage)
+    {
+        Save save = loadGameInternal();
+        save.currentMission = mission;
+        save.currentMissionStage = stage;
 
         saveGame(save);
     }

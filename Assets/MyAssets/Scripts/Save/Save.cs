@@ -16,6 +16,7 @@ public class Save
     public int level = 0;
 
     public int currentMission = -1;
+    public int currentMissionStage = -1;
 
     public int water = 0;
     public int plant1 = 0;
@@ -24,14 +25,13 @@ public class Save
     public int potion2 = 0;
     public int potion3 = 0;
 
-    public bool[,] dialogs = new bool[numberOfLevels, 6];
+    public bool[,] dialogs = new bool[numberOfLevels, 8];
 
     public bool objectiveFloorDestroy;
 
     //Salvar nível(E PORTAL ANTERIOR)
     //Se está com gato nas costas
     //    Salva atributos do gato
-    //Salvar missão atual
     //Salvar estados das plantas coletadas
     //Salvar portais usados
     //Salvar barreiras destruidas
