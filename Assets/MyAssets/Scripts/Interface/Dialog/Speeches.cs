@@ -15,7 +15,6 @@ public class Speeches : MonoBehaviour
         public string speechInEnglish;
     }
 
-    [SerializeField] public bool reload = false;
     [SerializeField] public Speech[] speeches;
 
     public Speech[] getSpeeches()
@@ -30,8 +29,6 @@ public class Speeches : MonoBehaviour
 
     public void markDialog()
     {
-        if (reload)
-            return;
         FindObjectOfType<DialogSave>().saveDialog(gameObject);
         activeDialog(false);
     }

@@ -8,6 +8,7 @@ TagManager:
   - InnerRoom
   - EnvironmentView
   - EnvironmentViewDontReload
+  - MakeWay
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Workbench
   - Player
   - Barrier
-  - NPC
+  - DialogReload
   - Tutorial
   - Cat
   - Gate

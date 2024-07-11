@@ -17658,7 +17658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 4
+  MoveSpeed: 2.5
   FastMoveSpeed: 24
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
@@ -17683,10 +17683,10 @@ MonoBehaviour:
   GroundLayers:
     serializedVersion: 2
     m_Bits: 1
-  CinemachineCameraTarget: {fileID: 0}
+  CinemachineCameraTarget: {fileID: 5962747565615937673}
   TopClamp: 15
-  BottomClamp: -6
-  CameraAngleOverride: 0
+  BottomClamp: 0
+  CameraAngleOverride: 10
   LockCameraPosition: 0
 --- !u!114 &7939548291096909315
 MonoBehaviour:
@@ -17735,7 +17735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd4db12aa7191f4d8fd0d421bd13dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerRoot: {fileID: 0}
+  PlayerRoot: {fileID: 5962747565615937673}
   boxcast: {fileID: 7581184890736757435}
   inventoryController: {fileID: 0}
   workbenchOrigin: {fileID: 0}

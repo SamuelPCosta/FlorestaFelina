@@ -221,7 +221,7 @@ public class InteractionsController : MonoBehaviour
     //CONTROLA A INTERACAO COM NPCs
     private void checkNPC()
     {
-        Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("NPC"));
+        Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("DialogReload"));
         if (collider != null)
         {
             if(!inDialog)
