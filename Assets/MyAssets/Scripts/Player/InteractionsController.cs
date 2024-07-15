@@ -25,12 +25,11 @@ public class InteractionsController : MonoBehaviour
     [Tooltip("CamerasController script")]
     public CamerasController camerasController;
 
-    [Header("MagicMakeWay")]
-    public MagicController magic;
-
     [Header("UITextIndicator")]
     public UITextIndicator _UITextIndicator;
 
+    [Header("TutorialMovement")]
+    public GameObject MovementTutorial;
 
     //PRIVATES
     private Inputs input;
@@ -146,7 +145,6 @@ public class InteractionsController : MonoBehaviour
             //GameObject barrier = collider.gameObject;
             if (makeWay.triggered && !unlock){
                 collider.GetComponent<BarrierController>().makeWay();
-                //magic.castMagic(barrier);
                 unlock = true;
             }
         }
@@ -250,6 +248,7 @@ public class InteractionsController : MonoBehaviour
     private void checkDialogs()
     {
         Speeches.Speech[] speechs;
+        string moveTutorial = "MoveTutorial";
         
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Tutorial"));
         if (collider != null)
@@ -267,8 +266,8 @@ public class InteractionsController : MonoBehaviour
             enableMovement = false;
 
             //excecao do tutorial de movimento
-            //if (nameOfTutorial != disableOnMove)
-            //    enableMovement = false;
+            if (nameOfTutorial == moveTutorial)
+                MovementTutorial.SetActive(true);
 
             //gatilho pra acoes
             if (executeActionByDialog)
@@ -285,10 +284,10 @@ public class InteractionsController : MonoBehaviour
                 inDynamicDialog = false;
 
             //Execao do tutorial de movimento
-            //Vector2 playerMovement = GetComponent<InputsMovement>().move;
-            //string disableOnMove = "MoveTutorial";
-            //if (nameOfTutorial.Equals(disableOnMove) && playerMovement != Vector2.zero)
-            //    dialogController.turnOffDialog();
+            Vector2 playerMovement = GetComponent<InputsMovement>().move;
+            
+            if (nameOfTutorial.Equals(moveTutorial) && playerMovement != Vector2.zero && enableMovement)
+                MovementTutorial.SetActive(false);
 
             fastMovementAllowed = true;
             executeActionByDialog = true;
@@ -352,24 +351,19 @@ public class InteractionsController : MonoBehaviour
             _UITextIndicator.enableIndicator(IndicatorText.GATE, false);
     }
 
-    private void checkCameras()
-    {
+    private void checkCameras(){
         //Controla trasicao de cameras
         RaycastHit hit;
-        if (Physics.Raycast(PlayerRoot.transform.position, Vector3.down, out hit))
-        {
-            if (!hit.collider.CompareTag("InnerRoom")) //AREA EXTERNA
-            {
-                if (!_catInteraction)
-                {
+        if (Physics.Raycast(PlayerRoot.transform.position, Vector3.down, out hit)){
+            if (!hit.collider.CompareTag("InnerRoom")){ //AREA EXTERNA
+                if (!_catInteraction){
                     if (hit.collider.CompareTag("EnvironmentView"))
                         camerasController.ActivateCamera(CamerasController.cam.Objective);
                     else if (hit.collider.CompareTag("EnvironmentViewDontReload"))
                         camerasController.ActivateCamera(CamerasController.cam.ObjectiveDontReload);
                     else
                         camerasController.ActivateCamera(CamerasController.cam.Default);
-                }
-                else
+                }else
                     camerasController.ActivateDynamicCamera(catCamera);
             }
             else //AREA INTERNA
@@ -384,7 +378,7 @@ public class InteractionsController : MonoBehaviour
 
             //MOVIMENTACAO BLOQUEADA
             if (hit.collider.CompareTag("EnvironmentView")
-                        || hit.collider.CompareTag("EnvironmentViewDontReload") || !enableMovement)
+             || hit.collider.CompareTag("EnvironmentViewDontReload") || !enableMovement)
                 transform.GetComponent<MovementController>().enablePlayerMovement(false);
             else
                 transform.GetComponent<MovementController>().enablePlayerMovement(true);
@@ -392,23 +386,19 @@ public class InteractionsController : MonoBehaviour
         }
     }
 
-    private GameObject getCatCamera(GameObject cat)
-    {
+    private GameObject getCatCamera(GameObject cat){
         return cat.transform.GetChild(0).gameObject;
     }
 
-    private void enableElements(string name)
-    {
+    private void enableElements(string name){
         GameController gameController = FindFirstObjectByType<GameController>();
 
-        if (name.Equals("MoveTutorial"))
-        {
+        if (name.Equals("MoveTutorial")){
             gameController.enableDialog(gameController.catDialog, false);
             gameController.enableTutorialCat(false);
         }
 
-        if (name.Equals("WorkbenchTutorial"))
-        {
+        if (name.Equals("WorkbenchTutorial")){
             gameController.enableTutorialCat(true);
             gameController.enableDialog(gameController.catDialog, true);
         }

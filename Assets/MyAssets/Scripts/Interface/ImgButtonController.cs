@@ -16,7 +16,6 @@ public class ImgButtonController : UIController
     private enum Input {PC, GAMEPAD};
 
     [Header("Buttons")]
-    [Header("Move")]
     public Image[] imgs;
 
     [Header("Imgs PC")]
