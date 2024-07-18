@@ -7809,7 +7809,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 628617187421528347, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: m_Name
-      value: CatDialog2
+      value: NextActionDialog
       objectReference: {fileID: 0}
     - target: {fileID: 628617187421528347, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: m_IsActive
@@ -9010,7 +9010,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2557827865692677915}
+    m_TransformParent: {fileID: 1271712452}
     m_Modifications:
     - target: {fileID: 4550483830112162905, guid: 0612e2a632f5b4b459d95d1da4f1568d, type: 3}
       propertyPath: m_Name
@@ -9993,6 +9993,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1182560276}
   m_LocalEulerAnglesHint: {x: 0, y: 43.07, z: 0}
+--- !u!1 &1271712451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1271712452}
+  m_Layer: 0
+  m_Name: Reload
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1271712452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271712451}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 11.205597, y: 10.828225, z: 24.700745}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1513134805}
+  m_Father: {fileID: 8432586512737949566}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1283615927
 GameObject:
   m_ObjectHideFlags: 0
@@ -13890,6 +13922,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6938357849821066692, guid: 0612e2a632f5b4b459d95d1da4f1568d, type: 3}
   m_PrefabInstance: {fileID: 1086749127}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1513134806 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8307322286469984337, guid: 0612e2a632f5b4b459d95d1da4f1568d, type: 3}
+  m_PrefabInstance: {fileID: 1086749127}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5df99da47df787b41b3fb10674d2f43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1548724054
 GameObject:
   m_ObjectHideFlags: 0
@@ -16658,7 +16701,6 @@ Transform:
   - {fileID: 735969625}
   - {fileID: 1318248738207158692}
   - {fileID: 8432586512737949566}
-  - {fileID: 1513134805}
   - {fileID: 1337580435}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17204,7 +17246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 628617187421528347, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: m_Name
-      value: BarrierTutorial
+      value: RiverBarrierTutorial
       objectReference: {fileID: 0}
     - target: {fileID: 628617187421528347, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: m_IsActive
@@ -17221,7 +17263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6219850623730145625, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: speeches.Array.data[1].speech
-      value: Para abrir caminho se aproxime e pressione
+      value: Para abrir caminho se aproxime e mostre um pouco do seu poder!
       objectReference: {fileID: 0}
     - target: {fileID: 8659536251838691188, guid: f324fc04b108a224c83d130d8857f690, type: 3}
       propertyPath: m_Enabled
@@ -17645,6 +17687,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2557827865692677915}
     m_Modifications:
     - target: {fileID: 1085176417447315935, guid: da9f8de867e43bb45a99cf49560d4152, type: 3}
+      propertyPath: riverBarrier
+      value: 
+      objectReference: {fileID: 1513134806}
+    - target: {fileID: 1085176417447315935, guid: da9f8de867e43bb45a99cf49560d4152, type: 3}
       propertyPath: workbenchOrigin
       value: 
       objectReference: {fileID: 1031231323}
@@ -17789,6 +17835,7 @@ Transform:
   - {fileID: 1718229833}
   - {fileID: 1952331855}
   - {fileID: 508331585}
+  - {fileID: 1271712452}
   m_Father: {fileID: 2557827865692677915}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8563468265187875871

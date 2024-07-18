@@ -30,8 +30,7 @@ public class DialogSave : MonoBehaviour
     public void saveDialog(GameObject currentDialog)
     {
         for (int i = 0; i < dialogs.Length; i++){
-            if (currentDialog == dialogs[i])
-            {
+            if (currentDialog == dialogs[i]){
                 FindObjectOfType<SaveLoad>().saveDialog(i);
                 return;
             }

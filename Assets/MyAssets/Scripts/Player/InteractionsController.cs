@@ -15,10 +15,8 @@ public class InteractionsController : MonoBehaviour
     [Header("WorkbenchOriginPoint")]
     public Transform workbenchOrigin;
 
-    [Header("Dialog")]
+    [Header("Panel Controllers")]
     public DialogController dialogController;
-
-    [Header("CatMenu")]
     public CatMenuController catMenuController;
 
     [Header("Cameras")]
@@ -33,6 +31,9 @@ public class InteractionsController : MonoBehaviour
 
     [Header("CatsStatesController")]
     public CatsStatesController catsStatesController;
+
+    [Header("Barriers")]
+    public Speeches riverBarrier;
 
     //PRIVATES
     private Inputs input;
@@ -178,7 +179,6 @@ public class InteractionsController : MonoBehaviour
             fastMovementAllowed = false;
 
             CatController catController = collider.GetComponent<CatController>();
-            //bool analyzed = catController.getAnalyzedStts();
             catAnalyzed = catsStatesController.checkMissionState(catController.gameObject, MISSION_STATE.STARTED);
 
             //SET indicadores
@@ -192,49 +192,19 @@ public class InteractionsController : MonoBehaviour
             else if (catsStatesController.checkMissionState(catController.gameObject, MISSION_STATE.FIRST_INTERACTION))
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, true);
 
+            //##################INTERACOES##################
             //CARINHO
-            if (showAffection.triggered && !_catInteraction){ //impede carinho quando o menu esta aberto
-                if (!firstInteraction){
-                    firstInteraction = catsStatesController.checkMissionState(catController.gameObject, MISSION_STATE.NOT_STARTED);
-                    //seta state desse gato como first interaction
-                    catsStatesController.setMissionState(catController.gameObject, MISSION_STATE.FIRST_INTERACTION);
-                }
-
-                print("carinho");
-                //TODO: ativar animacao
-                return;
-            }
+            checkCaress(catController.gameObject);
 
             //ANALISE
-            if (menu.triggered && !catAnalyzed){
-                //seta state desse gato como iniciada
-                catsStatesController.setMissionState(catController.gameObject, MISSION_STATE.STARTED);
-                catAnalyzed = true;
-                catController.analyzeCat();
+            if (checkCatAnalysis(catController))
                 return;
-            }
 
             //MENU DE INTERACAO
-            catMissionStarted = catsStatesController.checkMissionState(catController.gameObject, MISSION_STATE.STARTED);
-            if (menu.triggered && catMissionStarted){
-                InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
-                if (_catInteraction) {
-                    _catInteraction = false;
-                    catMenuController.turnOff();
-                    enableMovement = true;
-                    inputsCursor.SetCursorState(true);
-                }
-                else {
-                    _catInteraction = true;
-                    catMenuController.turnOn();
-                    enableMovement = false;
-                    catCamera = getCatCamera(collider.gameObject);
-                    inputsCursor.SetCursorState(false);
-                    _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, false);
-                    _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, false);
-                    _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
-                }
-            }    
+            checkCatMenu(catController.gameObject, collider.gameObject);
+
+            //##################INTERACOES##################
+            
         }else{
             //LONGE DE GATOS
             fastMovementAllowed = true;
@@ -244,9 +214,54 @@ public class InteractionsController : MonoBehaviour
         }
     }
 
+    private void checkCaress(GameObject cat){
+        if (showAffection.triggered && !_catInteraction){ //impede carinho quando o menu esta aberto
+            if (!firstInteraction){
+                firstInteraction = catsStatesController.checkMissionState(cat, MISSION_STATE.NOT_STARTED);
+                //seta state desse gato como first interaction
+                catsStatesController.setMissionState(cat, MISSION_STATE.FIRST_INTERACTION);
+            }
+
+            print("carinho");
+            //TODO: ativar animacao
+        }
+    }
+
+    private bool checkCatAnalysis(CatController catController){
+        if (menu.triggered && !catAnalyzed){
+            //seta state desse gato como iniciada
+            catsStatesController.setMissionState(catController.gameObject, MISSION_STATE.STARTED);
+            catAnalyzed = true;
+            catController.analyzeCat();
+            return true;
+        }
+        return false;
+    }
+
+    private void checkCatMenu(GameObject cat, GameObject cam){
+        catMissionStarted = catsStatesController.checkMissionState(cat, MISSION_STATE.STARTED);
+        if (menu.triggered && catMissionStarted){
+            InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
+            if (_catInteraction) {
+                _catInteraction = false;
+                catMenuController.turnOff();
+                enableMovement = true;
+                inputsCursor.SetCursorState(true);
+            }else {
+                _catInteraction = true;
+                catMenuController.turnOn();
+                enableMovement = false;
+                catCamera = getCatCamera(cam);
+                inputsCursor.SetCursorState(false);
+                _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, false);
+                _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, false);
+                _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
+            }
+        }    
+    }
+
     //CONTROLA A INTERACAO COM NPCs
-    private void checkNPC()
-    {
+    private void checkNPC(){
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("DialogReload"));
         if (collider != null)
         {
@@ -431,10 +446,9 @@ public class InteractionsController : MonoBehaviour
             gameController.enableDialog(gameController.catDialog, true);
         }
 
-        int IndexLvl = GameController.getLevelIndex();
-        if (IndexLvl == (int)levels.LEVEL1){
-            //if (FindObjectOfType<DialogSave>().getDialogState(3)) //DESBLOQUEAR BARREIRA DO LEVEL 1
-            //    dialog.markDialog();
+        if (name.Equals("NextActionDialog")){
+            riverBarrier.markDialog();
+            riverBarrier.gameObject.SetActive(false);
         }
 
         executeActionByDialog = false;
