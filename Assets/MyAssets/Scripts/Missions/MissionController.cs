@@ -4,6 +4,8 @@ using UnityEngine;
 
 public enum Mission { TUTORIAL, THIRST, MISSION3, MISSION4, MISSION5, MISSION6, MISSION7, MISSION8 } // ajustar numero do missionType[]
 
+[System.Serializable] public enum MISSION_STATE { NOT_STARTED, FIRST_INTERACTION, STARTED, FINISH } 
+
 public class MissionController : MonoBehaviour
 {
     private int CurrentMission;
@@ -23,29 +25,24 @@ public class MissionController : MonoBehaviour
     void Start()
     {
         if (instance == null)
-        {
             instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
+
         DontDestroyOnLoad(gameObject);
 
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if(save != null){
             CurrentMission = save.currentMission;
             CurrentStageMission = save.currentMissionStage;
-            if (CurrentMission > -1)
-            {
+            if (CurrentMission > -1){
                 _UIMission.setMission(missionType[(int)CurrentMission]);
                 _UIMission.setMissionStage(CurrentStageMission);
             }
             else
                 _UIMission.disableMissionHUD();
         }
-        else
-        {
+        else{
             CurrentMission = -1;
             CurrentStageMission = 0;
             _UIMission.disableMissionHUD();
@@ -57,6 +54,7 @@ public class MissionController : MonoBehaviour
         CurrentMission = (int)mission;
         setMissionStage();
 
+        CurrentStageMission = CurrentStageMission < 0 ? 0 : CurrentStageMission;
         _UIMission.setMission(missionType[(int)mission]);
         _UIMission.setMissionStage(CurrentStageMission);
     }
@@ -66,6 +64,7 @@ public class MissionController : MonoBehaviour
         return (Mission)CurrentMission;
     }
 
+    //TODO: PROGRAMAR AS MISSOES AQUI
     public void setMissionStage()
     {
         bool nextStage = false;
@@ -88,7 +87,8 @@ public class MissionController : MonoBehaviour
             CurrentStageMission++;
 
         //condicao de conclusao da missao
-        if (CurrentStageMission >= missionType[CurrentMission].description.Length){
+        if (CurrentMission >= 0 && CurrentMission < missionType.Length 
+            && CurrentStageMission >= missionType[CurrentMission].description.Length){
             _UIMission.completeMission();
             if (mission == Mission.TUTORIAL){
                 GameController gameController = FindObjectOfType<GameController>();

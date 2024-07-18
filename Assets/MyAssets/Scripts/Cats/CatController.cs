@@ -10,9 +10,6 @@ public class CatController : MonoBehaviour
     public int _catWaterConsumption;
     [SerializeField] public Symptoms symptoms = new Symptoms();
 
-
-    private bool analyzed = false;
-
     private void Awake()
     {
         catWaterConsumption = _catWaterConsumption;
@@ -30,18 +27,15 @@ public class CatController : MonoBehaviour
         
     }
 
-    public bool getAnalyzedStts()
-    {
-        return analyzed;
-    }
+    //public bool getAnalyzedStts()
+    //{
+    //    return analyzed;
+    //}
 
-    public void analyzeCat()
-    {
-        analyzed = true;
+    public void analyzeCat(){
         Mission mission;
 
-        switch (symptoms)
-        {
+        switch (symptoms){
             case Symptoms.THIRST:
                 mission = Mission.THIRST;
                 break;

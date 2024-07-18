@@ -31,6 +31,9 @@ public class InteractionsController : MonoBehaviour
     [Header("TutorialMovement")]
     public GameObject MovementTutorial;
 
+    [Header("CatsStatesController")]
+    public CatsStatesController catsStatesController;
+
     //PRIVATES
     private Inputs input;
 
@@ -50,6 +53,11 @@ public class InteractionsController : MonoBehaviour
     private UICollect _UICollect;
 
     private bool fastMovementAllowed = false;
+
+    //Cats Attributes
+    private bool firstInteraction = false;
+    private bool catAnalyzed = false;
+    private bool catMissionStarted = false;
 
     //ACTIONS
     private InputAction menu;
@@ -91,6 +99,8 @@ public class InteractionsController : MonoBehaviour
 
         InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
         inputsCursor.SetCursorState(true);
+
+        updateCatsState();
     }
 
     // Update is called once per frame
@@ -155,40 +165,58 @@ public class InteractionsController : MonoBehaviour
             
     }
 
-    //CONTROLA A INTERACAO COM GATOS
-    private void checkCat()
+    private void updateCatsState()
     {
+        catsStatesController.getMissionState();
+    }
+
+
+    //CONTROLA A INTERACAO COM GATOS
+    private void checkCat(){
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Cat"));
         if (collider != null){
             fastMovementAllowed = false;
 
             CatController catController = collider.GetComponent<CatController>();
-            bool analyzed = catController.getAnalyzedStts();
+            //bool analyzed = catController.getAnalyzedStts();
+            catAnalyzed = catsStatesController.checkMissionState(catController.gameObject, MISSION_STATE.STARTED);
 
+            //SET indicadores
             if (!_catInteraction)
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, true);
-
-            if (analyzed)
-            {
+            if (catAnalyzed){
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
                 if(!_catInteraction)
                     _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, true);
             }
-            else
+            else if (catsStatesController.checkMissionState(catController.gameObject, MISSION_STATE.FIRST_INTERACTION))
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, true);
 
-            if (showAffection.triggered && !_catInteraction) //impede carinho quando o menu esta aberto
-            {
+            //CARINHO
+            if (showAffection.triggered && !_catInteraction){ //impede carinho quando o menu esta aberto
+                if (!firstInteraction){
+                    firstInteraction = catsStatesController.checkMissionState(catController.gameObject, MISSION_STATE.NOT_STARTED);
+                    //seta state desse gato como first interaction
+                    catsStatesController.setMissionState(catController.gameObject, MISSION_STATE.FIRST_INTERACTION);
+                }
+
                 print("carinho");
                 //TODO: ativar animacao
+                return;
             }
 
-            if (!analyzed && menu.triggered)
-            {
+            //ANALISE
+            if (menu.triggered && !catAnalyzed){
+                //seta state desse gato como iniciada
+                catsStatesController.setMissionState(catController.gameObject, MISSION_STATE.STARTED);
+                catAnalyzed = true;
                 catController.analyzeCat();
-            } 
+                return;
+            }
 
-            if (analyzed && menu.triggered){
+            //MENU DE INTERACAO
+            catMissionStarted = catsStatesController.checkMissionState(catController.gameObject, MISSION_STATE.STARTED);
+            if (menu.triggered && catMissionStarted){
                 InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
                 if (_catInteraction) {
                     _catInteraction = false;
@@ -207,8 +235,8 @@ public class InteractionsController : MonoBehaviour
                     _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
                 }
             }    
-        }else
-        {
+        }else{
+            //LONGE DE GATOS
             fastMovementAllowed = true;
             _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, false);
             _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, false);
@@ -271,9 +299,9 @@ public class InteractionsController : MonoBehaviour
 
             //gatilho pra acoes
             if (executeActionByDialog)
-                enableElements(nameOfTutorial);
+                managerElements(nameOfTutorial);
 
-            //gerenciar salvamento e reload
+            //gerenciar salvamento
             dialog.markDialog();
 
             fastMovementAllowed = false;
@@ -285,8 +313,8 @@ public class InteractionsController : MonoBehaviour
 
             //Execao do tutorial de movimento
             Vector2 playerMovement = GetComponent<InputsMovement>().move;
-            
-            if (nameOfTutorial.Equals(moveTutorial) && playerMovement != Vector2.zero && enableMovement)
+
+            if (FindObjectOfType<DialogSave>().getDialogState(1) || nameOfTutorial.Equals(moveTutorial) && playerMovement != Vector2.zero && enableMovement)
                 MovementTutorial.SetActive(false);
 
             fastMovementAllowed = true;
@@ -390,7 +418,7 @@ public class InteractionsController : MonoBehaviour
         return cat.transform.GetChild(0).gameObject;
     }
 
-    private void enableElements(string name){
+    private void managerElements(string name){
         GameController gameController = FindFirstObjectByType<GameController>();
 
         if (name.Equals("MoveTutorial")){
@@ -401,6 +429,12 @@ public class InteractionsController : MonoBehaviour
         if (name.Equals("WorkbenchTutorial")){
             gameController.enableTutorialCat(true);
             gameController.enableDialog(gameController.catDialog, true);
+        }
+
+        int IndexLvl = GameController.getLevelIndex();
+        if (IndexLvl == (int)levels.LEVEL1){
+            //if (FindObjectOfType<DialogSave>().getDialogState(3)) //DESBLOQUEAR BARREIRA DO LEVEL 1
+            //    dialog.markDialog();
         }
 
         executeActionByDialog = false;

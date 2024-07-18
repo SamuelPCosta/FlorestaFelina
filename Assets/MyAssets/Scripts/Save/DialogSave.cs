@@ -37,4 +37,13 @@ public class DialogSave : MonoBehaviour
             }
         }
     }
+
+    public bool getDialogState(int index)
+    {
+        int LevelIndex = GameController.getLevelIndex();
+        Save save = FindObjectOfType<SaveLoad>().loadGame();
+        if(save != null)
+            return save.dialogs[LevelIndex, index];
+        return false;
+    }
 }

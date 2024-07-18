@@ -12,6 +12,7 @@ public class SaveLoad : MonoBehaviour
     private string nameOfSave = "save0";
 
     public bool _ignoreSave = false;
+    public bool deleteSaveFile = false;
     public static SaveLoad instance = null;
 
     void Start()
@@ -26,7 +27,22 @@ public class SaveLoad : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
+        if (deleteSaveFile)
+            DeleteSaveFile();
+
         save = new Save();
+    }
+
+    void DeleteSaveFile(){
+        string path = Application.persistentDataPath; //AppData/LocalLow
+        string filePath = Path.Combine(path, nameOfSave + ".save");
+
+        if (File.Exists(filePath)){
+            File.Delete(filePath);
+            Debug.Log("Save file deleted.");
+        }
+        else
+            Debug.LogWarning("Save file does not exist.");
     }
 
     private void saveGame(Save save)
@@ -109,6 +125,12 @@ public class SaveLoad : MonoBehaviour
         save.potion2 = potion2;
         save.potion3 = potion3;
 
+        saveGame(save);
+    }
+
+    public void saveMissionState(int index, MISSION_STATE state){
+        Save save = loadGameInternal();
+        save.missionState[index] = state;
         saveGame(save);
     }
 

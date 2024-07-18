@@ -34,8 +34,7 @@ public class UIMission : UIController
         print("tua missao eh: " + CurrentMission.title);
     }
 
-    public void setMissionStage(int index)
-    {
+    public void setMissionStage(int index){
         if (!missionHud.activeSelf)
             return;
 
