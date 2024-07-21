@@ -37,8 +37,9 @@ public class InteractionsController : MonoBehaviour
 
     private bool _workebenchCam = false;
     private bool _ShopCam = false;
-    private bool _catInteraction = false;
-    private GameObject catCamera;
+    private bool _catMenuInteraction = false;
+    private GameObject catCamera = null;
+    private GameObject workenchCamera = null;
 
     private bool enableMovement = true;
 
@@ -179,11 +180,11 @@ public class InteractionsController : MonoBehaviour
             catAnalyzed = catsStatesController.checkMissionState(catController.gameObject, MISSION_STATE.STARTED);
 
             //SET indicadores
-            if (!_catInteraction)
+            if (!_catMenuInteraction)
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, true);
             if (catAnalyzed){
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
-                if(!_catInteraction)
+                if(!_catMenuInteraction)
                     _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, true);
             }
             else if (catsStatesController.checkMissionState(catController.gameObject, MISSION_STATE.FIRST_INTERACTION))
@@ -198,7 +199,7 @@ public class InteractionsController : MonoBehaviour
                 return;
 
             //MENU DE INTERACAO
-            checkCatMenu(catController.gameObject, collider.gameObject);
+            checkCatMenu(catController.gameObject);
 
             //##################INTERACOES##################
             
@@ -212,7 +213,7 @@ public class InteractionsController : MonoBehaviour
     }
 
     private void checkCaress(GameObject cat){
-        if (showAffection.triggered && !_catInteraction){ //impede carinho quando o menu esta aberto
+        if (showAffection.triggered && !_catMenuInteraction){ //impede carinho quando o menu esta aberto
             if (!firstInteraction){
                 firstInteraction = catsStatesController.checkMissionState(cat, MISSION_STATE.NOT_STARTED);
                 //seta state desse gato como first interaction
@@ -225,7 +226,7 @@ public class InteractionsController : MonoBehaviour
     }
 
     private bool checkCatAnalysis(CatController catController){
-        if (menu.triggered && !catAnalyzed){
+        if (menu.triggered && firstInteraction && !catAnalyzed){
             //seta state desse gato como iniciada
             catsStatesController.setMissionState(catController.gameObject, MISSION_STATE.STARTED);
             catAnalyzed = true;
@@ -235,20 +236,20 @@ public class InteractionsController : MonoBehaviour
         return false;
     }
 
-    private void checkCatMenu(GameObject cat, GameObject cam){
+    private void checkCatMenu(GameObject cat){
         catMissionStarted = catsStatesController.checkMissionState(cat, MISSION_STATE.STARTED);
         if (menu.triggered && catMissionStarted){
             InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
-            if (_catInteraction) {
-                _catInteraction = false;
+            if (_catMenuInteraction) {
+                _catMenuInteraction = false;
                 catMenuController.turnOff();
                 enableMovement = true;
                 inputsCursor.SetCursorState(true);
             }else {
-                _catInteraction = true;
+                _catMenuInteraction = true;
                 catMenuController.turnOn();
                 enableMovement = false;
-                catCamera = getCatCamera(cam);
+                catCamera = getCamera(cat);
                 inputsCursor.SetCursorState(false);
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, false);
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, false);
@@ -291,8 +292,7 @@ public class InteractionsController : MonoBehaviour
         string moveTutorial = "MoveTutorial";
         
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Tutorial"));
-        if (collider != null)
-        {
+        if (collider != null){
             if (inDynamicDialog)
                 return;
 
@@ -318,8 +318,7 @@ public class InteractionsController : MonoBehaviour
 
             fastMovementAllowed = false;
         }
-        else
-        {
+        else{
             if (inDynamicDialog)
                 inDynamicDialog = false;
 
@@ -348,12 +347,10 @@ public class InteractionsController : MonoBehaviour
         if (workbench != null){
             if(!_workebenchCam)
                 _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, true);
-            if (menu.triggered)
-            {
+            if (menu.triggered){
                 WorkbenchController workbenchController = GameObject.FindObjectOfType<WorkbenchController>();
                 InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
-                if (_workebenchCam)
-                {
+                if (_workebenchCam){
                     _workebenchCam = false;
                     workbenchController.turnOff();
                     inputsCursor.SetCursorState(true);
@@ -362,9 +359,10 @@ public class InteractionsController : MonoBehaviour
                 else{
                     _workebenchCam = true;
                     workbenchController.turnOnMenu();
+                    workenchCamera = getCamera(workbench.gameObject);
                     inputsCursor.SetCursorState(false);
                     enableMovement = false;
-                    Transform workbenchOrigin = workbench.transform.GetChild(0);
+                    Transform workbenchOrigin = workbench.transform.GetChild(1); //segundo filho
                     transform.GetComponent<MovementController>().moveTo(workbenchOrigin);
 
                     _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, false);
@@ -394,8 +392,10 @@ public class InteractionsController : MonoBehaviour
         //Controla trasicao de cameras
         RaycastHit hit;
         if (Physics.Raycast(PlayerRoot.transform.position, Vector3.down, out hit)){
-            if (!hit.collider.CompareTag("InnerRoom")){ //AREA EXTERNA
-                if (!_catInteraction){
+            if (_workebenchCam)
+                camerasController.ActivateDynamicCamera(workenchCamera);
+            else if (!hit.collider.CompareTag("InnerRoom")){ //AREA EXTERNA
+                if (!_catMenuInteraction){
                     if (hit.collider.CompareTag("EnvironmentView"))
                         camerasController.ActivateCamera(CamerasController.cam.Objective);
                     else if (hit.collider.CompareTag("EnvironmentViewDontReload"))
@@ -405,15 +405,11 @@ public class InteractionsController : MonoBehaviour
                 }else
                     camerasController.ActivateDynamicCamera(catCamera);
             }
-            else //AREA INTERNA
-            {
-                if(_workebenchCam)
-                    camerasController.ActivateCamera(CamerasController.cam.Workbench);
-                else if(_ShopCam)
-                    camerasController.ActivateCamera(CamerasController.cam.Workbench);
-                else
-                    camerasController.ActivateCamera(CamerasController.cam.Close);
+            else{ //AREA INTERNA
+                 camerasController.ActivateCamera(CamerasController.cam.Close);
             }
+            if(!_workebenchCam && !_catMenuInteraction) //reseta a prioridade das cameras dinamicas
+                camerasController.DeactivateDynamicCamera(workenchCamera, catCamera);
 
             //MOVIMENTACAO BLOQUEADA
             if (hit.collider.CompareTag("EnvironmentView")
@@ -425,8 +421,8 @@ public class InteractionsController : MonoBehaviour
         }
     }
 
-    private GameObject getCatCamera(GameObject cat){
-        return cat.transform.GetChild(0).gameObject;
+    private GameObject getCamera(GameObject gameObject){
+        return gameObject.transform.GetChild(0).gameObject;
     }
 
     private void managerElements(string name){
