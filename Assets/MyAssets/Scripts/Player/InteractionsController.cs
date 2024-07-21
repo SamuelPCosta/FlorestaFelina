@@ -12,9 +12,6 @@ public class InteractionsController : MonoBehaviour
     [Header("Inventory")]
     public InventoryController inventoryController;
 
-    [Header("WorkbenchOriginPoint")]
-    public Transform workbenchOrigin;
-
     [Header("Panel Controllers")]
     public DialogController dialogController;
     public CatMenuController catMenuController;
@@ -347,9 +344,8 @@ public class InteractionsController : MonoBehaviour
     //CONTROLA INTERACAO COM A BANCADA
     private void checkWorkbench()
     {
-        Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Workbench"));
-        if (collider != null)
-        {
+        Collider workbench = boxcast.checkProximity(LayerMask.NameToLayer("Workbench"));
+        if (workbench != null){
             if(!_workebenchCam)
                 _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, true);
             if (menu.triggered)
@@ -363,12 +359,12 @@ public class InteractionsController : MonoBehaviour
                     inputsCursor.SetCursorState(true);
                     enableMovement = true;
                 }
-                else
-                {
+                else{
                     _workebenchCam = true;
                     workbenchController.turnOnMenu();
                     inputsCursor.SetCursorState(false);
                     enableMovement = false;
+                    Transform workbenchOrigin = workbench.transform.GetChild(0);
                     transform.GetComponent<MovementController>().moveTo(workbenchOrigin);
 
                     _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, false);

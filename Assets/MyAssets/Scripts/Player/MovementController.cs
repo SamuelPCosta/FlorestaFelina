@@ -111,6 +111,7 @@ using UnityEngine.InputSystem;
         private bool enableMovement = true;
         private bool alignmentWalk = false;
         private Transform destination;
+        private int rotation;
         private bool moveFast = false;
 
 
@@ -373,6 +374,7 @@ using UnityEngine.InputSystem;
         {
             alignmentWalk = true;
             this.destination = destination;
+            rotation = destination.GetComponent<WorkbenchAngle>().getAxis();
         }
 
         IEnumerator MoveToDestinationCoroutine(float duration)
@@ -381,6 +383,9 @@ using UnityEngine.InputSystem;
             Vector3 startPosition = transform.position;
             Vector3 targetPosition = destination.position;
             targetPosition.y = startPosition.y;
+
+            Quaternion startRotation = transform.rotation;
+            Quaternion targetRotation = Quaternion.Euler(0, rotation, 0);
 
             float startTime = Time.time;
 
@@ -391,9 +396,12 @@ using UnityEngine.InputSystem;
                 newPosition.y = transform.position.y;
                 transform.position = newPosition;
 
+                transform.rotation = Quaternion.Lerp(startRotation, targetRotation, t);
+
                 yield return null;
             }
             transform.position = targetPosition;
+            transform.rotation = targetRotation;
         }
 
         public void enablePlayerMovement(bool state)
