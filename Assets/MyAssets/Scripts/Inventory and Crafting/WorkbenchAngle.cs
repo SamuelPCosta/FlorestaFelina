@@ -14,7 +14,7 @@ public class WorkbenchAngle : MonoBehaviour
             case AXIS_WORKBENCH.RIGHT: return 90;
             case AXIS_WORKBENCH.BACK: return 180;
             case AXIS_WORKBENCH.LEFT: return -90;
+            default: return 0;
         }
-        return 0;
     }
 }

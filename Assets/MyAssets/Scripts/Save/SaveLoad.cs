@@ -11,8 +11,13 @@ public class SaveLoad : MonoBehaviour
     private Save save;
     private string nameOfSave = "save0";
 
+    [Header("Save options")]
     public bool _ignoreSave = false;
     public bool deleteSaveFile = false;
+
+    [Header("Debug options")]
+    public bool isDebugging = false;
+
     public static SaveLoad instance = null;
 
     void Start()
@@ -39,7 +44,8 @@ public class SaveLoad : MonoBehaviour
 
         if (File.Exists(filePath)){
             File.Delete(filePath);
-            Debug.Log("Save file deleted.");
+            if(isDebugging)
+                Debug.Log("Save file deleted.");
         }
         else
             Debug.LogWarning("Save file does not exist.");
@@ -55,7 +61,8 @@ public class SaveLoad : MonoBehaviour
         FileStream file = File.Create(path + "/" + nameOfSave +".save");
         formatter.Serialize(file, save);
         file.Close();
-        Debug.Log("Salvo");
+        if(isDebugging)
+            Debug.Log("Salvo");
     }
 
     public Save loadGame()
@@ -143,15 +150,17 @@ public class SaveLoad : MonoBehaviour
         saveGame(save);
     }
 
-    public void savePlayerPosition(Transform position, int levelIndex)
+    public void savePlayerPosition(Transform position, int orientation, int levelIndex)
     {
         Save save = loadGameInternal();
         save.playerPosition[0] = position.position.x;
         save.playerPosition[1] = position.position.y;
         save.playerPosition[2] = position.position.z;
+        save.orientation = orientation;
         save.previousLevel = levelIndex;
 
-        print("Level: " + levelIndex +" - "+ position.position.x +" - "+ position.position.y +" - "+ position.position.z);
+        if(isDebugging)
+            print("Level: " + levelIndex +" - "+ position.position.x +" - "+ position.position.y +" - "+ position.position.z);
 
         saveGame(save);
     }

@@ -14,9 +14,8 @@ public class Save
 
     //PLAYER
     public float[] playerPosition = new float[3];
-
+    public int orientation = 0;
     public int level = 0;
-
     public int previousLevel = -1;
 
 

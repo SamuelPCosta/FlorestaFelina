@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2199476435622132762}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 317.76505, y: 7.444487, z: 895.4192}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -47,3 +47,4 @@ MonoBehaviour:
   FirstCat: {fileID: 0}
   catDialog: {fileID: 0}
   catDialog2: {fileID: 0}
+  homePosition: {x: 308, y: 0.01, z: 822}

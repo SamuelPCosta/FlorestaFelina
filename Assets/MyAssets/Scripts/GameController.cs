@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     public GameObject catDialog2;
 
     [Header("DefaultPositionPortal")]
-    public Transform homePosition;
+    public Vector3 homePosition;
 
     public static GameController instance = null;
     void Start()
@@ -51,12 +51,12 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(scene);
     }
 
-    public void savePlayerPosition(Transform exit)
+    public void savePlayerPosition(Transform exit, int orientation)
     {
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null){
             int index = SceneManager.GetActiveScene().buildIndex;
-            FindObjectOfType<SaveLoad>().savePlayerPosition(exit, index);
+            FindObjectOfType<SaveLoad>().savePlayerPosition(exit, orientation, index);
         }
     }
 
@@ -64,13 +64,12 @@ public class GameController : MonoBehaviour
     {
         SceneManager.LoadScene("Level1");
         SceneManager.sceneLoaded += OnSceneLoadedForHome;
-        Transform player = FindObjectOfType<InteractionsController>().transform;
-        player.position = homePosition.position;
     }
     private void OnSceneLoadedForHome(Scene scene, LoadSceneMode mode){
         Transform player = FindObjectOfType<InteractionsController>().transform;
         if (player != null)
-            player.position = homePosition.position;
+            player.position = new Vector3(homePosition.x, homePosition.y, homePosition.z);
+
         SceneManager.sceneLoaded -= OnSceneLoadedForHome;
     }
 
@@ -79,16 +78,19 @@ public class GameController : MonoBehaviour
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null){
             int index = save.previousLevel;
-            SceneManager.sceneLoaded += (scene, mode) => OnSceneLoadedForForest(scene, mode, save.playerPosition);
+            SceneManager.sceneLoaded += (scene, mode) => OnSceneLoadedForForest(scene, mode, save.playerPosition, save.orientation);
             SceneManager.LoadScene(index);
         }
     }
-    private void OnSceneLoadedForForest(Scene scene, LoadSceneMode mode, float[] playerPosition){
+    private void OnSceneLoadedForForest(Scene scene, LoadSceneMode mode, float[] playerPosition, int rotation){
         Vector3 newPosition = new Vector3(playerPosition[0], playerPosition[1], playerPosition[2]);
         Transform player = FindObjectOfType<InteractionsController>().transform;
-        if (player != null)
+        if (player != null){
             player.position = newPosition;
-        SceneManager.sceneLoaded -= (scene, mode) => OnSceneLoadedForForest(scene, mode, playerPosition);
+            player.rotation = Quaternion.Euler(player.rotation.eulerAngles.x, rotation, player.rotation.eulerAngles.z);
+        }
+            
+        SceneManager.sceneLoaded -= (scene, mode) => OnSceneLoadedForForest(scene, mode, playerPosition, rotation);
     }
 
     public void enableTutorialCat(bool state)
