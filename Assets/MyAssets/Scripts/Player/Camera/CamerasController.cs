@@ -6,6 +6,8 @@ using Cinemachine;
 public class CamerasController : MonoBehaviour
 {
     public enum cam { Default, Close, Objective, ObjectiveDontReload };
+    private int lowPriority = 5;
+    private int highPriority = 10;
 
     [Header("Cameras")]
     public GameObject[] Cameras;
@@ -35,15 +37,15 @@ public class CamerasController : MonoBehaviour
             if (cam != null)
                 cam.SetActive(false);
         }
-        camera.GetComponent<CinemachineVirtualCamera>().Priority = 10;
+        camera.GetComponent<CinemachineVirtualCamera>().Priority = highPriority;
         camera.SetActive(true);
     }
     public void DeactivateDynamicCamera(GameObject camera1, GameObject camera2)
     {
         if (camera1 != null)
-            camera1.GetComponent<CinemachineVirtualCamera>().Priority = 5;
+            camera1.GetComponent<CinemachineVirtualCamera>().Priority = lowPriority;
         if (camera2 != null)
-            camera2.GetComponent<CinemachineVirtualCamera>().Priority = 5;
+            camera2.GetComponent<CinemachineVirtualCamera>().Priority = lowPriority;
     }
 
     //CinemachineVirtualCamera.m_Lens.FieldOfView = FOVClose;

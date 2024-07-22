@@ -111,6 +111,8 @@ public class InteractionsController : MonoBehaviour
         checkDialogs();
         checkCat();
         checkWorkbench();
+        checkSummon();
+        checkPortal();
         checkGate();
         checkCameras();
 
@@ -340,6 +342,35 @@ public class InteractionsController : MonoBehaviour
         enableMovement = true;
     }
 
+    //CONTROLA INTERACAO COM O SUMMON DA BANCADA E PORTAL
+    private void checkSummon()
+    {
+        Collider summon = boxcast.checkProximity(LayerMask.NameToLayer("Summon"));
+        if (summon != null){
+            _UITextIndicator.enableIndicator(IndicatorText.SUMMON, true);
+            if (makeWay.triggered){
+                summon.GetComponent<SummonController>().summonStructures();
+            }
+        }
+        else
+            _UITextIndicator.enableIndicator(IndicatorText.SUMMON, false);
+    }
+
+    //CONTROLA INTERACAO COM O PORTAL
+    private void checkPortal()
+    {
+        Collider portal = boxcast.checkProximity(LayerMask.NameToLayer("Portal"));
+        if (portal != null){
+            _UITextIndicator.enableIndicator(IndicatorText.PORTAL, true);
+            if (makeWay.triggered)
+            {
+                portal.GetComponent<PortalController>().usePortal();
+            }
+        }
+        else
+            _UITextIndicator.enableIndicator(IndicatorText.PORTAL, false);
+    }
+
     //CONTROLA INTERACAO COM A BANCADA
     private void checkWorkbench()
     {
@@ -380,9 +411,7 @@ public class InteractionsController : MonoBehaviour
         {
             _UITextIndicator.enableIndicator(IndicatorText.GATE, true);
             if (nextLevel.triggered)
-            {
                 FindObjectOfType<GameController>().nextScene();
-            }
         }
         else
             _UITextIndicator.enableIndicator(IndicatorText.GATE, false);
