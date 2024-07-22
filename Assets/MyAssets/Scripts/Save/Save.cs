@@ -13,11 +13,11 @@ public class Save
 
 
     //PLAYER
-    public float playerX = 0;
-    public float playerY = 0;
-    public float playerZ = 0;
+    public float[] playerPosition = new float[3];
 
     public int level = 0;
+
+    public int previousLevel = -1;
 
 
     //CATS AND MISSIONS

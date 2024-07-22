@@ -143,12 +143,17 @@ public class SaveLoad : MonoBehaviour
         saveGame(save);
     }
 
-    public void savePlayerPosition(Transform player)
+    public void savePlayerPosition(Transform position, int levelIndex)
     {
         Save save = loadGameInternal();
-        save.playerX = player.position.x;
-        save.playerY = player.position.y;
-        save.playerZ = player.position.z;
+        save.playerPosition[0] = position.position.x;
+        save.playerPosition[1] = position.position.y;
+        save.playerPosition[2] = position.position.z;
+        save.previousLevel = levelIndex;
+
+        print("Level: " + levelIndex +" - "+ position.position.x +" - "+ position.position.y +" - "+ position.position.z);
+
+        saveGame(save);
     }
     
     public void saveLevel()

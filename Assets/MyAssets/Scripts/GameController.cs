@@ -11,6 +11,9 @@ public class GameController : MonoBehaviour
     public GameObject catDialog;
     public GameObject catDialog2;
 
+    [Header("DefaultPositionPortal")]
+    public Transform homePosition;
+
     public static GameController instance = null;
     void Start()
     {
@@ -48,12 +51,53 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(scene);
     }
 
+    public void savePlayerPosition(Transform exit)
+    {
+        Save save = FindObjectOfType<SaveLoad>().loadGame();
+        if (save != null){
+            int index = SceneManager.GetActiveScene().buildIndex;
+            FindObjectOfType<SaveLoad>().savePlayerPosition(exit, index);
+        }
+    }
+
+    public void setPlayerInHome()
+    {
+        SceneManager.LoadScene("Level1");
+        SceneManager.sceneLoaded += OnSceneLoadedForHome;
+        Transform player = FindObjectOfType<InteractionsController>().transform;
+        player.position = homePosition.position;
+    }
+    private void OnSceneLoadedForHome(Scene scene, LoadSceneMode mode){
+        Transform player = FindObjectOfType<InteractionsController>().transform;
+        if (player != null)
+            player.position = homePosition.position;
+        SceneManager.sceneLoaded -= OnSceneLoadedForHome;
+    }
+
+    public void setPlayerInForest()
+    {
+        Save save = FindObjectOfType<SaveLoad>().loadGame();
+        if (save != null){
+            int index = save.previousLevel;
+            SceneManager.sceneLoaded += (scene, mode) => OnSceneLoadedForForest(scene, mode, save.playerPosition);
+            SceneManager.LoadScene(index);
+        }
+    }
+    private void OnSceneLoadedForForest(Scene scene, LoadSceneMode mode, float[] playerPosition){
+        Vector3 newPosition = new Vector3(playerPosition[0], playerPosition[1], playerPosition[2]);
+        Transform player = FindObjectOfType<InteractionsController>().transform;
+        if (player != null)
+            player.position = newPosition;
+        SceneManager.sceneLoaded -= (scene, mode) => OnSceneLoadedForForest(scene, mode, playerPosition);
+    }
+
     public void enableTutorialCat(bool state)
     {
-        FirstCat.SetActive(state);
+        FirstCat?.SetActive(state);
     }
+
     public void enableDialog(GameObject dialog, bool stts)
     {
-        dialog.SetActive(stts);
+        dialog?.SetActive(stts);
     }
 }

@@ -151,7 +151,7 @@ using UnityEngine.InputSystem;
             GroundedCheck();
             Move();
             if (alignmentWalk)
-                StartCoroutine(MoveToDestinationCoroutine(1f));
+                StartCoroutine(MoveToDestinationCoroutine(0.5f));
                 
     }
 

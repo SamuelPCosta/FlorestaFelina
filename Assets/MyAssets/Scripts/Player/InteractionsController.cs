@@ -457,7 +457,7 @@ public class InteractionsController : MonoBehaviour
     private void managerElements(string name){
         GameController gameController = FindFirstObjectByType<GameController>();
 
-        if (name.Equals("MoveTutorial")){
+        if (name.Equals("MoveTutorial") && gameController.catDialog != null){
             gameController.enableDialog(gameController.catDialog, false);
             gameController.enableTutorialCat(false);
         }
