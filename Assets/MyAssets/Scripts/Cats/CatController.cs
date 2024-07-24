@@ -15,23 +15,6 @@ public class CatController : MonoBehaviour
         catWaterConsumption = _catWaterConsumption;
     }
 
-    void Start()
-    {
-        
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    //public bool getAnalyzedStts()
-    //{
-    //    return analyzed;
-    //}
-
     public void analyzeCat(){
         Mission mission;
 
