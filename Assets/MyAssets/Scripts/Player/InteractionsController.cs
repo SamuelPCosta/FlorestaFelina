@@ -438,8 +438,11 @@ public class InteractionsController : MonoBehaviour
                 }else
                     camerasController.ActivateDynamicCamera(catCamera);
             }
-            else{ //AREA INTERNA
-                 camerasController.ActivateCamera(CamerasController.cam.Close);
+            else{ //AREA INTERNA (CLOSE)
+                if(_catMenuInteraction)
+                    camerasController.ActivateDynamicCamera(catCamera);
+                else
+                    camerasController.ActivateCamera(CamerasController.cam.Close);
             }
             if(!_workebenchCam && !_catMenuInteraction) //reseta a prioridade das cameras dinamicas
                 camerasController.DeactivateDynamicCamera(workenchCamera, catCamera);
