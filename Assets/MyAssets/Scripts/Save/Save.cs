@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum levels {LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5}
+//public enum levels {LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5}
 
 [System.Serializable]
 public class Save
@@ -43,8 +43,6 @@ public class Save
 
     public bool objectiveFloorDestroy;
 
-    //Salvar nível(E PORTAL ANTERIOR)
     //Salvar estados das plantas coletadas
-    //Salvar portais usados
     //Salvar barreiras destruidas
 }

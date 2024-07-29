@@ -54,9 +54,10 @@ public class InteractionsController : MonoBehaviour
     private bool fastMovementAllowed = false;
 
     //Cats Attributes
-    private bool firstInteraction = false;
+    private bool catNotStarted = false;
+    private bool catFirstInteraction = false;
     private bool catAnalyzed = false;
-    private bool catMissionStarted = false;
+    private bool catHealed = false;
 
     //ACTIONS
     private InputAction menu;
@@ -99,7 +100,7 @@ public class InteractionsController : MonoBehaviour
         InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
         inputsCursor.SetCursorState(true);
 
-        updateCatsState();
+        //updateCatsState();
     }
 
     // Update is called once per frame
@@ -166,10 +167,10 @@ public class InteractionsController : MonoBehaviour
             
     }
 
-    private void updateCatsState()
-    {
-        catsStatesController.getMissionState();
-    }
+    //private void updateCatsState()
+    //{
+    //    catsStatesController.getMissionState();
+    //}
 
 
     //CONTROLA A INTERACAO COM GATOS
@@ -179,29 +180,34 @@ public class InteractionsController : MonoBehaviour
             fastMovementAllowed = false;
 
             CatController catController = collider.GetComponent<CatController>();
-            catAnalyzed = catsStatesController.checkMissionState(catController.gameObject, MISSION_STATE.STARTED);
+            MISSION_STATE state = catsStatesController.getMissionStateByIndex(catController.getIndex());
+
+            catNotStarted = state == MISSION_STATE.NOT_STARTED;
+            catFirstInteraction = state == MISSION_STATE.FIRST_INTERACTION;
+            catAnalyzed = state == MISSION_STATE.STARTED;
+            catHealed = state == MISSION_STATE.FINISH;
 
             //SET indicadores
             if (!_catMenuInteraction)
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, true);
-            if (catAnalyzed){
+            if (!catFirstInteraction){
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
-                if(!_catMenuInteraction)
+                if(catAnalyzed && !_catMenuInteraction)
                     _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, true);
             }
-            else if (catsStatesController.checkMissionState(catController.gameObject, MISSION_STATE.FIRST_INTERACTION))
+            else if (catFirstInteraction)
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, true);
 
             //##################INTERACOES##################
             //CARINHO
-            checkCaress(catController.gameObject);
+            checkCaress(catController.getIndex());
 
             //ANALISE
             if (checkCatAnalysis(catController))
                 return;
 
             //MENU DE INTERACAO
-            checkCatMenu(catController.gameObject);
+            checkCatMenu(catController);
 
             //##################INTERACOES##################
             
@@ -214,23 +220,22 @@ public class InteractionsController : MonoBehaviour
         }
     }
 
-    private void checkCaress(GameObject cat){
+    private void checkCaress(int cat){
         if (showAffection.triggered && !_catMenuInteraction){ //impede carinho quando o menu esta aberto
-            if (!firstInteraction){
-                firstInteraction = catsStatesController.checkMissionState(cat, MISSION_STATE.NOT_STARTED);
+            if (catNotStarted){
                 //seta state desse gato como first interaction
                 catsStatesController.setMissionState(cat, MISSION_STATE.FIRST_INTERACTION);
             }
 
-            print("carinho");
+            print("carinho no gato "+cat);
             //TODO: ativar animacao
         }
     }
 
     private bool checkCatAnalysis(CatController catController){
-        if (menu.triggered && firstInteraction && !catAnalyzed){
+        if (menu.triggered && catsStatesController.getMissionStateByIndex(catController.getIndex()) == MISSION_STATE.FIRST_INTERACTION){    
             //seta state desse gato como iniciada
-            catsStatesController.setMissionState(catController.gameObject, MISSION_STATE.STARTED);
+            catsStatesController.setMissionState(catController.getIndex(), MISSION_STATE.STARTED);
             catAnalyzed = true;
             catController.analyzeCat();
             return true;
@@ -238,9 +243,8 @@ public class InteractionsController : MonoBehaviour
         return false;
     }
 
-    private void checkCatMenu(GameObject cat){
-        catMissionStarted = catsStatesController.checkMissionState(cat, MISSION_STATE.STARTED);
-        if (menu.triggered && catMissionStarted){
+    private void checkCatMenu(CatController cat){
+        if (menu.triggered && (catAnalyzed || catHealed)){
             InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
             if (_catMenuInteraction) {
                 _catMenuInteraction = false;
@@ -251,7 +255,7 @@ public class InteractionsController : MonoBehaviour
                 _catMenuInteraction = true;
                 catMenuController.turnOn();
                 enableMovement = false;
-                catCamera = getCamera(cat);
+                catCamera = getCamera(cat.gameObject);
                 inputsCursor.SetCursorState(false);
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, false);
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, false);

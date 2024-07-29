@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Mission { TUTORIAL, THIRST, MISSION3, MISSION4, MISSION5, MISSION6, MISSION7, MISSION8 } // ajustar numero do missionType[]
+public enum Mission { TUTORIAL, THIRST, MISSION3, MISSION4, MISSION5, MISSION6, MISSION7, MISSION8 } // TODO: ajustar numero do missionType[]
 
 [System.Serializable] public enum MISSION_STATE { NOT_STARTED, FIRST_INTERACTION, STARTED, FINISH } 
 
@@ -64,23 +64,25 @@ public class MissionController : MonoBehaviour
         return (Mission)CurrentMission;
     }
 
-    //TODO: PROGRAMAR AS MISSOES AQUI
+    //TODO: PROGRAMAR AS MISSOES DOS GATOS AQUI
     public void setMissionStage()
     {
         bool nextStage = false;
         Mission mission = (Mission)CurrentMission;
 
-        if(mission == Mission.TUTORIAL || mission == Mission.THIRST)
-        {
-            bool hasWater = inventoryController.getCollectible(CollectibleType.WATER) >= CatController.catWaterConsumption;
-            if (hasWater || CurrentStageMission > 0)
-                nextStage = true;
-        }else
-        if(mission == Mission.MISSION3){
-            int water = inventoryController.getCollectible(CollectibleType.WATER);
-            int plant1 = inventoryController.getCollectible(CollectibleType.PLANT1);
-            if(water >= workbenchController.potion1Water && plant1 >= workbenchController.potion1Item1)
-                nextStage = true;
+        switch (mission) {
+            case Mission.TUTORIAL: case Mission.THIRST:
+                bool hasWater = inventoryController.getCollectible(CollectibleType.WATER) >= CatController.catWaterConsumption;
+                if (hasWater || CurrentStageMission > 0)
+                    nextStage = true;
+                break;
+
+            case Mission.MISSION3:
+                int water = inventoryController.getCollectible(CollectibleType.WATER);
+                int plant1 = inventoryController.getCollectible(CollectibleType.PLANT1);
+                if (water >= workbenchController.potion1Water && plant1 >= workbenchController.potion1Item1)
+                    nextStage = true;
+                break;
         }
 
         if (nextStage)
@@ -94,12 +96,18 @@ public class MissionController : MonoBehaviour
                 GameController gameController = FindObjectOfType<GameController>();
                 gameController.enableDialog(gameController.catDialog2, true);
             }
-            //TODO: reset missao no save
+
+            //reseta missao no save
+            Debug.Log("Missao concluida");
+            FindObjectOfType<CatsStatesController>().setMissionState(MISSION_STATE.FINISH);
+            FindObjectOfType<SaveLoad>().resetMission();
             return;
         }
+        else //atualiza na HUD e salva
+        {
+            _UIMission.setMissionStage(CurrentStageMission);
+        }
         
-        //atualiza na HUD e salva
-        _UIMission.setMissionStage(CurrentStageMission);
         FindObjectOfType<SaveLoad>().saveMission(CurrentMission, CurrentStageMission);
     }
 

@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SEQUENCE
+{
+    First, Second, Third, Fourth, Fifth, Sixth, Seventh, Eighth, Ninth, Tenth,
+    Eleventh, Twelfth, Thirteenth, Fourteenth, Fifteenth, Sixteenth, Seventeenth, Eighteenth, Nineteenth, Twentieth
+}
+
 public class CatController : MonoBehaviour
 {
+
+    [SerializeField] private SEQUENCE sequence;
     public enum Symptoms { THIRST, PAIN, INJURED, VERY_INJURED, TUTORIAL }
 
     public static int catWaterConsumption;
-    public int _catWaterConsumption;
     [SerializeField] public Symptoms symptoms = new Symptoms();
+    public int _catWaterConsumption;
 
     private void Awake()
     {
@@ -37,5 +45,10 @@ public class CatController : MonoBehaviour
         }
 
         FindObjectOfType<MissionController>().setMission(mission);
+    }
+
+    public int getIndex()
+    {
+        return (int)sequence;
     }
 }

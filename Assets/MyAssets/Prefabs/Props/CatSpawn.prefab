@@ -125,7 +125,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   catController: {fileID: 6630183733004516906}
-  symptoms: 01010101
+  maxFurrVariation: 4
+  maxPatternVariation: 4
+  symptoms: 00000000010000000200000003000000
 --- !u!1 &470142716462342197
 GameObject:
   m_ObjectHideFlags: 0

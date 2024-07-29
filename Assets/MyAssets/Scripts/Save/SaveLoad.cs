@@ -61,8 +61,6 @@ public class SaveLoad : MonoBehaviour
         FileStream file = File.Create(path + "/" + nameOfSave +".save");
         formatter.Serialize(file, save);
         file.Close();
-        if(isDebugging)
-            Debug.Log("Salvo");
     }
 
     public Save loadGame()
@@ -139,6 +137,9 @@ public class SaveLoad : MonoBehaviour
         Save save = loadGameInternal();
         save.missionState[index] = state;
         saveGame(save);
+
+        if (isDebugging)
+            Debug.Log("estado salvo");
     }
 
     public void saveMission(int mission, int stage)
@@ -146,6 +147,15 @@ public class SaveLoad : MonoBehaviour
         Save save = loadGameInternal();
         save.currentMission = mission;
         save.currentMissionStage = stage;
+
+        saveGame(save);
+    }
+
+    public void resetMission()
+    {
+        Save save = loadGameInternal();
+        save.currentMission = -1;
+        save.currentMissionStage = -1;
 
         saveGame(save);
     }

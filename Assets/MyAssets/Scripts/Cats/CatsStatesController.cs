@@ -2,16 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class CatsStatesController : MonoBehaviour
 {
     private Save save;
-    [Header("Cats")]
-    public GameObject[] cats;
+    [Header("Spawners")]
+    public GameObject[] spawners;
+    private GameObject[] cats;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        cats = new GameObject[spawners.Length];
+        for (int i = 0; i < spawners.Length; i++)
+            cats[i] = spawners[i].GetComponent<CatSpawnerController>().getCat();
+
+        save = FindObjectOfType<SaveLoad>().loadGame();
+        checkCatIndex();
     }
 
     // Update is called once per frame
@@ -20,37 +27,71 @@ public class CatsStatesController : MonoBehaviour
         
     }
 
-    public MISSION_STATE getMissionState()
+    public void checkCatIndex(){
+        MISSION_STATE currentState;
+        MISSION_STATE lastState = MISSION_STATE.NOT_STARTED;
+
+        for (int i = 0; i < spawners.Length; i++) {
+            currentState = getMissionStateByIndex(i);
+            bool shouldActivate = false;
+
+            if (i == 0)
+                shouldActivate = (currentState != MISSION_STATE.FINISH);
+            else
+                shouldActivate = (lastState == MISSION_STATE.FINISH && currentState != MISSION_STATE.FINISH);
+
+            cats[i].SetActive(shouldActivate);
+            lastState = currentState;
+        }
+    }
+
+    //public MISSION_STATE getMissionState()
+    //{
+    //    int index = getIndex();
+    //    if (index == -1)
+    //        return MISSION_STATE.NOT_STARTED;
+    //    return save.missionState[index];
+    //}
+
+    //public bool checkMissionState(GameObject cat, MISSION_STATE state){
+    //    save = FindObjectOfType<SaveLoad>().loadGame();
+    //    if (save == null)
+    //        return false;
+    //    for (int i = 0; i < cats.Length; i++)
+    //        if(cat == cats[i])
+    //            return save.missionState[i] == state;
+
+    //    return false;
+    //}
+
+    //public void setMissionState(GameObject cat, MISSION_STATE state){
+    //    if (save == null)
+    //        return;
+    //    for (int i = 0; i < cats.Length; i++)
+    //        if (cat == cats[i])
+    //            FindObjectOfType<SaveLoad>().saveMissionState(i, state);
+    //}
+
+    public MISSION_STATE getMissionStateByIndex(int index)
     {
-        int index = getIndex();
-        if (index == -1)
+        if (save == null)
             return MISSION_STATE.NOT_STARTED;
         return save.missionState[index];
     }
 
-    public bool checkMissionState(GameObject cat, MISSION_STATE state){
+    public void setMissionState(int index, MISSION_STATE state){
+        FindObjectOfType<SaveLoad>().saveMissionState(index, state);
         save = FindObjectOfType<SaveLoad>().loadGame();
-        if (save == null)
-            return false;
-        for (int i = 0; i < cats.Length; i++){
-            if(cat == cats[i])
-                return save.missionState[i] == state;
-        }
-        return false;
     }
 
-    public void setMissionState(GameObject cat, MISSION_STATE state){
-        if (save == null)
-            return;
-        for (int i = 0; i < cats.Length; i++){
-            if (cat == cats[i])
-                FindObjectOfType<SaveLoad>().saveMissionState(i, state);
-        }
+    public void setMissionState(MISSION_STATE state){
+        int index = getCurrentMissionIndex();
+        setMissionState(index, state);
     }
 
     public string getName()
     {
-        int index = getIndex();
+        int index = getCurrentMissionIndex();
         return save.catsNames[index];
     }
 
@@ -61,20 +102,21 @@ public class CatsStatesController : MonoBehaviour
 
     public Vector3 getCatPosition()
     {
-        int index = getIndex();
+        int index = getCurrentMissionIndex();
         return new Vector3(save.catsPosition[index,0], save.catsPosition[index, 1], save.catsPosition[index, 2]);
     }
 
-    private int getIndex(){
+    private int getCurrentMissionIndex(){
         int ret = 0;
+        save = FindObjectOfType<SaveLoad>().loadGame();
         if (save == null)
             return -1;
-        for (int i = 0; i < cats.Length; i++){
-            if (save.missionState[i] != MISSION_STATE.NOT_STARTED)
+        for (int i = 0; i < cats.Length; i++)
+            if (save.missionState[i] != MISSION_STATE.STARTED) //MISSION_STATE.NOT_STARTED
                 ret++;
             else
                 break;
-        }
-        return ret;
+
+        return Mathf.Min(ret, cats.Length - 1);
     }
 }

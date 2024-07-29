@@ -5,28 +5,37 @@ using UnityEngine;
 [System.Serializable]
 public class CatSpawnerController : MonoBehaviour
 {
+    //RESPONSAVEL POR RANDOMIZAR ATRIBUTOS DO GATO
+
     [Header("Attributes")]
-    public CatController catController;
+    [SerializeField] private CatController catController;
 
     [Header("Variation")]
     public int maxFurrVariation = 4;
     public int maxPatternVariation = 4;
-    public bool[] symptoms = new bool[4];
+    [Tooltip("THIRST, PAIN, INJURED, VERY_INJURED")]
+    public CatController.Symptoms[] symptoms = new CatController.Symptoms[4];
 
     void Start(){
-        int arrayLength = symptoms.Length;
         //TODO: setar catsVariations
 
-        int catFurrVariation = Random.Range(0, maxFurrVariation + 1);
-        int catPatternVariation = Random.Range(0, maxPatternVariation + 1);
+        int catFurrVariation = Random.Range(0, maxFurrVariation);
+        int catPatternVariation = Random.Range(0, maxPatternVariation);
 
-        List<int> symptomsSort = new List<int>();
-        for (int i = 0; i < symptoms.Length; i++)
-            if (symptoms[i])
-                symptomsSort.Add(i);
-
-        int catSymptom = Random.Range(0, symptomsSort.Count + 1);
+        int catSymptom = Random.Range(0, symptoms.Length);
+        catController.symptoms = symptoms[catSymptom];
     }
+
+
+    public GameObject getCat()
+    {
+        return catController.gameObject;
+    }
+
+    //public SEQUENCE getOrder()
+    //{
+    //    return sequence;
+    //}
 
     // Update is called once per frame
     void Update()
