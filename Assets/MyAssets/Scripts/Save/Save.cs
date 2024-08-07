@@ -17,6 +17,7 @@ public class Save
     public int orientation = 0;
     public int level = 0;
     public int previousLevel = -1;
+    public int journal = 0;
 
 
     //CATS AND MISSIONS

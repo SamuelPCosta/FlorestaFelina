@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   catController: {fileID: 6630183733004516906}
+  summon: {fileID: 7444892003552678224}
   maxFurrVariation: 4
   maxPatternVariation: 4
   symptoms: 00000000010000000200000003000000

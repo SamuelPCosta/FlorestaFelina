@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum Mission { TUTORIAL, THIRST, MISSION3, MISSION4, MISSION5, MISSION6, MISSION7, MISSION8 } // TODO: ajustar numero do missionType[]
 
-[System.Serializable] public enum MISSION_STATE { NOT_STARTED, FIRST_INTERACTION, STARTED, FINISH } 
+[System.Serializable] public enum MISSION_STATE { NOT_STARTED, FIRST_INTERACTION, STARTED, FINISH, HOME } 
 
 public class MissionController : MonoBehaviour
 {
@@ -88,6 +88,10 @@ public class MissionController : MonoBehaviour
         if (nextStage)
             CurrentStageMission++;
 
+        //adotar gato
+        if (CurrentMission >= 0 && CurrentMission < missionType.Length && CurrentStageMission == missionType[CurrentMission].description.Length - 1)
+            FindObjectOfType<CatsStatesController>().setMissionState(MISSION_STATE.FINISH);
+
         //condicao de conclusao da missao
         if (CurrentMission >= 0 && CurrentMission < missionType.Length 
             && CurrentStageMission >= missionType[CurrentMission].description.Length){
@@ -99,7 +103,6 @@ public class MissionController : MonoBehaviour
 
             //reseta missao no save
             Debug.Log("Missao concluida");
-            FindObjectOfType<CatsStatesController>().setMissionState(MISSION_STATE.FINISH);
             FindObjectOfType<SaveLoad>().resetMission();
             return;
         }

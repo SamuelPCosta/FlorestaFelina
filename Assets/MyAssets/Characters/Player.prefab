@@ -17737,13 +17737,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerRoot: {fileID: 5962747565615937673}
   boxcast: {fileID: 7581184890736757435}
+  bag: {fileID: 4444969983273662196}
   inventoryController: {fileID: 0}
-  workbenchOrigin: {fileID: 0}
   dialogController: {fileID: 0}
   catMenuController: {fileID: 0}
   camerasController: {fileID: 0}
-  magic: {fileID: 4773462348533352509}
   _UITextIndicator: {fileID: 0}
+  MovementTutorial: {fileID: 0}
+  catsStatesController: {fileID: 0}
+  riverBarrier: {fileID: 0}
 --- !u!114 &1680071393918511899
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -125,6 +125,42 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Bag"",
+                    ""type"": ""Button"",
+                    ""id"": ""ee79047c-4c3f-4b9d-9cda-6ea0ce7e4fda"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Journal"",
+                    ""type"": ""Button"",
+                    ""id"": ""30ec869b-05d0-4a3a-b9ef-5d2dccfe62eb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Prev"",
+                    ""type"": ""Button"",
+                    ""id"": ""71c5909b-fce5-4f35-acf2-7e3dacf5ddd8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Next"",
+                    ""type"": ""Button"",
+                    ""id"": ""6c3e61eb-48d4-4d3c-96f0-5b6738f85ce2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -479,6 +515,94 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""ShowAffection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5585324-3641-4d70-b277-e2fbfc594675"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bc8259ec-5ed2-4048-ab20-82793f73f5d5"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e24c0063-2e4e-4c89-81d9-034cbff301a4"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Prev"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1880f7d0-cc18-4a20-ab7b-b0b0e3bc2bc6"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Prev"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06b2f11e-3f30-4b7f-bd0c-87d37f609fd5"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77978632-0176-47e2-81e5-8693e1e89305"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aab536ae-fc96-4049-b5cf-5f443c83f22c"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Journal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f1acf244-8fa0-4bcf-90bb-da55c8a5fdda"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Journal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -614,6 +738,10 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player_ShowAffection = m_Player.FindAction("ShowAffection", throwIfNotFound: true);
         m_Player_NextLevel = m_Player.FindAction("NextLevel", throwIfNotFound: true);
         m_Player_Dialog = m_Player.FindAction("Dialog", throwIfNotFound: true);
+        m_Player_Bag = m_Player.FindAction("Bag", throwIfNotFound: true);
+        m_Player_Journal = m_Player.FindAction("Journal", throwIfNotFound: true);
+        m_Player_Prev = m_Player.FindAction("Prev", throwIfNotFound: true);
+        m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         // Godmode
         m_Godmode = asset.FindActionMap("Godmode", throwIfNotFound: true);
         m_Godmode_extraW = m_Godmode.FindAction("extraW", throwIfNotFound: true);
@@ -691,6 +819,10 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ShowAffection;
     private readonly InputAction m_Player_NextLevel;
     private readonly InputAction m_Player_Dialog;
+    private readonly InputAction m_Player_Bag;
+    private readonly InputAction m_Player_Journal;
+    private readonly InputAction m_Player_Prev;
+    private readonly InputAction m_Player_Next;
     public struct PlayerActions
     {
         private @Inputs m_Wrapper;
@@ -706,6 +838,10 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @ShowAffection => m_Wrapper.m_Player_ShowAffection;
         public InputAction @NextLevel => m_Wrapper.m_Player_NextLevel;
         public InputAction @Dialog => m_Wrapper.m_Player_Dialog;
+        public InputAction @Bag => m_Wrapper.m_Player_Bag;
+        public InputAction @Journal => m_Wrapper.m_Player_Journal;
+        public InputAction @Prev => m_Wrapper.m_Player_Prev;
+        public InputAction @Next => m_Wrapper.m_Player_Next;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -748,6 +884,18 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Dialog.started += instance.OnDialog;
             @Dialog.performed += instance.OnDialog;
             @Dialog.canceled += instance.OnDialog;
+            @Bag.started += instance.OnBag;
+            @Bag.performed += instance.OnBag;
+            @Bag.canceled += instance.OnBag;
+            @Journal.started += instance.OnJournal;
+            @Journal.performed += instance.OnJournal;
+            @Journal.canceled += instance.OnJournal;
+            @Prev.started += instance.OnPrev;
+            @Prev.performed += instance.OnPrev;
+            @Prev.canceled += instance.OnPrev;
+            @Next.started += instance.OnNext;
+            @Next.performed += instance.OnNext;
+            @Next.canceled += instance.OnNext;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -785,6 +933,18 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Dialog.started -= instance.OnDialog;
             @Dialog.performed -= instance.OnDialog;
             @Dialog.canceled -= instance.OnDialog;
+            @Bag.started -= instance.OnBag;
+            @Bag.performed -= instance.OnBag;
+            @Bag.canceled -= instance.OnBag;
+            @Journal.started -= instance.OnJournal;
+            @Journal.performed -= instance.OnJournal;
+            @Journal.canceled -= instance.OnJournal;
+            @Prev.started -= instance.OnPrev;
+            @Prev.performed -= instance.OnPrev;
+            @Prev.canceled -= instance.OnPrev;
+            @Next.started -= instance.OnNext;
+            @Next.performed -= instance.OnNext;
+            @Next.canceled -= instance.OnNext;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -913,6 +1073,10 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnShowAffection(InputAction.CallbackContext context);
         void OnNextLevel(InputAction.CallbackContext context);
         void OnDialog(InputAction.CallbackContext context);
+        void OnBag(InputAction.CallbackContext context);
+        void OnJournal(InputAction.CallbackContext context);
+        void OnPrev(InputAction.CallbackContext context);
+        void OnNext(InputAction.CallbackContext context);
     }
     public interface IGodmodeActions
     {

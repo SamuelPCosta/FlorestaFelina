@@ -9,13 +9,19 @@ public class CatsStatesController : MonoBehaviour
     [Header("Spawners")]
     public GameObject[] spawners;
     private GameObject[] cats;
+    private GameObject[] summons;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
         cats = new GameObject[spawners.Length];
-        for (int i = 0; i < spawners.Length; i++)
-            cats[i] = spawners[i].GetComponent<CatSpawnerController>().getCat();
+        summons = new GameObject[spawners.Length];
+
+        CatSpawnerController spawner;
+        for (int i = 0; i < spawners.Length; i++){
+            spawner = spawners[i].GetComponent<CatSpawnerController>();
+            cats[i] = spawner.getCat();
+            summons[i] = spawner.getSummon();
+        }
 
         save = FindObjectOfType<SaveLoad>().loadGame();
         checkCatIndex();
@@ -30,17 +36,19 @@ public class CatsStatesController : MonoBehaviour
     public void checkCatIndex(){
         MISSION_STATE currentState;
         MISSION_STATE lastState = MISSION_STATE.NOT_STARTED;
+        MISSION_STATE finalState = MISSION_STATE.HOME;
 
         for (int i = 0; i < spawners.Length; i++) {
             currentState = getMissionStateByIndex(i);
             bool shouldActivate = false;
 
             if (i == 0)
-                shouldActivate = (currentState != MISSION_STATE.FINISH);
+                shouldActivate = (currentState != finalState);
             else
-                shouldActivate = (lastState == MISSION_STATE.FINISH && currentState != MISSION_STATE.FINISH);
+                shouldActivate = (lastState == finalState && currentState != finalState);
 
-            cats[i].SetActive(shouldActivate);
+            cats[i]?.SetActive(shouldActivate);
+            summons[i]?.SetActive(shouldActivate);
             lastState = currentState;
         }
     }

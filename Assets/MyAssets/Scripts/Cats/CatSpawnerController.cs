@@ -9,6 +9,7 @@ public class CatSpawnerController : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] private CatController catController;
+    [SerializeField] private GameObject summon;
 
     [Header("Variation")]
     public int maxFurrVariation = 4;
@@ -30,6 +31,11 @@ public class CatSpawnerController : MonoBehaviour
     public GameObject getCat()
     {
         return catController.gameObject;
+    }
+
+    public GameObject getSummon()
+    {
+        return summon;
     }
 
     //public SEQUENCE getOrder()

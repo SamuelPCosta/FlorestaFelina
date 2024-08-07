@@ -160,6 +160,14 @@ public class SaveLoad : MonoBehaviour
         saveGame(save);
     }
 
+    public void setJournal()
+    {
+        Save save = loadGameInternal();
+        ++save.journal;
+
+        saveGame(save);
+    }
+
     public void savePlayerPosition(Transform position, int orientation, int levelIndex)
     {
         Save save = loadGameInternal();

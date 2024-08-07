@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class InteractionsController : MonoBehaviour
 {       
     [Header("Player object")]
     public GameObject PlayerRoot;
     public ProximityController boxcast;
+    public GameObject bag;
         
     [Header("Inventory")]
     public InventoryController inventoryController;
@@ -52,6 +54,7 @@ public class InteractionsController : MonoBehaviour
     private UICollect _UICollect;
 
     private bool fastMovementAllowed = false;
+    private bool catInBag = false;
 
     //Cats Attributes
     private bool catNotStarted = false;
@@ -67,6 +70,7 @@ public class InteractionsController : MonoBehaviour
     private InputAction moveFast;
     private InputAction nextLevel;
     private InputAction showAffection;
+    private InputAction bagInput;
 
     private void Awake()
     {
@@ -86,6 +90,7 @@ public class InteractionsController : MonoBehaviour
     void Start()
     {
         _UICollect = FindObjectOfType<UICollect>();
+        bag?.SetActive(false);
 
         menu = input.Player.Menu;
         collect = input.Player.Collect;
@@ -94,6 +99,7 @@ public class InteractionsController : MonoBehaviour
         moveFast = input.Player.MoveFast;
         nextLevel = input.Player.NextLevel;
         showAffection = input.Player.ShowAffection;
+        bagInput = input.Player.Bag;
 
         catCamera = null;
 
@@ -197,7 +203,9 @@ public class InteractionsController : MonoBehaviour
             }
             else if (catFirstInteraction)
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, true);
-
+            else if(catHealed && SceneManager.GetActiveScene().name != "Level1")
+                _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, true);
+            
             //##################INTERACOES##################
             //CARINHO
             checkCaress(catController.getIndex());
@@ -209,9 +217,13 @@ public class InteractionsController : MonoBehaviour
             //MENU DE INTERACAO
             checkCatMenu(catController);
 
+            //CARREGA GATO
+            checkCatOnTheBag(catController);
+
             //##################INTERACOES##################
-            
-        }else{
+
+        }
+        else{
             //LONGE DE GATOS
             fastMovementAllowed = true;
             _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, false);
@@ -262,6 +274,19 @@ public class InteractionsController : MonoBehaviour
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
             }
         }    
+    }
+
+    private void checkCatOnTheBag(CatController cat){
+        if (bagInput.triggered && catHealed && !_catMenuInteraction) {  //impede acao quando o menu esta aberto
+            bag?.SetActive(true);
+            cat.gameObject.SetActive(false);
+            catInBag = true;
+            //catsStatesController.setMissionState(cat.getIndex(), MISSION_STATE.HOME);
+        }
+    }
+
+    public bool isCatInBag(){
+        return catInBag;
     }
 
     //CONTROLA A INTERACAO COM NPCs

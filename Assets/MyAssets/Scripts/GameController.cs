@@ -65,10 +65,12 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene("Level1");
         SceneManager.sceneLoaded += OnSceneLoadedForHome;
     }
+
     private void OnSceneLoadedForHome(Scene scene, LoadSceneMode mode){
         Transform player = FindObjectOfType<InteractionsController>().transform;
         if (player != null)
             player.position = new Vector3(homePosition.x, homePosition.y, homePosition.z);
+        print("missao concluida!");
 
         SceneManager.sceneLoaded -= OnSceneLoadedForHome;
     }

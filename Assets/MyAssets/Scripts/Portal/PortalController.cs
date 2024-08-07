@@ -20,7 +20,8 @@ public class PortalController : MonoBehaviour{
 
     public void usePortal(){
         GameController gameController = FindObjectOfType<GameController>();
-        if (portalType == PORTAL_TYPE.HOME && !SceneManager.GetActiveScene().name.Equals(level1)){
+        InteractionsController interactionsController = FindObjectOfType<InteractionsController>();
+        if (portalType == PORTAL_TYPE.HOME && interactionsController.isCatInBag() && !SceneManager.GetActiveScene().name.Equals(level1)){
             Transform exitPosition = gameObject.transform.GetChild(0); //primeiro filho
             gameController.savePlayerPosition(exitPosition, getOrientation());
             gameController.setPlayerInHome();
