@@ -10,7 +10,10 @@ public class InteractionsController : MonoBehaviour
     public GameObject PlayerRoot;
     public ProximityController boxcast;
     public GameObject bag;
-        
+    public GameObject marker;
+    public GameObject roomba;
+    public GameObject roombaHips;
+
     [Header("Inventory")]
     public InventoryController inventoryController;
 
@@ -55,6 +58,7 @@ public class InteractionsController : MonoBehaviour
 
     private bool fastMovementAllowed = false;
     private bool catInBag = false;
+    private Transform currentCat = null;
 
     //Cats Attributes
     private bool catNotStarted = false;
@@ -103,6 +107,9 @@ public class InteractionsController : MonoBehaviour
 
         catCamera = null;
 
+        roomba?.SetActive(false);
+        roombaHips?.SetActive(true);
+
         InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
         inputsCursor.SetCursorState(true);
 
@@ -116,6 +123,7 @@ public class InteractionsController : MonoBehaviour
         checkWay();
         checkNPC();
         checkDialogs();
+        checkMarker();
         checkCat();
         checkWorkbench();
         checkSummon();
@@ -123,8 +131,11 @@ public class InteractionsController : MonoBehaviour
         checkGate();
         checkCameras();
 
-        if (moveFast.triggered && fastMovementAllowed)
+        if (moveFast.triggered && fastMovementAllowed) { 
             transform.GetComponent<MovementController>().changeLocomotion();
+            roomba?.SetActive(!roomba.activeSelf);
+            roombaHips?.SetActive(!roombaHips.activeSelf);
+        }
     }
 
     //CONTROLA COLETA E CONEXAO COM INVENTARIO
@@ -173,11 +184,20 @@ public class InteractionsController : MonoBehaviour
             
     }
 
-    //private void updateCatsState()
-    //{
-    //    catsStatesController.getMissionState();
-    //}
+    public void setMarker(GameObject cat)
+    {
+        currentCat = cat.transform;
+    }
 
+    private void checkMarker(){
+        int distance = 3;
+        if (currentCat != null && Vector3.Distance(transform.position, currentCat.transform.position) > distance) {
+            marker?.SetActive(true);
+            marker.transform.LookAt(currentCat);
+            marker.transform.eulerAngles = new Vector3(-90f, marker.transform.eulerAngles.y, marker.transform.eulerAngles.z);
+        }else
+            marker?.SetActive(false);
+    }
 
     //CONTROLA A INTERACAO COM GATOS
     private void checkCat(){
@@ -208,7 +228,7 @@ public class InteractionsController : MonoBehaviour
             
             //##################INTERACOES##################
             //CARINHO
-            checkCaress(catController.getIndex());
+            checkCaress(catController);
 
             //ANALISE
             if (checkCatAnalysis(catController))
@@ -232,11 +252,12 @@ public class InteractionsController : MonoBehaviour
         }
     }
 
-    private void checkCaress(int cat){
+    private void checkCaress(CatController cat){
         if (showAffection.triggered && !_catMenuInteraction){ //impede carinho quando o menu esta aberto
             if (catNotStarted){
                 //seta state desse gato como first interaction
-                catsStatesController.setMissionState(cat, MISSION_STATE.FIRST_INTERACTION);
+                catsStatesController.setMissionState(cat.getIndex(), MISSION_STATE.FIRST_INTERACTION);
+                setMarker(cat.gameObject);
             }
 
             print("carinho no gato "+cat);

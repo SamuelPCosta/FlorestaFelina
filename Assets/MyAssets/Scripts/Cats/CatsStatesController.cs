@@ -50,6 +50,10 @@ public class CatsStatesController : MonoBehaviour
             cats[i]?.SetActive(shouldActivate);
             summons[i]?.SetActive(shouldActivate);
             lastState = currentState;
+
+            //Ativa marcador
+            if (shouldActivate && (currentState == MISSION_STATE.FIRST_INTERACTION || currentState == MISSION_STATE.STARTED || currentState == MISSION_STATE.FINISH))
+                FindObjectOfType<InteractionsController>().setMarker(cats[i]);
         }
     }
 

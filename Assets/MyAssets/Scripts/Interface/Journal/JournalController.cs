@@ -51,7 +51,7 @@ public class JournalController : MonoBehaviour
         bool state = JournalMenu.activeSelf;
         if (journal.triggered){
             JournalMenu.SetActive(!state);
-            if (!state) {  //abrir
+            if (!state) { //abrir
                 viewPage(0);
                 Time.timeScale = 0f;
             } else
