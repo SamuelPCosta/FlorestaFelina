@@ -51,6 +51,34 @@ public class UICollect : UIController
         collectCoroutines.Add(coroutine);
     }
 
+    public void spawnCollectedPage()
+    {
+        collectedItemText.gameObject.SetActive(true);
+
+        collectedItemText.text = "Coletou uma nova página para o diário.";
+
+        foreach (Coroutine c in collectCoroutines)
+            StopCoroutine(c);
+
+        //Anima opacidade do texto
+        Coroutine coroutine = StartCoroutine(animateOpacity(collectedItemText.gameObject));
+        collectCoroutines.Add(coroutine);
+    }
+
+    public void spawnCollectedFruit()
+    {
+        collectedItemText.gameObject.SetActive(true);
+
+        collectedItemText.text = "Coletou uma fruta.";
+
+        foreach (Coroutine c in collectCoroutines)
+            StopCoroutine(c);
+
+        //Anima opacidade do texto
+        Coroutine coroutine = StartCoroutine(animateOpacity(collectedItemText.gameObject));
+        collectCoroutines.Add(coroutine);
+    }
+
     public void refreshInventory(CollectibleType type, int quantity)
     {
         switch (type)

@@ -13,6 +13,7 @@ public class InteractionsController : MonoBehaviour
     public GameObject marker;
     public GameObject roomba;
     public GameObject roombaHips;
+    public GameObject fruit;
 
     [Header("Inventory")]
     public InventoryController inventoryController;
@@ -39,6 +40,7 @@ public class InteractionsController : MonoBehaviour
 
     //PRIVATES
     private Inputs input;
+    private bool interactions = true;
 
     private bool _workebenchCam = false;
     private bool _ShopCam = false;
@@ -109,6 +111,7 @@ public class InteractionsController : MonoBehaviour
 
         roomba?.SetActive(false);
         roombaHips?.SetActive(true);
+        fruit?.SetActive(false);
 
         InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
         inputsCursor.SetCursorState(true);
@@ -116,30 +119,43 @@ public class InteractionsController : MonoBehaviour
         //updateCatsState();
     }
 
+    public void setInteractions(bool state)
+    {
+        interactions = state;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        checkCollectibles();
-        checkWay();
-        checkNPC();
-        checkDialogs();
-        checkMarker();
-        checkCat();
-        checkWorkbench();
-        checkSummon();
-        checkPortal();
-        checkGate();
-        checkCameras();
+        if (interactions) { 
+            bool isCollectible = checkCollectibles();
+            bool isPage = checkNewPage();
+            bool isFruit = checkFruit();
 
-        if (moveFast.triggered && fastMovementAllowed) { 
-            transform.GetComponent<MovementController>().changeLocomotion();
-            roomba?.SetActive(!roomba.activeSelf);
-            roombaHips?.SetActive(!roombaHips.activeSelf);
+            if(!isCollectible && !isPage && !isFruit)
+                _UITextIndicator.enableIndicator(IndicatorText.COLLECT, false);
+
+            checkWay();
+            checkNPC();
+            checkDialogs();
+            checkMarker();
+            checkCat();
+            checkWorkbench();
+            checkSummon();
+            checkPortal();
+            checkGate();
+            checkCameras();
+
+            if (moveFast.triggered && fastMovementAllowed) { 
+                transform.GetComponent<MovementController>().changeLocomotion();
+                roomba?.SetActive(!roomba.activeSelf);
+                roombaHips?.SetActive(!roombaHips.activeSelf);
+            }
         }
     }
 
     //CONTROLA COLETA E CONEXAO COM INVENTARIO
-    private void checkCollectibles()
+    private bool checkCollectibles()
     {
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Collectible"));
         if (collider != null)
@@ -157,8 +173,36 @@ public class InteractionsController : MonoBehaviour
 
                 collectible.collectItem();
             }
-        }else
-            _UITextIndicator.enableIndicator(IndicatorText.COLLECT, false);
+        }
+        return (collider != null);
+    }
+
+    private bool checkNewPage(){
+        Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("NewPage"));
+        if (collider != null){
+            _UITextIndicator.enableIndicator(IndicatorText.COLLECT, true);
+            if (collect.triggered){
+                FindObjectOfType<JournalController>().addPage();
+                Destroy(collider.gameObject);
+                //TODO: SAVE
+                _UICollect.spawnCollectedPage();
+            }
+        }
+        return (collider != null);
+    }
+
+    private bool checkFruit(){
+        Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Fruit"));
+        if (collider != null){
+            _UITextIndicator.enableIndicator(IndicatorText.COLLECT, true);
+            if (collect.triggered){
+                Destroy(collider.gameObject);
+                fruit?.SetActive(true);
+                //TODO: SAVE
+                _UICollect.spawnCollectedFruit();
+            }
+        }
+        return (collider != null);
     }
 
     //CONTROLA A INTERACAO COM BARREIRAS

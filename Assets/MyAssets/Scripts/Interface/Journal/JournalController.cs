@@ -13,7 +13,7 @@ public class JournalController : MonoBehaviour
     //PRIVATES
     private Inputs input;
     private int page = 0;
-    private int pageLimit;
+    private int pageLimit = 0;
 
     //ACTIONS
     private InputAction journal;
@@ -32,10 +32,11 @@ public class JournalController : MonoBehaviour
         input.Disable();
     }
 
-    void Start()
-    {
+    void Start(){
         JournalMenu?.SetActive(false);
-        pageLimit = FindObjectOfType<SaveLoad>().loadGame().journal;
+        Save save = FindObjectOfType<SaveLoad>().loadGame();
+        if (save != null)
+            pageLimit = save.journal;
 
         journal = input.Player.Journal;
         prev = input.Player.Prev;
@@ -56,6 +57,7 @@ public class JournalController : MonoBehaviour
                 Time.timeScale = 0f;
             } else
                 Time.timeScale = 1f;
+            FindObjectOfType<InteractionsController>().setInteractions(!state);
             return;
         }
 
