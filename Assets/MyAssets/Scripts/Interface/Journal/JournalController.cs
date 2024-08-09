@@ -64,10 +64,14 @@ public class JournalController : MonoBehaviour
         if (!state)
             return;
 
-        if (prev.triggered)
-            viewPage(Mathf.Max(0, --page));
-        if (next.triggered)
-            viewPage(Mathf.Min(++page, pages.Length-1));
+        if (prev.triggered){
+            page = Mathf.Max(--page, 0);
+            viewPage(page);
+        }
+        if (next.triggered) {
+            page = Mathf.Min(++page, pageLimit);
+            viewPage(page);
+        }
     }
 
     private void viewPage(int num){
