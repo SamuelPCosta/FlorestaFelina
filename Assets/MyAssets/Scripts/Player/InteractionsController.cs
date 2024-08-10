@@ -177,7 +177,7 @@ public class InteractionsController : MonoBehaviour
             isExitWave = false;
             waterParticles.transform.position = gameObject.transform.position;
             waterParticles?.SetActive(true);
-            waves.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            //waves.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             waves.Play();
             fastMovementAllowed = false;
         }
@@ -191,8 +191,10 @@ public class InteractionsController : MonoBehaviour
                 Vector2 move = transform.GetComponent<InputsMovement>().move;
 
                 var velocityOverLifetime = waves.velocityOverLifetime;
-                if (move != Vector2.zero)
+                if (move != Vector2.zero && !roomba.activeSelf)
                     velocityOverLifetime.z = new ParticleSystem.MinMaxCurve(-0.4f); //Velocidade do rastro
+                else if(move != Vector2.zero && roomba.activeSelf) 
+                    velocityOverLifetime.z = new ParticleSystem.MinMaxCurve(-1f); //roomba na agua
                 else
                     velocityOverLifetime.z = new ParticleSystem.MinMaxCurve(0f);
             }

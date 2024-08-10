@@ -36,6 +36,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Casustics:
+        m_Texture: {fileID: 2800000, guid: 3a569008433ce594cb762190b32b8ef0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainNormal:
         m_Texture: {fileID: 2800000, guid: e10b651319a122549b2b23b32b2c358b, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -62,11 +66,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _CasusticsScale: 12
+    - _CausticMovementScale: 0
+    - _CausticsMovementAmount: 0.022
+    - _CausticsMovementScale: 0.85
     - _CausticsSize: 300
+    - _CausticsSpeed: 0.5
     - _Death: 0
     - _Depth: 0.8
     - _Displacement: 0.11
-    - _EmissionIntensity: 30
+    - _EmissionIntensity: 100
     - _NormalStrength: 0.1
     - _NormalStrength2: 0.4
     - _QueueControl: 0
@@ -77,9 +86,9 @@ Material:
     - _TillingNormal: 15
     - _tillingNormal: 15
     m_Colors:
-    - _Deep_Water_Color: {r: 0, g: 0.43981582, b: 0.6698113, a: 0.7647059}
-    - _Foam_Color: {r: 0.62473303, g: 0.8708059, b: 0.9528302, a: 1}
-    - _Shallow_Water_Color: {r: 0.25943398, g: 0.94027436, b: 1, a: 0.4627451}
+    - _Deep_Water_Color: {r: 0, g: 0.5029412, b: 0.67058825, a: 0.7647059}
+    - _Foam_Color: {r: 0.62856853, g: 0.9528301, b: 0.78419304, a: 1}
+    - _Shallow_Water_Color: {r: 0.504717, g: 1, b: 0.96502995, a: 0.4627451}
     - _Sparkles_Color: {r: 0.7411765, g: 0.9803922, b: 1, a: 1}
-    - _Water_Color_2: {r: 0.09416164, g: 0.5804255, b: 0.8679245, a: 1}
+    - _Water_Color_2: {r: 0, g: 0.6520449, b: 0.8679245, a: 1}
   m_BuildTextureStacks: []
