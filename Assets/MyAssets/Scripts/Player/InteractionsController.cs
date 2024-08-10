@@ -12,8 +12,10 @@ public class InteractionsController : MonoBehaviour
     public GameObject bag;
     public GameObject marker;
     public GameObject roomba;
+    public GameObject roombaVFX;
     public GameObject roombaHips;
     public GameObject fruit;
+    public GameObject waterParticles;
 
     [Header("Inventory")]
     public InventoryController inventoryController;
@@ -40,6 +42,8 @@ public class InteractionsController : MonoBehaviour
 
     //PRIVATES
     private Inputs input;
+    private UICollect _UICollect;
+
     private bool interactions = true;
 
     private bool _workebenchCam = false;
@@ -56,11 +60,13 @@ public class InteractionsController : MonoBehaviour
     private string nameOfTutorial = "";
     private bool unlock = false;
 
-    private UICollect _UICollect;
-
     private bool fastMovementAllowed = false;
     private bool catInBag = false;
     private Transform currentCat = null;
+
+    ParticleSystem waves;
+    private Vector3 lastWavePosition = Vector3.zero;
+    private bool isExitWave = false;
 
     //Cats Attributes
     private bool catNotStarted = false;
@@ -97,6 +103,8 @@ public class InteractionsController : MonoBehaviour
     {
         _UICollect = FindObjectOfType<UICollect>();
         bag?.SetActive(false);
+        waterParticles?.SetActive(false);
+        waves = waterParticles.transform.GetChild(0).GetComponent<ParticleSystem>();
 
         menu = input.Player.Menu;
         collect = input.Player.Collect;
@@ -111,6 +119,7 @@ public class InteractionsController : MonoBehaviour
 
         roomba?.SetActive(false);
         roombaHips?.SetActive(true);
+        
         fruit?.SetActive(false);
 
         InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
@@ -119,9 +128,9 @@ public class InteractionsController : MonoBehaviour
         //updateCatsState();
     }
 
-    public void setInteractions(bool state)
+    public void setInteractions()
     {
-        interactions = state;
+        interactions = !interactions;
     }
 
     // Update is called once per frame
@@ -146,12 +155,65 @@ public class InteractionsController : MonoBehaviour
             checkGate();
             checkCameras();
 
-            if (moveFast.triggered && fastMovementAllowed) { 
+            if (moveFast.triggered && fastMovementAllowed && !(inDialog || inDynamicDialog)) { 
                 transform.GetComponent<MovementController>().changeLocomotion();
                 roomba?.SetActive(!roomba.activeSelf);
                 roombaHips?.SetActive(!roombaHips.activeSelf);
             }
+            if(roomba.activeSelf)
+                if (transform.GetComponent<InputsMovement>().move != Vector2.zero)
+                    roombaVFX?.SetActive(true);
+                else
+                    roombaVFX?.SetActive(false);
+
+            if (isExitWave)
+                waterParticles.transform.position = lastWavePosition;
         }
+    }
+
+    void OnTriggerEnter(Collider other) {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Water")) {
+            CancelInvoke("DisableWaves");
+            isExitWave = false;
+            waterParticles.transform.position = gameObject.transform.position;
+            waterParticles?.SetActive(true);
+            waves.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            waves.Play();
+            fastMovementAllowed = false;
+        }
+    }
+
+    void OnTriggerStay(Collider other) {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Water")) {
+            Vector3 particlesPosition = gameObject.transform.position;
+            if (waterParticles.activeSelf) { 
+                particlesPosition = gameObject.transform.position;
+                Vector2 move = transform.GetComponent<InputsMovement>().move;
+
+                var velocityOverLifetime = waves.velocityOverLifetime;
+                if (move != Vector2.zero)
+                    velocityOverLifetime.z = new ParticleSystem.MinMaxCurve(-0.4f); //Velocidade do rastro
+                else
+                    velocityOverLifetime.z = new ParticleSystem.MinMaxCurve(0f);
+            }
+            waterParticles.transform.position = particlesPosition;
+            fastMovementAllowed = false;
+        }
+    }
+
+    void OnTriggerExit(Collider other){
+        if (other.gameObject.layer == LayerMask.NameToLayer("Water")) {
+            waves.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            isExitWave = true;
+            lastWavePosition = waterParticles.transform.position;
+            Invoke("DisableWaves", 2f);
+            fastMovementAllowed = true;
+        }
+    }
+
+    private void DisableWaves(){
+        waterParticles?.SetActive(false);
+        isExitWave = false;
     }
 
     //CONTROLA COLETA E CONEXAO COM INVENTARIO
@@ -230,6 +292,10 @@ public class InteractionsController : MonoBehaviour
 
     public void setMarker(GameObject cat)
     {
+        if (cat == null) { 
+            currentCat = null;
+            return;
+        }
         currentCat = cat.transform;
     }
 
@@ -346,6 +412,7 @@ public class InteractionsController : MonoBehaviour
             bag?.SetActive(true);
             cat.gameObject.SetActive(false);
             catInBag = true;
+            setMarker(null);
             //catsStatesController.setMissionState(cat.getIndex(), MISSION_STATE.HOME);
         }
     }
@@ -371,14 +438,9 @@ public class InteractionsController : MonoBehaviour
                 inDialog = true;
                 enableMovement = false;
             }
-
-            fastMovementAllowed = false;
         }
         else
-        {
             _UITextIndicator.enableIndicator(IndicatorText.NPC, false);
-            fastMovementAllowed = true;
-        }
     }
 
     //CONTROLA A INTERACAO COM DIALOGOS AUTOMATICOS
@@ -411,20 +473,14 @@ public class InteractionsController : MonoBehaviour
 
             //gerenciar salvamento
             dialog.markDialog();
-
-            fastMovementAllowed = false;
         }
         else{
-            if (inDynamicDialog)
-                inDynamicDialog = false;
-
             //Execao do tutorial de movimento
             Vector2 playerMovement = GetComponent<InputsMovement>().move;
 
             if (FindObjectOfType<DialogSave>().getDialogState(1) || nameOfTutorial.Equals(moveTutorial) && playerMovement != Vector2.zero && enableMovement)
                 MovementTutorial.SetActive(false);
 
-            fastMovementAllowed = true;
             executeActionByDialog = true;
         }
     }
@@ -432,7 +488,10 @@ public class InteractionsController : MonoBehaviour
     public void exitDialog()
     {
         inDialog = false;
+        if (inDynamicDialog)
+            inDynamicDialog = false;
         //inDynamicDialog = false;
+        fastMovementAllowed = true;
         enableMovement = true;
     }
 

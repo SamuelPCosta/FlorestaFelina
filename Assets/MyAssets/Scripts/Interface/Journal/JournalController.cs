@@ -57,7 +57,7 @@ public class JournalController : MonoBehaviour
                 Time.timeScale = 0f;
             } else
                 Time.timeScale = 1f;
-            FindObjectOfType<InteractionsController>().setInteractions(!state);
+            FindObjectOfType<InteractionsController>().setInteractions();
             return;
         }
 

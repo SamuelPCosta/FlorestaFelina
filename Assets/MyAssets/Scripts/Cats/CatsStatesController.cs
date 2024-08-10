@@ -48,7 +48,9 @@ public class CatsStatesController : MonoBehaviour
                 shouldActivate = (lastState == finalState && currentState != finalState);
 
             cats[i]?.SetActive(shouldActivate);
-            summons[i]?.SetActive(shouldActivate);
+
+            if(summons[i] != null)
+                summons[i]?.SetActive(shouldActivate);
             lastState = currentState;
 
             //Ativa marcador
