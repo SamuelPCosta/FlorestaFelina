@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Mission { TUTORIAL, THIRST, MISSION3, MISSION4, MISSION5, MISSION6, MISSION7, MISSION8 } // TODO: ajustar numero do missionType[]
+public enum Mission { TUTORIAL, THIRST, PAIN, INJURED, VERY_INJURED}
 
-[System.Serializable] public enum MISSION_STATE { NOT_STARTED, FIRST_INTERACTION, STARTED, FINISH, HOME } 
+[System.Serializable] public enum MISSION_STATE { NOT_STARTED, FIRST_INTERACTION, STARTED, HEALED, HOME } 
 
 public class MissionController : MonoBehaviour
 {
@@ -19,7 +19,7 @@ public class MissionController : MonoBehaviour
     public UIMission _UIMission;
 
     [Header("Missions - declaration")]
-    public MissionType[] missionType = new MissionType[8];
+    public MissionType[] missionType = new MissionType[5];
 
     public static MissionController instance = null;
     void Start()
@@ -76,7 +76,7 @@ public class MissionController : MonoBehaviour
                     nextStage = true;
                 break;
 
-            case Mission.MISSION3:
+            case Mission.PAIN:
                 int water = inventoryController.getCollectible(CollectibleType.WATER);
                 int plant1 = inventoryController.getCollectible(CollectibleType.PLANT1);
                 if (water >= workbenchController.potion1Water && plant1 >= workbenchController.potion1Item1)
@@ -89,17 +89,17 @@ public class MissionController : MonoBehaviour
 
         //adotar gato
         if (CurrentMission >= 0 && CurrentMission < missionType.Length && CurrentStageMission == missionType[CurrentMission].description.Length - 1)
-            FindObjectOfType<CatsStatesController>().setMissionState(MISSION_STATE.FINISH);
+            FindObjectOfType<CatsStatesController>().setMissionState(MISSION_STATE.HEALED);
 
-        //condicao de conclusao do tutorial
+        //condicao de ativar ultimo dialogo do tutorial
         if (mission == Mission.TUTORIAL && CurrentStageMission >= missionType[CurrentMission].description.Length - 1){
             GameController gameController = FindObjectOfType<GameController>();
             gameController.enableDialog(gameController.catDialog2, true);
         }
 
         //condicao de conclusao da missao
-        if (CurrentMission >= 0 && CurrentMission < missionType.Length 
-            && CurrentStageMission >= missionType[CurrentMission].description.Length){
+        int numberOfSteps = missionType[CurrentMission].description.Length;
+        if (CurrentMission >= 0 && CurrentMission < missionType.Length && CurrentStageMission >= numberOfSteps){
             _UIMission.completeMission();
 
             //reseta missao no save

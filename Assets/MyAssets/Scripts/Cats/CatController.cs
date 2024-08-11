@@ -31,13 +31,13 @@ public class CatController : MonoBehaviour
                 mission = Mission.THIRST;
                 break;
             case Symptoms.PAIN:
-                mission = Mission.MISSION3;
+                mission = Mission.PAIN;
                 break;
             case Symptoms.INJURED:
-                mission = Mission.MISSION4;
+                mission = Mission.INJURED;
                 break;
             case Symptoms.VERY_INJURED:
-                mission = Mission.MISSION5;
+                mission = Mission.VERY_INJURED;
                 break;
             default:
                 mission = Mission.TUTORIAL;

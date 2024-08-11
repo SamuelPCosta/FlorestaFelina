@@ -16,6 +16,7 @@ public class InteractionsController : MonoBehaviour
     public GameObject roombaHips;
     public GameObject fruit;
     public GameObject waterParticles;
+    public GameObject waterDrops;
 
     [Header("Inventory")]
     public InventoryController inventoryController;
@@ -64,7 +65,8 @@ public class InteractionsController : MonoBehaviour
     private bool catInBag = false;
     private Transform currentCat = null;
 
-    ParticleSystem waves;
+    private ParticleSystem waves;
+    private ParticleSystem drops;
     private Vector3 lastWavePosition = Vector3.zero;
     private bool isExitWave = false;
 
@@ -73,6 +75,7 @@ public class InteractionsController : MonoBehaviour
     private bool catFirstInteraction = false;
     private bool catAnalyzed = false;
     private bool catHealed = false;
+    private bool catHome = false;
 
     //ACTIONS
     private InputAction menu;
@@ -104,7 +107,9 @@ public class InteractionsController : MonoBehaviour
         _UICollect = FindObjectOfType<UICollect>();
         bag?.SetActive(false);
         waterParticles?.SetActive(false);
+        waterDrops.gameObject?.SetActive(false);
         waves = waterParticles.transform.GetChild(0).GetComponent<ParticleSystem>();
+        drops = waterDrops.transform.GetChild(0).GetComponent<ParticleSystem>();
 
         menu = input.Player.Menu;
         collect = input.Player.Collect;
@@ -155,17 +160,21 @@ public class InteractionsController : MonoBehaviour
             checkGate();
             checkCameras();
 
+            Vector2 move = transform.GetComponent<InputsMovement>().move;
+
+            //Controla particulas do roomba
             if (moveFast.triggered && fastMovementAllowed && !(inDialog || inDynamicDialog)) { 
                 transform.GetComponent<MovementController>().changeLocomotion();
                 roomba?.SetActive(!roomba.activeSelf);
                 roombaHips?.SetActive(!roombaHips.activeSelf);
             }
             if(roomba.activeSelf)
-                if (transform.GetComponent<InputsMovement>().move != Vector2.zero)
+                if (move != Vector2.zero)
                     roombaVFX?.SetActive(true);
                 else
                     roombaVFX?.SetActive(false);
 
+            //Controla particulas da agua
             if (isExitWave)
                 waterParticles.transform.position = lastWavePosition;
         }
@@ -177,7 +186,9 @@ public class InteractionsController : MonoBehaviour
             isExitWave = false;
             waterParticles.transform.position = gameObject.transform.position;
             waterParticles?.SetActive(true);
+            waterDrops?.SetActive(true);
             //waves.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            drops.Play();
             waves.Play();
             fastMovementAllowed = false;
         }
@@ -197,6 +208,14 @@ public class InteractionsController : MonoBehaviour
                     velocityOverLifetime.z = new ParticleSystem.MinMaxCurve(-1f); //roomba na agua
                 else
                     velocityOverLifetime.z = new ParticleSystem.MinMaxCurve(0f);
+
+                //TODO: SOM NA AGUA
+                if (move == Vector2.zero) { 
+                    drops.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                }
+                else if (!drops.isPlaying) { 
+                    drops.Play();
+                }
             }
             waterParticles.transform.position = particlesPosition;
             fastMovementAllowed = false;
@@ -209,6 +228,7 @@ public class InteractionsController : MonoBehaviour
             isExitWave = true;
             lastWavePosition = waterParticles.transform.position;
             Invoke("DisableWaves", 2f);
+            Invoke("DisableDrops", .8f);
             fastMovementAllowed = true;
         }
     }
@@ -216,6 +236,10 @@ public class InteractionsController : MonoBehaviour
     private void DisableWaves(){
         waterParticles?.SetActive(false);
         isExitWave = false;
+    }
+
+    private void DisableDrops(){
+        drops.Stop(true, ParticleSystemStopBehavior.StopEmitting);
     }
 
     //CONTROLA COLETA E CONEXAO COM INVENTARIO
@@ -319,23 +343,25 @@ public class InteractionsController : MonoBehaviour
 
             CatController catController = collider.GetComponent<CatController>();
             MISSION_STATE state = catsStatesController.getMissionStateByIndex(catController.getIndex());
+            Mission missionType = FindObjectOfType<MissionController>().getMission();
 
             catNotStarted = state == MISSION_STATE.NOT_STARTED;
             catFirstInteraction = state == MISSION_STATE.FIRST_INTERACTION;
             catAnalyzed = state == MISSION_STATE.STARTED;
-            catHealed = state == MISSION_STATE.FINISH;
+            catHealed = state == MISSION_STATE.HEALED;
+            catHome = state == MISSION_STATE.HOME;
 
             //SET indicadores
             if (!_catMenuInteraction)
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, true);
             if (!catFirstInteraction){
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
-                if(catAnalyzed && !_catMenuInteraction)
+                if((catAnalyzed || catHealed || catHome) && !_catMenuInteraction)
                     _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, true);
             }
             else if (catFirstInteraction)
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, true);
-            else if(catHealed && SceneManager.GetActiveScene().name != "Level1")
+            else if(catHealed && missionType != Mission.TUTORIAL) //TODO: bolsa
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, true);
             
             //##################INTERACOES##################
@@ -410,12 +436,15 @@ public class InteractionsController : MonoBehaviour
     }
 
     private void checkCatOnTheBag(CatController cat){
-        if (bagInput.triggered && catHealed && !_catMenuInteraction) {  //impede acao quando o menu esta aberto
+        Mission missionType = FindObjectOfType<MissionController>().getMission();
+        if (bagInput.triggered && catHealed && !_catMenuInteraction && missionType != Mission.TUTORIAL){  //impede acao quando o menu esta aberto e qndo é o gato do tutorial
             bag?.SetActive(true);
             cat.gameObject.SetActive(false);
             catInBag = true;
             setMarker(null);
-            //catsStatesController.setMissionState(cat.getIndex(), MISSION_STATE.HOME);
+        }else 
+        if (catHealed && missionType == Mission.TUTORIAL){  //desliga marcador do TUTORIAL
+            setMarker(null);
         }
     }
 
@@ -628,6 +657,7 @@ public class InteractionsController : MonoBehaviour
         if (name.Equals("NextActionDialog")){
             riverBarrier.markDialog();
             riverBarrier.gameObject.SetActive(false);
+            //concluir tutorial
         }
 
         executeActionByDialog = false;

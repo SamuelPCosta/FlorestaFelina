@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &592968269551785524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5157289367576687349}
+  m_Layer: 8
+  m_Name: WaterDrops
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5157289367576687349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592968269551785524}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5717664337583480780}
+  m_Father: {fileID: 3525905219994939297}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &609291388280656782
 GameObject:
   m_ObjectHideFlags: 0
@@ -27,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 609291388280656782}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.03, z: 0}
+  m_LocalPosition: {x: 0, y: 0.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4842,7 +4874,7 @@ GameObject:
   - component: {fileID: 5006858820423503769}
   - component: {fileID: 5857817970916600050}
   m_Layer: 0
-  m_Name: drops
+  m_Name: Drops
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4857,11 +4889,11 @@ Transform:
   m_GameObject: {fileID: 784950849599428281}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.000014305115, y: 0.030000031, z: 0.000015258789}
+  m_LocalPosition: {x: 0.000014305115, y: 0.24300003, z: 0.000015258789}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 298171613002609236}
+  m_Father: {fileID: 5157289367576687349}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &5006858820423503769
 ParticleSystem:
@@ -9837,6 +9869,7 @@ Transform:
   - {fileID: 2763703702062562777}
   - {fileID: 583002305799983548}
   - {fileID: 298171613002609236}
+  - {fileID: 5157289367576687349}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7353996426080400859
@@ -9984,6 +10017,7 @@ MonoBehaviour:
   roombaHips: {fileID: 8684757968334383367}
   fruit: {fileID: 6681290893033709033}
   waterParticles: {fileID: 7458996447585610192}
+  waterDrops: {fileID: 592968269551785524}
   inventoryController: {fileID: 0}
   dialogController: {fileID: 0}
   catMenuController: {fileID: 0}
@@ -10137,7 +10171,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6555186813104861079}
-  - {fileID: 5717664337583480780}
   m_Father: {fileID: 3525905219994939297}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!2083052967 &7616884234217446421

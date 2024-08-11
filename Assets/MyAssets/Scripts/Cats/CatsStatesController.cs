@@ -54,7 +54,7 @@ public class CatsStatesController : MonoBehaviour
             lastState = currentState;
 
             //Ativa marcador
-            if (shouldActivate && (currentState == MISSION_STATE.FIRST_INTERACTION || currentState == MISSION_STATE.STARTED || currentState == MISSION_STATE.FINISH))
+            if (shouldActivate && (currentState == MISSION_STATE.FIRST_INTERACTION || currentState == MISSION_STATE.STARTED || currentState == MISSION_STATE.HEALED))
                 FindObjectOfType<InteractionsController>().setMarker(cats[i]);
         }
     }
