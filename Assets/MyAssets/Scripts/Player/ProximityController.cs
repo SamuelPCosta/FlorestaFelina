@@ -5,7 +5,7 @@ public class ProximityController : MonoBehaviour
 {
     [Header("Boxcast options")]
     public float maxDistance = 1f;
-    public float barrierDistance = 5f;
+    //public float barrierDistance = 5f;
     public bool draw = false;
 
     private Vector3 dimensions = new Vector3(1f, 1f, .2f);
@@ -13,8 +13,8 @@ public class ProximityController : MonoBehaviour
     public Collider checkProximity(int layer)
     {
         float distance = maxDistance;
-        if (LayerMask.LayerToName(layer) == "Barrier")
-            distance = barrierDistance;
+        //if (LayerMask.LayerToName(layer) == "Barrier")
+        //    distance = barrierDistance;
 
         int layerMask = 1 << layer;
 

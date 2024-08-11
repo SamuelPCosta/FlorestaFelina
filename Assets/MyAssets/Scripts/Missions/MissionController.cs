@@ -65,8 +65,7 @@ public class MissionController : MonoBehaviour
     }
 
     //TODO: PROGRAMAR AS MISSOES DOS GATOS AQUI
-    public void setMissionStage()
-    {
+    public void setMissionStage(){
         bool nextStage = false;
         Mission mission = (Mission)CurrentMission;
 
@@ -92,14 +91,16 @@ public class MissionController : MonoBehaviour
         if (CurrentMission >= 0 && CurrentMission < missionType.Length && CurrentStageMission == missionType[CurrentMission].description.Length - 1)
             FindObjectOfType<CatsStatesController>().setMissionState(MISSION_STATE.FINISH);
 
+        //condicao de conclusao do tutorial
+        if (mission == Mission.TUTORIAL && CurrentStageMission >= missionType[CurrentMission].description.Length - 1){
+            GameController gameController = FindObjectOfType<GameController>();
+            gameController.enableDialog(gameController.catDialog2, true);
+        }
+
         //condicao de conclusao da missao
         if (CurrentMission >= 0 && CurrentMission < missionType.Length 
             && CurrentStageMission >= missionType[CurrentMission].description.Length){
             _UIMission.completeMission();
-            if (mission == Mission.TUTORIAL){
-                GameController gameController = FindObjectOfType<GameController>();
-                gameController.enableDialog(gameController.catDialog2, true);
-            }
 
             //reseta missao no save
             Debug.Log("Missao concluida");

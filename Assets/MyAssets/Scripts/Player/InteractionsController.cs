@@ -467,7 +467,7 @@ public class InteractionsController : MonoBehaviour
 
             //excecao do tutorial de movimento
             if (nameOfTutorial == moveTutorial)
-                MovementTutorial.SetActive(true);
+                MovementTutorial?.SetActive(true);
 
             //gatilho pra acoes
             if (executeActionByDialog)
@@ -481,7 +481,7 @@ public class InteractionsController : MonoBehaviour
             Vector2 playerMovement = GetComponent<InputsMovement>().move;
 
             if (FindObjectOfType<DialogSave>().getDialogState(1) || nameOfTutorial.Equals(moveTutorial) && playerMovement != Vector2.zero && enableMovement)
-                MovementTutorial.SetActive(false);
+                MovementTutorial?.SetActive(false);
 
             executeActionByDialog = true;
         }
