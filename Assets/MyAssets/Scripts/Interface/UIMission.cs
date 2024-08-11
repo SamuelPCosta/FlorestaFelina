@@ -7,19 +7,18 @@ using UnityEngine.UI;
 
 public class UIMission : UIController
 {
+    [Header("Attributes")]
     public GameObject missionHud;
     public GameObject missionTitle;
     public GameObject missionDescription;
 
     public string title = "Missão: ";
 
-    private MissionType CurrentMission;
+    [Header("Alternative text")]
+    [Tooltip("Pocoes ja craftadas")]
+    public string stage2AlternativeText = "";
 
-    void Start()
-    {
-        //missionHud.SetActive(false);
-        //TODO: ver o save
-    }
+    private MissionType CurrentMission;
 
     public void disableMissionHUD()
     {
@@ -39,6 +38,13 @@ public class UIMission : UIController
             return;
 
         missionDescription.GetComponent<TextMeshProUGUI>().text = CurrentMission.description[index];
+    }
+
+    public void setAlternativeText(string potion){
+        if (!missionHud.activeSelf)
+            return;
+
+        missionDescription.GetComponent<TextMeshProUGUI>().text = stage2AlternativeText + potion;
     }
 
     public void completeMission()

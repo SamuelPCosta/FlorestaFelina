@@ -1086,6 +1086,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5195062399092551442, guid: 21200b5c6853698488c24e3912ecbed2, type: 3}
+      propertyPath: stage2AlternativeText
+      value: Medique o gato com
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195062399092551442, guid: 21200b5c6853698488c24e3912ecbed2, type: 3}
       propertyPath: mission1.Array.data[2]
       value: "Ofere\xE7a \xE1gua."
       objectReference: {fileID: 0}

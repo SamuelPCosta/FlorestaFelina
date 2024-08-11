@@ -28,7 +28,7 @@ public class WorkbenchController : PanelController
     void Start()
     {
         inventoryController = FindObjectOfType<InventoryController>();
-        _UICrafting = FindObjectOfType<UICrafting>(); //TODO APENAS NIVEL 1
+        _UICrafting = FindObjectOfType<UICrafting>();
         _UICollect = FindObjectOfType<UICollect>();
         _UIButtons = FindAnyObjectByType<UIButtons>();
 

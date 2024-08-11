@@ -15,7 +15,6 @@ public class CatMenuController : PanelController
     private bool isThirsty = true;
     private CatController catController;
 
-    // Start is called before the first frame update
     void Start()
     {
         inventoryController = FindObjectOfType<InventoryController>();
@@ -30,11 +29,9 @@ public class CatMenuController : PanelController
     {
         if (menu.activeSelf && confirmOption.triggered)
             interactWithCat();
-
     }
 
-    public void turnOn()
-    {
+    public void turnOn(){
         menu?.SetActive(true);
         _UIButtons.setButtons(buttons);
         option = null;
@@ -42,18 +39,42 @@ public class CatMenuController : PanelController
         EventSystem.current.SetSelectedGameObject(checkOption());
     }
 
-    public void selectOption(GameObject optionButton)
-    {
+    public void selectOption(GameObject optionButton){
         option = optionButton;
     }
 
-    private GameObject checkOption() //ativa ou desativa opcao baseado...
+    private GameObject checkOption() //ativa ou desativa opcao baseado na missao
     {
+        MissionController missionController = FindObjectOfType<MissionController>();
+        Mission mission = missionController.getMission();
+        int stageMission = missionController.getMissionStage();
+
         int water = inventoryController.getCollectible(CollectibleType.WATER);
 
-        bool enableOption1 = water > 0 && isThirsty;
+        bool hasWater = false;
+        bool hasPotion = false;
+        switch (mission){
+            case Mission.TUTORIAL: case Mission.THIRST:
+                if (water > 0)
+                    hasWater = true;
+                break;
+            case Mission.PAIN:
+                if (inventoryController.getPotion(PotionType.POTION1) > 0)
+                    hasPotion = true;
+                break;
+            case Mission.INJURED:
+                if (inventoryController.getPotion(PotionType.POTION2) > 0)
+                    hasPotion = true;
+                break;
+            case Mission.VERY_INJURED:
+                if (inventoryController.getPotion(PotionType.POTION3) > 0)
+                    hasPotion = true;
+                break;
+        }
+
+        bool enableOption1 = hasWater && isThirsty;
         bool enableOption2 = true;
-        bool enableOption3 = false;
+        bool enableOption3 = hasPotion;
 
         _UIButtons.setOptions(options[0], enableOption1);
         _UIButtons.setOptions(options[1], enableOption2);
@@ -62,7 +83,6 @@ public class CatMenuController : PanelController
         _UIButtons.disableOptions();
         GameObject firstOption = null;
         //Ordem inversa para a reescrita sempre sobrescrever com um numero menor
-        //TODO: transformar isso numa funcao na panelController
         if (enableOption3)
         {
             _UIButtons.enableOption((int)MenuOption.OPTION3);
@@ -82,30 +102,25 @@ public class CatMenuController : PanelController
         return firstOption;
     }
 
-    //public void setCat(CatController cat)
-    //{
-    //    catController = cat;
-    //}
-
     public void interactWithCat()
     {
         MissionController missionController = FindObjectOfType<MissionController>();
         if (missionController == null)
             return;
         Mission mission = missionController.getMission();
+        int stageMission = missionController.getMissionStage();
 
         if (option == null)
             return;
-        if (option == options[0])
-        {
+        if (option == options[0]){
             inventoryController.consumeCollectible(CollectibleType.WATER, CatController.catWaterConsumption);
             isThirsty = false;
 
-            missionController.setMissionStage();
+            if(stageMission == 1)
+                missionController.setMissionStage();
         }
         else
-        if (option == options[1])
-        {
+        if (option == options[1]){
             
         }
         else

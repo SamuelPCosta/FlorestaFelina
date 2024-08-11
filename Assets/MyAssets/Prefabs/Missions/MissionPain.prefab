@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8035993724962843369}
   - component: {fileID: 6753746743118335364}
   m_Layer: 0
-  m_Name: MissionTutorial
+  m_Name: MissionPain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76cb7d67daf61c4ba038e48b23fd7f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mission: 0
-  title: Um novo amigo?
+  mission: 2
+  title: "Combate \xE0 dor"
   description:
-  - "V\xE1 at\xE9 uma fonte de \xE1gua e colete \xE1gua. "
-  - "Interaja com o gato e ofere\xE7a \xE1gua."
-  - "Gato adotado! Uma \xFAltima olhada em casa antes de ir?"
+  - "Colete \xE1gua e X plantas Y."
+  - "Prepare a po\xE7\xE3o A e medique o gato."
+  - "Adote-o: o coloque mochila e v\xE1 pra casa pelo portal."

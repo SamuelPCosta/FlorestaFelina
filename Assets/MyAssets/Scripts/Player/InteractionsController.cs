@@ -48,7 +48,7 @@ public class InteractionsController : MonoBehaviour
     private bool interactions = true;
 
     private bool _workebenchCam = false;
-    private bool _ShopCam = false;
+    //private bool _ShopCam = false;
     private bool _catMenuInteraction = false;
     private GameObject catCamera = null;
     private GameObject workenchCamera = null;
@@ -71,6 +71,7 @@ public class InteractionsController : MonoBehaviour
     private bool isExitWave = false;
 
     //Cats Attributes
+    private CatController tutorialCat = null;
     private bool catNotStarted = false;
     private bool catFirstInteraction = false;
     private bool catAnalyzed = false;
@@ -361,7 +362,7 @@ public class InteractionsController : MonoBehaviour
             }
             else if (catFirstInteraction)
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, true);
-            else if(catHealed && missionType != Mission.TUTORIAL) //TODO: bolsa
+            else if(catHealed && missionType != Mission.TUTORIAL) //TODO: indicador da bolsa
                 _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, true);
             
             //##################INTERACOES##################
@@ -444,6 +445,7 @@ public class InteractionsController : MonoBehaviour
             setMarker(null);
         }else 
         if (catHealed && missionType == Mission.TUTORIAL){  //desliga marcador do TUTORIAL
+            tutorialCat = cat;
             setMarker(null);
         }
     }
@@ -657,7 +659,10 @@ public class InteractionsController : MonoBehaviour
         if (name.Equals("NextActionDialog")){
             riverBarrier.markDialog();
             riverBarrier.gameObject.SetActive(false);
-            //concluir tutorial
+            catsStatesController.setMissionState(tutorialCat.getIndex(), MISSION_STATE.HOME);
+            MissionController missionController = FindObjectOfType<MissionController>();
+            missionController.addStage();
+            missionController.checkMissionCompletion();
         }
 
         executeActionByDialog = false;

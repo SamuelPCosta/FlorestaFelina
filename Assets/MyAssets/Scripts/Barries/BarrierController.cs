@@ -6,17 +6,8 @@ public class BarrierController : MonoBehaviour
 {
     public GameObject orb;
 
-    private void Start()
-    {
+    private void Start(){
         orb.SetActive(false);
-    }
-
-    //TODO: conferir metodo de liberar caminho e remover ou trazer de volta
-    void OnTriggerEnter(Collider collision)
-    {
-        //if (collision.gameObject.tag == "MakeWay")
-        //    //Chama animacao
-        //    destroy();
     }
 
     public void makeWay()

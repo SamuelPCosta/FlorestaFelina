@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour
         
     }
 
-    public static int getLevelIndex() //TODOOOO: corrigir dps da interface
+    public static int getLevelIndex()
     {
         string level = SceneManager.GetActiveScene().name;
         string levelNumber = level.Substring(level.Length - 1);

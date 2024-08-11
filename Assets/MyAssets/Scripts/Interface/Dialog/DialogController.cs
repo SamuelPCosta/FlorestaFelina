@@ -14,6 +14,9 @@ public class DialogController : UIController
     public TextMeshProUGUI speechOfCharacter;
     public Image imageOfCharacter;
 
+    [Header("Characters")]
+    public string mainCharacter = "Eilidh";
+
     [Header("Photos")]
     public Sprite[] photos;
 
@@ -101,7 +104,7 @@ public class DialogController : UIController
         Speeches.Character photo = 0;
         if(character == Speeches.Character.PLAYER)
         {
-            name = "Protagonista";
+            name = mainCharacter;
             photo = Speeches.Character.PLAYER;
         }
         else
