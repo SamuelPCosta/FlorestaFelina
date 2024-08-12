@@ -121,7 +121,7 @@ public class CatMenuController : PanelController
         }
         else
         if (option == options[1]){
-            
+            //TODO: cena de remedio
         }
         else
         if (option == options[2])

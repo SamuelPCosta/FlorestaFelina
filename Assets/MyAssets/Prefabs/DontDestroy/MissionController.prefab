@@ -44,14 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0edb35e2c4919ff41b68427b4eb8bdd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  workbenchController: {fileID: 0}
+  craft: {fileID: 0}
   inventoryController: {fileID: 0}
   _UIMission: {fileID: 0}
   missionType:
+  - {fileID: 6753746743118335364, guid: 11e44440190f8074882d5230f73dcb4f, type: 3}
   - {fileID: 6753746743118335364, guid: 7daaf34f10d3def4595aea2be2e93867, type: 3}
-  - {fileID: 6753746743118335364, guid: 7daaf34f10d3def4595aea2be2e93867, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6753746743118335364, guid: 101a3e53387682b468225e9ad0f7df87, type: 3}
+  - {fileID: 6753746743118335364, guid: 8a6cb04d9c99e544881e1fb58b5f48dc, type: 3}
+  - {fileID: 6753746743118335364, guid: d4562c0b0bcf472419ecdf76029e42b5, type: 3}

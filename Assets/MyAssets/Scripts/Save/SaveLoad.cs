@@ -135,7 +135,11 @@ public class SaveLoad : MonoBehaviour
 
     public void saveMissionState(int index, MISSION_STATE state){
         Save save = loadGameInternal();
+        Vector3 position = FindObjectOfType<GameController>().getPlayerPosition();
         save.missionState[index] = state;
+        save.playerPosition[0] = position.x;
+        save.playerPosition[1] = position.y;
+        save.playerPosition[2] = position.z;
         saveGame(save);
 
         if (isDebugging)

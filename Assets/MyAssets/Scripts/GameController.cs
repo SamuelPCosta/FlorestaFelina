@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour
     [Header("DefaultPositionPortal")]
     public Vector3 homePosition;
 
+    private Vector3 position;
+
     public static GameController instance = null;
     void Start()
     {
@@ -26,33 +28,44 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-        enableDialog(catDialog2, false);
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        //playGame();
+
+        if(catDialog2 != null)
+            enableDialog(catDialog2, false);
     }
 
-    public static int getLevelIndex()
-    {
+    //PLAAAAAAAY
+    public void playGame(){
+        Save save = FindObjectOfType<SaveLoad>().loadGame();
+        if (save != null){
+            position = new Vector3(save.playerPosition[0], save.playerPosition[1], save.playerPosition[2]);
+            SceneManager.LoadScene(save.level);
+            //SceneManager.sceneLoaded += OnSceneLoadedSave;
+            //setPlayerLvl(save.level, savePosition);
+        }
+    }
+
+
+    public static int getLevelIndex() {
         string level = SceneManager.GetActiveScene().name;
         string levelNumber = level.Substring(level.Length - 1);
         return int.Parse(levelNumber) - 1; //arrays comecam em 0...
     }
 
-    public void nextScene()
-    {
+
+    //CONTROLE DE CENA
+    public void nextScene(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void newChance(int scene)
-    {
+    public void newChance(int scene){
         SceneManager.LoadScene(scene);
     }
 
-    public void savePlayerPosition(Transform exit, int orientation)
-    {
+
+    //CONTROLE DE PORTAIS
+    public void savePlayerPortalPosition(Transform exit, int orientation){
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null){
             int index = SceneManager.GetActiveScene().buildIndex;
@@ -60,8 +73,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void setPlayerInHome()
-    {
+    public void setPlayerInHome(){
         SceneManager.LoadScene("Level1");
         SceneManager.sceneLoaded += OnSceneLoadedForHome;
     }
@@ -75,8 +87,7 @@ public class GameController : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoadedForHome;
     }
 
-    public void setPlayerInForest()
-    {
+    public void setPlayerInForest(){
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null){
             int index = save.previousLevel;
@@ -95,6 +106,26 @@ public class GameController : MonoBehaviour
         SceneManager.sceneLoaded -= (scene, mode) => OnSceneLoadedForForest(scene, mode, playerPosition, rotation);
     }
 
+
+    //CONTROLE DE LVL E POSITION
+    public int getPlayerLvl(){
+        return SceneManager.GetActiveScene().buildIndex;
+    }
+
+    private void OnSceneLoadedSave(Scene scene, LoadSceneMode mode){
+        //setPlayerPosition(position);
+        SceneManager.sceneLoaded -= OnSceneLoadedSave;
+    }
+
+    public Vector3 getPlayerPosition(){
+        return FindObjectOfType<MovementController>().transform.position;
+    }
+
+    public void setPlayerPosition(Vector3 position){
+        FindObjectOfType<MovementController>().transform.position = position;
+    }
+
+    //TUTORIAL
     public void enableTutorialCat(bool state)
     {
         FirstCat?.SetActive(state);

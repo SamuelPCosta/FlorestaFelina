@@ -547,6 +547,8 @@ public class InteractionsController : MonoBehaviour
     {
         Collider portal = boxcast.checkProximity(LayerMask.NameToLayer("Portal"));
         if (portal != null){
+            //TODO: se o portal é forest e a posicao de saida é zero return;
+            //FindObjectOfType<GameController>().
             _UITextIndicator.enableIndicator(IndicatorText.PORTAL, true);
             if (makeWay.triggered)
             {

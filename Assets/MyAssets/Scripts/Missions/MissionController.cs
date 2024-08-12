@@ -92,9 +92,11 @@ public class MissionController : MonoBehaviour{
         potion3 = inventoryController.getPotion(PotionType.POTION3);
 
         //Relativo ao estagio 1>2
-        if (CurrentStageMission == 0 && checkIngredients(mission))
+        if (CurrentStageMission == 0 && checkIngredients(mission)) { 
             //Avanca estagioS da missao atual (levando em conta saltos de etapas ao iniciar missao)
             addStage();
+            _UIMission.setMissionStage(CurrentStageMission);
+        }
 
         if(CurrentStageMission == 1)
             checkAlternativeText(mission);
@@ -106,8 +108,8 @@ public class MissionController : MonoBehaviour{
             checkTutorial(mission);
         }
             
-
-        checkMissionCompletion();
+        if(CurrentStageMission == 2)
+            checkMissionCompletion();
 
         oldWater = water;
         oldPotion1 = potion1;

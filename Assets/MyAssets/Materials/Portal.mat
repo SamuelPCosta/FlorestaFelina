@@ -62,5 +62,5 @@ Material:
     - _QueueOffset: 0
     - _Strength_Twirl: 20
     m_Colors:
-    - _Color: {r: 1.098772, g: 2.0194454, b: 3.8186834, a: 1}
+    - _Color: {r: 0.86039764, g: 0.8489858, b: 0.24775846, a: 1}
   m_BuildTextureStacks: []

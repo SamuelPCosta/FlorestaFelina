@@ -23,7 +23,7 @@ public class PortalController : MonoBehaviour{
         InteractionsController interactionsController = FindObjectOfType<InteractionsController>();
         if (portalType == PORTAL_TYPE.HOME && interactionsController.isCatInBag() && !SceneManager.GetActiveScene().name.Equals(level1)){
             Transform exitPosition = gameObject.transform.GetChild(0); //primeiro filho
-            gameController.savePlayerPosition(exitPosition, getOrientation());
+            gameController.savePlayerPortalPosition(exitPosition, getOrientation());
             gameController.setPlayerInHome();
         }
         else if(portalType == PORTAL_TYPE.FOREST && SceneManager.GetActiveScene().name.Equals(level1)){

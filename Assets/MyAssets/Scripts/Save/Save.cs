@@ -45,5 +45,4 @@ public class Save
     public bool objectiveFloorDestroy;
 
     //Salvar estados das plantas coletadas
-    //Salvar barreiras destruidas
 }
