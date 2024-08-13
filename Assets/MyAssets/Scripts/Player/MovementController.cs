@@ -225,6 +225,23 @@ using UnityEngine.InputSystem;
             if (!enableMovement)
                 targetSpeed = 0f;
 
+            //R2 DO CONTROLE (right trigger gamepad)
+                float multiplier = 1;
+                bool gamepadOn = false;
+                if (Keyboard.current != null && Keyboard.current.anyKey.isPressed){
+                    if (gamepadOn == true)
+                        gamepadOn = false;
+                }
+                foreach (InputControl control in Gamepad.current.allControls){
+                    if (control.IsPressed() && gamepadOn == false) { 
+                        gamepadOn = true;
+                        if(moveFast)
+                            multiplier = GetComponent<InputsMovement>().acceleration;
+                        break;
+                    }
+                }
+
+            targetSpeed *= multiplier;
             float speedOffset = 0.1f;
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 

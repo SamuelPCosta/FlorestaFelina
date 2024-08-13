@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 		public Vector2 move;
 		public Vector2 look;
 		public bool sprint;
+		public float acceleration;
 
 		private PlayerInput _PlayerInput;
 
@@ -21,7 +22,7 @@ using UnityEngine.InputSystem;
 
 #if ENABLE_INPUT_SYSTEM
 
-	public void OnMove(InputValue value)
+		public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -37,6 +38,11 @@ using UnityEngine.InputSystem;
         public void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
+		}
+
+		public void OnAcceleration(InputValue value)
+		{
+			AccelerationInput(value.Get<float>());
 		}
 #endif
 
@@ -55,6 +61,11 @@ using UnityEngine.InputSystem;
 			sprint = newSprintState;
 		}
 
+		public void AccelerationInput(float newAccelerationValue)
+		{
+			acceleration = newAccelerationValue;
+		}
+
 		//private void OnApplicationFocus(bool hasFocus)
 		//{
 		//	SetCursorState(cursorLocked);
@@ -62,7 +73,7 @@ using UnityEngine.InputSystem;
 
 		public void SetCursorState(bool newState)
 		{
-			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+			//Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 	}
 	

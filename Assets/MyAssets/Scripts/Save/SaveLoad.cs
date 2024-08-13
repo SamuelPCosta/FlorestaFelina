@@ -174,17 +174,17 @@ public class SaveLoad : MonoBehaviour
         saveGame(save);
     }
 
-    public void savePlayerPosition(Transform position) {
-        Save save = loadGameInternal();
-        save.playerPosition[0] = position.position.x;
-        save.playerPosition[1] = position.position.y;
-        save.playerPosition[2] = position.position.z;
+    //public void savePlayerPosition(Transform position) {
+    //    Save save = loadGameInternal();
+    //    save.playerPosition[0] = position.position.x;
+    //    save.playerPosition[1] = position.position.y;
+    //    save.playerPosition[2] = position.position.z;
 
-        if(isDebugging)
-            print(position.position.x + " - " + position.position.y + " - " + position.position.z);
+    //    if(isDebugging)
+    //        print(position.position.x + " - " + position.position.y + " - " + position.position.z);
 
-        saveGame(save);
-    }
+    //    saveGame(save);
+    //}
 
     public void savePlayerPositionPortal(Transform position, int orientation, int levelIndex){
         Save save = loadGameInternal();

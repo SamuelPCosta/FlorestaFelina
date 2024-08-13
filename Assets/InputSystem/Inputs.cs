@@ -161,6 +161,15 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Acceleration"",
+                    ""type"": ""Value"",
+                    ""id"": ""06a26e7d-56f1-4f16-9b61-e15ece92ea08"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -603,6 +612,17 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""Journal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f9e7ecf8-9ebb-456f-ac6e-0ca2b930865e"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Acceleration"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -742,6 +762,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player_Journal = m_Player.FindAction("Journal", throwIfNotFound: true);
         m_Player_Prev = m_Player.FindAction("Prev", throwIfNotFound: true);
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
+        m_Player_Acceleration = m_Player.FindAction("Acceleration", throwIfNotFound: true);
         // Godmode
         m_Godmode = asset.FindActionMap("Godmode", throwIfNotFound: true);
         m_Godmode_extraW = m_Godmode.FindAction("extraW", throwIfNotFound: true);
@@ -823,6 +844,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Journal;
     private readonly InputAction m_Player_Prev;
     private readonly InputAction m_Player_Next;
+    private readonly InputAction m_Player_Acceleration;
     public struct PlayerActions
     {
         private @Inputs m_Wrapper;
@@ -842,6 +864,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @Journal => m_Wrapper.m_Player_Journal;
         public InputAction @Prev => m_Wrapper.m_Player_Prev;
         public InputAction @Next => m_Wrapper.m_Player_Next;
+        public InputAction @Acceleration => m_Wrapper.m_Player_Acceleration;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -896,6 +919,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Next.started += instance.OnNext;
             @Next.performed += instance.OnNext;
             @Next.canceled += instance.OnNext;
+            @Acceleration.started += instance.OnAcceleration;
+            @Acceleration.performed += instance.OnAcceleration;
+            @Acceleration.canceled += instance.OnAcceleration;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -945,6 +971,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Next.started -= instance.OnNext;
             @Next.performed -= instance.OnNext;
             @Next.canceled -= instance.OnNext;
+            @Acceleration.started -= instance.OnAcceleration;
+            @Acceleration.performed -= instance.OnAcceleration;
+            @Acceleration.canceled -= instance.OnAcceleration;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1077,6 +1106,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnJournal(InputAction.CallbackContext context);
         void OnPrev(InputAction.CallbackContext context);
         void OnNext(InputAction.CallbackContext context);
+        void OnAcceleration(InputAction.CallbackContext context);
     }
     public interface IGodmodeActions
     {
