@@ -47,12 +47,16 @@ public class InteractionsController : MonoBehaviour
 
     private bool interactions = true;
 
+
+    //CAMERAS
     private bool _workebenchCam = false;
     //private bool _ShopCam = false;
     private bool _catMenuInteraction = false;
     private GameObject catCamera = null;
     private GameObject workenchCamera = null;
 
+
+    //OTHERS
     private bool enableMovement = true;
 
     private bool inDialog = false;
@@ -131,6 +135,12 @@ public class InteractionsController : MonoBehaviour
         InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
         inputsCursor.SetCursorState(true);
 
+        Save save = FindObjectOfType<SaveLoad>().loadGame();
+        if (save != null && riverBarrier.gameObject != null)
+            if (save.missionState[1] == MISSION_STATE.HOME)
+                riverBarrier.gameObject.SetActive(true);
+            else if (save.missionState[0] == MISSION_STATE.HOME)
+                riverBarrier.gameObject.SetActive(false);
         //updateCatsState();
     }
 
@@ -416,7 +426,7 @@ public class InteractionsController : MonoBehaviour
     }
 
     private void checkCatMenu(CatController cat){
-        if (menu.triggered && (catAnalyzed || catHealed)){
+        if (menu.triggered && (catAnalyzed || catHealed || catHome)){
             InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
             if (_catMenuInteraction) {
                 _catMenuInteraction = false;
@@ -646,7 +656,7 @@ public class InteractionsController : MonoBehaviour
     }
 
     private void managerElements(string name){
-        GameController gameController = FindFirstObjectByType<GameController>();
+        TutorialController gameController = FindFirstObjectByType<TutorialController>();
 
         if (name.Equals("MoveTutorial") && gameController.catDialog != null){
             gameController.enableDialog(gameController.catDialog, false);

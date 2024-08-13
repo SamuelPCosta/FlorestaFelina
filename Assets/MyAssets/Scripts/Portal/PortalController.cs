@@ -21,6 +21,7 @@ public class PortalController : MonoBehaviour{
     public void usePortal(){
         GameController gameController = FindObjectOfType<GameController>();
         InteractionsController interactionsController = FindObjectOfType<InteractionsController>();
+
         if (portalType == PORTAL_TYPE.HOME && interactionsController.isCatInBag() && !SceneManager.GetActiveScene().name.Equals(level1)){
             Transform exitPosition = gameObject.transform.GetChild(0); //primeiro filho
             gameController.savePlayerPortalPosition(exitPosition, getOrientation());

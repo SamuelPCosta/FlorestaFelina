@@ -135,22 +135,24 @@ public class SaveLoad : MonoBehaviour
 
     public void saveMissionState(int index, MISSION_STATE state){
         Save save = loadGameInternal();
-        Vector3 position = FindObjectOfType<GameController>().getPlayerPosition();
         save.missionState[index] = state;
-        save.playerPosition[0] = position.x;
-        save.playerPosition[1] = position.y;
-        save.playerPosition[2] = position.z;
         saveGame(save);
 
         if (isDebugging)
             Debug.Log("estado salvo");
     }
 
-    public void saveMission(int mission, int stage)
+    public void saveMission(int mission, int stage, bool savePosition)
     {
         Save save = loadGameInternal();
         save.currentMission = mission;
         save.currentMissionStage = stage;
+        if (savePosition){
+            Vector3 position = FindObjectOfType<GameController>().getPlayerPosition();
+            save.playerPosition[0] = position.x;
+            save.playerPosition[1] = position.y;
+            save.playerPosition[2] = position.z;
+        }
 
         saveGame(save);
     }
@@ -172,12 +174,23 @@ public class SaveLoad : MonoBehaviour
         saveGame(save);
     }
 
-    public void savePlayerPosition(Transform position, int orientation, int levelIndex)
-    {
+    public void savePlayerPosition(Transform position) {
         Save save = loadGameInternal();
         save.playerPosition[0] = position.position.x;
         save.playerPosition[1] = position.position.y;
         save.playerPosition[2] = position.position.z;
+
+        if(isDebugging)
+            print(position.position.x + " - " + position.position.y + " - " + position.position.z);
+
+        saveGame(save);
+    }
+
+    public void savePlayerPositionPortal(Transform position, int orientation, int levelIndex){
+        Save save = loadGameInternal();
+        save.playerPositionPortal[0] = position.position.x;
+        save.playerPositionPortal[1] = position.position.y;
+        save.playerPositionPortal[2] = position.position.z;
         save.orientation = orientation;
         save.previousLevel = levelIndex;
 
@@ -187,10 +200,15 @@ public class SaveLoad : MonoBehaviour
         saveGame(save);
     }
     
-    public void saveLevel()
-    {
+    public void saveLevel(int lvl){
         Save save = loadGameInternal();
-        save.level = SceneManager.GetActiveScene().buildIndex;
+
+        save.level = lvl;
+        //save.playerPosition[0] = position.x;
+        //save.playerPosition[1] = position.y;
+        //save.playerPosition[2] = position.z;
+
+        saveGame(save);
     }
 
     public void checkCameraObjective()

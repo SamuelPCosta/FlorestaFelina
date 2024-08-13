@@ -39,18 +39,23 @@ public class MissionController : MonoBehaviour{
     public static MissionController instance = null;
     void Start()
     {
-        if (instance == null)
-            instance = this;
-        else
-            Destroy(gameObject);
+        //if (instance == null)
+        //    instance = this;
+        //else
+        //    Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if(save != null){
             CurrentMission = save.currentMission;
             CurrentStageMission = save.currentMissionStage;
             if (CurrentMission > -1){
+                oldWater = save.water;
+                oldPotion1 = save.potion1;
+                oldPotion2 = save.potion2;
+                oldPotion3 = save.potion3;
+
                 _UIMission.setMission(missionType[(int)CurrentMission]);
                 _UIMission.setMissionStage(CurrentStageMission);
             }
@@ -81,6 +86,8 @@ public class MissionController : MonoBehaviour{
 
     public void setMissionStage(){
         Mission mission = (Mission)CurrentMission;
+
+        int oldCurrentStageMission = CurrentStageMission;
 
         //variaveis
         hasWater = inventoryController.getCollectible(CollectibleType.WATER) >= CatController.catWaterConsumption;
@@ -116,7 +123,8 @@ public class MissionController : MonoBehaviour{
         oldPotion2 = potion2;
         oldPotion3 = potion3;
 
-        FindObjectOfType<SaveLoad>().saveMission(CurrentMission, CurrentStageMission);
+        bool savePosition = CurrentStageMission != oldCurrentStageMission;
+        FindObjectOfType<SaveLoad>().saveMission(CurrentMission, CurrentStageMission, savePosition);
     }
 
     private bool checkIngredients(Mission mission){
@@ -190,7 +198,7 @@ public class MissionController : MonoBehaviour{
 
         //condicao de ativar ultimo dialogo do tutorial
         if (mission == Mission.TUTORIAL && CurrentStageMission >= missionType[CurrentMission].description.Length - 1) {
-            GameController gameController = FindObjectOfType<GameController>();
+            TutorialController gameController = FindObjectOfType<TutorialController>();
             gameController.enableDialog(gameController.catDialog2, true);
         }
     }

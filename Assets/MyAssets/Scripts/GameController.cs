@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameController : MonoBehaviour
-{
+public class GameController : MonoBehaviour{
 
-    [Header("Itens level 1")]
-    public GameObject FirstCat;
-    public GameObject catDialog;
-    public GameObject catDialog2;
+    private static int level1 = 1;
 
     [Header("DefaultPositionPortal")]
     public Vector3 homePosition;
@@ -17,8 +13,7 @@ public class GameController : MonoBehaviour
     private Vector3 position;
 
     public static GameController instance = null;
-    void Start()
-    {
+    void Start(){
         if (instance == null)
         {
             instance = this;
@@ -28,22 +23,21 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-
-        //playGame();
-
-        if(catDialog2 != null)
-            enableDialog(catDialog2, false);
     }
 
     //PLAAAAAAAY
     public void playGame(){
         Save save = FindObjectOfType<SaveLoad>().loadGame();
-        if (save != null){
+        if (save != null && (new Vector3(save.playerPosition[0], save.playerPosition[1], save.playerPosition[2]) != Vector3.zero)){
             position = new Vector3(save.playerPosition[0], save.playerPosition[1], save.playerPosition[2]);
-            SceneManager.LoadScene(save.level);
-            //SceneManager.sceneLoaded += OnSceneLoadedSave;
-            //setPlayerLvl(save.level, savePosition);
+            if(save.level == 0)
+                SceneManager.LoadScene(level1);
+            else
+                SceneManager.LoadScene(save.level);
+            SceneManager.sceneLoaded += OnSceneLoadedForSave;
         }
+        else
+            SceneManager.LoadScene(level1);
     }
 
 
@@ -69,12 +63,12 @@ public class GameController : MonoBehaviour
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null){
             int index = SceneManager.GetActiveScene().buildIndex;
-            FindObjectOfType<SaveLoad>().savePlayerPosition(exit, orientation, index);
+            FindObjectOfType<SaveLoad>().savePlayerPositionPortal(exit, orientation, index);
         }
     }
 
     public void setPlayerInHome(){
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene(level1);
         SceneManager.sceneLoaded += OnSceneLoadedForHome;
     }
 
@@ -102,7 +96,7 @@ public class GameController : MonoBehaviour
             player.position = newPosition;
             player.rotation = Quaternion.Euler(player.rotation.eulerAngles.x, rotation, player.rotation.eulerAngles.z);
         }
-            
+        FindObjectOfType<SaveLoad>().saveLevel(SceneManager.GetActiveScene().buildIndex);
         SceneManager.sceneLoaded -= (scene, mode) => OnSceneLoadedForForest(scene, mode, playerPosition, rotation);
     }
 
@@ -112,27 +106,12 @@ public class GameController : MonoBehaviour
         return SceneManager.GetActiveScene().buildIndex;
     }
 
-    private void OnSceneLoadedSave(Scene scene, LoadSceneMode mode){
-        //setPlayerPosition(position);
-        SceneManager.sceneLoaded -= OnSceneLoadedSave;
-    }
-
     public Vector3 getPlayerPosition(){
         return FindObjectOfType<MovementController>().transform.position;
     }
 
-    public void setPlayerPosition(Vector3 position){
-        FindObjectOfType<MovementController>().transform.position = position;
-    }
-
-    //TUTORIAL
-    public void enableTutorialCat(bool state)
-    {
-        FirstCat?.SetActive(state);
-    }
-
-    public void enableDialog(GameObject dialog, bool stts)
-    {
-        dialog?.SetActive(stts);
+    private void OnSceneLoadedForSave(Scene scene, LoadSceneMode mode){
+        FindObjectOfType<InteractionsController>().transform.position = position;
+        SceneManager.sceneLoaded -= OnSceneLoadedForSave;
     }
 }

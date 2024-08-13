@@ -16,7 +16,7 @@ public class UIMission : UIController
 
     [Header("Alternative text")]
     [Tooltip("Pocoes ja craftadas")]
-    public string stage2AlternativeText = "";
+    public string stage2AlternativeText = "Medique o gato com";
 
     private MissionType CurrentMission;
 
