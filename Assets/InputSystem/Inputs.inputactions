@@ -42,6 +42,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Acceleration",
+                    "type": "Value",
+                    "id": "06a26e7d-56f1-4f16-9b61-e15ece92ea08",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Menu",
                     "type": "Button",
                     "id": "fc641341-a948-4ebd-bbf5-2df0ce5091da",
@@ -139,15 +148,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Acceleration",
-                    "type": "Value",
-                    "id": "06a26e7d-56f1-4f16-9b61-e15ece92ea08",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -598,6 +598,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "Acceleration",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e984e1ee-3961-4cb7-af1b-9feeb9b9f523",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
                     "action": "Acceleration",
                     "isComposite": false,
                     "isPartOfComposite": false

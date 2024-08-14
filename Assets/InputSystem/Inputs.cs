@@ -64,6 +64,15 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Acceleration"",
+                    ""type"": ""Value"",
+                    ""id"": ""06a26e7d-56f1-4f16-9b61-e15ece92ea08"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Menu"",
                     ""type"": ""Button"",
                     ""id"": ""fc641341-a948-4ebd-bbf5-2df0ce5091da"",
@@ -161,15 +170,6 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Acceleration"",
-                    ""type"": ""Value"",
-                    ""id"": ""06a26e7d-56f1-4f16-9b61-e15ece92ea08"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -623,6 +623,17 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""Acceleration"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e984e1ee-3961-4cb7-af1b-9feeb9b9f523"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Acceleration"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -751,6 +762,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_MoveFast = m_Player.FindAction("MoveFast", throwIfNotFound: true);
+        m_Player_Acceleration = m_Player.FindAction("Acceleration", throwIfNotFound: true);
         m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
         m_Player_Collect = m_Player.FindAction("Collect", throwIfNotFound: true);
         m_Player_ConfirmOption = m_Player.FindAction("ConfirmOption", throwIfNotFound: true);
@@ -762,7 +774,6 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player_Journal = m_Player.FindAction("Journal", throwIfNotFound: true);
         m_Player_Prev = m_Player.FindAction("Prev", throwIfNotFound: true);
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
-        m_Player_Acceleration = m_Player.FindAction("Acceleration", throwIfNotFound: true);
         // Godmode
         m_Godmode = asset.FindActionMap("Godmode", throwIfNotFound: true);
         m_Godmode_extraW = m_Godmode.FindAction("extraW", throwIfNotFound: true);
@@ -833,6 +844,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_MoveFast;
+    private readonly InputAction m_Player_Acceleration;
     private readonly InputAction m_Player_Menu;
     private readonly InputAction m_Player_Collect;
     private readonly InputAction m_Player_ConfirmOption;
@@ -844,7 +856,6 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Journal;
     private readonly InputAction m_Player_Prev;
     private readonly InputAction m_Player_Next;
-    private readonly InputAction m_Player_Acceleration;
     public struct PlayerActions
     {
         private @Inputs m_Wrapper;
@@ -853,6 +864,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @MoveFast => m_Wrapper.m_Player_MoveFast;
+        public InputAction @Acceleration => m_Wrapper.m_Player_Acceleration;
         public InputAction @Menu => m_Wrapper.m_Player_Menu;
         public InputAction @Collect => m_Wrapper.m_Player_Collect;
         public InputAction @ConfirmOption => m_Wrapper.m_Player_ConfirmOption;
@@ -864,7 +876,6 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @Journal => m_Wrapper.m_Player_Journal;
         public InputAction @Prev => m_Wrapper.m_Player_Prev;
         public InputAction @Next => m_Wrapper.m_Player_Next;
-        public InputAction @Acceleration => m_Wrapper.m_Player_Acceleration;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -886,6 +897,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @MoveFast.started += instance.OnMoveFast;
             @MoveFast.performed += instance.OnMoveFast;
             @MoveFast.canceled += instance.OnMoveFast;
+            @Acceleration.started += instance.OnAcceleration;
+            @Acceleration.performed += instance.OnAcceleration;
+            @Acceleration.canceled += instance.OnAcceleration;
             @Menu.started += instance.OnMenu;
             @Menu.performed += instance.OnMenu;
             @Menu.canceled += instance.OnMenu;
@@ -919,9 +933,6 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Next.started += instance.OnNext;
             @Next.performed += instance.OnNext;
             @Next.canceled += instance.OnNext;
-            @Acceleration.started += instance.OnAcceleration;
-            @Acceleration.performed += instance.OnAcceleration;
-            @Acceleration.canceled += instance.OnAcceleration;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -938,6 +949,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @MoveFast.started -= instance.OnMoveFast;
             @MoveFast.performed -= instance.OnMoveFast;
             @MoveFast.canceled -= instance.OnMoveFast;
+            @Acceleration.started -= instance.OnAcceleration;
+            @Acceleration.performed -= instance.OnAcceleration;
+            @Acceleration.canceled -= instance.OnAcceleration;
             @Menu.started -= instance.OnMenu;
             @Menu.performed -= instance.OnMenu;
             @Menu.canceled -= instance.OnMenu;
@@ -971,9 +985,6 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Next.started -= instance.OnNext;
             @Next.performed -= instance.OnNext;
             @Next.canceled -= instance.OnNext;
-            @Acceleration.started -= instance.OnAcceleration;
-            @Acceleration.performed -= instance.OnAcceleration;
-            @Acceleration.canceled -= instance.OnAcceleration;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1095,6 +1106,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnMoveFast(InputAction.CallbackContext context);
+        void OnAcceleration(InputAction.CallbackContext context);
         void OnMenu(InputAction.CallbackContext context);
         void OnCollect(InputAction.CallbackContext context);
         void OnConfirmOption(InputAction.CallbackContext context);
@@ -1106,7 +1118,6 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnJournal(InputAction.CallbackContext context);
         void OnPrev(InputAction.CallbackContext context);
         void OnNext(InputAction.CallbackContext context);
-        void OnAcceleration(InputAction.CallbackContext context);
     }
     public interface IGodmodeActions
     {

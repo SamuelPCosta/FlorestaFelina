@@ -88,7 +88,7 @@ public class InteractionsController : MonoBehaviour
     private InputAction collect;
     private InputAction makeWay;
     private InputAction dialog;
-    private InputAction moveFast;
+    private InputAction acceleration;
     private InputAction nextLevel;
     private InputAction showAffection;
     private InputAction bagInput;
@@ -121,7 +121,7 @@ public class InteractionsController : MonoBehaviour
         collect = input.Player.Collect;
         makeWay = input.Player.MakeWay;
         dialog = input.Player.Dialog;
-        moveFast = input.Player.MoveFast;
+        acceleration = input.Player.Acceleration;
         nextLevel = input.Player.NextLevel;
         showAffection = input.Player.ShowAffection;
         bagInput = input.Player.Bag;
@@ -178,12 +178,12 @@ public class InteractionsController : MonoBehaviour
             Vector2 move = transform.GetComponent<InputsMovement>().move;
 
             //Controla particulas do roomba
-            if (moveFast.triggered && fastMovementAllowed && !(inDialog || inDynamicDialog)) { 
-                transform.GetComponent<MovementController>().changeLocomotion();
-                roomba?.SetActive(!roomba.activeSelf);
-                roombaHips?.SetActive(!roombaHips.activeSelf);
-            }
-            if(roomba.activeSelf)
+            bool isFast = acceleration.ReadValue<float>() > 0 && fastMovementAllowed && !(inDialog || inDynamicDialog);
+            transform.GetComponent<MovementController>().onRoomba(isFast);
+            roomba.SetActive(isFast);
+            roombaHips.SetActive(!isFast);
+
+            if (roomba.activeSelf)
                 if (move != Vector2.zero)
                     roombaVFX?.SetActive(true);
                 else

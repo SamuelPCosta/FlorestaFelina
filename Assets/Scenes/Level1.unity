@@ -10992,7 +10992,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1660999846396906678, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.036623
+      value: 1.066
       objectReference: {fileID: 0}
     - target: {fileID: 1660999846396906678, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11026,10 +11026,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3677967341811093751, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4434478632809814677, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1688162183}
+    - target: {fileID: 4668906569944054362, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.61601496
+      objectReference: {fileID: 0}
+    - target: {fileID: 4668906569944054362, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 4668906569944054362, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.9999596
+      objectReference: {fileID: 0}
     - target: {fileID: 4818721721852423161, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
       propertyPath: spawners.Array.data[1]
       value: 
@@ -11038,6 +11054,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1688162183}
+    - target: {fileID: 8096166273169391590, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.03
+      objectReference: {fileID: 0}
     - target: {fileID: 8351704640131533809, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -11859,6 +11879,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5889426768212967811, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.047607422
+      objectReference: {fileID: 0}
+    - target: {fileID: 5889426768212967811, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.00934124
+      objectReference: {fileID: 0}
+    - target: {fileID: 5889426768212967811, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.032959
+      objectReference: {fileID: 0}
+    - target: {fileID: 5889426768212967811, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5889426768212967811, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5889426768212967811, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5889426768212967811, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 6084421934585092971, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: catsStatesController
       value: 
@@ -11896,8 +11944,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7590903539144023027, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: speeches.Array.data[3].speech
-      value: "Puff? Ele precisa de um nome melhor... Agora \xE9 subir o rio e come\xE7ar
-        a viagem."
+      value: "Puff? Ele precisa de um nome melhor... Agora \xE9 subir o rio em dire\xE7\xE3o
+        aos port\xF5es e come\xE7ar a viagem."
       objectReference: {fileID: 0}
     - target: {fileID: 8049952219288538799, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: speeches.Array.data[0].speech

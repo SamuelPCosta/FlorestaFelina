@@ -72,6 +72,8 @@ using UnityEngine.InputSystem;
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
 
+        private float multiplierVelocity = 1;
+
         // timeout deltatime
         private float _fallTimeoutDelta;
 
@@ -94,10 +96,8 @@ using UnityEngine.InputSystem;
 
         private bool _hasAnimator;
 
-        private bool IsCurrentDeviceMouse
-        {
-            get
-            {
+        private bool IsCurrentDeviceMouse{
+            get{
 #if ENABLE_INPUT_SYSTEM
                 return _playerInput.currentControlScheme == "KeyboardMouse";
 #else
@@ -115,17 +115,14 @@ using UnityEngine.InputSystem;
         private bool moveFast = false;
 
 
-        private void Awake()
-        {
-            // get a reference to our main camera
+        private void Awake(){
             if (_mainCamera == null)
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
         }
 
-        private void Start()
-        {
+        private void Start(){
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
@@ -169,8 +166,7 @@ using UnityEngine.InputSystem;
             _roomba = Animator.StringToHash("Roomba");
         }
 
-        private void GroundedCheck()
-        {
+        private void GroundedCheck(){
             // set sphere position, with offset
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
                 transform.position.z);
@@ -178,18 +174,14 @@ using UnityEngine.InputSystem;
 
             // update animator if using character
             if (_hasAnimator)
-            {
                 _animator.SetBool(_animIDGrounded, Grounded);
-            }
         }
 
-        private void CameraRotation()
-        {
+        private void CameraRotation(){
             if (Time.deltaTime == 0) return;
 
             // if there is an input and camera position is not fixed
-            if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
-            {
+            if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition) {
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
@@ -206,8 +198,7 @@ using UnityEngine.InputSystem;
                 _cinemachineTargetYaw, 0.0f);
         }
 
-        private void Move()
-        {
+        private void Move(){
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? 30f : MoveSpeed;
 
@@ -225,25 +216,7 @@ using UnityEngine.InputSystem;
             if (!enableMovement)
                 targetSpeed = 0f;
 
-            //R2 DO CONTROLE (right trigger gamepad)
-                float multiplier = 1;
-                bool gamepadOn = false;
-                if (Keyboard.current != null && Keyboard.current.anyKey.isPressed){
-                    if (gamepadOn == true)
-                        gamepadOn = false;
-                }
-                if (Gamepad.current != null) { 
-                    foreach (InputControl control in Gamepad.current.allControls){
-                        if (control.IsPressed() && gamepadOn == false) { 
-                            gamepadOn = true;
-                            if(moveFast)
-                                multiplier = GetComponent<InputsMovement>().acceleration;
-                            break;
-                        }
-                    }
-                }
-
-        targetSpeed *= multiplier;
+            targetSpeed *= multiplierVelocity;
             float speedOffset = 0.1f;
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
@@ -259,8 +232,7 @@ using UnityEngine.InputSystem;
                 // round speed to 3 decimal places
                 _speed = Mathf.Round(_speed * 1000f) / 1000f;
             }
-            else
-            {
+            else{
                 _speed = targetSpeed;
             }
 
@@ -272,10 +244,8 @@ using UnityEngine.InputSystem;
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
-            if (_input.move != Vector2.zero)
-            {
-                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                                  _mainCamera.transform.eulerAngles.y;
+            if (_input.move != Vector2.zero){
+                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
 
@@ -286,17 +256,13 @@ using UnityEngine.InputSystem;
                     transform.rotation = transform.rotation;
             }
 
-            
-
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
             // move the player
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
             // update animator if using character
-            if (_hasAnimator)
-            {
+            if (_hasAnimator){
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
@@ -304,57 +270,42 @@ using UnityEngine.InputSystem;
 
         private void FallAndGravity()
         {
-            if (Grounded)
-            {
+            if (Grounded){
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
 
                 // update animator if using character
                 if (_hasAnimator)
-                {
                     _animator.SetBool(_animIDFreeFall, false);
-                }
 
                 // stop our velocity dropping infinitely when grounded
                 if (_verticalVelocity < 0.0f)
-                {
                     _verticalVelocity = -2f;
-                }
             }
-            else
-            {
+            else{
 
                 // fall timeout
                 if (_fallTimeoutDelta >= 0.0f)
-                {
                     _fallTimeoutDelta -= Time.deltaTime;
-                }
-                else
-                {
+                else{
                     // update animator if using character
                     if (_hasAnimator)
-                    {
                         _animator.SetBool(_animIDFreeFall, true);
-                    }
                 }
             }
 
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
             if (_verticalVelocity < _terminalVelocity)
-            {
                 _verticalVelocity += Gravity * Time.deltaTime;
-            }
         }
 
-        private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
-        {
+        private static float ClampAngle(float lfAngle, float lfMin, float lfMax){
             if (lfAngle < -360f) lfAngle += 360f;
             if (lfAngle > 360f) lfAngle -= 360f;
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
 
-        private void OnDrawGizmosSelected()
-        {
+        private void OnDrawGizmosSelected(){
             Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
             Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
 
@@ -367,37 +318,30 @@ using UnityEngine.InputSystem;
                 GroundedRadius);
         }
 
-        private void OnFootstep(AnimationEvent animationEvent)
-        {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
-            {
-                if (FootstepAudioClips.Length > 0)
-                {
+        private void OnFootstep(AnimationEvent animationEvent){
+            if (animationEvent.animatorClipInfo.weight > 0.5f){
+                if (FootstepAudioClips.Length > 0){
                     var index = Random.Range(0, FootstepAudioClips.Length);
                     AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
                 }
             }
         }
 
-        private void OnLand(AnimationEvent animationEvent)
-        {
+        private void OnLand(AnimationEvent animationEvent){
             if (animationEvent.animatorClipInfo.weight > 0.5f)
-            {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
-            }
         }
 
 
     //PUBLICOS
-        public void moveTo(Transform destination)
-        {
+        //alinha personagem com a bancada
+        public void moveTo(Transform destination){
             alignmentWalk = true;
             this.destination = destination;
             rotation = destination.GetComponent<WorkbenchAngle>().getAxis();
         }
 
-        IEnumerator MoveToDestinationCoroutine(float duration)
-        {
+        IEnumerator MoveToDestinationCoroutine(float duration){
             alignmentWalk = false;
             Vector3 startPosition = transform.position;
             Vector3 targetPosition = destination.position;
@@ -408,8 +352,7 @@ using UnityEngine.InputSystem;
 
             float startTime = Time.time;
 
-            while (Time.time - startTime < duration)
-            {
+            while (Time.time - startTime < duration){
                 float t = (Time.time - startTime) / duration;
                 Vector3 newPosition = Vector3.Lerp(startPosition, targetPosition, t);
                 newPosition.y = transform.position.y;
@@ -423,14 +366,31 @@ using UnityEngine.InputSystem;
             transform.rotation = targetRotation;
         }
 
-        public void enablePlayerMovement(bool state)
-        {
+        public void enablePlayerMovement(bool state){
             enableMovement = state;
         }
 
-        public void changeLocomotion()
-        {
-            moveFast = !moveFast;
+        public void onRoomba(bool state){
+            if (state){
+                moveFast = true;
+
+                if (Keyboard.current != null && Keyboard.current.anyKey.isPressed)
+                    multiplierVelocity = 1;
+
+                //R2 DO CONTROLE (right trigger gamepad)
+                if (Gamepad.current != null){
+                    foreach (InputControl control in Gamepad.current.allControls){
+                        if (control.IsPressed()){
+                            multiplierVelocity = GetComponent<InputsMovement>().acceleration;
+                            break;
+                        }
+                    }
+                }
+            }
+            else{ 
+                moveFast = false;
+                multiplierVelocity = 1;
+            }
             if (_hasAnimator)
                 _animator.SetBool(_roomba, moveFast);
         }
