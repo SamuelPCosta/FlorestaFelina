@@ -232,16 +232,18 @@ using UnityEngine.InputSystem;
                     if (gamepadOn == true)
                         gamepadOn = false;
                 }
-                foreach (InputControl control in Gamepad.current.allControls){
-                    if (control.IsPressed() && gamepadOn == false) { 
-                        gamepadOn = true;
-                        if(moveFast)
-                            multiplier = GetComponent<InputsMovement>().acceleration;
-                        break;
+                if (Gamepad.current != null) { 
+                    foreach (InputControl control in Gamepad.current.allControls){
+                        if (control.IsPressed() && gamepadOn == false) { 
+                            gamepadOn = true;
+                            if(moveFast)
+                                multiplier = GetComponent<InputsMovement>().acceleration;
+                            break;
+                        }
                     }
                 }
 
-            targetSpeed *= multiplier;
+        targetSpeed *= multiplier;
             float speedOffset = 0.1f;
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 

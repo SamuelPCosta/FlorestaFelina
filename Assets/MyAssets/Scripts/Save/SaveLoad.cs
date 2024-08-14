@@ -217,4 +217,10 @@ public class SaveLoad : MonoBehaviour
         save.objectiveFloorDestroy = true;
         saveGame(save);
     }
+
+    public void setStepOne(){
+        Save save = loadGameInternal();
+        save.step = true;
+        saveGame(save);
+    }
 }

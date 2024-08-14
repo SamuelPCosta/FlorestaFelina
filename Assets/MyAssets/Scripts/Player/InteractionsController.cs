@@ -64,6 +64,7 @@ public class InteractionsController : MonoBehaviour
     private bool executeActionByDialog = true;
     private string nameOfTutorial = "";
     private bool unlock = false;
+    private bool stepOne = false;
 
     private bool fastMovementAllowed = false;
     private bool catInBag = false;
@@ -159,6 +160,9 @@ public class InteractionsController : MonoBehaviour
 
             if(!isCollectible && !isPage && !isFruit)
                 _UITextIndicator.enableIndicator(IndicatorText.COLLECT, false);
+
+            Save save = FindObjectOfType<SaveLoad>().loadGame();
+            if (save != null) stepOne = save.step;
 
             checkWay();
             checkNPC();
@@ -521,8 +525,11 @@ public class InteractionsController : MonoBehaviour
             //Execao do tutorial de movimento
             Vector2 playerMovement = GetComponent<InputsMovement>().move;
 
-            if (FindObjectOfType<DialogSave>().getDialogState(1) || nameOfTutorial.Equals(moveTutorial) && playerMovement != Vector2.zero && enableMovement)
+            bool isStepOne = nameOfTutorial.Equals(moveTutorial) && playerMovement != Vector2.zero && enableMovement;
+            if (isStepOne || this.stepOne) {
+                FindObjectOfType<SaveLoad>().setStepOne();
                 MovementTutorial?.SetActive(false);
+            }
 
             executeActionByDialog = true;
         }
@@ -656,16 +663,16 @@ public class InteractionsController : MonoBehaviour
     }
 
     private void managerElements(string name){
-        TutorialController gameController = FindFirstObjectByType<TutorialController>();
+        TutorialController tutorialController = FindFirstObjectByType<TutorialController>();
 
-        if (name.Equals("MoveTutorial") && gameController.catDialog != null){
-            gameController.enableDialog(gameController.catDialog, false);
-            gameController.enableTutorialCat(false);
+        if (name.Equals("MoveTutorial") && tutorialController.catDialog != null){
+            tutorialController.enableDialog(tutorialController.catDialog, false);
+            tutorialController.enableTutorialCat(false);
         }
 
         if (name.Equals("WorkbenchTutorial")){
-            gameController.enableTutorialCat(true);
-            gameController.enableDialog(gameController.catDialog, true);
+            tutorialController.enableTutorialCat(true);
+            tutorialController.enableDialog(tutorialController.catDialog, true);
         }
 
         if (name.Equals("NextActionDialog")){
