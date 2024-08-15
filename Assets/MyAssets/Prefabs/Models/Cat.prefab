@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 346943421125861834}
   serializedVersion: 2
   m_LocalRotation: {x: 0.10461868, y: 0.059633765, z: -0.0062846676, w: 0.992703}
-  m_LocalPosition: {x: 0.6159973, y: 0.32, z: -2}
+  m_LocalPosition: {x: 0.6160002, y: 0.32, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sequence: 0
   symptoms: 0
-  _catWaterConsumption: 1
+  catMaterial: {fileID: 2100000, guid: 9ea9cc5705ba8b543ae01810f9c8d93c, type: 2}
 --- !u!65 &1942556230259932391
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -240,7 +240,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 74da932e5e3e83048b516cf174a7b38a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74da932e5e3e83048b516cf174a7b38a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -278,6 +278,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 74da932e5e3e83048b516cf174a7b38a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9ea9cc5705ba8b543ae01810f9c8d93c, type: 2}
     - target: {fileID: 919132149155446097, guid: 74da932e5e3e83048b516cf174a7b38a, type: 3}
       propertyPath: m_Name
       value: Cat

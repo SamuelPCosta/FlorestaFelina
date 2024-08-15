@@ -25,8 +25,9 @@ public class PortalController : MonoBehaviour{
         if (portalType == PORTAL_DESTINY.HOME && interactionsController.isCatInBag() && !SceneManager.GetActiveScene().name.Equals(level1)){
             Transform exitPosition = gameObject.transform.GetChild(0); //primeiro filho
             FindObjectOfType<CatsStatesController>().setMissionStateByPortal();
-            FindObjectOfType<MissionController>().completeMission();
-            FindObjectOfType<MissionController>().setOldsIngredients();
+            MissionController missions = FindObjectOfType<MissionController>();
+            missions.setOldsIngredients();
+            missions.completeMission();
             gameController.savePlayerPortalPosition(exitPosition, getOrientation());
             gameController.setPlayerInHome();
         }

@@ -528,7 +528,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f5585324-3641-4d70-b277-e2fbfc594675"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

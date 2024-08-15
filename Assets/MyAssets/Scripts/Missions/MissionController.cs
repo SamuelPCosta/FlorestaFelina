@@ -114,7 +114,6 @@ public class MissionController : MonoBehaviour{
             addStage();
             if (CurrentMission >= 0 && CurrentMission < missionType.Length) {
                 FindObjectOfType<CatsStatesController>().setMissionState(MISSION_STATE.HEALED);
-                save = FindObjectOfType<SaveLoad>().loadGame();
             }
             if (checkTutorial(mission)) 
                 checkMissionCompletion();
@@ -126,6 +125,7 @@ public class MissionController : MonoBehaviour{
         setOldsIngredients();
         bool savePosition = CurrentStageMission != oldCurrentStageMission;
         FindObjectOfType<SaveLoad>().saveMission(CurrentMission, CurrentStageMission, savePosition);
+        save = FindObjectOfType<SaveLoad>().loadGame();
     }
 
     public void setOldsIngredients(){

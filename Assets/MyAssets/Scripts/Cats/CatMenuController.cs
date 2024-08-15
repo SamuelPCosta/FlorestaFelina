@@ -118,6 +118,8 @@ public class CatMenuController : PanelController
 
             if(stageMission == 1)
                 missionController.setMissionStage();
+            else if (stageMission >= 0)
+                missionController.setOldsIngredients();
         }
         else
         if (option == options[1]){
@@ -139,6 +141,8 @@ public class CatMenuController : PanelController
             }
             if (stageMission == 1)
                 missionController.setMissionStage();
+            else if(stageMission >= 0)
+                missionController.setOldsIngredients();
             //TODO: cena de remedio
         }
 
