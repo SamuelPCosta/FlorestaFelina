@@ -83,6 +83,7 @@ public class InventoryController : MonoBehaviour
         }
 
         FindObjectOfType<SaveLoad>().saveInventoryPotions(potion1, potion2, potion3);
+        missionController.setMissionStage();
     }
 
     public int getCollectible(CollectibleType item)

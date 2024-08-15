@@ -113,7 +113,7 @@ public class CatMenuController : PanelController
         if (option == null)
             return;
         if (option == options[0]){
-            inventoryController.consumeCollectible(CollectibleType.WATER, CatController.catWaterConsumption);
+            inventoryController.consumeCollectible(CollectibleType.WATER, 2);
             isThirsty = false;
 
             if(stageMission == 1)
@@ -121,12 +121,25 @@ public class CatMenuController : PanelController
         }
         else
         if (option == options[1]){
-            //TODO: cena de remedio
+            //TODO: cena de alimentacao
+            
         }
         else
-        if (option == options[2])
-        {
-            //TODO: cena de alimentacao
+        if (option == options[2]){
+            switch (mission){
+                case Mission.PAIN:
+                    inventoryController.consumePotion(PotionType.POTION1, 1);
+                    break;
+                case Mission.INJURED:
+                    inventoryController.consumePotion(PotionType.POTION2, 1);
+                    break;
+                case Mission.VERY_INJURED:
+                    inventoryController.consumePotion(PotionType.POTION3, 1);
+                    break;
+            }
+            if (stageMission == 1)
+                missionController.setMissionStage();
+            //TODO: cena de remedio
         }
 
         _UICollect.refreshInventory(CollectibleType.WATER, inventoryController.getCollectible(CollectibleType.WATER));

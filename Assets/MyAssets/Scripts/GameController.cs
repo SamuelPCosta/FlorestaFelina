@@ -76,8 +76,6 @@ public class GameController : MonoBehaviour{
         Transform player = FindObjectOfType<InteractionsController>().transform;
         if (player != null)
             player.position = new Vector3(homePosition.x, homePosition.y, homePosition.z);
-        print("missao concluida!");
-
         SceneManager.sceneLoaded -= OnSceneLoadedForHome;
     }
 
@@ -85,7 +83,7 @@ public class GameController : MonoBehaviour{
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null){
             int index = save.previousLevel;
-            SceneManager.sceneLoaded += (scene, mode) => OnSceneLoadedForForest(scene, mode, save.playerPosition, save.orientation);
+            SceneManager.sceneLoaded += (scene, mode) => OnSceneLoadedForForest(scene, mode, save.playerPositionPortal, save.orientation);
             SceneManager.LoadScene(index);
         }
     }

@@ -8,20 +8,12 @@ public enum SEQUENCE
     Eleventh, Twelfth, Thirteenth, Fourteenth, Fifteenth, Sixteenth, Seventeenth, Eighteenth, Nineteenth, Twentieth
 }
 
-public class CatController : MonoBehaviour
-{
+public class CatController : MonoBehaviour{
 
-    [SerializeField] private SEQUENCE sequence;
+    [SerializeField] public SEQUENCE sequence;
     public enum Symptoms { THIRST, PAIN, INJURED, VERY_INJURED, TUTORIAL }
 
-    public static int catWaterConsumption;
     [SerializeField] public Symptoms symptoms = new Symptoms();
-    public int _catWaterConsumption;
-
-    private void Awake()
-    {
-        catWaterConsumption = _catWaterConsumption;
-    }
 
     public void analyzeCat(){
         Mission mission;

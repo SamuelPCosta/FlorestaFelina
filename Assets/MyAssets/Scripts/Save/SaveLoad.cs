@@ -139,7 +139,7 @@ public class SaveLoad : MonoBehaviour
         saveGame(save);
 
         if (isDebugging)
-            Debug.Log("estado salvo");
+            Debug.Log("estado salvo - " +index+" - "+state);
     }
 
     public void saveMission(int mission, int stage, bool savePosition)

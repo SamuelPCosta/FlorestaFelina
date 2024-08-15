@@ -82,6 +82,7 @@ public class InteractionsController : MonoBehaviour
     private bool catAnalyzed = false;
     private bool catHealed = false;
     private bool catHome = false;
+    private bool catSaved = false;
 
     //ACTIONS
     private InputAction menu;
@@ -137,7 +138,7 @@ public class InteractionsController : MonoBehaviour
         inputsCursor.SetCursorState(true);
 
         Save save = FindObjectOfType<SaveLoad>().loadGame();
-        if (save != null && riverBarrier.gameObject != null)
+        if (save != null && riverBarrier != null && SceneManager.GetActiveScene().name.Equals("Level1"))
             if (save.missionState[1] == MISSION_STATE.HOME)
                 riverBarrier.gameObject.SetActive(true);
             else if (save.missionState[0] == MISSION_STATE.HOME)
@@ -365,19 +366,33 @@ public class InteractionsController : MonoBehaviour
             catAnalyzed = state == MISSION_STATE.STARTED;
             catHealed = state == MISSION_STATE.HEALED;
             catHome = state == MISSION_STATE.HOME;
+            //TODO: add condicao de permitir no lvl1
+            catSaved = catsStatesController.getMissionStateByIndex((int)catController.sequence) == MISSION_STATE.HOME;
 
             //SET indicadores
-            if (!_catMenuInteraction)
-                _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, true);
-            if (!catFirstInteraction){
-                _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
-                if((catAnalyzed || catHealed || catHome) && !_catMenuInteraction)
-                    _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, true);
+            if (!catSaved) { 
+                if (!_catMenuInteraction)
+                    _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, true);
+                if (!catFirstInteraction){
+                    _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
+                    if((catAnalyzed || catHealed || catHome) && !_catMenuInteraction)
+                        _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, true);
+                }
+                else if (catFirstInteraction)
+                    _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, true);
+                else if(catHealed && missionType != Mission.TUTORIAL) //TODO: indicador da bolsa
+                    _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, true);
             }
-            else if (catFirstInteraction)
-                _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, true);
-            else if(catHealed && missionType != Mission.TUTORIAL) //TODO: indicador da bolsa
-                _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, true);
+            else {
+                if (!_catMenuInteraction) { 
+                    _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, true);
+                    _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, true);
+                }
+                else{
+                    _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, false);
+                    _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, false);
+                }
+            }
             
             //##################INTERACOES##################
             //CARINHO
@@ -430,7 +445,7 @@ public class InteractionsController : MonoBehaviour
     }
 
     private void checkCatMenu(CatController cat){
-        if (menu.triggered && (catAnalyzed || catHealed || catHome)){
+        if (menu.triggered && (catAnalyzed || catHealed || catHome || catSaved)){
             InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
             if (_catMenuInteraction) {
                 _catMenuInteraction = false;
@@ -452,6 +467,9 @@ public class InteractionsController : MonoBehaviour
 
     private void checkCatOnTheBag(CatController cat){
         Mission missionType = FindObjectOfType<MissionController>().getMission();
+        if (bagInput.triggered)
+            print(catsStatesController.getMissionStateByIndex(cat.getIndex()));
+
         if (bagInput.triggered && catHealed && !_catMenuInteraction && missionType != Mission.TUTORIAL){  //impede acao quando o menu esta aberto e qndo é o gato do tutorial
             bag?.SetActive(true);
             cat.gameObject.SetActive(false);
@@ -612,8 +630,7 @@ public class InteractionsController : MonoBehaviour
     public void checkGate()
     {
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Gate"));
-        if (collider != null)
-        {
+        if (collider != null){
             _UITextIndicator.enableIndicator(IndicatorText.GATE, true);
             if (nextLevel.triggered)
                 FindObjectOfType<GameController>().nextScene();
@@ -678,7 +695,8 @@ public class InteractionsController : MonoBehaviour
         if (name.Equals("NextActionDialog")){
             riverBarrier.markDialog();
             riverBarrier.gameObject.SetActive(false);
-            catsStatesController.setMissionState(tutorialCat.getIndex(), MISSION_STATE.HOME);
+            //catsStatesController.setMissionState(tutorialCat.getIndex(), MISSION_STATE.HOME);
+            setMarker(null);
             MissionController missionController = FindObjectOfType<MissionController>();
             missionController.addStage();
             missionController.checkMissionCompletion();

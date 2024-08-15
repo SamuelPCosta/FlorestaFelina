@@ -7,8 +7,8 @@ public class PortalController : MonoBehaviour{
     public enum PORTAL_ALIGNMENT { FRONT, RIGHT, BACK, LEFT }
     [SerializeField] public PORTAL_ALIGNMENT portalAlignment;
 
-    public enum PORTAL_TYPE {HOME, FOREST}
-    [SerializeField] public PORTAL_TYPE portalType;
+    public enum PORTAL_DESTINY {HOME, FOREST}
+    [SerializeField] public PORTAL_DESTINY portalType;
 
     private string level1 = "Level1";
 
@@ -22,12 +22,15 @@ public class PortalController : MonoBehaviour{
         GameController gameController = FindObjectOfType<GameController>();
         InteractionsController interactionsController = FindObjectOfType<InteractionsController>();
 
-        if (portalType == PORTAL_TYPE.HOME && interactionsController.isCatInBag() && !SceneManager.GetActiveScene().name.Equals(level1)){
+        if (portalType == PORTAL_DESTINY.HOME && interactionsController.isCatInBag() && !SceneManager.GetActiveScene().name.Equals(level1)){
             Transform exitPosition = gameObject.transform.GetChild(0); //primeiro filho
+            FindObjectOfType<CatsStatesController>().setMissionStateByPortal();
+            FindObjectOfType<MissionController>().completeMission();
+            FindObjectOfType<MissionController>().setOldsIngredients();
             gameController.savePlayerPortalPosition(exitPosition, getOrientation());
             gameController.setPlayerInHome();
         }
-        else if(portalType == PORTAL_TYPE.FOREST && SceneManager.GetActiveScene().name.Equals(level1)){
+        else if(portalType == PORTAL_DESTINY.FOREST && SceneManager.GetActiveScene().name.Equals(level1)){
             gameController.setPlayerInForest();
         } 
     }

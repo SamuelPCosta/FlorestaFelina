@@ -44,7 +44,7 @@ public class UIMission : UIController
         if (!missionHud.activeSelf)
             return;
 
-        missionDescription.GetComponent<TextMeshProUGUI>().text = stage2AlternativeText + potion;
+        missionDescription.GetComponent<TextMeshProUGUI>().text = stage2AlternativeText +" "+ potion;
     }
 
     public void completeMission()

@@ -618,6 +618,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4818721721852423161, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818721721852423161, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
       propertyPath: spawners.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -631,6 +635,10 @@ PrefabInstance:
       objectReference: {fileID: 1517050763}
     - target: {fileID: 4818721721852423161, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
       propertyPath: spawners.Array.data[2]
+      value: 
+      objectReference: {fileID: 1457024920}
+    - target: {fileID: 4818721721852423161, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
+      propertyPath: spawners.Array.data[3]
       value: 
       objectReference: {fileID: 1457024920}
     - target: {fileID: 6210739889704606551, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
@@ -1700,7 +1708,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 102560220434362870, guid: 25a5271b46d9c584aafa6808e731da51, type: 3}
       propertyPath: m_Name
-      value: CatSpawn
+      value: CatSpawn2
       objectReference: {fileID: 0}
     - target: {fileID: 886803142047816011, guid: 25a5271b46d9c584aafa6808e731da51, type: 3}
       propertyPath: m_Mesh
@@ -1722,6 +1730,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 288671259}
+    - target: {fileID: 3608069764858950524, guid: 25a5271b46d9c584aafa6808e731da51, type: 3}
+      propertyPath: portalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4564523061441358638, guid: 25a5271b46d9c584aafa6808e731da51, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -3489,7 +3501,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 102560220434362870, guid: 25a5271b46d9c584aafa6808e731da51, type: 3}
       propertyPath: m_Name
-      value: CatSpawn (2)
+      value: CatSpawn4
       objectReference: {fileID: 0}
     - target: {fileID: 886803142047816011, guid: 25a5271b46d9c584aafa6808e731da51, type: 3}
       propertyPath: m_Mesh
@@ -3511,6 +3523,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 200873781}
+    - target: {fileID: 3608069764858950524, guid: 25a5271b46d9c584aafa6808e731da51, type: 3}
+      propertyPath: portalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4564523061441358638, guid: 25a5271b46d9c584aafa6808e731da51, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -3797,7 +3813,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 102560220434362870, guid: 25a5271b46d9c584aafa6808e731da51, type: 3}
       propertyPath: m_Name
-      value: CatSpawn (1)
+      value: CatSpawn3
       objectReference: {fileID: 0}
     - target: {fileID: 886803142047816011, guid: 25a5271b46d9c584aafa6808e731da51, type: 3}
       propertyPath: m_Mesh
@@ -3819,6 +3835,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1496868217}
+    - target: {fileID: 3608069764858950524, guid: 25a5271b46d9c584aafa6808e731da51, type: 3}
+      propertyPath: portalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4564523061441358638, guid: 25a5271b46d9c584aafa6808e731da51, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -4053,6 +4073,10 @@ PrefabInstance:
     - target: {fileID: 6187151346779214131, guid: bc55924d053c1604a86c3bafd6a9095f, type: 3}
       propertyPath: m_Name
       value: Save
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114817810304167735, guid: bc55924d053c1604a86c3bafd6a9095f, type: 3}
+      propertyPath: deleteSaveFile
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class CatsStatesController : MonoBehaviour
@@ -11,6 +12,9 @@ public class CatsStatesController : MonoBehaviour
     private GameObject[] cats;
     private GameObject[] summons;
 
+    [Header("CatsLvl1")]
+    public GameObject[] catsHome;
+
     // Start is called before the first frame update
     void Start(){
         cats = new GameObject[spawners.Length];
@@ -18,13 +22,26 @@ public class CatsStatesController : MonoBehaviour
 
         CatSpawnerController spawner;
         for (int i = 0; i < spawners.Length; i++){
-            spawner = spawners[i].GetComponent<CatSpawnerController>();
-            cats[i] = spawner.getCat();
-            summons[i] = spawner.getSummon();
+            if(spawners[i] != null) { 
+                spawner = spawners[i].GetComponent<CatSpawnerController>();
+                cats[i] = spawner.getCat();
+                summons[i] = spawner.getSummon();
+            }
         }
 
         save = FindObjectOfType<SaveLoad>().loadGame();
-        checkCatIndex();
+        if (save == null)
+            print("erro");
+
+        if (SceneManager.GetActiveScene().name.Equals("Level1"))
+            checkCatIndexHome();
+        if (!SceneManager.GetActiveScene().name.Equals("Level1"))
+            checkCatIndex();
+
+        for (int i = 0; i < 20; i++){
+            print(i +" - "+ getMissionStateByIndex(i));
+        }
+
     }
 
     // Update is called once per frame
@@ -39,7 +56,7 @@ public class CatsStatesController : MonoBehaviour
         MISSION_STATE finalState = MISSION_STATE.HOME;
 
         for (int i = 0; i < spawners.Length; i++) {
-            currentState = getMissionStateByIndex(i);
+            currentState = getMissionStateByIndex((int)cats[i].GetComponent<CatController>().sequence);
             bool shouldActivate = false;
 
             if (i == 0)
@@ -59,35 +76,21 @@ public class CatsStatesController : MonoBehaviour
         }
     }
 
-    //public MISSION_STATE getMissionState()
-    //{
-    //    int index = getIndex();
-    //    if (index == -1)
-    //        return MISSION_STATE.NOT_STARTED;
-    //    return save.missionState[index];
-    //}
+    
+    public void checkCatIndexHome(){
+        MISSION_STATE currentState;
+        MISSION_STATE homeState = MISSION_STATE.HOME;
 
-    //public bool checkMissionState(GameObject cat, MISSION_STATE state){
-    //    save = FindObjectOfType<SaveLoad>().loadGame();
-    //    if (save == null)
-    //        return false;
-    //    for (int i = 0; i < cats.Length; i++)
-    //        if(cat == cats[i])
-    //            return save.missionState[i] == state;
+        for (int i = 1; i < catsHome.Length; i++) {
+            currentState = getMissionStateByIndex(i);
+            bool shouldActivate = (currentState == homeState);
 
-    //    return false;
-    //}
+            catsHome[i]?.SetActive(shouldActivate);
+        }
+    }
 
-    //public void setMissionState(GameObject cat, MISSION_STATE state){
-    //    if (save == null)
-    //        return;
-    //    for (int i = 0; i < cats.Length; i++)
-    //        if (cat == cats[i])
-    //            FindObjectOfType<SaveLoad>().saveMissionState(i, state);
-    //}
-
-    public MISSION_STATE getMissionStateByIndex(int index)
-    {
+    public MISSION_STATE getMissionStateByIndex(int index){
+        save = FindObjectOfType<SaveLoad>().loadGame();
         if (save == null)
             return MISSION_STATE.NOT_STARTED;
         return save.missionState[index];
@@ -102,6 +105,24 @@ public class CatsStatesController : MonoBehaviour
         int index = getCurrentMissionIndex();
         setMissionState(index, state);
     }
+
+    public void setMissionStateByPortal(){
+        for (int i = 1; i < cats.Length; i++) { 
+            if (save.missionState[i] != MISSION_STATE.HOME) {
+                FindObjectOfType<SaveLoad>().saveMissionState(i, MISSION_STATE.HOME);
+                save = FindObjectOfType<SaveLoad>().loadGame();
+                break;
+            }
+        }
+    }
+
+    //public void setMissionComplete(){
+    //    for (int i = 0; i < cats.Length; i++)
+    //        if (save.missionState[i] != MISSION_STATE.HOME && i != 0) {  //MISSION_STATE.NOT_STARTED
+    //            setMissionState(i, MISSION_STATE.HOME);
+    //            break;
+    //        }
+    //}
 
     public string getName()
     {

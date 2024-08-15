@@ -36,6 +36,8 @@ public class MissionController : MonoBehaviour{
     private int oldPotion2;
     private int oldPotion3;
 
+    private Save save;
+
     public static MissionController instance = null;
     void Start()
     {
@@ -46,7 +48,7 @@ public class MissionController : MonoBehaviour{
 
         //DontDestroyOnLoad(gameObject);
 
-        Save save = FindObjectOfType<SaveLoad>().loadGame();
+        save = FindObjectOfType<SaveLoad>().loadGame();
         if(save != null){
             CurrentMission = save.currentMission;
             CurrentStageMission = save.currentMissionStage;
@@ -90,7 +92,7 @@ public class MissionController : MonoBehaviour{
         int oldCurrentStageMission = CurrentStageMission;
 
         //variaveis
-        hasWater = inventoryController.getCollectible(CollectibleType.WATER) >= CatController.catWaterConsumption;
+        hasWater = inventoryController.getCollectible(CollectibleType.WATER) == 2;
         water = inventoryController.getCollectible(CollectibleType.WATER);
         plant1 = inventoryController.getCollectible(CollectibleType.PLANT1);
         plant2 = inventoryController.getCollectible(CollectibleType.PLANT2);
@@ -110,21 +112,27 @@ public class MissionController : MonoBehaviour{
 
         if (CurrentStageMission == 1 && checkMedicated(mission)){
             addStage();
-            if (CurrentMission >= 0 && CurrentMission < missionType.Length)
+            if (CurrentMission >= 0 && CurrentMission < missionType.Length) {
                 FindObjectOfType<CatsStatesController>().setMissionState(MISSION_STATE.HEALED);
-            checkTutorial(mission);
+                save = FindObjectOfType<SaveLoad>().loadGame();
+            }
+            if (checkTutorial(mission)) 
+                checkMissionCompletion();
         }
             
         if(CurrentStageMission == 2)
             checkMissionCompletion();
 
+        setOldsIngredients();
+        bool savePosition = CurrentStageMission != oldCurrentStageMission;
+        FindObjectOfType<SaveLoad>().saveMission(CurrentMission, CurrentStageMission, savePosition);
+    }
+
+    public void setOldsIngredients(){
         oldWater = water;
         oldPotion1 = potion1;
         oldPotion2 = potion2;
         oldPotion3 = potion3;
-
-        bool savePosition = CurrentStageMission != oldCurrentStageMission;
-        FindObjectOfType<SaveLoad>().saveMission(CurrentMission, CurrentStageMission, savePosition);
     }
 
     private bool checkIngredients(Mission mission){
@@ -191,33 +199,36 @@ public class MissionController : MonoBehaviour{
         return nextStage;
     }
 
-    private void checkTutorial(Mission mission) {
-        //condicao de gato curado
-        //if (CurrentMission >= 0 && CurrentMission < missionType.Length && CurrentStageMission == missionType[CurrentMission].description.Length - 1)
-        //    FindObjectOfType<CatsStatesController>().setMissionState(MISSION_STATE.HEALED);
-
+    private bool checkTutorial(Mission mission) {
         //condicao de ativar ultimo dialogo do tutorial
-        if (mission == Mission.TUTORIAL && CurrentStageMission >= missionType[CurrentMission].description.Length - 1) {
+        if (mission == Mission.TUTORIAL && CurrentStageMission >= missionType[CurrentMission].description.Length - 1)
+        {
             TutorialController gameController = FindObjectOfType<TutorialController>();
             gameController.enableDialog(gameController.catDialog2, true);
+            FindObjectOfType<CatsStatesController>().setMissionState(MISSION_STATE.HOME);
+            return true;
         }
+        else return false;
     }
 
     public void checkMissionCompletion(){
         //condicao de conclusao das missoes
         int numberOfSteps = missionType[CurrentMission].description.Length;
         if (CurrentMission >= 0 && CurrentMission < missionType.Length && CurrentStageMission >= numberOfSteps){
-            _UIMission.completeMission();
-
-            Debug.Log("Missao concluida");
-
-            //reseta missao no save
-            FindObjectOfType<SaveLoad>().resetMission();
-            return;
+            completeMission();
         }
         else{ //atualiza na HUD e salva
             _UIMission.setMissionStage(CurrentStageMission);
         }
+    }
+
+    public void completeMission(){
+        _UIMission.completeMission();
+
+        Debug.Log("Missao concluida");
+
+        //reseta missao no save
+        FindObjectOfType<SaveLoad>().resetMission();
     }
 
     public void addStage(){
