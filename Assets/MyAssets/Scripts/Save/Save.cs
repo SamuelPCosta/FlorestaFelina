@@ -28,8 +28,9 @@ public class Save
     public MISSION_STATE[] missionState = new MISSION_STATE[numberOfCats];
 
     public string[] catsNames = new string[numberOfCats];
-    public int[] catsVariations = new int[numberOfCats];
-    public float[,] catsPosition = new float[numberOfCats, 3];
+    public int[] numColors = new int[numberOfCats];
+    public int[] numColorVariation = new int[numberOfCats];
+    public int[] eyesVariation = new int[numberOfCats];
 
 
     //ITEMS

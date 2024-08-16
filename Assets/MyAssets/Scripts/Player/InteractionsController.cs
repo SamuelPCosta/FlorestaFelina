@@ -423,7 +423,9 @@ public class InteractionsController : MonoBehaviour
     private void checkCaress(CatController cat){
         if (showAffection.triggered && !_catMenuInteraction){ //impede carinho quando o menu esta aberto
             if (catNotStarted){
-                //seta state desse gato como first interaction
+                //seta state desse gato como first interaction e salva pelagem
+                Vector3Int variation = cat.getVariation();
+                catsStatesController.setPelage(cat.getIndex(), variation.x, variation.y, variation.z);
                 catsStatesController.setMissionState(cat.getIndex(), MISSION_STATE.FIRST_INTERACTION);
                 setMarker(cat.gameObject);
             }
@@ -470,7 +472,7 @@ public class InteractionsController : MonoBehaviour
         if (bagInput.triggered)
             print(catsStatesController.getMissionStateByIndex(cat.getIndex()));
 
-        if (bagInput.triggered && catHealed && !_catMenuInteraction && missionType != Mission.TUTORIAL){  //impede acao quando o menu esta aberto e qndo é o gato do tutorial
+        if (bagInput.triggered && catHealed && !_catMenuInteraction && missionType != Mission.TUTORIAL){  //impede acao quando o menu esta aberto e qndo eh o gato do tutorial
             bag?.SetActive(true);
             cat.gameObject.SetActive(false);
             catInBag = true;

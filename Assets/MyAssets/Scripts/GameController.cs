@@ -74,8 +74,10 @@ public class GameController : MonoBehaviour{
 
     private void OnSceneLoadedForHome(Scene scene, LoadSceneMode mode){
         Transform player = FindObjectOfType<InteractionsController>().transform;
-        if (player != null)
+        if (player != null) { 
             player.position = new Vector3(homePosition.x, homePosition.y, homePosition.z);
+            player.rotation = Quaternion.Euler(player.rotation.eulerAngles.x, 45f, player.rotation.eulerAngles.z);
+        }
         SceneManager.sceneLoaded -= OnSceneLoadedForHome;
     }
 

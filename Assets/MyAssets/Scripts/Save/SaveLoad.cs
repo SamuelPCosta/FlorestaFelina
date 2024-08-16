@@ -133,6 +133,12 @@ public class SaveLoad : MonoBehaviour
         saveGame(save);
     }
 
+    public void setPelage(int index, int numColors, int numColorsVariation, int eyesVariation){
+        save.numColors[index] = numColors;
+        save.numColorVariation[index] = numColorsVariation;
+        save.eyesVariation[index] = eyesVariation;
+    }
+
     public void saveMissionState(int index, MISSION_STATE state){
         Save save = loadGameInternal();
         save.missionState[index] = state;

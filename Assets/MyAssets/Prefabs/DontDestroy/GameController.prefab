@@ -44,7 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4347481a4f4702741afa8a2e3d42d38e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstCat: {fileID: 0}
-  catDialog: {fileID: 0}
-  catDialog2: {fileID: 0}
-  homePosition: {x: 308, y: 0.01, z: 822}
+  homePosition: {x: 290, y: 0, z: 820}

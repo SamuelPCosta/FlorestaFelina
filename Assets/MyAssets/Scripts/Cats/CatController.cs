@@ -17,6 +17,10 @@ public class CatController : MonoBehaviour{
 
     public Material catMaterial;
 
+    private int numColors;
+    private int numColorVariation;
+    private int eyesVariation;
+
     private void Start()
     {
         createMaterial();
@@ -50,15 +54,19 @@ public class CatController : MonoBehaviour{
         Material furPattern = new Material(catMaterial);
 
         //SORTEIO DE INT EH MaxEXCLUSIVEEE
-        int numColors = Random.Range(1, 4);
-        int numColorVariation = (numColors == 1 || numColors == 2) ? Random.Range(0, 3) : 0;
-        int eyesVariation = Random.Range(0, 2);
+        numColors = Random.Range(1, 4);
+        numColorVariation = (numColors == 1 || numColors == 2) ? Random.Range(0, 3) : 0;
+        eyesVariation = Random.Range(0, 2);
 
         furPattern.SetInt("_numColors", numColors);
         furPattern.SetInt("_numColorVariation", numColorVariation);
         furPattern.SetInt("_eyesVariation", eyesVariation);
         if(gameObject.activeSelf)
             transform.GetChild(1).GetComponent<Renderer>().material = furPattern;
+    }
+
+    public Vector3Int getVariation(){
+        return new Vector3Int(numColors, numColorVariation, eyesVariation);
     }
 
     public int getIndex()

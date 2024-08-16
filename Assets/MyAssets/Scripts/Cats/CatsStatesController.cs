@@ -38,9 +38,9 @@ public class CatsStatesController : MonoBehaviour
         if (!SceneManager.GetActiveScene().name.Equals("Level1"))
             checkCatIndex();
 
-        for (int i = 0; i < 20; i++){
-            print(i +" - "+ getMissionStateByIndex(i));
-        }
+        //for (int i = 0; i < 20; i++){
+        //    print(i +" - "+ getMissionStateByIndex(i));
+        //}
 
     }
 
@@ -65,8 +65,10 @@ public class CatsStatesController : MonoBehaviour
                 shouldActivate = (lastState == finalState && currentState != finalState);
 
             cats[i]?.SetActive(shouldActivate);
+            if (shouldActivate)
+                setMaterialCat(i, cats);
 
-            if(summons[i] != null)
+            if (summons[i] != null)
                 summons[i]?.SetActive(shouldActivate);
             lastState = currentState;
 
@@ -86,7 +88,17 @@ public class CatsStatesController : MonoBehaviour
             bool shouldActivate = (currentState == homeState);
 
             catsHome[i]?.SetActive(shouldActivate);
+            if (shouldActivate)
+                setMaterialCat(i, catsHome);
         }
+    }
+
+    private void setMaterialCat(int i, GameObject[] cats)
+    {
+        Material catMaterial = cats[i].transform.GetChild(1).GetComponent<Renderer>().material;
+        catMaterial.SetInt("_numColors", save.numColors[i]);
+        catMaterial.SetInt("_numColorVariation", save.numColorVariation[i]);
+        catMaterial.SetInt("_eyesVariation", save.eyesVariation[i]);
     }
 
     public MISSION_STATE getMissionStateByIndex(int index){
@@ -94,6 +106,10 @@ public class CatsStatesController : MonoBehaviour
         if (save == null)
             return MISSION_STATE.NOT_STARTED;
         return save.missionState[index];
+    }
+
+    public void setPelage(int index, int numColors, int numColorsVariation, int eyesVariation){
+        FindObjectOfType<SaveLoad>().setPelage(index, numColors, numColorsVariation, eyesVariation);
     }
 
     public void setMissionState(int index, MISSION_STATE state){
@@ -107,7 +123,7 @@ public class CatsStatesController : MonoBehaviour
     }
 
     public void setMissionStateByPortal(){
-        for (int i = 1; i < cats.Length; i++) { 
+        for (int i = 1; i <= cats.Length; i++) { 
             if (save.missionState[i] != MISSION_STATE.HOME) {
                 FindObjectOfType<SaveLoad>().saveMissionState(i, MISSION_STATE.HOME);
                 save = FindObjectOfType<SaveLoad>().loadGame();
@@ -116,42 +132,25 @@ public class CatsStatesController : MonoBehaviour
         }
     }
 
-    //public void setMissionComplete(){
-    //    for (int i = 0; i < cats.Length; i++)
-    //        if (save.missionState[i] != MISSION_STATE.HOME && i != 0) {  //MISSION_STATE.NOT_STARTED
-    //            setMissionState(i, MISSION_STATE.HOME);
-    //            break;
-    //        }
+    //public string getName()
+    //{
+    //    int index = getCurrentMissionIndex();
+    //    return save.catsNames[index];
     //}
-
-    public string getName()
-    {
-        int index = getCurrentMissionIndex();
-        return save.catsNames[index];
-    }
 
     //public string getVariation()
     //{
     //    return save.catsNames[index];
     //}
 
-    public Vector3 getCatPosition()
-    {
-        int index = getCurrentMissionIndex();
-        return new Vector3(save.catsPosition[index,0], save.catsPosition[index, 1], save.catsPosition[index, 2]);
-    }
-
     private int getCurrentMissionIndex(){
-        int ret = 0;
         save = FindObjectOfType<SaveLoad>().loadGame();
         if (save == null)
             return -1;
-        for (int i = 0; i < cats.Length; i++)
-            if (save.missionState[i] != MISSION_STATE.STARTED) //MISSION_STATE.NOT_STARTED
-                ret++;
-            else
-                break;
+        for (int i = 0; i <= cats.Length; i++)
+            if (save.missionState[i] != MISSION_STATE.HOME) //MISSION_STATE.NOT_STARTED
+                return i;
 
-        return Mathf.Min(ret, cats.Length - 1);
+        return cats.Length - 1;
     }
 }
