@@ -14,6 +14,7 @@ public class BarrierController : MonoBehaviour
     {
         //TODO pegar animator e ativar animacao de abrir caminho
         orb.SetActive(true);
+        AudioController.playAction(INTERACTIONS.Spell);
         Invoke("destroy", 2f);
     }
 

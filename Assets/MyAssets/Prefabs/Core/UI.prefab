@@ -4629,6 +4629,14 @@ PrefabInstance:
       value: Potion1
       objectReference: {fileID: 0}
     - target: {fileID: 5539527103963498243, guid: 97b2830ebf7233d429565d162c7f878f, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4476187014236317846}
+    - target: {fileID: 5539527103963498243, guid: 97b2830ebf7233d429565d162c7f878f, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539527103963498243, guid: 97b2830ebf7233d429565d162c7f878f, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: selectPotion
       objectReference: {fileID: 0}

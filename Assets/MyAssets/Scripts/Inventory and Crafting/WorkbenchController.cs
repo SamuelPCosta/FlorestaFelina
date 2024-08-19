@@ -151,6 +151,7 @@ public class WorkbenchController : PanelController
 
             inventoryController.addPotion(PotionType.POTION3);
         }
+        AudioController.playAction(INTERACTIONS.Potion);
 
         _UICollect.refreshInventory(CollectibleType.PLANT1, inventoryController.getCollectible(CollectibleType.PLANT1));
         _UICollect.refreshInventory(CollectibleType.PLANT2, inventoryController.getCollectible(CollectibleType.PLANT2));

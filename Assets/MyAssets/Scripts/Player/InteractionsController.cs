@@ -183,10 +183,13 @@ public class InteractionsController : MonoBehaviour
                 AudioController.changeParameter("Move", "Stop");
             else if(roomba.activeSelf)
                 AudioController.changeParameter("Move", "Roomba");
-            else if(inWater)
+            else if (inWater) { 
                 AudioController.changeParameter("Move", "Water");
-            else
+                AudioController.changeParameter("inWater", "True");
+            }else{
                 AudioController.changeParameter("Move", "Steps");
+                AudioController.changeParameter("inWater", "False");
+            }
 
             //Controla particulas do roomba
             bool isFast = acceleration.ReadValue<float>() > 0 && fastMovementAllowed && !(inDialog || inDynamicDialog);
@@ -218,6 +221,7 @@ public class InteractionsController : MonoBehaviour
             waves.Play();
             fastMovementAllowed = false;
             inWater = true;
+            AudioController.playAction(INTERACTIONS.Splash);
         }
     }
 
@@ -288,6 +292,9 @@ public class InteractionsController : MonoBehaviour
                 _UICollect.refreshInventory(type, inventoryController.getCollectible(type));
 
                 collectible.collectItem();
+
+                if(isAdded)
+                    AudioController.playAction(INTERACTIONS.Collect);
             }
         }
         return (collider != null);
@@ -302,6 +309,7 @@ public class InteractionsController : MonoBehaviour
                 Destroy(collider.gameObject);
                 //TODO: SAVE
                 _UICollect.spawnCollectedPage();
+                AudioController.playAction(INTERACTIONS.Collect);
             }
         }
         return (collider != null);
@@ -316,6 +324,7 @@ public class InteractionsController : MonoBehaviour
                 fruit?.SetActive(true);
                 //TODO: SAVE
                 _UICollect.spawnCollectedFruit();
+                AudioController.playAction(INTERACTIONS.Collect);
             }
         }
         return (collider != null);
@@ -441,7 +450,7 @@ public class InteractionsController : MonoBehaviour
                 catsStatesController.setMissionState(cat.getIndex(), MISSION_STATE.FIRST_INTERACTION);
                 setMarker(cat.gameObject);
             }
-
+            AudioController.playAction(INTERACTIONS.CatMeow);
             print("carinho no gato "+cat);
             //TODO: ativar animacao
         }
@@ -586,6 +595,7 @@ public class InteractionsController : MonoBehaviour
             _UITextIndicator.enableIndicator(IndicatorText.SUMMON, true);
             if (makeWay.triggered){
                 summon.GetComponent<SummonController>().summonStructures();
+                AudioController.playAction(INTERACTIONS.Summon);
             }
         }
         else
@@ -635,6 +645,7 @@ public class InteractionsController : MonoBehaviour
                     transform.GetComponent<MovementController>().moveTo(workbenchOrigin);
 
                     _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, false);
+                    AudioController.playAction(INTERACTIONS.Workbench);
                 }
             }
         }else

@@ -28,10 +28,12 @@ public class PortalController : MonoBehaviour{
             MissionController missions = FindObjectOfType<MissionController>();
             missions.setOldsIngredients();
             missions.completeMission();
+            AudioController.playAction(INTERACTIONS.Portal);
             gameController.savePlayerPortalPosition(exitPosition, getOrientation());
             gameController.setPlayerInHome();
         }
         else if(portalType == PORTAL_DESTINY.FOREST && SceneManager.GetActiveScene().name.Equals(level1)){
+            AudioController.playAction(INTERACTIONS.Portal);
             gameController.setPlayerInForest();
         } 
     }

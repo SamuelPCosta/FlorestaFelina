@@ -77,6 +77,7 @@ public class GameController : MonoBehaviour{
         if (player != null) { 
             player.position = new Vector3(homePosition.x, homePosition.y, homePosition.z);
             player.rotation = Quaternion.Euler(player.rotation.eulerAngles.x, 45f, player.rotation.eulerAngles.z);
+            AudioController.missionComplete();
         }
         SceneManager.sceneLoaded -= OnSceneLoadedForHome;
     }

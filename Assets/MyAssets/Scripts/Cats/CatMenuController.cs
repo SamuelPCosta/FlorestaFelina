@@ -120,11 +120,12 @@ public class CatMenuController : PanelController
                 missionController.setMissionStage();
             else if (stageMission >= 0)
                 missionController.setOldsIngredients();
+            AudioController.playAction(INTERACTIONS.Drinking);
         }
         else
         if (option == options[1]){
             //TODO: cena de alimentacao
-            
+            AudioController.playAction(INTERACTIONS.Eating);
         }
         else
         if (option == options[2]){
@@ -143,6 +144,8 @@ public class CatMenuController : PanelController
                 missionController.setMissionStage();
             else if(stageMission >= 0)
                 missionController.setOldsIngredients();
+
+            AudioController.playAction(INTERACTIONS.Drinking);
             //TODO: cena de remedio
         }
 
