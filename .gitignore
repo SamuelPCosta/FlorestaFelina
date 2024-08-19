@@ -6,6 +6,13 @@
 /.vs
 /Assets/StarterAssets/ThirdPersonController/Character/Textures
 
+/Assets/FMODStudioCache.asset
+/Assets/FMODStudioCache.asset.meta
+Fmod.log
+Fmod_editor.log
+Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset
+Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset.meta
+
 *.csproj
 *.sln
 

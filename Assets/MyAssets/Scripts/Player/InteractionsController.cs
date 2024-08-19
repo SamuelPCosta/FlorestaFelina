@@ -70,6 +70,7 @@ public class InteractionsController : MonoBehaviour
     private bool catInBag = false;
     private Transform currentCat = null;
 
+    private bool inWater = false;
     private ParticleSystem waves;
     private ParticleSystem drops;
     private Vector3 lastWavePosition = Vector3.zero;
@@ -178,6 +179,15 @@ public class InteractionsController : MonoBehaviour
 
             Vector2 move = transform.GetComponent<InputsMovement>().move;
 
+            if (move == Vector2.zero)
+                AudioController.changeParameter("Move", "Stop");
+            else if(roomba.activeSelf)
+                AudioController.changeParameter("Move", "Roomba");
+            else if(inWater)
+                AudioController.changeParameter("Move", "Water");
+            else
+                AudioController.changeParameter("Move", "Steps");
+
             //Controla particulas do roomba
             bool isFast = acceleration.ReadValue<float>() > 0 && fastMovementAllowed && !(inDialog || inDynamicDialog);
             transform.GetComponent<MovementController>().onRoomba(isFast);
@@ -207,6 +217,7 @@ public class InteractionsController : MonoBehaviour
             drops.Play();
             waves.Play();
             fastMovementAllowed = false;
+            inWater = true;
         }
     }
 
@@ -246,6 +257,7 @@ public class InteractionsController : MonoBehaviour
             Invoke("DisableWaves", 2f);
             Invoke("DisableDrops", .8f);
             fastMovementAllowed = true;
+            inWater = false;
         }
     }
 
