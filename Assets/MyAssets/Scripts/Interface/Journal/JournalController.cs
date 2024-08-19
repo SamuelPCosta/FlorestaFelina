@@ -9,6 +9,7 @@ public class JournalController : MonoBehaviour
     [Header("Objects")]
     public GameObject JournalMenu;
     public GameObject[] pages;
+    public GameObject[] newPages;
 
     //PRIVATES
     private Inputs input;
@@ -37,6 +38,12 @@ public class JournalController : MonoBehaviour
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null)
             pageLimit = save.journal;
+        else{
+            for (int i = 0; i < newPages.Length; i++){
+                bool active = (int)newPages[i].GetComponent<PagesController>().pageSequence < save.journal;
+                newPages[i].SetActive(active);
+            }
+        }
 
         journal = input.Player.Journal;
         prev = input.Player.Prev;

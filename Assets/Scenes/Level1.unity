@@ -11600,6 +11600,10 @@ PrefabInstance:
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6084421934585092971, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: MovementTutorial
+      value: 
+      objectReference: {fileID: 8122088081571928395}
+    - target: {fileID: 6084421934585092971, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: catsStatesController
       value: 
       objectReference: {fileID: 1043599975}
@@ -11681,6 +11685,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+--- !u!1 &8122088081571928395 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5733989339704050957, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+  m_PrefabInstance: {fileID: 8122088081571928394}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8312686600598000599
 PrefabInstance:
   m_ObjectHideFlags: 0

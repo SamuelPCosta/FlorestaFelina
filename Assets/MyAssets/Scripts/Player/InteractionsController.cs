@@ -548,7 +548,8 @@ public class InteractionsController : MonoBehaviour
             bool isStepOne = nameOfTutorial.Equals(moveTutorial) && playerMovement != Vector2.zero && enableMovement;
             if (isStepOne || this.stepOne) {
                 FindObjectOfType<SaveLoad>().setStepOne();
-                MovementTutorial?.SetActive(false);
+                if(MovementTutorial != null)
+                    MovementTutorial.SetActive(false);
             }
 
             executeActionByDialog = true;

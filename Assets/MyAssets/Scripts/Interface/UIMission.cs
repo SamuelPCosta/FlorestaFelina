@@ -12,8 +12,6 @@ public class UIMission : UIController
     public GameObject missionTitle;
     public GameObject missionDescription;
 
-    public string title = "Missão: ";
-
     [Header("Alternative text")]
     [Tooltip("Pocoes ja craftadas")]
     public string stage2AlternativeText = "Medique o gato com";
@@ -29,7 +27,7 @@ public class UIMission : UIController
     {
         CurrentMission = newMission;
         missionHud.SetActive(true);
-        missionTitle.GetComponent<TextMeshProUGUI>().text = title + CurrentMission.title;
+        missionTitle.GetComponent<TextMeshProUGUI>().text = CurrentMission.title;
         print("tua missao eh: " + CurrentMission.title);
     }
 

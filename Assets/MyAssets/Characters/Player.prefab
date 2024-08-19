@@ -9993,6 +9993,7 @@ MonoBehaviour:
   move: {x: 0, y: 0}
   look: {x: 0, y: 0}
   sprint: 0
+  acceleration: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
@@ -15304,6 +15305,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 206257f5313dfb841bd4bc3b1d0b482c, type: 2}
+    - target: {fileID: -6214588856285702427, guid: c874f8bf253239e4da9ceac857f43eaf, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c874f8bf253239e4da9ceac857f43eaf, type: 3}
       propertyPath: m_Name
       value: Geometry
