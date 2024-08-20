@@ -24,41 +24,6 @@ public class ImgButtonController : UIController
     [Header("Imgs Gamepad")]
     public Sprite[] sprites_gamepad;
 
-
-    //public void Vibrate(float duration)
-    //{
-    //    if (gamepad != null)
-    //    {
-    //        // Definir a vibração nos motores esquerdo e direito
-    //        gamepad = Gamepad.current;
-    //        gamepad.SetMotorSpeeds(50, 50);
-    //        GamePad.SetVibration(0, 50, 50);
-    //        Invoke("StopVibration", duration);
-    //    }
-    //}
-
-    //public void VibrateEspecial(float duration)
-    //{
-    //    if (gamepad != null)
-    //    {
-    //        // Definir a vibração nos motores esquerdo e direito
-    //        gamepad = Gamepad.current;
-    //        gamepad.SetMotorSpeeds(100, 100);
-    //        GamePad.SetVibration(0, 100, 100);
-    //        Invoke("StopVibration", duration);
-    //    }
-    //}
-
-    //private void StopVibration()
-    //{
-    //    if (gamepad != null)
-    //    {
-    //        // Parar a vibração definindo a intensidade dos motores para zero
-    //        gamepad.SetMotorSpeeds(0, 0);
-    //        GamePad.SetVibration(0, 0, 0);
-    //    }
-    //}
-
     // Start is called before the first frame update
     void Start()
     {

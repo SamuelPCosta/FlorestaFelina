@@ -233,6 +233,7 @@ public class MissionController : MonoBehaviour{
 
     public void addStage(){
         ++CurrentStageMission;
+        FindObjectOfType<FeedbackController>().Vibrate(Power.Min, Duration.Mid);
     }
 
     public int getMissionStage(){

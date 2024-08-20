@@ -70,6 +70,7 @@ public class InteractionsController : MonoBehaviour
     private bool catInBag = false;
     private Transform currentCat = null;
 
+    private bool oldIsFast = false;
     private bool inWater = false;
     private ParticleSystem waves;
     private ParticleSystem drops;
@@ -197,6 +198,13 @@ public class InteractionsController : MonoBehaviour
             roomba.SetActive(isFast);
             roombaHips.SetActive(!isFast);
 
+
+            if(isFast)
+                FindObjectOfType<FeedbackController>().Vibrate(Power.Min);
+            else if(oldIsFast)
+                FindObjectOfType<FeedbackController>().StopVibration();
+            oldIsFast = isFast;
+
             if (roomba.activeSelf)
                 if (move != Vector2.zero)
                     roombaVFX?.SetActive(true);
@@ -310,6 +318,7 @@ public class InteractionsController : MonoBehaviour
                 //TODO: SAVE
                 _UICollect.spawnCollectedPage();
                 AudioController.playAction(INTERACTIONS.Collect);
+                FindObjectOfType<FeedbackController>().Vibrate(Power.Mid, Duration.Min);
             }
         }
         return (collider != null);
@@ -325,6 +334,7 @@ public class InteractionsController : MonoBehaviour
                 //TODO: SAVE
                 _UICollect.spawnCollectedFruit();
                 AudioController.playAction(INTERACTIONS.Collect);
+                FindObjectOfType<FeedbackController>().Vibrate(Power.Mid, Duration.Min);
             }
         }
         return (collider != null);
@@ -344,6 +354,7 @@ public class InteractionsController : MonoBehaviour
             if (makeWay.triggered && !unlock){
                 collider.GetComponent<BarrierController>().makeWay();
                 unlock = true;
+                FindObjectOfType<FeedbackController>().Vibrate(Power.Mid, Duration.Mid);
             }
         }
         else{
@@ -452,6 +463,7 @@ public class InteractionsController : MonoBehaviour
             }
             AudioController.playAction(INTERACTIONS.CatMeow);
             print("carinho no gato "+cat);
+            FindObjectOfType<FeedbackController>().Vibrate(Power.Mid, Duration.Mid);
             //TODO: ativar animacao
         }
     }
@@ -498,7 +510,9 @@ public class InteractionsController : MonoBehaviour
             cat.gameObject.SetActive(false);
             catInBag = true;
             setMarker(null);
-        }else 
+            FindObjectOfType<FeedbackController>().Vibrate(Power.Min, Duration.Min);
+        }
+        else 
         if (catHealed && missionType == Mission.TUTORIAL){  //desliga marcador do TUTORIAL
             tutorialCat = cat;
             setMarker(null);
@@ -550,6 +564,7 @@ public class InteractionsController : MonoBehaviour
             dialogController.turnOnDialog();
             nameOfTutorial = collider.gameObject.name;
             enableMovement = false;
+            FindObjectOfType<FeedbackController>().Vibrate(Power.Min, Duration.Min);
 
             //excecao do tutorial de movimento
             if (nameOfTutorial == moveTutorial)
@@ -596,6 +611,7 @@ public class InteractionsController : MonoBehaviour
             if (makeWay.triggered){
                 summon.GetComponent<SummonController>().summonStructures();
                 AudioController.playAction(INTERACTIONS.Summon);
+                FindObjectOfType<FeedbackController>().Vibrate(Power.Mid, Duration.Min);
             }
         }
         else
