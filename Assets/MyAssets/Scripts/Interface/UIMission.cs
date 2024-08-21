@@ -11,12 +11,19 @@ public class UIMission : UIController
     public GameObject missionHud;
     public GameObject missionTitle;
     public GameObject missionDescription;
+    public GameObject missionCompleteIcon;
+    public TextMeshProUGUI missionCompleteText;
 
     [Header("Alternative text")]
     [Tooltip("Pocoes ja craftadas")]
     public string stage2AlternativeText = "Medique o gato com";
 
     private MissionType CurrentMission;
+
+    private void Start()
+    {
+        missionCompleteIcon?.SetActive(false);
+    }
 
     public void disableMissionHUD()
     {

@@ -6,6 +6,11 @@ public enum Duration { Min, Mid, Max }
 
 public class FeedbackController : MonoBehaviour{
     private Gamepad gamepad;
+    private InputsMovement move;
+
+    void Start(){
+        move = FindObjectOfType<InputsMovement>();
+    }
 
     public void Vibrate(Power power, Duration duration){
         gamepad = Gamepad.current;
@@ -17,10 +22,10 @@ public class FeedbackController : MonoBehaviour{
         }
     }
 
-    public void Vibrate(Power power){
+    public void VibrateRoomba(){
         gamepad = Gamepad.current;
         if (gamepad != null){
-            float value = getPower(power);
+            float value = Mathf.Lerp(0, 1, Mathf.InverseLerp(0, 255, move.acceleration));
             gamepad.SetMotorSpeeds(value, value);
             CancelInvoke("StopVibration");
         }

@@ -36,15 +36,13 @@ public class UIButtons : UIController
         //print(EventSystem.current.currentSelectedGameObject);
     }
 
-    public void setButtons(Button[] buttons)
-    {
+    public void setButtons(Button[] buttons){
         this.buttons = buttons;
         //foreach (Button button in buttons)
         //    print(button);
     }
 
-    public void setOptions(GameObject button, bool condition)
-    {
+    public void setOptions(GameObject button, bool condition){   
         if (condition)
             button.GetComponent<Button>().interactable = true;
         else

@@ -37,7 +37,20 @@ public class GameController : MonoBehaviour{
             SceneManager.sceneLoaded += OnSceneLoadedForSave;
         }
         else
-            SceneManager.LoadScene(level1);
+            StartCoroutine(LoadSceneWithProgress(level1));
+    }
+
+    private IEnumerator LoadSceneWithProgress(int sceneIndex) {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
+    
+        while (!asyncLoad.isDone) {
+            float progress = asyncLoad.progress;
+            Debug.Log($"Progresso: {progress * 100}%");
+
+            yield return null;
+        }
+
+        SceneManager.sceneLoaded += OnSceneLoadedForSave;
     }
 
 

@@ -223,10 +223,9 @@ public class MissionController : MonoBehaviour{
     }
 
     public void completeMission(){
-        _UIMission.completeMission();
+        //_UIMission.completeMission();
 
         Debug.Log("Missao concluida");
-
         //reseta missao no save
         FindObjectOfType<SaveLoad>().resetMission();
     }

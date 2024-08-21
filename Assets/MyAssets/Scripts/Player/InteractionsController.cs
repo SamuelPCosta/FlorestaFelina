@@ -200,7 +200,7 @@ public class InteractionsController : MonoBehaviour
 
 
             if(isFast)
-                FindObjectOfType<FeedbackController>().Vibrate(Power.Min);
+                FindObjectOfType<FeedbackController>().VibrateRoomba();
             else if(oldIsFast)
                 FindObjectOfType<FeedbackController>().StopVibration();
             oldIsFast = isFast;
