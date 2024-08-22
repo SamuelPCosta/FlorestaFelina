@@ -9958,7 +9958,7 @@ MonoBehaviour:
     m_Bits: 1
   CinemachineCameraTarget: {fileID: 5962747565615937673}
   TopClamp: 15
-  BottomClamp: 0
+  BottomClamp: -10
   CameraAngleOverride: 10
   LockCameraPosition: 0
 --- !u!114 &7939548291096909315

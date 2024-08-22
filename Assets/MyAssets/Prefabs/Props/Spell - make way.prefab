@@ -10389,6 +10389,7 @@ GameObject:
   - component: {fileID: 9026632912103905182}
   - component: {fileID: 4926816279800572812}
   - component: {fileID: 5595460280096222679}
+  - component: {fileID: 165658691491591207}
   m_Layer: 14
   m_Name: Spell - make way
   m_TagString: MakeWay
@@ -10502,3 +10503,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trail: {fileID: 7725259253370065382}
+--- !u!95 &165658691491591207
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8609574246868382140}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d4c3655811bc96d48aed4c0f63f34a4f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

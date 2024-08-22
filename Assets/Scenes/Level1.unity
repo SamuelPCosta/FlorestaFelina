@@ -11172,15 +11172,15 @@ PrefabInstance:
       objectReference: {fileID: 1207412206}
     - target: {fileID: 5739431048589034425, guid: 0ac764a72288228499486238b39dc7e7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -142.60199
+      value: -126.21
       objectReference: {fileID: 0}
     - target: {fileID: 5739431048589034425, guid: 0ac764a72288228499486238b39dc7e7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.833377
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 5739431048589034425, guid: 0ac764a72288228499486238b39dc7e7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -277.898
+      value: -260.36
       objectReference: {fileID: 0}
     - target: {fileID: 5739431048589034425, guid: 0ac764a72288228499486238b39dc7e7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11487,10 +11487,34 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 967166448965192064, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10.339505
+      objectReference: {fileID: 0}
+    - target: {fileID: 967166448965192064, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.4465017
+      objectReference: {fileID: 0}
+    - target: {fileID: 967166448965192064, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 17.643423
+      objectReference: {fileID: 0}
+    - target: {fileID: 967166448965192064, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -105.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 967166448965192064, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -240.45
+      objectReference: {fileID: 0}
     - target: {fileID: 1086559887774685614, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1533534450}
+    - target: {fileID: 1932493996796602484, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: field of view
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 2192631861596735493, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: missionController
       value: 
@@ -11567,9 +11591,53 @@ PrefabInstance:
       propertyPath: speeches.Array.data[0].speech
       value: "\xC9 melhor eu voltar \xE0s minhas atividades..."
       objectReference: {fileID: 0}
+    - target: {fileID: 3869237071924980700, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: BottomClamp
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 4394609504011139940, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438006185429135159, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277679196263138119, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497258025643152992, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_Waypoints.Array.data[0].position.x
+      value: 1.414334
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497258025643152992, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_Waypoints.Array.data[0].position.z
+      value: 13.844541
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497258025643152992, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_Waypoints.Array.data[1].position.x
+      value: -5.6225576
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497258025643152992, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_Waypoints.Array.data[1].position.y
+      value: 7.1798515
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497258025643152992, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_Waypoints.Array.data[1].position.z
+      value: 6.020693
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497258025643152992, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_Waypoints.Array.data[2].position.x
+      value: -8.883634
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497258025643152992, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_Waypoints.Array.data[2].position.y
+      value: 13.031169
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497258025643152992, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_Waypoints.Array.data[2].position.z
+      value: 0.6090749
       objectReference: {fileID: 0}
     - target: {fileID: 5889426768212967811, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11619,6 +11687,10 @@ PrefabInstance:
       propertyPath: speeches.Array.data[1].speech
       value: ...mas antes preciso voltar para casa e conferir tudo.
       objectReference: {fileID: 0}
+    - target: {fileID: 7483410248300656119, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: speeches.Array.data[0].speech
+      value: "Quando uma barreira aparece no caminho \xE9 s\xF3 usar magia!"
+      objectReference: {fileID: 0}
     - target: {fileID: 7590903539144023027, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: speeches.Array.size
       value: 4
@@ -11630,13 +11702,13 @@ PrefabInstance:
     - target: {fileID: 7590903539144023027, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: speeches.Array.data[1].speech
       value: "Nah, acho que n\xE3o. N\xE3o tem muitas pessoas aqui perto. De qualquer
-        forma, posso pergunta \xE0 Niamh."
+        forma, posso perguntar \xE0 Niamh."
       objectReference: {fileID: 0}
     - target: {fileID: 7590903539144023027, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: speeches.Array.data[2].speech
       value: "Onde eu estava? Ah parece tudo certo em casa. Bom, hora de botar o
         p\xE9 na estrada. Acho que o Puff vai ficar bem bem, eu sempre posso voltar
-        aqui atrav\xE9s do portal do quinal."
+        aqui atrav\xE9s do portal do quintal."
       objectReference: {fileID: 0}
     - target: {fileID: 7590903539144023027, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: speeches.Array.data[3].speech
@@ -11657,16 +11729,28 @@ PrefabInstance:
       value: ...?
       objectReference: {fileID: 0}
     - target: {fileID: 8088738654933732957, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 20.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088738654933732957, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -130.03
+      value: -115.47
       objectReference: {fileID: 0}
     - target: {fileID: 8088738654933732957, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.95
+      value: 6.13
       objectReference: {fileID: 0}
     - target: {fileID: 8088738654933732957, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -252.36
+      value: -235.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088738654933732957, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8261481354359500740, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8271572532996377854, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_Name
