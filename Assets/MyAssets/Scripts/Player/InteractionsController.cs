@@ -50,6 +50,7 @@ public class InteractionsController : MonoBehaviour
 
     //CAMERAS
     private bool _workebenchCam = false;
+    private bool _catCam = false;
     //private bool _ShopCam = false;
     private bool _catMenuInteraction = false;
     private GameObject catCamera = null;
@@ -95,6 +96,7 @@ public class InteractionsController : MonoBehaviour
     private InputAction nextLevel;
     private InputAction showAffection;
     private InputAction bagInput;
+    private InputAction exit;
 
     private void Awake()
     {
@@ -128,6 +130,7 @@ public class InteractionsController : MonoBehaviour
         nextLevel = input.Player.NextLevel;
         showAffection = input.Player.ShowAffection;
         bagInput = input.Player.Bag;
+        exit = input.Player.Exit;
 
         catCamera = null;
 
@@ -480,24 +483,25 @@ public class InteractionsController : MonoBehaviour
     }
 
     private void checkCatMenu(CatController cat){
-        if (menu.triggered && (catAnalyzed || catHealed || catHome || catSaved)){
-            InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
-            if (_catMenuInteraction) {
-                _catMenuInteraction = false;
-                catMenuController.turnOff();
-                enableMovement = true;
-                inputsCursor.SetCursorState(true);
-            }else {
-                _catMenuInteraction = true;
-                catMenuController.turnOn();
-                enableMovement = false;
-                catCamera = getCamera(cat.gameObject);
-                inputsCursor.SetCursorState(false);
-                _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, false);
-                _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, false);
-                _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
-            }
-        }    
+        InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
+        if (menu.triggered && ((catAnalyzed || catHealed || catHome || catSaved) && !_catMenuInteraction)){
+            _catMenuInteraction = true;
+            catMenuController.turnOn();
+            enableMovement = false;
+            catCamera = getCamera(cat.gameObject);
+            inputsCursor.SetCursorState(false);
+            _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, false);
+            _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, false);
+            _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
+            
+        }
+        else if ((menu.triggered || exit.triggered) && (catAnalyzed || catHealed || catHome || catSaved) && _catMenuInteraction)
+        {
+            _catMenuInteraction = false;
+            catMenuController.turnOff();
+            enableMovement = true;
+            inputsCursor.SetCursorState(true);
+        }
     }
 
     private void checkCatOnTheBag(CatController cat){
@@ -642,28 +646,29 @@ public class InteractionsController : MonoBehaviour
         if (workbench != null){
             if(!_workebenchCam)
                 _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, true);
-            if (menu.triggered){
-                WorkbenchController workbenchController = GameObject.FindObjectOfType<WorkbenchController>();
-                InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
-                if (_workebenchCam){
-                    _workebenchCam = false;
-                    workbenchController.turnOff();
-                    inputsCursor.SetCursorState(true);
-                    enableMovement = true;
-                }
-                else{
-                    _workebenchCam = true;
-                    workbenchController.turnOnMenu();
-                    workenchCamera = getCamera(workbench.gameObject);
-                    inputsCursor.SetCursorState(false);
-                    enableMovement = false;
-                    Transform workbenchOrigin = workbench.transform.GetChild(1); //segundo filho
-                    transform.GetComponent<MovementController>().moveTo(workbenchOrigin);
 
-                    _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, false);
-                    AudioController.playAction(INTERACTIONS.Workbench);
-                }
+            WorkbenchController workbenchController = GameObject.FindObjectOfType<WorkbenchController>();
+            InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
+            if (menu.triggered && !_workebenchCam){
+                _workebenchCam = true;
+                workbenchController.turnOnMenu();
+                workenchCamera = getCamera(workbench.gameObject);
+                inputsCursor.SetCursorState(false);
+                enableMovement = false;
+                Transform workbenchOrigin = workbench.transform.GetChild(1); //segundo filho
+                transform.GetComponent<MovementController>().moveTo(workbenchOrigin);
+
+                _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, false);
+                AudioController.playAction(INTERACTIONS.Workbench);
             }
+            else if ((menu.triggered || exit.triggered) && _workebenchCam)
+            {
+                _workebenchCam = false;
+                workbenchController.turnOff();
+                inputsCursor.SetCursorState(true);
+                enableMovement = true;
+            }
+
         }else
             _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, false);
     }

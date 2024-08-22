@@ -27,13 +27,13 @@ public class UIButtons : UIController
             EventSystem.current.SetSelectedGameObject(btnSelected);
         }
 
-        if (btnSelected != null)
+        if (btnSelected != null && btnSelected.GetComponent<Button>().interactable)
         {
             btnCurrent = btnSelected;
             selectOption(btnSelected);
         }
 
-        //print(EventSystem.current.currentSelectedGameObject);
+        print(EventSystem.current.currentSelectedGameObject);
     }
 
     public void setButtons(Button[] buttons){

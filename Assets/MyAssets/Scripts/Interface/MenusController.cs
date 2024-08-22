@@ -6,17 +6,23 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using FMODUnity;
+using TMPro;
 
 public class MenusController : MonoBehaviour{
+
     private static int level1 = 1;
     private GameObject option = null;
+    private GameObject btnCurrent = null;
     public FMOD.Studio.VCA masterVCA;
+    private float oldVolume = 0f;
 
     private Vector3 position;
 
     [Header("Buttons")]
     public Button[] buttons;
     protected GameObject[] options;
+
+    private bool sound = false;
 
     //[Header("Menu")]
     //public GameObject menu;
@@ -33,8 +39,8 @@ public class MenusController : MonoBehaviour{
     //ACTIONS
     protected Inputs input;
     protected InputAction confirmOption;
-
-    public enum MenuOption { OPTION1, OPTION2, OPTION3, OPTION4, OPTION5 };
+    private InputAction move;
+    private float move_x;
 
     protected void Awake()
     {
@@ -48,6 +54,7 @@ public class MenusController : MonoBehaviour{
 
         input = new Inputs();
         confirmOption = input.Player.ConfirmOption;
+        move = input.Player.Move;
 
         options = new GameObject[buttons.Length];
         for (int i = 0; i < buttons.Length; i++)
@@ -59,13 +66,27 @@ public class MenusController : MonoBehaviour{
     public static MenusController instance = null;
     private void Start(){
 
-        if (instance == null)
-            instance = this;
-        else
-            Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
+        //if (instance == null)
+        //    instance = this;
+        //else
+        //    Destroy(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
-        loadingScreen?.SetActive(false);
+        if(loadingScreen != null)
+            loadingScreen?.SetActive(false);
+    }
+
+    private void Update()
+    {
+        GameObject btnSelected = EventSystem.current.currentSelectedGameObject;
+        if ((btnSelected == null || !btnSelected.GetComponent<Button>().interactable) && btnCurrent != null)
+        {
+            btnSelected = btnCurrent;
+            EventSystem.current.SetSelectedGameObject(btnSelected);
+        }
+        if (btnSelected != null && btnSelected.GetComponent<Button>().interactable)
+            btnCurrent = btnSelected;
+        //print(EventSystem.current.currentSelectedGameObject);
     }
 
     //PLAAAAAAAY
@@ -99,6 +120,20 @@ public class MenusController : MonoBehaviour{
         SceneManager.sceneLoaded += OnSceneLoadedForSave;
     }
 
+    public void mainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void Quit()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+    }
+
     private void OnSceneLoadedForSave(Scene scene, LoadSceneMode mode){
         FindObjectOfType<InteractionsController>().transform.position = position;
         SceneManager.sceneLoaded -= OnSceneLoadedForSave;
@@ -113,7 +148,46 @@ public class MenusController : MonoBehaviour{
     }
 
     public void selectOption(GameObject optionButton){
+        print("a");
+
+        GameObject btnSelected = EventSystem.current.currentSelectedGameObject;
+        if ((btnSelected == null || !btnSelected.GetComponent<Button>().interactable) && btnCurrent != null)
+        {
+            btnSelected = btnCurrent;
+            EventSystem.current.SetSelectedGameObject(btnSelected);
+        }
+
         option = optionButton;
+        foreach (Button button in buttons) { 
+            getIndicator(button.gameObject).SetActive(false);
+            TextMeshProUGUI text = button.GetComponentInChildren<TextMeshProUGUI>();
+            text.color = ColorPalette.disableText;
+        }
+        getIndicator(optionButton).SetActive(true);
+        TextMeshProUGUI select = optionButton.GetComponent<Button>().GetComponentInChildren<TextMeshProUGUI>();
+        select.color = ColorPalette.enableText;
+    }
+
+    public void setCurrent(GameObject current)
+    {
+        EventSystem.current.SetSelectedGameObject(current);
+    }
+
+    private GameObject getIndicator(GameObject button)
+    {
+        return button.transform.GetChild(0).gameObject;
+    }
+
+    public void pauseAudio(bool state)
+    {
+        if (state){
+            masterVCA.getVolume(out oldVolume);
+            masterVCA.setVolume(0);
+        }
+        else
+        {
+            masterVCA.setVolume(oldVolume);
+        }
     }
 
     private float MapValue(float value, float fromMin, float fromMax, float toMin, float toMax){

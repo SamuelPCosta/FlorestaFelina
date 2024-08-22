@@ -25,35 +25,6 @@ public class GameController : MonoBehaviour{
         DontDestroyOnLoad(gameObject);
     }
 
-    //PLAAAAAAAY
-    public void playGame(){
-        Save save = FindObjectOfType<SaveLoad>().loadGame();
-        if (save != null && (new Vector3(save.playerPosition[0], save.playerPosition[1], save.playerPosition[2]) != Vector3.zero)){
-            position = new Vector3(save.playerPosition[0], save.playerPosition[1], save.playerPosition[2]);
-            if(save.level == 0)
-                SceneManager.LoadScene(level1);
-            else
-                SceneManager.LoadScene(save.level);
-            SceneManager.sceneLoaded += OnSceneLoadedForSave;
-        }
-        else
-            StartCoroutine(LoadSceneWithProgress(level1));
-    }
-
-    private IEnumerator LoadSceneWithProgress(int sceneIndex) {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
-    
-        while (!asyncLoad.isDone) {
-            float progress = asyncLoad.progress;
-            Debug.Log($"Progresso: {progress * 100}%");
-
-            yield return null;
-        }
-
-        SceneManager.sceneLoaded += OnSceneLoadedForSave;
-    }
-
-
     public static int getLevelIndex() {
         string level = SceneManager.GetActiveScene().name;
         string levelNumber = level.Substring(level.Length - 1);
@@ -122,10 +93,5 @@ public class GameController : MonoBehaviour{
 
     public Vector3 getPlayerPosition(){
         return FindObjectOfType<MovementController>().transform.position;
-    }
-
-    private void OnSceneLoadedForSave(Scene scene, LoadSceneMode mode){
-        FindObjectOfType<InteractionsController>().transform.position = position;
-        SceneManager.sceneLoaded -= OnSceneLoadedForSave;
     }
 }
