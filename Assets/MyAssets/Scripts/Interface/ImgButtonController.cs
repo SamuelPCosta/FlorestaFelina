@@ -35,7 +35,7 @@ public class ImgButtonController : UIController
     {
         checkInput();
         if (gamepadOn){
-            print("Controle");
+            //print("Controle");
             ToggleIcons(Input.GAMEPAD);
         }
         else

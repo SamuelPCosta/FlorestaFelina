@@ -33,7 +33,7 @@ public class UIButtons : UIController
             selectOption(btnSelected);
         }
 
-        print(EventSystem.current.currentSelectedGameObject);
+        //print(EventSystem.current.currentSelectedGameObject);
     }
 
     public void setButtons(Button[] buttons){
