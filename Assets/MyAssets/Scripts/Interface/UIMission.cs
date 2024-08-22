@@ -52,8 +52,19 @@ public class UIMission : UIController
         missionDescription.GetComponent<TextMeshProUGUI>().text = stage2AlternativeText +" "+ potion;
     }
 
-    public void completeMission()
+    public void completeMission(MissionType mission)
     {
         disableMissionHUD();
+        missionCompleteIcon.SetActive(true);
+
+        CurrentMission = mission;
+        missionCompleteText.text = CurrentMission.title;
+        AudioController.missionComplete();
+        Invoke("disableCompleteMission", 3);
+    }
+
+    private void disableCompleteMission()
+    {
+        missionCompleteIcon.SetActive(false);
     }
 }

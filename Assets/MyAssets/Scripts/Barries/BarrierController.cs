@@ -20,6 +20,6 @@ public class BarrierController : MonoBehaviour
 
     public void destroy()
     {
-        Destroy(gameObject);
+        Destroy(gameObject.transform.parent.gameObject);
     }
 }

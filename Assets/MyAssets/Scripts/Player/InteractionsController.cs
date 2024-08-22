@@ -5,7 +5,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class InteractionsController : MonoBehaviour
-{       
+{
+    bool tutorialFinish = false;
+
     [Header("Player object")]
     public GameObject PlayerRoot;
     public ProximityController boxcast;
@@ -159,6 +161,18 @@ public class InteractionsController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(tutorialFinish ){
+            RaycastHit hit;
+            if (Physics.Raycast(PlayerRoot.transform.position, Vector3.down, out hit)) {
+                if (!hit.collider.CompareTag("InnerRoom")){
+                    MissionController missionController = FindObjectOfType<MissionController>();
+                    missionController.addStage();
+                    missionController.checkMissionCompletion();
+                    tutorialFinish = false;
+                }
+            }
+        }
+
         if (interactions) { 
             bool isCollectible = checkCollectibles();
             bool isPage = checkNewPage();
@@ -744,9 +758,7 @@ public class InteractionsController : MonoBehaviour
             riverBarrier.gameObject.SetActive(false);
             //catsStatesController.setMissionState(tutorialCat.getIndex(), MISSION_STATE.HOME);
             setMarker(null);
-            MissionController missionController = FindObjectOfType<MissionController>();
-            missionController.addStage();
-            missionController.checkMissionCompletion();
+            tutorialFinish = true;
         }
 
         executeActionByDialog = false;

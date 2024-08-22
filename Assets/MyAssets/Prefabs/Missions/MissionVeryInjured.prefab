@@ -47,6 +47,6 @@ MonoBehaviour:
   mission: 4
   title: "Combate \xE0 ferimentos II"
   description:
-  - "Colete os itens para Xx po\xE7\xF5es A e Yy po\xE7\xF5es B."
-  - "Prepare a po\xE7\xE3o C com pocaoA e pocaoB e medique o gato"
+  - "Colete \xE1gua, 8 flores-luz e 6 flores do luar."
+  - "Prepare a po\xE7\xE3o para feridas II com 2 po\xE7\xF5es para dor e 1 para feridas."
   - "Adote-o: o coloque mochila e v\xE1 pra casa pelo portal."

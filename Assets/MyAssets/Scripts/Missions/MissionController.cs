@@ -223,7 +223,7 @@ public class MissionController : MonoBehaviour{
     }
 
     public void completeMission(){
-        //_UIMission.completeMission();
+        _UIMission.completeMission(missionType[CurrentMission]);
 
         Debug.Log("Missao concluida");
         //reseta missao no save
