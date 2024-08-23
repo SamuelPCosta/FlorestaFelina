@@ -71,8 +71,14 @@ public class MenusController : MonoBehaviour{
         //else
         //    Destroy(gameObject);
         //DontDestroyOnLoad(gameObject);
+        Save save = FindObjectOfType<SaveLoad>().loadGame();
+        if (save != null)
+        {
+            buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Start";
+        }
 
-        if(loadingScreen != null)
+
+        if (loadingScreen != null)
             loadingScreen?.SetActive(false);
     }
 
@@ -120,6 +126,11 @@ public class MenusController : MonoBehaviour{
         SceneManager.sceneLoaded += OnSceneLoadedForSave;
     }
 
+    public void deleteSave()
+    {
+        FindObjectOfType<SaveLoad>().DeleteSaveFile();
+    }
+
     public void mainMenu()
     {
         SceneManager.LoadScene(0);
@@ -148,7 +159,7 @@ public class MenusController : MonoBehaviour{
     }
 
     public void selectOption(GameObject optionButton){
-        print("a");
+        //print("a");
 
         GameObject btnSelected = EventSystem.current.currentSelectedGameObject;
         if ((btnSelected == null || !btnSelected.GetComponent<Button>().interactable) && btnCurrent != null)

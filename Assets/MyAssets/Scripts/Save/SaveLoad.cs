@@ -38,7 +38,7 @@ public class SaveLoad : MonoBehaviour
         save = new Save();
     }
 
-    void DeleteSaveFile(){
+    public void DeleteSaveFile(){
         string path = Application.persistentDataPath; //AppData/LocalLow
         string filePath = Path.Combine(path, nameOfSave + ".save");
 
