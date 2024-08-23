@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour{
 
     private static int level1 = 1;
 
+    public MissionType mission = null;
+
     [Header("DefaultPositionPortal")]
     public Vector3 homePosition;
 
@@ -23,6 +25,14 @@ public class GameController : MonoBehaviour{
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update()
+    {
+        if(SceneManager.GetActiveScene().name.Equals("Level1") && mission != null) { 
+            FindObjectOfType<UIMission>().completeMission(mission);
+            mission = null;
+        }
     }
 
     public static int getLevelIndex() {

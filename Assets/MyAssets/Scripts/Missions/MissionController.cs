@@ -223,7 +223,8 @@ public class MissionController : MonoBehaviour{
     }
 
     public void completeMission(){
-        _UIMission.completeMission(missionType[CurrentMission]);
+        //_UIMission.completeMission(missionType[CurrentMission]);
+        FindObjectOfType<GameController>().mission = missionType[CurrentMission];
 
         Debug.Log("Missao concluida");
         //reseta missao no save

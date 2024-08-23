@@ -95,9 +95,9 @@ public class MenusController : MonoBehaviour{
         if (save != null && (new Vector3(save.playerPosition[0], save.playerPosition[1], save.playerPosition[2]) != Vector3.zero)){
             position = new Vector3(save.playerPosition[0], save.playerPosition[1], save.playerPosition[2]);
             if(save.level == 0)
-                SceneManager.LoadScene(level1);
+                StartCoroutine(LoadSceneWithProgress(level1));
             else
-                SceneManager.LoadScene(save.level);
+                StartCoroutine(LoadSceneWithProgress(save.level));
             SceneManager.sceneLoaded += OnSceneLoadedForSave;
         }
         else
