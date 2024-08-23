@@ -370,6 +370,7 @@ public class InteractionsController : MonoBehaviour
             //GameObject barrier = collider.gameObject;
             if (makeWay.triggered && !unlock){
                 collider.GetComponent<BarrierController>().makeWay();
+                GetComponent<Animator>().Play("Spell");
                 unlock = true;
                 FindObjectOfType<FeedbackController>().Vibrate(Power.Mid, Duration.Mid);
             }
