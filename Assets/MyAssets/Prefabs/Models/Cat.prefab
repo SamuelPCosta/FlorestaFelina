@@ -122,6 +122,10 @@ MonoBehaviour:
   sequence: 0
   symptoms: 0
   catMaterial: {fileID: 2100000, guid: 9ea9cc5705ba8b543ae01810f9c8d93c, type: 2}
+  pelage:
+  - {fileID: 2800000, guid: 1bd25c7abc2b7cf4795293703618ed86, type: 3}
+  - {fileID: 2800000, guid: c2d7219fc8e164f459510fd506bbba7c, type: 3}
+  - {fileID: 2800000, guid: cd72042dbbbc4d047ab95dccfd0049db, type: 3}
 --- !u!65 &1942556230259932391
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -111,6 +111,7 @@ public class MenusController : MonoBehaviour{
     }
 
     private IEnumerator LoadSceneWithProgress(int sceneIndex) {
+        Time.timeScale = 1;
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
 
         loadingScreen?.SetActive(true);
@@ -147,9 +148,10 @@ public class MenusController : MonoBehaviour{
 
     private void OnSceneLoadedForSave(Scene scene, LoadSceneMode mode){
         FindObjectOfType<InteractionsController>().transform.position = position;
+        //StartCoroutine(SetPositionWhenReady());
         SceneManager.sceneLoaded -= OnSceneLoadedForSave;
+        FindObjectOfType<GameController>().StartCoroutine("SetPositionWhenReady", position);
     }
-
 
     void OnVolumeChanged(float value){
         PlayerPrefs.SetInt("volume", (int)value);

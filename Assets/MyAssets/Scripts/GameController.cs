@@ -41,6 +41,18 @@ public class GameController : MonoBehaviour{
         return int.Parse(levelNumber) - 1; //arrays comecam em 0...
     }
 
+    public IEnumerator SetPositionWhenReady(Vector3 position){
+        InteractionsController interactionsController = null;
+
+        while (interactionsController == null)
+        {
+            interactionsController = FindObjectOfType<InteractionsController>();
+            yield return null;
+        }
+
+        interactionsController.transform.position = position;
+    }
+
 
     //CONTROLE DE CENA
     public void nextScene(){

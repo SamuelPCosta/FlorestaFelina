@@ -168,6 +168,7 @@ public class InteractionsController : MonoBehaviour
                     MissionController missionController = FindObjectOfType<MissionController>();
                     missionController.addStage();
                     missionController.checkMissionCompletion();
+                    missionController.SaveMissionState();
                     tutorialFinish = false;
                 }
             }
@@ -529,6 +530,7 @@ public class InteractionsController : MonoBehaviour
             cat.gameObject.SetActive(false);
             catInBag = true;
             setMarker(null);
+            AudioController.playAction(INTERACTIONS.CatMeow);
             FindObjectOfType<FeedbackController>().Vibrate(Power.Min, Duration.Min);
         }
         else 

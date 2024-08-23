@@ -36,6 +36,8 @@ public class MissionController : MonoBehaviour{
     private int oldPotion2;
     private int oldPotion3;
 
+    private int oldCurrentStageMission;
+
     private Save save;
 
     public static MissionController instance = null;
@@ -89,7 +91,7 @@ public class MissionController : MonoBehaviour{
     public void setMissionStage(){
         Mission mission = (Mission)CurrentMission;
 
-        int oldCurrentStageMission = CurrentStageMission;
+        oldCurrentStageMission = CurrentStageMission;
 
         //variaveis
         hasWater = inventoryController.getCollectible(CollectibleType.WATER) == 2;
@@ -123,6 +125,11 @@ public class MissionController : MonoBehaviour{
             checkMissionCompletion();
 
         setOldsIngredients();
+        SaveMissionState();
+    }
+
+    public void SaveMissionState()
+    {
         bool savePosition = CurrentStageMission != oldCurrentStageMission;
         FindObjectOfType<SaveLoad>().saveMission(CurrentMission, CurrentStageMission, savePosition);
         save = FindObjectOfType<SaveLoad>().loadGame();

@@ -800,7 +800,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 104791592966091142, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_text
-      value: Delete save
+      value: Delete
       objectReference: {fileID: 0}
     - target: {fileID: 1977317473363624727, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -896,7 +896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2304686248181417181, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -68.13
       objectReference: {fileID: 0}
     - target: {fileID: 2304686248181417181, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3684,7 +3684,7 @@ PrefabInstance:
     - target: {fileID: 1977317473363624727, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 581033167}
+      objectReference: {fileID: 1271083034}
     - target: {fileID: 1977317473363624727, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine

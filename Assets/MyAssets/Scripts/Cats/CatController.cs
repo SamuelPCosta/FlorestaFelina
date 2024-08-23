@@ -16,6 +16,7 @@ public class CatController : MonoBehaviour{
     [SerializeField] public Symptoms symptoms = new Symptoms();
 
     public Material catMaterial;
+    public Texture2D[] pelage;
 
     private int numColors;
     private int numColorVariation;
@@ -61,7 +62,8 @@ public class CatController : MonoBehaviour{
         furPattern.SetInt("_numColors", numColors);
         furPattern.SetInt("_numColorVariation", numColorVariation);
         furPattern.SetInt("_eyesVariation", eyesVariation);
-        if(gameObject.activeSelf)
+        furPattern.SetTexture("_PelageMask", pelage[numColorVariation]);
+        if (gameObject.activeSelf)
             transform.GetChild(1).GetComponent<Renderer>().material = furPattern;
     }
 
