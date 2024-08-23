@@ -60,7 +60,8 @@ public class JournalController : MonoBehaviour
         if (journal.triggered){
             JournalMenu.SetActive(!state);
             if (!state) { //abrir
-                viewPage(0);
+                viewPage(pageLimit);
+                page = pageLimit;
                 Time.timeScale = 0f;
             } else
                 Time.timeScale = 1f;

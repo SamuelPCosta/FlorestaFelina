@@ -84,6 +84,7 @@ public class GameController : MonoBehaviour{
             player.position = new Vector3(homePosition.x, homePosition.y, homePosition.z);
             player.rotation = Quaternion.Euler(player.rotation.eulerAngles.x, 45f, player.rotation.eulerAngles.z);
             AudioController.missionComplete();
+            FindObjectOfType<FeedbackController>().StopVibration();
         }
         SceneManager.sceneLoaded -= OnSceneLoadedForHome;
     }
@@ -102,6 +103,7 @@ public class GameController : MonoBehaviour{
         if (player != null){
             player.position = newPosition;
             player.rotation = Quaternion.Euler(player.rotation.eulerAngles.x, rotation, player.rotation.eulerAngles.z);
+            FindObjectOfType<FeedbackController>().StopVibration();
         }
         FindObjectOfType<SaveLoad>().saveLevel(SceneManager.GetActiveScene().buildIndex);
         SceneManager.sceneLoaded -= (scene, mode) => OnSceneLoadedForForest(scene, mode, playerPosition, rotation);

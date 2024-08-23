@@ -168,7 +168,7 @@ public class InteractionsController : MonoBehaviour
                     MissionController missionController = FindObjectOfType<MissionController>();
                     missionController.addStage();
                     missionController.checkMissionCompletion();
-                    missionController.SaveMissionState();
+                    //missionController.SaveMissionState();
                     tutorialFinish = false;
                 }
             }
@@ -646,8 +646,9 @@ public class InteractionsController : MonoBehaviour
         if (portal != null){
             //TODO: se o portal é forest e a posicao de saida é zero return;
             //FindObjectOfType<GameController>().
-            _UITextIndicator.enableIndicator(IndicatorText.PORTAL, true);
-            if (makeWay.triggered)
+            if(catsStatesController.getMissionStateByIndex(0) == MISSION_STATE.HOME)
+                _UITextIndicator.enableIndicator(IndicatorText.PORTAL, true);
+            if (makeWay.triggered && catsStatesController.getMissionStateByIndex(0) == MISSION_STATE.HOME)
             {
                 portal.GetComponent<PortalController>().usePortal();
             }

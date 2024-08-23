@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quantityOfItems: 3
-  nameOfItem: Plantinha A
+  nameOfItem: Flor do luar
 --- !u!1001 &7544842064516852360
 PrefabInstance:
   m_ObjectHideFlags: 0
