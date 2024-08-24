@@ -75,6 +75,11 @@ public class MenusController : MonoBehaviour{
         if (save != null)
         {
             buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Start";
+            buttons[5].enabled = true;
+        }
+        else
+        {
+            buttons[5].enabled = false;
         }
 
 
@@ -97,6 +102,8 @@ public class MenusController : MonoBehaviour{
 
     //PLAAAAAAAY
     public void playGame(){
+        //loadingScreen?.SetActive(true);
+        //slider.value = 0;
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null && (new Vector3(save.playerPosition[0], save.playerPosition[1], save.playerPosition[2]) != Vector3.zero)){
             position = new Vector3(save.playerPosition[0], save.playerPosition[1], save.playerPosition[2]);
@@ -113,8 +120,6 @@ public class MenusController : MonoBehaviour{
     private IEnumerator LoadSceneWithProgress(int sceneIndex) {
         Time.timeScale = 1;
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
-
-        loadingScreen?.SetActive(true);
 
         while (!asyncLoad.isDone) {
             float progress = asyncLoad.progress;

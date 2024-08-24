@@ -110,7 +110,7 @@ public class DialogController : UIController
         else
         if (character == Speeches.Character.NPC1)
         {
-            name = "NPC1";
+            name = "Niamh";
             photo = Speeches.Character.NPC1;
         }
         //TODO terminar com base na enum
