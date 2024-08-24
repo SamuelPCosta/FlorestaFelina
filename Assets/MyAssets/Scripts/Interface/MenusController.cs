@@ -75,11 +75,13 @@ public class MenusController : MonoBehaviour{
         if (save != null)
         {
             buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Start";
-            buttons[5].enabled = true;
+            if(buttons.Length >5)
+                buttons[5].enabled = true;
         }
         else
         {
-            buttons[5].enabled = false;
+            if (buttons.Length > 5)
+                buttons[5].enabled = false;
         }
 
 

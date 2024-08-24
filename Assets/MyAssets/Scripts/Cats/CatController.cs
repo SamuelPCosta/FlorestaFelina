@@ -55,13 +55,13 @@ public class CatController : MonoBehaviour{
         Material furPattern = new Material(catMaterial);
 
         //SORTEIO DE INT EH MaxEXCLUSIVEEE
-        numColors = Random.Range(1, 4);
-        numColorVariation = (numColors == 1 || numColors == 2) ? Random.Range(0, 3) : 0;
-        eyesVariation = Random.Range(0, 2);
+        numColorVariation = Random.Range(0, 4);
+        //numColorVariation = (numColors == 1 || numColors == 2) ? Random.Range(0, 3) : 0;
+        //eyesVariation = Random.Range(0, 2);
 
-        furPattern.SetInt("_numColors", numColors);
-        furPattern.SetInt("_numColorVariation", numColorVariation);
-        furPattern.SetInt("_eyesVariation", eyesVariation);
+        //furPattern.SetInt("_numColors", numColors);
+        //furPattern.SetInt("_numColorVariation", numColorVariation);
+        //furPattern.SetInt("_eyesVariation", eyesVariation);
         furPattern.SetTexture("_PelageMask", pelage[numColorVariation]);
         if (gameObject.activeSelf)
             transform.GetChild(1).GetComponent<Renderer>().material = furPattern;

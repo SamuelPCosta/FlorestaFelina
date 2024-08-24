@@ -453,11 +453,12 @@ public class InteractionsController : MonoBehaviour
             if (checkCatAnalysis(catController))
                 return;
 
+            //CARREGA GATO
+            if(checkCatOnTheBag(catController))
+                return;
+
             //MENU DE INTERACAO
             checkCatMenu(catController);
-
-            //CARREGA GATO
-            checkCatOnTheBag(catController);
 
             //##################INTERACOES##################
 
@@ -498,7 +499,7 @@ public class InteractionsController : MonoBehaviour
         return false;
     }
 
-    private void checkCatMenu(CatController cat){
+    private bool checkCatMenu(CatController cat){
         InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
         if (menu.triggered && ((catAnalyzed || catHealed || catHome || catSaved) && !_catMenuInteraction)){
             _catMenuInteraction = true;
@@ -509,7 +510,7 @@ public class InteractionsController : MonoBehaviour
             _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, false);
             _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, false);
             _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
-            
+            return true;
         }
         else if ((menu.triggered || exit.triggered) && (catAnalyzed || catHealed || catHome || catSaved) && _catMenuInteraction)
         {
@@ -517,27 +518,31 @@ public class InteractionsController : MonoBehaviour
             catMenuController.turnOff();
             enableMovement = true;
             inputsCursor.SetCursorState(true);
+            return true;
         }
+        return false;
     }
 
-    private void checkCatOnTheBag(CatController cat){
+    private bool checkCatOnTheBag(CatController cat){
         Mission missionType = FindObjectOfType<MissionController>().getMission();
-        if (bagInput.triggered)
+        if (menu.triggered)
             print(catsStatesController.getMissionStateByIndex(cat.getIndex()));
 
-        if (bagInput.triggered && catHealed && !_catMenuInteraction && missionType != Mission.TUTORIAL){  //impede acao quando o menu esta aberto e qndo eh o gato do tutorial
+        if (menu.triggered && catHealed && !_catMenuInteraction && missionType != Mission.TUTORIAL){  //impede acao quando o menu esta aberto e qndo eh o gato do tutorial
             bag?.SetActive(true);
             cat.gameObject.SetActive(false);
             catInBag = true;
             setMarker(null);
             AudioController.playAction(INTERACTIONS.CatMeow);
             FindObjectOfType<FeedbackController>().Vibrate(Power.Min, Duration.Min);
+            return true;
         }
         else 
         if (catHealed && missionType == Mission.TUTORIAL){  //desliga marcador do TUTORIAL
             tutorialCat = cat;
             setMarker(null);
         }
+        return false;
     }
 
     public bool isCatInBag(){

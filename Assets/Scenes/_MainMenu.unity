@@ -181,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7114817810304167735, guid: bc55924d053c1604a86c3bafd6a9095f, type: 3}
       propertyPath: deleteSaveFile
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
