@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc12d3a9fdc0b0458bd78c8202011f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quantityOfItems: 3
+  quantityOfItems: 2
   nameOfItem: Flor do luar
 --- !u!1001 &7544842064516852360
 PrefabInstance:

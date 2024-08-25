@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d498c57554ac6354fa76a4253f2df2d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quantityOfItems: 4
+  quantityOfItems: 2
   nameOfItem: Flor luz
 --- !u!1001 &100916337857262327
 PrefabInstance:
