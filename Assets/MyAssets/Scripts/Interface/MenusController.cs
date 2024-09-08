@@ -22,10 +22,9 @@ public class MenusController : MonoBehaviour{
     public Button[] buttons;
     protected GameObject[] options;
 
-    private bool sound = false;
+    private PauseController pauseController = null;
 
-    //[Header("Menu")]
-    //public GameObject menu;
+    private bool sound = false;
 
     protected UIButtons _UIButtons;
 
@@ -36,11 +35,16 @@ public class MenusController : MonoBehaviour{
     public GameObject loadingScreen;
     public Slider slider;
 
+    [Header("DefaultOp")]
+    public GameObject defaultOp;
+
+    [Header("Parent")]
+    public GameObject MenuParent;
+
     //ACTIONS
     protected Inputs input;
     protected InputAction confirmOption;
     private InputAction move;
-    private float move_x;
 
     protected void Awake()
     {
@@ -59,18 +63,10 @@ public class MenusController : MonoBehaviour{
         options = new GameObject[buttons.Length];
         for (int i = 0; i < buttons.Length; i++)
             options[i] = buttons[i].gameObject;
-        //_UIButtons = GetComponent<UIButtons>();
-        //_UIButtons.setButtons(buttons);
     }
 
     public static MenusController instance = null;
     private void Start(){
-
-        //if (instance == null)
-        //    instance = this;
-        //else
-        //    Destroy(gameObject);
-        //DontDestroyOnLoad(gameObject);
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null)
         {
@@ -84,10 +80,9 @@ public class MenusController : MonoBehaviour{
                 buttons[5].enabled = false;
         }
 
-
         if (loadingScreen != null)
-            loadingScreen?.SetActive(false);
-    }
+            loadingScreen.GetComponent<CanvasGroup>().alpha = 0;
+    }   
 
     private void Update()
     {
@@ -99,12 +94,40 @@ public class MenusController : MonoBehaviour{
         }
         if (btnSelected != null && btnSelected.GetComponent<Button>().interactable)
             btnCurrent = btnSelected;
-        //print(EventSystem.current.currentSelectedGameObject);
+
+        checkPause();
+    }
+
+    private void checkPause(){
+        string sceneName = SceneManager.GetActiveScene().name;
+        bool pause = isPaused();
+        if (Input.GetButtonDown("Cancel") && (sceneName.Equals("_MainMenu") || pause)){
+            //excecao pause
+            if (pause && MenuParent.transform.GetChild(2).gameObject.activeSelf){
+                pauseController ??= FindObjectOfType<PauseController>();
+                pauseController.pause(false);
+                return;
+            }
+
+            int childCount = MenuParent.transform.childCount;
+            for (int i = 2; i < childCount; i++)
+                MenuParent.transform.GetChild(i).gameObject?.SetActive(i == 2); //Ativa somente o menu principal
+            setCurrent(defaultOp);
+        }
+    }
+
+    private bool isPaused(){
+        pauseController ??= FindObjectOfType<PauseController>();
+        if(pauseController == null)
+            return false;
+        else
+            return pauseController.isPaused;
     }
 
     //PLAAAAAAAY
     public void playGame(){
         //loadingScreen?.SetActive(true);
+        loadingScreen.GetComponent<CanvasGroup>().alpha = 1;
         //slider.value = 0;
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null && (new Vector3(save.playerPosition[0], save.playerPosition[1], save.playerPosition[2]) != Vector3.zero)){
@@ -168,8 +191,6 @@ public class MenusController : MonoBehaviour{
     }
 
     public void selectOption(GameObject optionButton){
-        //print("a");
-
         GameObject btnSelected = EventSystem.current.currentSelectedGameObject;
         if ((btnSelected == null || !btnSelected.GetComponent<Button>().interactable) && btnCurrent != null)
         {
@@ -198,8 +219,7 @@ public class MenusController : MonoBehaviour{
         return button.transform.GetChild(0).gameObject;
     }
 
-    public void pauseAudio(bool state)
-    {
+    public void pauseAudio(bool state){
         if (state){
             masterVCA.getVolume(out oldVolume);
             masterVCA.setVolume(0);

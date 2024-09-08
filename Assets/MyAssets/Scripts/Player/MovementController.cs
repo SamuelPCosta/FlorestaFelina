@@ -60,6 +60,11 @@ using UnityEngine.InputSystem;
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        [Tooltip("Enable camera movement")]
+        public bool isCameraEnable = true;
+
+        [SerializeField][Range(0, 1)] private float sensitivity = 0.5f;
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -154,7 +159,8 @@ using UnityEngine.InputSystem;
 
         private void LateUpdate()
         {
-            CameraRotation();
+            if(isCameraEnable)
+                CameraRotation();
         }
 
         private void AssignAnimationIDs()
@@ -185,8 +191,9 @@ using UnityEngine.InputSystem;
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
-                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+                float sensitiviryClamp = Mathf.Clamp(sensitivity, 0.05f, 1);
+                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * sensitiviryClamp;
+                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier * sensitiviryClamp;
             }
 
             // clamp our rotations so our values are limited 360 degrees
@@ -268,8 +275,7 @@ using UnityEngine.InputSystem;
             }
         }
 
-        private void FallAndGravity()
-        {
+        private void FallAndGravity(){
             if (Grounded){
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;

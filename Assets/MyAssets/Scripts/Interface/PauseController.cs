@@ -14,6 +14,8 @@ public class PauseController : MonoBehaviour
     private Inputs input;
     private InputAction pauseBtn;
 
+    public bool isPaused = false;
+
     void Awake()
     {
         input = new Inputs();
@@ -37,9 +39,9 @@ public class PauseController : MonoBehaviour
 
     public void pause(bool state)
     {
+        isPaused = state;
         panel.SetActive(state);
-        if (state)
-        {
+        if (state){
             FindObjectOfType<MenusController>().selectOption(option1);
             mainOptions.SetActive(true);
             configOption.SetActive(false);

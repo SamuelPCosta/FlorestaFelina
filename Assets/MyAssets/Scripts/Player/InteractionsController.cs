@@ -198,30 +198,7 @@ public class InteractionsController : MonoBehaviour
 
             Vector2 move = transform.GetComponent<InputsMovement>().move;
 
-            if (move == Vector2.zero)
-                AudioController.changeParameter("Move", "Stop");
-            else if(roomba.activeSelf)
-                AudioController.changeParameter("Move", "Roomba");
-            else if (inWater) { 
-                AudioController.changeParameter("Move", "Water");
-                AudioController.changeParameter("inWater", "True");
-            }else{
-                AudioController.changeParameter("Move", "Steps");
-                AudioController.changeParameter("inWater", "False");
-            }
-
-            //Controla particulas do roomba
-            bool isFast = acceleration.ReadValue<float>() > 0 && fastMovementAllowed && !(inDialog || inDynamicDialog);
-            transform.GetComponent<MovementController>().onRoomba(isFast);
-            roomba.SetActive(isFast);
-            roombaHips.SetActive(!isFast);
-
-
-            if(isFast)
-                FindObjectOfType<FeedbackController>().VibrateRoomba();
-            else if(oldIsFast)
-                FindObjectOfType<FeedbackController>().StopVibration();
-            oldIsFast = isFast;
+            interactionEnvironmentAudio(move);
 
             if (roomba.activeSelf)
                 if (move != Vector2.zero)
@@ -232,6 +209,37 @@ public class InteractionsController : MonoBehaviour
             //Controla particulas da agua
             if (isExitWave)
                 waterParticles.transform.position = lastWavePosition;
+        }
+    }
+
+    private FeedbackController feedbackController = null;
+    private void FixedUpdate(){
+        //Controla particulas do roomba
+        bool isFast = acceleration.ReadValue<float>() > 0 && fastMovementAllowed && !(inDialog || inDynamicDialog);
+        transform.GetComponent<MovementController>().onRoomba(isFast);
+        roomba.SetActive(isFast);
+        roombaHips.SetActive(!isFast);
+
+        feedbackController ??= FindObjectOfType<FeedbackController>();
+        if (isFast)
+            feedbackController.VibrateRoomba();
+        else if(oldIsFast)
+            feedbackController.StopVibration();
+        oldIsFast = isFast;
+    }
+
+    //AUDIOS INTERACTIONS
+    private void interactionEnvironmentAudio(Vector2 move){
+        if (move == Vector2.zero)
+            AudioController.changeParameter("Move", "Stop");
+        else if(roomba.activeSelf)
+            AudioController.changeParameter("Move", "Roomba");
+        else if (inWater) { 
+            AudioController.changeParameter("Move", "Water");
+            AudioController.changeParameter("inWater", "True");
+        }else{
+            AudioController.changeParameter("Move", "Steps");
+            AudioController.changeParameter("inWater", "False");
         }
     }
 
@@ -737,10 +745,14 @@ public class InteractionsController : MonoBehaviour
 
             //MOVIMENTACAO BLOQUEADA
             if (hit.collider.CompareTag("EnvironmentView")
-             || hit.collider.CompareTag("EnvironmentViewDontReload") || !enableMovement)
+             || hit.collider.CompareTag("EnvironmentViewDontReload") || !enableMovement) { 
                 transform.GetComponent<MovementController>().enablePlayerMovement(false);
-            else
+                transform.GetComponent<MovementController>().isCameraEnable = false;
+            }
+            else { 
                 transform.GetComponent<MovementController>().enablePlayerMovement(true);
+                transform.GetComponent<MovementController>().isCameraEnable = true;
+            }
 
         }
     }

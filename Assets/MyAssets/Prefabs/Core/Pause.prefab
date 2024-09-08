@@ -211,6 +211,7 @@ MonoBehaviour:
   panel: {fileID: 8660330678789856259}
   mainOptions: {fileID: 5467693092776118529}
   configOption: {fileID: 8044492841678894289}
+  isPaused: 0
 --- !u!1 &2192474920420423231
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,6 +675,8 @@ MonoBehaviour:
   volumeSlider: {fileID: 2162697099712460182}
   loadingScreen: {fileID: 0}
   slider: {fileID: 0}
+  defaultOp: {fileID: 2366263719220581490}
+  MenuParent: {fileID: 8660330678789856259}
 --- !u!1 &5074375252235551067
 GameObject:
   m_ObjectHideFlags: 0
@@ -1458,7 +1461,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 104791592966091142, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_text
-      value: Play
+      value: Resume
       objectReference: {fileID: 0}
     - target: {fileID: 104791592966091142, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_fontStyle

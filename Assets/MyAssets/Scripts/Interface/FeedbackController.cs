@@ -25,9 +25,9 @@ public class FeedbackController : MonoBehaviour{
     public void VibrateRoomba(){
         gamepad = Gamepad.current;
         if (gamepad != null){
-            float value = Mathf.Lerp(0, 1, Mathf.InverseLerp(0, 255, move.acceleration));
-            gamepad.SetMotorSpeeds(value, value);
-            CancelInvoke("StopVibration");
+            float value = move.acceleration * move.acceleration;
+            gamepad.SetMotorSpeeds(Mathf.Clamp(value, 0f, .5f), value);
+            //CancelInvoke("StopVibration");
         }
     }
 

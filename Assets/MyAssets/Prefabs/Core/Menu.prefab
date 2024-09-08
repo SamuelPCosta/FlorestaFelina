@@ -708,6 +708,8 @@ MonoBehaviour:
   volumeSlider: {fileID: 2591233215941020622}
   loadingScreen: {fileID: 2702327041755818869}
   slider: {fileID: 68268201945074597}
+  defaultOp: {fileID: 910628155033458518}
+  MenuParent: {fileID: 2205359514294878548}
 --- !u!1 &3852085981824745610
 GameObject:
   m_ObjectHideFlags: 0
