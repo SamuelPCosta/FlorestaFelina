@@ -21,13 +21,13 @@ public class UIButtons : UIController
     void Update()
     {
         GameObject btnSelected = EventSystem.current.currentSelectedGameObject;
-        if ((btnSelected == null || !btnSelected.GetComponent<Button>().interactable) && btnCurrent != null)
+        if ((btnSelected == null || (btnSelected.GetComponent<Button>() != null && !btnSelected.GetComponent<Button>().interactable)) && btnCurrent != null)
         {
             btnSelected = btnCurrent;
             EventSystem.current.SetSelectedGameObject(btnSelected);
         }
 
-        if (btnSelected != null && btnSelected.GetComponent<Button>().interactable)
+        if (btnSelected != null && btnSelected.GetComponent<Button>() != null && btnSelected.GetComponent<Button>().interactable)
         {
             btnCurrent = btnSelected;
             selectOption(btnSelected);

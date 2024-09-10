@@ -63,7 +63,7 @@ using UnityEngine.InputSystem;
         [Tooltip("Enable camera movement")]
         public bool isCameraEnable = true;
 
-        [SerializeField][Range(0, 1)] private float sensitivity = 0.5f;
+        private float sensibility;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -127,6 +127,11 @@ using UnityEngine.InputSystem;
             }
         }
 
+        public void getCameraSensibility()
+        {
+            sensibility = PlayerPrefs.GetFloat("sensibility");
+        }
+
         private void Start(){
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
@@ -143,7 +148,8 @@ using UnityEngine.InputSystem;
 
             // reset our timeouts on start
             _fallTimeoutDelta = FallTimeout;
-        }
+            getCameraSensibility();
+    }
 
         private void Update()
         {
@@ -191,7 +197,7 @@ using UnityEngine.InputSystem;
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                float sensitiviryClamp = Mathf.Clamp(sensitivity, 0.05f, 1);
+                float sensitiviryClamp = Mathf.Clamp(sensibility, 0.05f, 1);
                 _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * sensitiviryClamp;
                 _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier * sensitiviryClamp;
             }

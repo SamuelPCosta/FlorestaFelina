@@ -31,6 +31,9 @@ public class MenusController : MonoBehaviour{
     [Header("volume")]
     public Slider volumeSlider;
 
+    [Header("camera")]
+    public Slider sensibilitySlider;
+
     [Header("Loading")]
     public GameObject loadingScreen;
     public Slider slider;
@@ -56,6 +59,12 @@ public class MenusController : MonoBehaviour{
         masterVCA.setVolume(volume);
         volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
 
+
+        float savedSensibility = PlayerPrefs.GetFloat("sensibility", 0.5f);
+        sensibilitySlider.value = savedSensibility;
+        sensibilitySlider.onValueChanged.AddListener(OnSensibilityChanged);
+        PlayerPrefs.Save();
+
         input = new Inputs();
         confirmOption = input.Player.ConfirmOption;
         move = input.Player.Move;
@@ -70,7 +79,8 @@ public class MenusController : MonoBehaviour{
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null)
         {
-            buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Start";
+            if(SceneManager.GetActiveScene().name.Equals("_MainMenu"))
+                buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Start";
             if(buttons.Length >5)
                 buttons[5].enabled = true;
         }
@@ -101,15 +111,17 @@ public class MenusController : MonoBehaviour{
     private void Update()
     {
         GameObject btnSelected = EventSystem.current.currentSelectedGameObject;
-        if ((btnSelected == null || !btnSelected.GetComponent<Button>().interactable) && btnCurrent != null)
+        if ((btnSelected == null || btnSelected.GetComponent<Button>() != null && !btnSelected.GetComponent<Button>().interactable) && btnCurrent != null)
         {
             btnSelected = btnCurrent;
             EventSystem.current.SetSelectedGameObject(btnSelected);
         }
-        if (btnSelected != null && btnSelected.GetComponent<Button>().interactable)
+        if (btnSelected != null && btnSelected.GetComponent<Button>() != null && btnSelected.GetComponent<Button>().interactable)
             btnCurrent = btnSelected;
 
         checkPause();
+        if ((btnSelected != null && btnSelected.GetComponent<Slider>() != null)) 
+            disableOptions();
     }
 
     private void checkPause(){
@@ -199,9 +211,19 @@ public class MenusController : MonoBehaviour{
 
     void OnVolumeChanged(float value){
         PlayerPrefs.SetInt("volume", (int)value);
+        PlayerPrefs.Save();
 
         float volume = MapValue(value, 0, 100, 0f, 1f);
         masterVCA.setVolume(volume);
+    }
+
+    void OnSensibilityChanged(float value)
+    {
+        PlayerPrefs.SetFloat("sensibility", value);
+        PlayerPrefs.Save();
+        GameObject player = GameObject.Find("Player");
+        if(player != null)
+            player.GetComponent<MovementController>().getCameraSensibility();
     }
 
     public void selectOption(GameObject optionButton){
@@ -213,14 +235,19 @@ public class MenusController : MonoBehaviour{
         }
 
         option = optionButton;
-        foreach (Button button in buttons) { 
+        disableOptions();
+        
+        getIndicator(optionButton).SetActive(true);
+        TextMeshProUGUI select = optionButton.GetComponent<Button>().GetComponentInChildren<TextMeshProUGUI>();
+        select.color = ColorPalette.enableText;
+    }
+
+    private void disableOptions(){
+        foreach (Button button in buttons){
             getIndicator(button.gameObject).SetActive(false);
             TextMeshProUGUI text = button.GetComponentInChildren<TextMeshProUGUI>();
             text.color = ColorPalette.disableText;
         }
-        getIndicator(optionButton).SetActive(true);
-        TextMeshProUGUI select = optionButton.GetComponent<Button>().GetComponentInChildren<TextMeshProUGUI>();
-        select.color = ColorPalette.enableText;
     }
 
     public void setCurrent(GameObject current)
