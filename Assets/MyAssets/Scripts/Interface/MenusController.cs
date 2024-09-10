@@ -82,6 +82,20 @@ public class MenusController : MonoBehaviour{
 
         if (loadingScreen != null)
             loadingScreen.GetComponent<CanvasGroup>().alpha = 0;
+
+        if (SceneManager.GetActiveScene().name.Equals("_MainMenu")){
+            float aspectRatio = (float)Screen.width / (float)Screen.height;
+            Vector3 scale = Vector3.one;
+            if (aspectRatio >= 21.0f / 9.0f)
+            {
+                scale = Vector3.one;
+            }
+            else if (aspectRatio >= 16.0f / 9.0f)
+            {
+                scale = new Vector3(0.75f, 0.75f, 0.75f);
+            }
+            GameObject.Find("BGMainMenu").GetComponent<RectTransform>().localScale = scale;
+        }
     }   
 
     private void Update()
