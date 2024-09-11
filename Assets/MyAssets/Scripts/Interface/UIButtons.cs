@@ -23,8 +23,10 @@ public class UIButtons : UIController
         GameObject btnSelected = EventSystem.current.currentSelectedGameObject;
         if ((btnSelected == null || (btnSelected.GetComponent<Button>() != null && !btnSelected.GetComponent<Button>().interactable)) && btnCurrent != null)
         {
-            btnSelected = btnCurrent;
-            EventSystem.current.SetSelectedGameObject(btnSelected);
+            if (!btnCurrent.name.Contains("Potion")) { 
+                btnSelected = btnCurrent;
+                EventSystem.current.SetSelectedGameObject(btnSelected);
+            }
         }
 
         if (btnSelected != null && btnSelected.GetComponent<Button>() != null && btnSelected.GetComponent<Button>().interactable)

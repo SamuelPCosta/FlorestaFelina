@@ -43,6 +43,8 @@ public class AudioController : MonoBehaviour{
 
     private static EventReference _missionComple;
 
+    private static EventInstance potionEventInstance;
+
     private void Start(){
         RuntimeManager.CreateInstance(Steps).start();
         _CatMeow = CatMeow;
@@ -59,6 +61,7 @@ public class AudioController : MonoBehaviour{
         _Branches = Branches;
 
         _missionComple = missionComple;
+        potionEventInstance = RuntimeManager.CreateInstance(_Potion);
     }
 
     public static void changeParameter(string parameter, string label){
@@ -69,6 +72,13 @@ public class AudioController : MonoBehaviour{
         EventInstance eventInstance = RuntimeManager.CreateInstance(_missionComple);
         eventInstance.start();
         eventInstance.release();
+    }
+
+    public static void playCraft(bool state){
+        if (state)
+            potionEventInstance.start();
+        else
+            potionEventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
 
     public static void playAction(INTERACTIONS interaction){

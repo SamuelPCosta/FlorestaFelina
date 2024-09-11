@@ -100,6 +100,17 @@ public class InteractionsController : MonoBehaviour
     private InputAction bagInput;
     private InputAction exit;
 
+    //CONTROLLERS
+    private MissionController _missionController;
+    private FeedbackController _feedbackController;
+    private JournalController _journalController;
+    private WorkbenchController _workbenchController;
+    private InputsMovement _inputsMovement;
+    private TutorialController _tutorialController;
+
+    //
+    Save save;
+
     private void Awake()
     {
         input = new Inputs();
@@ -115,8 +126,7 @@ public class InteractionsController : MonoBehaviour
         input.Disable();
     }
 
-    void Start()
-    {
+    void Start(){
         _UICollect = FindObjectOfType<UICollect>();
         bag?.SetActive(false);
         waterParticles?.SetActive(false);
@@ -124,6 +134,8 @@ public class InteractionsController : MonoBehaviour
         waves = waterParticles.transform.GetChild(0).GetComponent<ParticleSystem>();
         drops = waterDrops.transform.GetChild(0).GetComponent<ParticleSystem>();
 
+
+        //ACTIONS
         menu = input.Player.Menu;
         collect = input.Player.Collect;
         makeWay = input.Player.MakeWay;
@@ -133,6 +145,14 @@ public class InteractionsController : MonoBehaviour
         showAffection = input.Player.ShowAffection;
         bagInput = input.Player.Bag;
         exit = input.Player.Exit;
+
+        //CONTROLLERS
+        _missionController = FindObjectOfType<MissionController>();
+        _feedbackController = FindObjectOfType<FeedbackController>();
+        _journalController = FindObjectOfType<JournalController>();
+        _workbenchController = FindObjectOfType<WorkbenchController>();
+        _inputsMovement = FindObjectOfType<InputsMovement>();
+        _tutorialController = FindObjectOfType<TutorialController>();
 
         catCamera = null;
 
@@ -144,13 +164,12 @@ public class InteractionsController : MonoBehaviour
         InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
         inputsCursor.SetCursorState(true);
 
-        Save save = FindObjectOfType<SaveLoad>().loadGame();
+        save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null && riverBarrier != null && SceneManager.GetActiveScene().name.Equals("Level1"))
             if (save.missionState[1] == MISSION_STATE.HOME)
                 riverBarrier.gameObject.SetActive(true);
             else if (save.missionState[0] == MISSION_STATE.HOME)
                 riverBarrier.gameObject.SetActive(false);
-        //updateCatsState();
     }
 
     public void setInteractions()
@@ -158,17 +177,14 @@ public class InteractionsController : MonoBehaviour
         interactions = !interactions;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         if(tutorialFinish ){
             RaycastHit hit;
             if (Physics.Raycast(PlayerRoot.transform.position, Vector3.down, out hit)) {
                 if (!hit.collider.CompareTag("InnerRoom")){
-                    MissionController missionController = FindObjectOfType<MissionController>();
+                    MissionController missionController = _missionController;
                     missionController.addStage();
                     missionController.checkMissionCompletion();
-                    //missionController.SaveMissionState();
                     tutorialFinish = false;
                 }
             }
@@ -182,7 +198,6 @@ public class InteractionsController : MonoBehaviour
             if(!isCollectible && !isPage && !isFruit)
                 _UITextIndicator.enableIndicator(IndicatorText.COLLECT, false);
 
-            Save save = FindObjectOfType<SaveLoad>().loadGame();
             if (save != null) stepOne = save.step;
 
             checkWay();
@@ -250,7 +265,6 @@ public class InteractionsController : MonoBehaviour
             waterParticles.transform.position = gameObject.transform.position;
             waterParticles?.SetActive(true);
             waterDrops?.SetActive(true);
-            //waves.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             drops.Play();
             waves.Play();
             fastMovementAllowed = false;
@@ -309,11 +323,9 @@ public class InteractionsController : MonoBehaviour
     }
 
     //CONTROLA COLETA E CONEXAO COM INVENTARIO
-    private bool checkCollectibles()
-    {
+    private bool checkCollectibles(){
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Collectible"));
-        if (collider != null)
-        {
+        if (collider != null){
             Collectible collectible = collider.GetComponent<Collectible>();
             _UITextIndicator.enableIndicator(IndicatorText.COLLECT, true);
             if (collect.triggered && collectible != null)
@@ -339,12 +351,12 @@ public class InteractionsController : MonoBehaviour
         if (collider != null){
             _UITextIndicator.enableIndicator(IndicatorText.COLLECT, true);
             if (collect.triggered){
-                FindObjectOfType<JournalController>().addPage();
+                _journalController.addPage();
                 Destroy(collider.gameObject);
                 //TODO: SAVE
                 _UICollect.spawnCollectedPage();
                 AudioController.playAction(INTERACTIONS.Collect);
-                FindObjectOfType<FeedbackController>().Vibrate(Power.Mid, Duration.Min);
+                _feedbackController.Vibrate(Power.Mid, Duration.Min);
             }
         }
         return (collider != null);
@@ -360,7 +372,7 @@ public class InteractionsController : MonoBehaviour
                 //TODO: SAVE
                 _UICollect.spawnCollectedFruit();
                 AudioController.playAction(INTERACTIONS.Collect);
-                FindObjectOfType<FeedbackController>().Vibrate(Power.Mid, Duration.Min);
+                _feedbackController.Vibrate(Power.Mid, Duration.Min);
             }
         }
         return (collider != null);
@@ -381,18 +393,16 @@ public class InteractionsController : MonoBehaviour
                 collider.GetComponent<BarrierController>().makeWay();
                 GetComponent<Animator>().Play("Spell");
                 unlock = true;
-                FindObjectOfType<FeedbackController>().Vibrate(Power.Mid, Duration.Mid);
+                _feedbackController.Vibrate(Power.Mid, Duration.Mid);
             }
         }
         else{
             _UITextIndicator.enableIndicator(IndicatorText.BARRIER, false);
             unlock = false;
         }
-            
     }
 
-    public void setMarker(GameObject cat)
-    {
+    public void setMarker(GameObject cat){
         if (cat == null) { 
             currentCat = null;
             return;
@@ -418,7 +428,7 @@ public class InteractionsController : MonoBehaviour
 
             CatController catController = collider.GetComponent<CatController>();
             MISSION_STATE state = catsStatesController.getMissionStateByIndex(catController.getIndex());
-            Mission missionType = FindObjectOfType<MissionController>().getMission();
+            Mission missionType = _missionController.getMission();
 
             catNotStarted = state == MISSION_STATE.NOT_STARTED;
             catFirstInteraction = state == MISSION_STATE.FIRST_INTERACTION;
@@ -491,7 +501,7 @@ public class InteractionsController : MonoBehaviour
             }
             AudioController.playAction(INTERACTIONS.CatMeow);
             print("carinho no gato "+cat);
-            FindObjectOfType<FeedbackController>().Vibrate(Power.Mid, Duration.Mid);
+            _feedbackController.Vibrate(Power.Mid, Duration.Mid);
             //TODO: ativar animacao
         }
     }
@@ -520,8 +530,7 @@ public class InteractionsController : MonoBehaviour
             _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
             return true;
         }
-        else if ((menu.triggered || exit.triggered) && (catAnalyzed || catHealed || catHome || catSaved) && _catMenuInteraction)
-        {
+        else if ((menu.triggered || exit.triggered) && (catAnalyzed || catHealed || catHome || catSaved) && _catMenuInteraction){
             _catMenuInteraction = false;
             catMenuController.turnOff();
             enableMovement = true;
@@ -532,7 +541,7 @@ public class InteractionsController : MonoBehaviour
     }
 
     private bool checkCatOnTheBag(CatController cat){
-        Mission missionType = FindObjectOfType<MissionController>().getMission();
+        Mission missionType = _missionController.getMission();
         if (menu.triggered)
             print(catsStatesController.getMissionStateByIndex(cat.getIndex()));
 
@@ -560,8 +569,7 @@ public class InteractionsController : MonoBehaviour
     //CONTROLA A INTERACAO COM NPCs
     private void checkNPC(){
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("DialogReload"));
-        if (collider != null)
-        {
+        if (collider != null){
             if(!inDialog)
                 _UITextIndicator.enableIndicator(IndicatorText.NPC, true);
             else
@@ -580,8 +588,7 @@ public class InteractionsController : MonoBehaviour
     }
 
     //CONTROLA A INTERACAO COM DIALOGOS AUTOMATICOS
-    private void checkDialogs()
-    {
+    private void checkDialogs(){
         Speeches.Speech[] speechs;
         string moveTutorial = "MoveTutorial";
         
@@ -598,7 +605,7 @@ public class InteractionsController : MonoBehaviour
             dialogController.turnOnDialog();
             nameOfTutorial = collider.gameObject.name;
             enableMovement = false;
-            FindObjectOfType<FeedbackController>().Vibrate(Power.Min, Duration.Min);
+            _feedbackController.Vibrate(Power.Min, Duration.Min);
 
             //excecao do tutorial de movimento
             if (nameOfTutorial == moveTutorial)
@@ -626,8 +633,7 @@ public class InteractionsController : MonoBehaviour
         }
     }
 
-    public void exitDialog()
-    {
+    public void exitDialog(){
         inDialog = false;
         if (inDynamicDialog)
             inDynamicDialog = false;
@@ -637,15 +643,14 @@ public class InteractionsController : MonoBehaviour
     }
 
     //CONTROLA INTERACAO COM O SUMMON DA BANCADA E PORTAL
-    private void checkSummon()
-    {
+    private void checkSummon(){
         Collider summon = boxcast.checkProximity(LayerMask.NameToLayer("Summon"));
         if (summon != null){
             _UITextIndicator.enableIndicator(IndicatorText.SUMMON, true);
             if (makeWay.triggered){
                 summon.GetComponent<SummonController>().summonStructures();
                 AudioController.playAction(INTERACTIONS.Summon);
-                FindObjectOfType<FeedbackController>().Vibrate(Power.Mid, Duration.Min);
+                _feedbackController.Vibrate(Power.Mid, Duration.Min);
             }
         }
         else
@@ -653,12 +658,10 @@ public class InteractionsController : MonoBehaviour
     }
 
     //CONTROLA INTERACAO COM O PORTAL
-    private void checkPortal()
-    {
+    private void checkPortal(){
         Collider portal = boxcast.checkProximity(LayerMask.NameToLayer("Portal"));
         if (portal != null){
-            //TODO: se o portal é forest e a posicao de saida é zero return;
-            //FindObjectOfType<GameController>().
+            //TODO: se o portal é forest e a posicao de saida eh zero return;
             if(catsStatesController.getMissionStateByIndex(0) == MISSION_STATE.HOME)
                 _UITextIndicator.enableIndicator(IndicatorText.PORTAL, true);
             if (makeWay.triggered && catsStatesController.getMissionStateByIndex(0) == MISSION_STATE.HOME)
@@ -671,15 +674,14 @@ public class InteractionsController : MonoBehaviour
     }
 
     //CONTROLA INTERACAO COM A BANCADA
-    private void checkWorkbench()
-    {
+    private void checkWorkbench(){
         Collider workbench = boxcast.checkProximity(LayerMask.NameToLayer("Workbench"));
         if (workbench != null){
             if(!_workebenchCam)
                 _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, true);
 
-            WorkbenchController workbenchController = GameObject.FindObjectOfType<WorkbenchController>();
-            InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
+            WorkbenchController workbenchController = _workbenchController;
+            InputsMovement inputsCursor = _inputsMovement;
             if (menu.triggered && !_workebenchCam){
                 _workebenchCam = true;
                 workbenchController.turnOnMenu();
@@ -705,8 +707,7 @@ public class InteractionsController : MonoBehaviour
     }
 
     //CONTROLA INTERACAO COM PORTOES
-    public void checkGate()
-    {
+    public void checkGate(){
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Gate"));
         if (collider != null){
             _UITextIndicator.enableIndicator(IndicatorText.GATE, true);
@@ -753,7 +754,6 @@ public class InteractionsController : MonoBehaviour
                 transform.GetComponent<MovementController>().enablePlayerMovement(true);
                 transform.GetComponent<MovementController>().isCameraEnable = true;
             }
-
         }
     }
 
@@ -762,7 +762,7 @@ public class InteractionsController : MonoBehaviour
     }
 
     private void managerElements(string name){
-        TutorialController tutorialController = FindFirstObjectByType<TutorialController>();
+        TutorialController tutorialController = _tutorialController;
 
         if (name.Equals("MoveTutorial") && tutorialController.catDialog != null){
             tutorialController.enableDialog(tutorialController.catDialog, false);
@@ -777,11 +777,9 @@ public class InteractionsController : MonoBehaviour
         if (name.Equals("NextActionDialog")){
             riverBarrier.markDialog();
             riverBarrier.gameObject.SetActive(false);
-            //catsStatesController.setMissionState(tutorialCat.getIndex(), MISSION_STATE.HOME);
             setMarker(null);
             tutorialFinish = true;
         }
-
         executeActionByDialog = false;
     }
 }

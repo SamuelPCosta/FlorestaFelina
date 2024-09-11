@@ -19,11 +19,20 @@ public class WorkbenchController : PanelController
     public int potion3Item1;
     public int potion3Item2;
 
+    [Header("Slider")]
+    [SerializeField] private Slider sliderCraft;
+
     private InventoryController inventoryController;
     private UICrafting _UICrafting;
     private UICollect _UICollect;
 
     private GameObject potion;
+
+    private bool holdButton = false;
+
+    private float holdButtonDuration = 1.5f;
+
+    private bool craft = false;
 
     void Start()
     {
@@ -37,17 +46,53 @@ public class WorkbenchController : PanelController
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (menu.activeSelf && confirmOption.triggered)
+    void Update(){
+        if(potion != null)
+            print(potion.name);
+
+        if (menu.activeSelf && confirmOption.triggered && potion != null) {
+            holdButton = true;
+            craft = false;
+            StopAllCoroutines();
+            StartCoroutine(holdButtonTimer());
+            AudioController.playCraft(true);
+        }else
+        if (menu.activeSelf && holdButton && !confirmOption.IsPressed()){
+            StopAllCoroutines();
+            AudioController.playCraft(false);
+            craft = false;
+            releaseButton();
+        }
+
+        if (craft){
             craftPotion();
+            craft = false;
+            releaseButton();
+            EventSystem.current.SetSelectedGameObject(checkOption());
+        }
 
         GodMode();
     }
 
+    private IEnumerator holdButtonTimer(){
+        float elapsedTime = 0f;
+        sliderCraft.value = 0;
+        while (elapsedTime < holdButtonDuration){
+            elapsedTime += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsedTime / holdButtonDuration);
+            sliderCraft.value = progress * 100;
+            yield return null;
+        }
+        craft = true;
+    }
+
+    private void releaseButton(){
+        holdButton = false;
+        sliderCraft.value = 0;
+    }
+
     //PRIVATES 
-    private void GodMode()
-    {
+    private void GodMode(){
         if (input.Godmode.extraW.triggered)
         {
             inventoryController.addCollectible(CollectibleType.WATER, 2);
@@ -66,8 +111,7 @@ public class WorkbenchController : PanelController
     }
 
     //PUBLICS
-    public void turnOnMenu()
-    {
+    public void turnOnMenu(){
         menu?.SetActive(true);
         _UIButtons.setButtons(buttons);
         potion = null;
@@ -151,7 +195,6 @@ public class WorkbenchController : PanelController
 
             inventoryController.addPotion(PotionType.POTION3);
         }
-        AudioController.playAction(INTERACTIONS.Potion);
 
         _UICollect.refreshInventory(CollectibleType.PLANT1, inventoryController.getCollectible(CollectibleType.PLANT1));
         _UICollect.refreshInventory(CollectibleType.PLANT2, inventoryController.getCollectible(CollectibleType.PLANT2));
@@ -162,6 +205,5 @@ public class WorkbenchController : PanelController
         _UICollect.refreshInventory(PotionType.POTION3, inventoryController.getPotion(PotionType.POTION3));
 
         potion = null;
-        EventSystem.current.SetSelectedGameObject(checkOption());
     }
 }
