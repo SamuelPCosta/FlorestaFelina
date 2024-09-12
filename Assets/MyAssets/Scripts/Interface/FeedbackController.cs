@@ -7,12 +7,24 @@ public enum Duration { Min, Mid, Max }
 public class FeedbackController : MonoBehaviour{
     private Gamepad gamepad;
     private InputsMovement move;
+    private bool vibration = true;
 
     void Start(){
         move = FindObjectOfType<InputsMovement>();
     }
 
+    void Update()
+    {
+        gamepad = Gamepad.current;
+        if (Keyboard.current != null && Keyboard.current.anyKey.isPressed && gamepad != null)
+            vibration = false;
+        else
+            vibration = true;
+    }
+
     public void Vibrate(Power power, Duration duration){
+        if (!vibration)
+            return;
         gamepad = Gamepad.current;
         if (gamepad != null){
             float value = getPower(power);
@@ -23,6 +35,8 @@ public class FeedbackController : MonoBehaviour{
     }
 
     public void VibrateRoomba(){
+        if(!vibration)
+            return;
         gamepad = Gamepad.current;
         if (gamepad != null){
             float value = move.acceleration * move.acceleration;

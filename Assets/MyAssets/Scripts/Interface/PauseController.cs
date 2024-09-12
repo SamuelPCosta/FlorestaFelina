@@ -45,20 +45,7 @@ public class PauseController : MonoBehaviour
     InteractionsController interactionsController = null;
     private bool isOnMenu = false;
     private bool isJournalOpen = false;
-    public void pause(bool state)
-    {
-        interactionsController ??= FindObjectOfType<InteractionsController>();
-        journalController ??= FindObjectOfType<JournalController>();
-        isOnMenu = interactionsController.isOnMenu;
-        isJournalOpen = journalController.isOpen;
-
-        if (esc.triggered){
-            if (isOnMenu){
-                FindObjectOfType<InteractionsController>().exitMenu();
-                return;
-            }
-        }
-
+    public void pause(bool state){
         if (state == panel.activeSelf)
             return;
 
@@ -81,8 +68,22 @@ public class PauseController : MonoBehaviour
             menusController.SetCursorState(false);
             menusController.pauseAudio(false);
         }
-        FindObjectOfType<InteractionsController>().enabled = !state;
+        //interactionsController.enabled = state;
         isPaused = !isPaused;
+    }
+
+    private void refreshValues(){
+        interactionsController ??= FindObjectOfType<InteractionsController>();
+        journalController ??= FindObjectOfType<JournalController>();
+        isOnMenu = interactionsController.isOnMenu;
+        isJournalOpen = journalController.isOpen;
+    }
+
+    private bool exitMenu(){
+        if (isOnMenu || isJournalOpen){
+            return true;
+        }
+        return false;
     }
 
     private IEnumerator resetButton()
@@ -99,7 +100,13 @@ public class PauseController : MonoBehaviour
     }
 
     void LateUpdate(){
-        if (pauseBtn.triggered || esc.triggered){
+        refreshValues();
+        if (esc.triggered){
+            if(!exitMenu())
+                pause(!panel.activeSelf);
+        }
+        else
+        if (pauseBtn.triggered){
             pause(!panel.activeSelf);
         }
     }

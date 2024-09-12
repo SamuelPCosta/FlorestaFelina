@@ -191,11 +191,12 @@ public class InteractionsController : MonoBehaviour
         {
             exitWorkbench();
         }
+        enableMovement = true;
+        //checkCameras();
     }
 
     void Update(){
-        isOnMenu = _catMenuInteraction || _workebenchCam;
-
+        isOnMenu = (_catMenuInteraction || _workebenchCam);
         if (tutorialFinish ){
             RaycastHit hit;
             if (Physics.Raycast(PlayerRoot.transform.position, Vector3.down, out hit)) {
@@ -566,7 +567,7 @@ public class InteractionsController : MonoBehaviour
             _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
             return true;
         }
-        else if ((menu.triggered || exit.triggered) && (catAnalyzed || catHealed || catHome || catSaved) && _catMenuInteraction){
+        else if ((menu.triggered || exit.triggered || esc.triggered) && (catAnalyzed || catHealed || catHome || catSaved) && _catMenuInteraction){
             exitCatMenu();
             return true;
         }
@@ -733,7 +734,7 @@ public class InteractionsController : MonoBehaviour
                 _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, false);
                 AudioController.playAction(INTERACTIONS.Workbench);
             }
-            else if ((menu.triggered || exit.triggered) && _workebenchCam)
+            else if ((menu.triggered || exit.triggered || esc.triggered) && _workebenchCam)
             {
                 exitWorkbench();
             }
