@@ -68,6 +68,7 @@ public class WorkbenchController : PanelController
             craftPotion();
             craft = false;
             releaseButton();
+            FindObjectOfType<FeedbackController>().Vibrate(Power.Max, Duration.Mid);
             EventSystem.current.SetSelectedGameObject(checkOption());
         }
 
@@ -120,7 +121,8 @@ public class WorkbenchController : PanelController
 
     public void selectPotion(GameObject potionButton)
     {
-        potion = potionButton;
+        if(potionButton.GetComponent<Button>() != null && potionButton.GetComponent<Button>().interactable == true)
+            potion = potionButton;
     }
 
     private GameObject checkOption() //ativa ou desativa opcao baseado na quantidade de itens do inventario
@@ -204,6 +206,11 @@ public class WorkbenchController : PanelController
         _UICollect.refreshInventory(PotionType.POTION2, inventoryController.getPotion(PotionType.POTION2));
         _UICollect.refreshInventory(PotionType.POTION3, inventoryController.getPotion(PotionType.POTION3));
 
+        potion = null;
+    }
+
+    public void exit()
+    {
         potion = null;
     }
 }

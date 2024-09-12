@@ -188,6 +188,15 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Esc"",
+                    ""type"": ""Button"",
+                    ""id"": ""52e21833-a2bc-4267-80b2-b2b8f86bd72c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -674,6 +683,17 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""13736d9f-1b4c-4917-8c28-ce5ea64c9563"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Esc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -816,6 +836,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_Exit = m_Player.FindAction("Exit", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_Esc = m_Player.FindAction("Esc", throwIfNotFound: true);
         // Godmode
         m_Godmode = asset.FindActionMap("Godmode", throwIfNotFound: true);
         m_Godmode_extraW = m_Godmode.FindAction("extraW", throwIfNotFound: true);
@@ -900,6 +921,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Next;
     private readonly InputAction m_Player_Exit;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_Esc;
     public struct PlayerActions
     {
         private @Inputs m_Wrapper;
@@ -922,6 +944,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @Next => m_Wrapper.m_Player_Next;
         public InputAction @Exit => m_Wrapper.m_Player_Exit;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @Esc => m_Wrapper.m_Player_Esc;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -985,6 +1008,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Esc.started += instance.OnEsc;
+            @Esc.performed += instance.OnEsc;
+            @Esc.canceled += instance.OnEsc;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1043,6 +1069,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Esc.started -= instance.OnEsc;
+            @Esc.performed -= instance.OnEsc;
+            @Esc.canceled -= instance.OnEsc;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1178,6 +1207,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnNext(InputAction.CallbackContext context);
         void OnExit(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnEsc(InputAction.CallbackContext context);
     }
     public interface IGodmodeActions
     {

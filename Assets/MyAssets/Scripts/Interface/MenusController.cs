@@ -49,6 +49,11 @@ public class MenusController : MonoBehaviour{
     protected InputAction confirmOption;
     private InputAction move;
 
+    private Vector2 lastMousePosition;
+    private InteractionsController interactionsController = null;
+    bool isOnMenu = false;
+    bool isOnPause = false;
+
     protected void Awake()
     {
         masterVCA = RuntimeManager.GetVCA("vca:/VCA");
@@ -91,7 +96,7 @@ public class MenusController : MonoBehaviour{
         }
 
         if (loadingScreen != null)
-            loadingScreen.GetComponent<CanvasGroup>().alpha = 0;
+            loadingScreen?.SetActive(false);
 
         if (SceneManager.GetActiveScene().name.Equals("_MainMenu")){
             float aspectRatio = (float)Screen.width / (float)Screen.height;
@@ -106,10 +111,13 @@ public class MenusController : MonoBehaviour{
             }
             GameObject.Find("BGMainMenu").GetComponent<RectTransform>().localScale = scale;
         }
+        SetCursorState(false);
     }   
 
     private void Update()
     {
+        
+
         GameObject btnSelected = EventSystem.current.currentSelectedGameObject;
         if ((btnSelected == null || btnSelected.GetComponent<Button>() != null && !btnSelected.GetComponent<Button>().interactable) && btnCurrent != null)
         {
@@ -124,6 +132,56 @@ public class MenusController : MonoBehaviour{
         checkPause();
         if ((btnSelected != null && btnSelected.GetComponent<Slider>() != null)) 
             disableOptions();
+    }
+
+    void LateUpdate()
+    {
+        checkInput();
+    }
+
+    private void checkInput()
+    {
+        bool mouseMove = false;
+        Vector2 currentMousePosition = new Vector2(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y);
+        if (currentMousePosition != lastMousePosition){
+            if (lastMousePosition != Vector2.zero)
+                mouseMove = true;
+
+            lastMousePosition = Mouse.current.position.ReadValue();
+        }
+        if (!SceneManager.GetActiveScene().name.Equals("_MainMenu")){
+            interactionsController ??= FindObjectOfType<InteractionsController>();
+            pauseController ??= FindObjectOfType<PauseController>();
+
+            isOnMenu = interactionsController.isOnMenu;
+            isOnPause = pauseController.isPaused;
+            if (mouseMove){
+                if(isOnMenu || isOnPause)
+                    SetCursorState(true);
+                else
+                    SetCursorState(false);
+            }
+
+            if (!isOnMenu && !isOnPause)
+            {
+                SetCursorState(false);
+            }
+        }
+        else if(mouseMove)
+        {
+            SetCursorState(true);
+        }
+        if (Gamepad.current != null){
+            foreach (InputControl control in Gamepad.current.allControls){
+                if (control.IsPressed())
+                    SetCursorState(false);
+            }
+        }
+    }
+
+    public void SetCursorState(bool newState){
+        Cursor.lockState = newState ? CursorLockMode.Confined : CursorLockMode.Locked;
+        //Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.Locked;
     }
 
     private void checkPause(){
@@ -154,9 +212,6 @@ public class MenusController : MonoBehaviour{
 
     //PLAAAAAAAY
     public void playGame(){
-        //loadingScreen?.SetActive(true);
-        loadingScreen.GetComponent<CanvasGroup>().alpha = 1;
-        //slider.value = 0;
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null && (new Vector3(save.playerPosition[0], save.playerPosition[1], save.playerPosition[2]) != Vector3.zero)){
             position = new Vector3(save.playerPosition[0], save.playerPosition[1], save.playerPosition[2]);
@@ -172,6 +227,11 @@ public class MenusController : MonoBehaviour{
 
     private IEnumerator LoadSceneWithProgress(int sceneIndex) {
         Time.timeScale = 1;
+
+        loadingScreen?.SetActive(true);
+        slider.value = 0;
+        yield return null;
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
 
         while (!asyncLoad.isDone) {

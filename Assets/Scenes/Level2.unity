@@ -3650,6 +3650,14 @@ PrefabInstance:
       propertyPath: dialogs.Array.data[4]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7231603556080479312, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231603556080479312, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7384639893622220509, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 38.652313

@@ -43,6 +43,9 @@ public class InteractionsController : MonoBehaviour
     [Header("Barriers")]
     public Speeches riverBarrier;
 
+    [Header("isOnMenu")]
+    public bool isOnMenu = false;
+
     //PRIVATES
     private Inputs input;
     private UICollect _UICollect;
@@ -99,6 +102,7 @@ public class InteractionsController : MonoBehaviour
     private InputAction showAffection;
     private InputAction bagInput;
     private InputAction exit;
+    private InputAction esc;
 
     //CONTROLLERS
     private MissionController _missionController;
@@ -145,6 +149,7 @@ public class InteractionsController : MonoBehaviour
         showAffection = input.Player.ShowAffection;
         bagInput = input.Player.Bag;
         exit = input.Player.Exit;
+        esc = input.Player.Esc;
 
         //CONTROLLERS
         _missionController = FindObjectOfType<MissionController>();
@@ -162,7 +167,6 @@ public class InteractionsController : MonoBehaviour
         fruit?.SetActive(false);
 
         InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
-        inputsCursor.SetCursorState(true);
 
         save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null && riverBarrier != null && SceneManager.GetActiveScene().name.Equals("Level1"))
@@ -177,8 +181,22 @@ public class InteractionsController : MonoBehaviour
         interactions = !interactions;
     }
 
+    public void exitMenu()
+    {
+        if (_catMenuInteraction)
+        {
+            exitCatMenu();
+        }
+        else if (_workebenchCam)
+        {
+            exitWorkbench();
+        }
+    }
+
     void Update(){
-        if(tutorialFinish ){
+        isOnMenu = _catMenuInteraction || _workebenchCam;
+
+        if (tutorialFinish ){
             RaycastHit hit;
             if (Physics.Raycast(PlayerRoot.transform.position, Vector3.down, out hit)) {
                 if (!hit.collider.CompareTag("InnerRoom")){
@@ -189,7 +207,7 @@ public class InteractionsController : MonoBehaviour
                 }
             }
         }
-
+        
         if (interactions) { 
             bool isCollectible = checkCollectibles();
             bool isPage = checkNewPage();
@@ -258,66 +276,85 @@ public class InteractionsController : MonoBehaviour
         }
     }
 
+    //TRIGGER DYNAMIC (PHISYCS)
     void OnTriggerEnter(Collider other) {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Water")) {
-            CancelInvoke("DisableWaves");
-            isExitWave = false;
-            waterParticles.transform.position = gameObject.transform.position;
-            waterParticles?.SetActive(true);
-            waterDrops?.SetActive(true);
-            drops.Play();
-            waves.Play();
-            fastMovementAllowed = false;
-            inWater = true;
-            AudioController.playAction(INTERACTIONS.Splash);
+        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
+            enterWater();
+        if (other.CompareTag("EnvironmentViewDontReload"))
+            camerasController.ActivateCamera(CamerasController.cam.ObjectiveDontReload);
+        else if (other.CompareTag("EnvironmentView")) {
+            camerasController.ActivateCamera(CamerasController.cam.Objective);
+            enableMovement = false;
         }
     }
-
     void OnTriggerStay(Collider other) {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Water")) {
-            Vector3 particlesPosition = gameObject.transform.position;
-            if (waterParticles.activeSelf) { 
-                particlesPosition = gameObject.transform.position;
-                Vector2 move = transform.GetComponent<InputsMovement>().move;
-
-                var velocityOverLifetime = waves.velocityOverLifetime;
-                if (move != Vector2.zero && !roomba.activeSelf)
-                    velocityOverLifetime.z = new ParticleSystem.MinMaxCurve(-0.4f); //Velocidade do rastro
-                else if(move != Vector2.zero && roomba.activeSelf) 
-                    velocityOverLifetime.z = new ParticleSystem.MinMaxCurve(-1f); //roomba na agua
-                else
-                    velocityOverLifetime.z = new ParticleSystem.MinMaxCurve(0f);
-
-                //TODO: SOM NA AGUA
-                if (move == Vector2.zero) { 
-                    drops.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-                }
-                else if (!drops.isPlaying) { 
-                    drops.Play();
-                }
-            }
-            waterParticles.transform.position = particlesPosition;
-            fastMovementAllowed = false;
-        }
+        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
+            stayWater();
     }
-
     void OnTriggerExit(Collider other){
-        if (other.gameObject.layer == LayerMask.NameToLayer("Water")) {
-            waves.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-            isExitWave = true;
-            lastWavePosition = waterParticles.transform.position;
-            Invoke("DisableWaves", 2f);
-            Invoke("DisableDrops", .8f);
-            fastMovementAllowed = true;
-            inWater = false;
-        }
+        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
+            exitWater();
+        //if (other.CompareTag("EnvironmentViewDontReload") || other.CompareTag("EnvironmentView"))
+        //    camerasController.ActivateCamera(CamerasController.cam.Default);
     }
 
+    //WATER
+    private void enterWater()
+    {
+        CancelInvoke("DisableWaves");
+        isExitWave = false;
+        waterParticles.transform.position = gameObject.transform.position;
+        waterParticles?.SetActive(true);
+        waterDrops?.SetActive(true);
+        drops.Play();
+        waves.Play();
+        fastMovementAllowed = false;
+        inWater = true;
+        AudioController.playAction(INTERACTIONS.Splash);
+    }
+    private void stayWater()
+    {
+        Vector3 particlesPosition = gameObject.transform.position;
+        if (waterParticles.activeSelf)
+        {
+            particlesPosition = gameObject.transform.position;
+            Vector2 move = transform.GetComponent<InputsMovement>().move;
+
+            var velocityOverLifetime = waves.velocityOverLifetime;
+            if (move != Vector2.zero && !roomba.activeSelf)
+                velocityOverLifetime.z = new ParticleSystem.MinMaxCurve(-0.4f); //Velocidade do rastro
+            else if (move != Vector2.zero && roomba.activeSelf)
+                velocityOverLifetime.z = new ParticleSystem.MinMaxCurve(-1f); //roomba na agua
+            else
+                velocityOverLifetime.z = new ParticleSystem.MinMaxCurve(0f);
+
+            //TODO: SOM NA AGUA
+            if (move == Vector2.zero)
+            {
+                drops.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            }
+            else if (!drops.isPlaying)
+            {
+                drops.Play();
+            }
+        }
+        waterParticles.transform.position = particlesPosition;
+        fastMovementAllowed = false;
+    }
+    private void exitWater()
+    {
+        waves.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        isExitWave = true;
+        lastWavePosition = waterParticles.transform.position;
+        Invoke("DisableWaves", 2f);
+        Invoke("DisableDrops", .8f);
+        fastMovementAllowed = true;
+        inWater = false;
+    }
     private void DisableWaves(){
         waterParticles?.SetActive(false);
         isExitWave = false;
     }
-
     private void DisableDrops(){
         drops.Stop(true, ParticleSystemStopBehavior.StopEmitting);
     }
@@ -524,20 +561,24 @@ public class InteractionsController : MonoBehaviour
             catMenuController.turnOn();
             enableMovement = false;
             catCamera = getCamera(cat.gameObject);
-            inputsCursor.SetCursorState(false);
             _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, false);
             _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, false);
             _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
             return true;
         }
         else if ((menu.triggered || exit.triggered) && (catAnalyzed || catHealed || catHome || catSaved) && _catMenuInteraction){
-            _catMenuInteraction = false;
-            catMenuController.turnOff();
-            enableMovement = true;
-            inputsCursor.SetCursorState(true);
+            exitCatMenu();
             return true;
         }
         return false;
+    }
+
+    private void exitCatMenu()
+    {
+        _catMenuInteraction = false;
+        catMenuController.exit();
+        catMenuController.turnOff();
+        enableMovement = true;
     }
 
     private bool checkCatOnTheBag(CatController cat){
@@ -551,7 +592,7 @@ public class InteractionsController : MonoBehaviour
             catInBag = true;
             setMarker(null);
             AudioController.playAction(INTERACTIONS.CatMeow);
-            FindObjectOfType<FeedbackController>().Vibrate(Power.Min, Duration.Min);
+            feedbackController.Vibrate(Power.Min, Duration.Min);
             return true;
         }
         else 
@@ -680,13 +721,11 @@ public class InteractionsController : MonoBehaviour
             if(!_workebenchCam)
                 _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, true);
 
-            WorkbenchController workbenchController = _workbenchController;
             InputsMovement inputsCursor = _inputsMovement;
             if (menu.triggered && !_workebenchCam){
                 _workebenchCam = true;
-                workbenchController.turnOnMenu();
+                _workbenchController.turnOnMenu();
                 workenchCamera = getCamera(workbench.gameObject);
-                inputsCursor.SetCursorState(false);
                 enableMovement = false;
                 Transform workbenchOrigin = workbench.transform.GetChild(1); //segundo filho
                 transform.GetComponent<MovementController>().moveTo(workbenchOrigin);
@@ -696,14 +735,19 @@ public class InteractionsController : MonoBehaviour
             }
             else if ((menu.triggered || exit.triggered) && _workebenchCam)
             {
-                _workebenchCam = false;
-                workbenchController.turnOff();
-                inputsCursor.SetCursorState(true);
-                enableMovement = true;
+                exitWorkbench();
             }
 
         }else
             _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, false);
+    }
+
+    private void exitWorkbench()
+    {
+        _workebenchCam = false;
+        _workbenchController.exit();
+        _workbenchController.turnOff();
+        enableMovement = true;
     }
 
     //CONTROLA INTERACAO COM PORTOES
@@ -725,15 +769,13 @@ public class InteractionsController : MonoBehaviour
             if (_workebenchCam)
                 camerasController.ActivateDynamicCamera(workenchCamera);
             else if (!hit.collider.CompareTag("InnerRoom")){ //AREA EXTERNA
-                if (!_catMenuInteraction){
-                    if (hit.collider.CompareTag("EnvironmentView"))
-                        camerasController.ActivateCamera(CamerasController.cam.Objective);
-                    else if (hit.collider.CompareTag("EnvironmentViewDontReload"))
-                        camerasController.ActivateCamera(CamerasController.cam.ObjectiveDontReload);
-                    else
-                        camerasController.ActivateCamera(CamerasController.cam.Default);
-                }else
+                if (_catMenuInteraction)
                     camerasController.ActivateDynamicCamera(catCamera);
+                else
+                {
+                    camerasController.DeactivateDynamicCamera(workenchCamera, catCamera);
+                    camerasController.ActivateCamera(CamerasController.cam.Default);
+                }
             }
             else{ //AREA INTERNA (CLOSE)
                 if(_catMenuInteraction)
@@ -745,8 +787,7 @@ public class InteractionsController : MonoBehaviour
                 camerasController.DeactivateDynamicCamera(workenchCamera, catCamera);
 
             //MOVIMENTACAO BLOQUEADA
-            if (hit.collider.CompareTag("EnvironmentView")
-             || hit.collider.CompareTag("EnvironmentViewDontReload") || !enableMovement) { 
+            if (!enableMovement) { 
                 transform.GetComponent<MovementController>().enablePlayerMovement(false);
                 transform.GetComponent<MovementController>().isCameraEnable = false;
             }

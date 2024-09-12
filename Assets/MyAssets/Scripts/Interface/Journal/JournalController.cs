@@ -11,6 +11,8 @@ public class JournalController : MonoBehaviour
     public GameObject[] pages;
     public GameObject[] newPages;
 
+    public bool isOpen = false;
+
     //PRIVATES
     private Inputs input;
     private int page = 0;
@@ -20,6 +22,7 @@ public class JournalController : MonoBehaviour
     private InputAction journal;
     private InputAction prev;
     private InputAction next;
+    private InputAction esc;
 
     private void Awake(){
         input = new Inputs();
@@ -48,6 +51,7 @@ public class JournalController : MonoBehaviour
         journal = input.Player.Journal;
         prev = input.Player.Prev;
         next = input.Player.Next;
+        esc = input.Player.Esc;
     }
 
     void Update()
@@ -56,20 +60,18 @@ public class JournalController : MonoBehaviour
     }
 
     private void checkJournal() {
-        bool state = JournalMenu.activeSelf;
+        bool state = !JournalMenu.activeSelf;
         if (journal.triggered){
-            JournalMenu.SetActive(!state);
-            if (!state) { //abrir
-                viewPage(pageLimit);
-                page = pageLimit;
-                Time.timeScale = 0f;
-            } else
-                Time.timeScale = 1f;
-            FindObjectOfType<InteractionsController>().setInteractions();
+            openJournal(state);
             return;
         }
 
-        if (!state)
+        if (esc.triggered){
+            openJournal(false);
+            return;
+        }
+
+        if (state)
             return;
 
         if (prev.triggered){
@@ -80,6 +82,21 @@ public class JournalController : MonoBehaviour
             page = Mathf.Min(++page, pageLimit);
             viewPage(page);
         }
+    }
+
+    private void openJournal(bool state){
+        JournalMenu.SetActive(state);
+        StopAllCoroutines();
+        StartCoroutine(SetIsOpenDelayed(state));
+        if (state)
+        { //abrir
+            viewPage(pageLimit);
+            page = pageLimit;
+            Time.timeScale = 0f;
+        }
+        else
+            Time.timeScale = 1f;
+        FindObjectOfType<InteractionsController>().setInteractions();
     }
 
     private void viewPage(int num){
@@ -95,5 +112,13 @@ public class JournalController : MonoBehaviour
     {
         FindObjectOfType<SaveLoad>().setJournal();
         ++pageLimit;
+    }
+
+    private IEnumerator SetIsOpenDelayed(bool state)
+    {
+        yield return null;
+        yield return null;
+
+        isOpen = JournalMenu.activeSelf;
     }
 }

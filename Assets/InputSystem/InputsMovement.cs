@@ -70,11 +70,5 @@ using UnityEngine.InputSystem;
 		//{
 		//	SetCursorState(cursorLocked);
 		//}
-
-		public void SetCursorState(bool newState)
-		{
-			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.Locked;
-			//Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
-		}
 	}
 	
