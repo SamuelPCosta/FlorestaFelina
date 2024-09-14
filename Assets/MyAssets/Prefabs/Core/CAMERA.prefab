@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputsMovement: {fileID: 0}
-  dutchLimit: 8
+  dutchLimit: 6
   timeAboveThreshold: 0
   threshold: 0.3
 --- !u!1 &3765726205719393349

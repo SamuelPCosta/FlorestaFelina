@@ -8,8 +8,6 @@ public class CameraMovement : MonoBehaviour
     private CinemachineVirtualCamera virtualCam;
     [SerializeField] private InputsMovement inputsMovement;
     [SerializeField] private float dutchLimit = 20f;
-    private bool defaultInclination = true;
-    private bool oldInclination = true;
     private bool reset = false;
     public float timeAboveThreshold = 0f;
     public float threshold = 0.3f;
@@ -62,7 +60,7 @@ public class CameraMovement : MonoBehaviour
     }
 
     private IEnumerator ResetInclination(float start){
-        float time = Mathf.Ceil(start / 10);
+        float time = Mathf.Clamp(Mathf.Ceil(start/2), 0.4f, 2f);
         float elapsed = 0f;
         while (elapsed < time)
         {

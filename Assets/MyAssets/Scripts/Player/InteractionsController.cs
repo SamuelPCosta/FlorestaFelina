@@ -228,7 +228,6 @@ public class InteractionsController : MonoBehaviour
             checkSummon();
             checkPortal();
             checkGate();
-            checkCameras();
 
             Vector2 move = transform.GetComponent<InputsMovement>().move;
 
@@ -244,6 +243,8 @@ public class InteractionsController : MonoBehaviour
             if (isExitWave)
                 waterParticles.transform.position = lastWavePosition;
         }
+
+        checkCameras();
     }
 
     private FeedbackController feedbackController = null;
@@ -772,10 +773,10 @@ public class InteractionsController : MonoBehaviour
             else if (!hit.collider.CompareTag("InnerRoom")){ //AREA EXTERNA
                 if (_catMenuInteraction)
                     camerasController.ActivateDynamicCamera(catCamera);
-                else
+                else if (!_catMenuInteraction && !_workebenchCam)
                 {
                     camerasController.DeactivateDynamicCamera(workenchCamera, catCamera);
-                    //camerasController.ActivateCamera(CamerasController.cam.Default);
+                    camerasController.ActivateCamera(CamerasController.cam.Default);
                 }
             }
             else{ //AREA INTERNA (CLOSE)
