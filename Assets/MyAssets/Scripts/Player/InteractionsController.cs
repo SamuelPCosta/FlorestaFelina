@@ -247,7 +247,7 @@ public class InteractionsController : MonoBehaviour
     }
 
     private FeedbackController feedbackController = null;
-    private void FixedUpdate(){
+    private void LateUpdate(){
         //Controla particulas do roomba
         bool isFast = acceleration.ReadValue<float>() > 0 && fastMovementAllowed && !(inDialog || inDynamicDialog);
         transform.GetComponent<MovementController>().onRoomba(isFast);
@@ -775,7 +775,7 @@ public class InteractionsController : MonoBehaviour
                 else
                 {
                     camerasController.DeactivateDynamicCamera(workenchCamera, catCamera);
-                    camerasController.ActivateCamera(CamerasController.cam.Default);
+                    //camerasController.ActivateCamera(CamerasController.cam.Default);
                 }
             }
             else{ //AREA INTERNA (CLOSE)
