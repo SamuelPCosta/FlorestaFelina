@@ -31,7 +31,7 @@ public class CatsStatesController : MonoBehaviour
 
         save = FindObjectOfType<SaveLoad>().loadGame();
         if (save == null)
-            print("erro");
+            print("New save!");
 
         if (SceneManager.GetActiveScene().name.Equals("Level1"))
             checkCatIndexHome();

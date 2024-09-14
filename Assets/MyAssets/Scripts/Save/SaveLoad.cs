@@ -38,7 +38,7 @@ public class SaveLoad : MonoBehaviour
         save = new Save();
     }
 
-    public void DeleteSaveFile(){
+    public bool DeleteSaveFile(){
         string path = Application.persistentDataPath; //AppData/LocalLow
         string filePath = Path.Combine(path, nameOfSave + ".save");
 
@@ -46,9 +46,11 @@ public class SaveLoad : MonoBehaviour
             File.Delete(filePath);
             if(isDebugging)
                 Debug.Log("Save file deleted.");
+            return true;
         }
         else
             Debug.LogWarning("Save file does not exist.");
+        return false;
     }
 
     private void saveGame(Save save)

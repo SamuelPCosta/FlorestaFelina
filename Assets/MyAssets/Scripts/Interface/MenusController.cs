@@ -44,6 +44,9 @@ public class MenusController : MonoBehaviour{
     [Header("Parent")]
     public GameObject MenuParent;
 
+    public GameObject demoAlert;
+    public GameObject fakeDel;
+
     //ACTIONS
     protected Inputs input;
     protected InputAction confirmOption;
@@ -82,17 +85,18 @@ public class MenusController : MonoBehaviour{
     public static MenusController instance = null;
     private void Start(){
         Save save = FindObjectOfType<SaveLoad>().loadGame();
-        if (save != null)
-        {
-            if(SceneManager.GetActiveScene().name.Equals("_MainMenu"))
+        if (save != null){
+            if (SceneManager.GetActiveScene().name.Equals("_MainMenu")){
                 buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Start";
-            if(buttons.Length >5)
-                buttons[5].enabled = true;
+                if (buttons.Length > 5)
+                    checkDelete(true);
+            }
         }
         else
         {
-            if (buttons.Length > 5)
-                buttons[5].enabled = false;
+            if (SceneManager.GetActiveScene().name.Equals("_MainMenu") && (buttons.Length > 5)){
+                checkDelete(false);
+            }
         }
 
         if (loadingScreen != null)
@@ -113,6 +117,18 @@ public class MenusController : MonoBehaviour{
         }
         SetCursorState(false);
     }   
+
+    public void checkDemoAlert()
+    {
+        Save temp = FindObjectOfType<SaveLoad>().loadGame();
+        if (temp != null)
+            demoAlert.SetActive(true);
+        else demoAlert.SetActive(false);
+
+        if (temp != null)
+            fakeDel.SetActive(false);
+        else fakeDel.SetActive(true);
+    }
 
     private void Update()
     {
@@ -248,6 +264,16 @@ public class MenusController : MonoBehaviour{
     public void deleteSave()
     {
         FindObjectOfType<SaveLoad>().DeleteSaveFile();
+        checkDelete(false);
+        //forceSelectOption(buttons[4].gameObject);
+    }
+
+    public void checkDelete(bool state)
+    {
+        buttons[5].enabled = state;
+        buttons[5].interactable = state;
+        buttons[5].GetComponent<CanvasGroup>().interactable = state;
+        buttons[5].gameObject.SetActive(state);
     }
 
     public void mainMenu()
@@ -301,6 +327,17 @@ public class MenusController : MonoBehaviour{
         
         getIndicator(optionButton).SetActive(true);
         TextMeshProUGUI select = optionButton.GetComponent<Button>().GetComponentInChildren<TextMeshProUGUI>();
+        select.color = ColorPalette.enableText;
+    }
+
+    public void forceSelectOption(GameObject optionBtn)
+    {
+        EventSystem.current.SetSelectedGameObject(optionBtn);
+        option = optionBtn;
+        disableOptions();
+
+        getIndicator(option).SetActive(true);
+        TextMeshProUGUI select = optionBtn.GetComponent<Button>().GetComponentInChildren<TextMeshProUGUI>();
         select.color = ColorPalette.enableText;
     }
 
