@@ -10,6 +10,8 @@ public enum INTERACTIONS { CatMeow, Collect, Eating, Portal, Potion, Splash, Dri
 
 public class AudioController : MonoBehaviour{
 
+    private GameController gameController;
+
     public EventReference Steps;
 
     [Header("actions")]
@@ -65,7 +67,8 @@ public class AudioController : MonoBehaviour{
     }
 
     public static void changeParameter(string parameter, string label){
-        RuntimeManager.StudioSystem.setParameterByNameWithLabel(parameter, label);
+        if(!FindObjectOfType<GameController>().isGuidedCamera)
+            RuntimeManager.StudioSystem.setParameterByNameWithLabel(parameter, label);
     }
 
     public static void missionComplete(){
@@ -121,7 +124,9 @@ public class AudioController : MonoBehaviour{
             default:
                 return;
         }
-        eventInstance.start();
-        eventInstance.release();
+        if (!FindObjectOfType<GameController>().isGuidedCamera) { 
+            eventInstance.start();
+            eventInstance.release();
+        }
     }
 }

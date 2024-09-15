@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour{
 
     public void resetGuidedCam()
     {
-        print("resetou");
+        FindObjectOfType<InteractionsController>().enableMovement = true;
         isGuidedCamera = false;
     }
 

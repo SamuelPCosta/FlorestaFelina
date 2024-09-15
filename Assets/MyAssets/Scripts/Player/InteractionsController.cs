@@ -68,7 +68,7 @@ public class InteractionsController : MonoBehaviour
 
 
     //OTHERS
-    private bool enableMovement = true;
+    public bool enableMovement = true;
 
     private bool inDialog = false;
     private bool inDynamicDialog = false;
@@ -290,17 +290,10 @@ public class InteractionsController : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
             enterWater();
         if (other.CompareTag("EnvironmentViewDontReload")) {
-            gameController.isGuidedCamera = true;
-            AudioController.changeParameter("Move", "Stop");
-
-            GameObject director = camerasController.Cameras[(int)CamerasController.cam.ObjectiveDontReload];
-            float duration = (float)director.GetComponent<PlayableDirector>().duration;
-            gameController.scheduleResetCam(duration);
-            camerasController.ActivateCamera(CamerasController.cam.ObjectiveDontReload);
+            setGuidedCam((int)CamerasController.cam.ObjectiveDontReload);
         }
         else if (other.CompareTag("EnvironmentView")) {
-            camerasController.ActivateCamera(CamerasController.cam.Objective);
-            enableMovement = false;
+            setGuidedCam((int)CamerasController.cam.Objective);
         }
     }
     void OnTriggerStay(Collider other) {
@@ -373,6 +366,18 @@ public class InteractionsController : MonoBehaviour
     }
     private void DisableDrops(){
         drops.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+    }
+
+    private void setGuidedCam(int index)
+    {
+        AudioController.changeParameter("Move", "Stop");
+        gameController.isGuidedCamera = true;
+        enableMovement = false;
+
+        GameObject director = camerasController.Cameras[index];
+        float duration = (float)director.GetComponent<PlayableDirector>().duration;
+        gameController.scheduleResetCam(duration);
+        camerasController.ActivateCamera(CamerasController.cam.ObjectiveDontReload);
     }
 
     //CONTROLA COLETA E CONEXAO COM INVENTARIO
@@ -790,7 +795,6 @@ public class InteractionsController : MonoBehaviour
                 else if (!_catMenuInteraction && !_workebenchCam)
                 {
                     camerasController.DeactivateDynamicCamera(workenchCamera, catCamera);
-                    print(gameController.isGuidedCamera);
                     if (!gameController.isGuidedCamera)
                         camerasController.ActivateCamera(CamerasController.cam.Default);
                 }

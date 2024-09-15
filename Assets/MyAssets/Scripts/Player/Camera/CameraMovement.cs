@@ -60,7 +60,7 @@ public class CameraMovement : MonoBehaviour
     }
 
     private IEnumerator ResetInclination(float start){
-        float time = Mathf.Clamp(Mathf.Ceil(start/2), 0.4f, 2f);
+        float time = Mathf.Clamp(Mathf.Ceil(start/4), 0.4f, 2f);
         float elapsed = 0f;
         while (elapsed < time)
         {
