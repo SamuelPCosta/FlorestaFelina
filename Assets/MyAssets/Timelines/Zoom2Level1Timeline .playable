@@ -33,7 +33,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bfda56da833e2384a9677cd3c976a436, type: 3}
-  m_Name: ZoomLevel1Timeline
+  m_Name: 'Zoom2Level1Timeline '
   m_EditorClassIdentifier: 
   m_Version: 0
   m_Tracks:
@@ -41,7 +41,7 @@ MonoBehaviour:
   - {fileID: 1385842526966777507}
   m_FixedDuration: 3.516666666667
   m_EditorSettings:
-    m_Framerate: 60
+    m_Framerate: 23.97
     m_ScenePreview: 1
   m_DurationMode: 0
   m_MarkerTrack: {fileID: 6507810724024439870}

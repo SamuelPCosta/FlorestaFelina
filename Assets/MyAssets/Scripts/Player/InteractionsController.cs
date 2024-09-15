@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Cinemachine;
+using UnityEngine.Playables;
 
 public class InteractionsController : MonoBehaviour
 {
     bool tutorialFinish = false;
 
+    [Header("GameController")]
+    private GameController gameController;
+    
     [Header("Player object")]
     public GameObject PlayerRoot;
     public ProximityController boxcast;
@@ -113,7 +118,7 @@ public class InteractionsController : MonoBehaviour
     private TutorialController _tutorialController;
 
     //
-    Save save;
+    private Save save;
 
     private void Awake()
     {
@@ -131,6 +136,8 @@ public class InteractionsController : MonoBehaviour
     }
 
     void Start(){
+        gameController = FindObjectOfType<GameController>();
+
         _UICollect = FindObjectOfType<UICollect>();
         bag?.SetActive(false);
         waterParticles?.SetActive(false);
@@ -282,8 +289,15 @@ public class InteractionsController : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
             enterWater();
-        if (other.CompareTag("EnvironmentViewDontReload"))
+        if (other.CompareTag("EnvironmentViewDontReload")) {
+            gameController.isGuidedCamera = true;
+            AudioController.changeParameter("Move", "Stop");
+
+            GameObject director = camerasController.Cameras[(int)CamerasController.cam.ObjectiveDontReload];
+            float duration = (float)director.GetComponent<PlayableDirector>().duration;
+            gameController.scheduleResetCam(duration);
             camerasController.ActivateCamera(CamerasController.cam.ObjectiveDontReload);
+        }
         else if (other.CompareTag("EnvironmentView")) {
             camerasController.ActivateCamera(CamerasController.cam.Objective);
             enableMovement = false;
@@ -758,7 +772,7 @@ public class InteractionsController : MonoBehaviour
         if (collider != null){
             _UITextIndicator.enableIndicator(IndicatorText.GATE, true);
             if (nextLevel.triggered)
-                FindObjectOfType<GameController>().nextScene();
+                gameController.nextScene();
         }
         else
             _UITextIndicator.enableIndicator(IndicatorText.GATE, false);
@@ -776,7 +790,9 @@ public class InteractionsController : MonoBehaviour
                 else if (!_catMenuInteraction && !_workebenchCam)
                 {
                     camerasController.DeactivateDynamicCamera(workenchCamera, catCamera);
-                    camerasController.ActivateCamera(CamerasController.cam.Default);
+                    print(gameController.isGuidedCamera);
+                    if (!gameController.isGuidedCamera)
+                        camerasController.ActivateCamera(CamerasController.cam.Default);
                 }
             }
             else{ //AREA INTERNA (CLOSE)

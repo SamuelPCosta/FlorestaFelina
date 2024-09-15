@@ -12,6 +12,9 @@ public class GameController : MonoBehaviour{
     [Header("DefaultPositionPortal")]
     public Vector3 homePosition;
 
+    [Header("CameraGuiada")]
+    public bool isGuidedCamera = false;
+
     private Vector3 position;
 
     public static GameController instance = null;
@@ -33,6 +36,17 @@ public class GameController : MonoBehaviour{
             FindObjectOfType<UIMission>().completeMission(mission);
             mission = null;
         }
+    }
+
+    public void scheduleResetCam(float duration)
+    {
+        Invoke("resetGuidedCam", duration);
+    }
+
+    public void resetGuidedCam()
+    {
+        print("resetou");
+        isGuidedCamera = false;
     }
 
     public static int getLevelIndex() {

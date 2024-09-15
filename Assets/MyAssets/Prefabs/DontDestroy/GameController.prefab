@@ -44,4 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4347481a4f4702741afa8a2e3d42d38e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mission: {fileID: 0}
   homePosition: {x: 290, y: 0, z: 820}
+  isGuidedCamera: 0

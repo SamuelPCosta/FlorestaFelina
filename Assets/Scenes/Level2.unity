@@ -3619,6 +3619,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6084421934585092971, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: gameController
+      value: 
+      objectReference: {fileID: 1701646364}
+    - target: {fileID: 6084421934585092971, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: MovementTutorial
       value: 
       objectReference: {fileID: 571991439}
@@ -8490,6 +8494,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe5b6779aa328dc40aba89069fd7a409, type: 3}
+--- !u!114 &1701646364 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4740324922135304681, guid: fe5b6779aa328dc40aba89069fd7a409, type: 3}
+  m_PrefabInstance: {fileID: 1701646363}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4347481a4f4702741afa8a2e3d42d38e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1728573769
 PrefabInstance:
   m_ObjectHideFlags: 0
