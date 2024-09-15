@@ -290,10 +290,10 @@ public class InteractionsController : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
             enterWater();
         if (other.CompareTag("EnvironmentViewDontReload")) {
-            setGuidedCam((int)CamerasController.cam.ObjectiveDontReload);
+            setGuidedCam(false);
         }
         else if (other.CompareTag("EnvironmentView")) {
-            setGuidedCam((int)CamerasController.cam.Objective);
+            setGuidedCam(true);
         }
     }
     void OnTriggerStay(Collider other) {
@@ -368,16 +368,21 @@ public class InteractionsController : MonoBehaviour
         drops.Stop(true, ParticleSystemStopBehavior.StopEmitting);
     }
 
-    private void setGuidedCam(int index)
-    {
+    private void setGuidedCam(bool reload){
         AudioController.changeParameter("Move", "Stop");
         gameController.isGuidedCamera = true;
         enableMovement = false;
 
+        CamerasController.cam cam = CamerasController.cam.Objective;
+        if (!reload)
+            cam = CamerasController.cam.ObjectiveDontReload;
+
+        int index = (int)cam;
         GameObject director = camerasController.Cameras[index];
         float duration = (float)director.GetComponent<PlayableDirector>().duration;
         gameController.scheduleResetCam(duration);
-        camerasController.ActivateCamera(CamerasController.cam.ObjectiveDontReload);
+
+        camerasController.ActivateCamera(cam);
     }
 
     //CONTROLA COLETA E CONEXAO COM INVENTARIO

@@ -12636,6 +12636,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate
       objectReference: {fileID: 0}
+    - target: {fileID: 903503250595675393, guid: 0ac764a72288228499486238b39dc7e7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9b4ad612f88ec542b6d9136383d7db9, type: 2}
     - target: {fileID: 3031666572178930090, guid: 0ac764a72288228499486238b39dc7e7, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -12646,15 +12650,15 @@ PrefabInstance:
       objectReference: {fileID: 1207412206}
     - target: {fileID: 5739431048589034425, guid: 0ac764a72288228499486238b39dc7e7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -126.21
+      value: -123.4
       objectReference: {fileID: 0}
     - target: {fileID: 5739431048589034425, guid: 0ac764a72288228499486238b39dc7e7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.1
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 5739431048589034425, guid: 0ac764a72288228499486238b39dc7e7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -260.36
+      value: -253.43
       objectReference: {fileID: 0}
     - target: {fileID: 5739431048589034425, guid: 0ac764a72288228499486238b39dc7e7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -14220,6 +14224,10 @@ PrefabInstance:
     - target: {fileID: 4343606879948456335, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.008640217
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438006185429135159, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4482149438568912369, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_LocalRotation.w
