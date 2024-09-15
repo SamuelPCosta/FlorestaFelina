@@ -1146,7 +1146,7 @@ Terrain:
   m_TreeDistance: 100
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
-  m_TreeMaximumFullLODCount: 10
+  m_TreeMaximumFullLODCount: 5
   m_DetailObjectDistance: 70
   m_DetailObjectDensity: 0.9
   m_HeightmapPixelError: 5
@@ -2216,6 +2216,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0c1fab88f6dc99747b64b93bb35088ab, type: 3}
       propertyPath: m_Name
       value: house
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0c1fab88f6dc99747b64b93bb35088ab, type: 3}
+      propertyPath: m_Layer
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0c1fab88f6dc99747b64b93bb35088ab, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14507,7 +14515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5178074096545834082, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5188198681637664900, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_LocalRotation.x
@@ -15048,7 +15056,7 @@ PrefabInstance:
     - target: {fileID: 6669410680604660752, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_SceneBindings.Array.data[2].value
       value: 
-      objectReference: {fileID: 8746211427111916137}
+      objectReference: {fileID: 0}
     - target: {fileID: 6721782713132918282, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.888016
@@ -15650,17 +15658,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4347481a4f4702741afa8a2e3d42d38e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8746211427111916137 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3341831340031176536, guid: fe5b6779aa328dc40aba89069fd7a409, type: 3}
-  m_PrefabInstance: {fileID: 8746211427111916135}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8879962860045733664
