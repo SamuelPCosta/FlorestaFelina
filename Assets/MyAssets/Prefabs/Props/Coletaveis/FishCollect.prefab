@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6406635812748156561}
   m_Layer: 0
-  m_Name: WaterCollection
+  m_Name: FishCollect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9938,9 +9938,9 @@ GameObject:
   - component: {fileID: 6107554045542554208}
   - component: {fileID: 2570190673471148996}
   - component: {fileID: 1612526002325572653}
-  - component: {fileID: 9067319799011827740}
+  - component: {fileID: 6745894964716261405}
   m_Layer: 6
-  m_Name: WaterController
+  m_Name: Fish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10032,7 +10032,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9067319799011827740
+--- !u!114 &6745894964716261405
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10041,8 +10041,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3562451087675859266}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eeeef89e62004f49bcebd3020c8d7c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d428a1ccb95ae74f9771fc6d55bba54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quantityOfItems: 2
-  nameOfItem: "\xC1gua"
+  quantityOfItems: 1
+  nameOfItem: Peixe

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1971549674051497491}
   - component: {fileID: 4151106226835924489}
   - component: {fileID: 5953091429647834539}
+  - component: {fileID: 4782650400140756346}
   m_Layer: 4
   m_Name: Water
   m_TagString: Untagged
@@ -156,3 +157,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4782650400140756346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3032075211163311384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eeeef89e62004f49bcebd3020c8d7c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quantityOfItems: 2
+  nameOfItem: "\xC1gua"

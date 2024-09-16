@@ -7,6 +7,7 @@ public class InventoryController : MonoBehaviour
     private int plant1;
     private int plant2;
     private int water;
+    private int fish;
 
     private int potion1;
     private int potion2;
@@ -16,6 +17,7 @@ public class InventoryController : MonoBehaviour
     public MissionController missionController;
 
     public int maxWaterCanteen = 2;
+    public int maxFish = 2;
 
     void Start()
     {
@@ -23,6 +25,7 @@ public class InventoryController : MonoBehaviour
         plant1 = save != null ? save.plant1 : 0;
         plant2 = save != null ? save.plant2 : 0;
         water = save != null ? save.water : 0;
+        fish = save != null ? save.fish : 0;
 
         potion1 = save != null ? save.potion1 : 0;
         potion2 = save != null ? save.potion2 : 0;
@@ -31,6 +34,7 @@ public class InventoryController : MonoBehaviour
         _UICollect.refreshInventory(CollectibleType.PLANT1, plant1);
         _UICollect.refreshInventory(CollectibleType.PLANT2, plant2);
         _UICollect.refreshInventory(CollectibleType.WATER, water);
+        _UICollect.refreshInventory(CollectibleType.FISH, fish);
 
         _UICollect.refreshInventory(PotionType.POTION1, potion1);
         _UICollect.refreshInventory(PotionType.POTION2, potion2);
@@ -40,10 +44,12 @@ public class InventoryController : MonoBehaviour
     public bool addCollectible(CollectibleType item, int quantity)
     {
         if(CollectibleType.WATER == item)
-        {
             if (water == maxWaterCanteen)
                 return false;
-        }
+
+        if (CollectibleType.FISH == item)
+            if (fish == maxFish)
+                return false;
 
         switch (item)
         {
@@ -53,6 +59,9 @@ public class InventoryController : MonoBehaviour
             case CollectibleType.PLANT2:
                 plant2 += quantity;
                 break;
+            case CollectibleType.FISH:
+                fish += quantity;
+                break;
             case CollectibleType.WATER:
                 water += quantity;
                 break;
@@ -61,7 +70,10 @@ public class InventoryController : MonoBehaviour
         if(water > maxWaterCanteen)
             water = maxWaterCanteen;
 
-        FindObjectOfType<SaveLoad>().saveInventoryCollectibles(water, plant1, plant2);
+        if (fish > maxFish)
+            fish = maxFish;
+
+        FindObjectOfType<SaveLoad>().saveInventoryCollectibles(water, fish, plant1, plant2);
         missionController.setMissionStage();
 
         return true;
@@ -99,6 +111,9 @@ public class InventoryController : MonoBehaviour
                 break;
             case CollectibleType.WATER:
                 quantity = water;
+                break;
+            case CollectibleType.FISH:
+                quantity = fish;
                 break;
         }
 
@@ -146,8 +161,14 @@ public class InventoryController : MonoBehaviour
                 return false;
             water -= quantity;
         }
+        if (CollectibleType.FISH == item)
+        {
+            if (fish - quantity < 0)
+                return false;
+            fish -= quantity;
+        }
 
-        FindObjectOfType<SaveLoad>().saveInventoryCollectibles(water, plant1, plant2);
+        FindObjectOfType<SaveLoad>().saveInventoryCollectibles(water, fish, plant1, plant2);
 
         return true;
     }

@@ -1,4 +1,4 @@
 public enum CollectibleType
 {
-    WATER, PLANT1, PLANT2
+    FISH, WATER, PLANT1, PLANT2
 }

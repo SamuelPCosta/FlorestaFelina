@@ -83,6 +83,8 @@ public class InteractionsController : MonoBehaviour
 
     private bool oldIsFast = false;
     private bool inWater = false;
+    private bool fishZone = false;
+    private Collider currentWater = null;
     private ParticleSystem waves;
     private ParticleSystem drops;
     private Vector3 lastWavePosition = Vector3.zero;
@@ -163,7 +165,7 @@ public class InteractionsController : MonoBehaviour
         _feedbackController = FindObjectOfType<FeedbackController>();
         _journalController = FindObjectOfType<JournalController>();
         _workbenchController = FindObjectOfType<WorkbenchController>();
-        _inputsMovement = FindObjectOfType<InputsMovement>();
+        //_inputsMovement = FindObjectOfType<InputsMovement>();
         _tutorialController = FindObjectOfType<TutorialController>();
 
         catCamera = null;
@@ -172,8 +174,6 @@ public class InteractionsController : MonoBehaviour
         roombaHips?.SetActive(true);
         
         fruit?.SetActive(false);
-
-        InputsMovement inputsCursor = GameObject.FindObjectOfType<InputsMovement>();
 
         save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null && riverBarrier != null && SceneManager.GetActiveScene().name.Equals("Level1"))
@@ -221,11 +221,17 @@ public class InteractionsController : MonoBehaviour
             bool isPage = checkNewPage();
             bool isFruit = checkFruit();
 
-            if(!isCollectible && !isPage && !isFruit)
-                _UITextIndicator.enableIndicator(IndicatorText.COLLECT, false);
+            if(!isCollectible && !isPage && !isFruit) { 
+                if(!fishZone && inWater)
+                    _UITextIndicator.enableIndicator(IndicatorText.COLLECT, true);
+                else
+                    _UITextIndicator.enableIndicator(IndicatorText.COLLECT, false);
+                _UITextIndicator.enableIndicator(IndicatorText.FISH, false);
+            }
 
             if (save != null) stepOne = save.step;
 
+            checkWaterCollection();
             checkWay();
             checkNPC();
             checkDialogs();
@@ -236,7 +242,11 @@ public class InteractionsController : MonoBehaviour
             checkPortal();
             checkGate();
 
-            Vector2 move = transform.GetComponent<InputsMovement>().move;
+            Vector2 move = Vector2.zero;
+            if (inDialog || inDynamicDialog)
+                transform.GetComponent<InputsMovement>().move = Vector2.zero;
+            else
+                move = transform.GetComponent<InputsMovement>().move;
 
             interactionEnvironmentAudio(move);
 
@@ -287,8 +297,10 @@ public class InteractionsController : MonoBehaviour
 
     //TRIGGER DYNAMIC (PHISYCS)
     void OnTriggerEnter(Collider other) {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Water")) {
             enterWater();
+            currentWater = other;
+        }
         if (other.CompareTag("EnvironmentViewDontReload")) {
             setGuidedCam(false);
         }
@@ -301,10 +313,10 @@ public class InteractionsController : MonoBehaviour
             stayWater();
     }
     void OnTriggerExit(Collider other){
-        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Water")) { 
             exitWater();
-        //if (other.CompareTag("EnvironmentViewDontReload") || other.CompareTag("EnvironmentView"))
-        //    camerasController.ActivateCamera(CamerasController.cam.Default);
+            currentWater = null;
+        }
     }
 
     //WATER
@@ -389,10 +401,18 @@ public class InteractionsController : MonoBehaviour
     private bool checkCollectibles(){
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Collectible"));
         if (collider != null){
+            if (collider.GetComponent<Collectible>().getNameOfItem().Equals("Peixe")) {
+                fishZone = true;
+                _UITextIndicator.enableIndicator(IndicatorText.FISH, true);
+            }
+
+            if(fishZone)
+                _UITextIndicator.enableIndicator(IndicatorText.COLLECT, false);
+            else
+                _UITextIndicator.enableIndicator(IndicatorText.COLLECT, true);
+
             Collectible collectible = collider.GetComponent<Collectible>();
-            _UITextIndicator.enableIndicator(IndicatorText.COLLECT, true);
-            if (collect.triggered && collectible != null)
-                {
+            if (collect.triggered && collectible != null){
                 int quantityCollected = collectible.getQuantityOfItems();
                 CollectibleType type = collectible.getType();
                 bool isAdded = inventoryController.addCollectible(type, quantityCollected);
@@ -405,9 +425,29 @@ public class InteractionsController : MonoBehaviour
                 if(isAdded)
                     AudioController.playAction(INTERACTIONS.Collect);
             }
-        }
+        }else
+            fishZone = false;
+
         return (collider != null);
     }
+
+    private void checkWaterCollection(){
+        if (!fishZone && collect.triggered && currentWater != null){
+            Collectible water = currentWater.GetComponent<Collectible>();
+            int quantityCollected = water.getQuantityOfItems();
+            CollectibleType type = CollectibleType.WATER;
+            bool isAdded = inventoryController.addCollectible(type, quantityCollected);
+
+            _UICollect.spawnCollectedItemText(type, water.getNameOfItem(), quantityCollected, isAdded);
+            _UICollect.refreshInventory(type, inventoryController.getCollectible(type));
+
+            water.collectItem();
+
+            if (isAdded)
+                AudioController.playAction(INTERACTIONS.Collect);
+        }
+    }
+
 
     private bool checkNewPage(){
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("NewPage"));
@@ -747,7 +787,6 @@ public class InteractionsController : MonoBehaviour
             if(!_workebenchCam)
                 _UITextIndicator.enableIndicator(IndicatorText.WORKBENCH, true);
 
-            InputsMovement inputsCursor = _inputsMovement;
             if (menu.triggered && !_workebenchCam){
                 _workebenchCam = true;
                 _workbenchController.turnOnMenu();

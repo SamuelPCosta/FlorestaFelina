@@ -50,6 +50,7 @@ public class CatMenuController : PanelController
         int stageMission = missionController.getMissionStage();
 
         int water = inventoryController.getCollectible(CollectibleType.WATER);
+        bool hasfish = inventoryController.getCollectible(CollectibleType.FISH) > 0;
 
         bool hasWater = false;
         bool hasPotion = false;
@@ -73,7 +74,7 @@ public class CatMenuController : PanelController
         }
 
         bool enableOption1 = hasWater && isThirsty;
-        bool enableOption2 = true;
+        bool enableOption2 = hasfish;
         bool enableOption3 = hasPotion;
 
         _UIButtons.setOptions(options[0], enableOption1);
@@ -125,6 +126,7 @@ public class CatMenuController : PanelController
         else
         if (option == options[1]){
             //TODO: cena de alimentacao
+            inventoryController.consumeCollectible(CollectibleType.FISH, 1);
             AudioController.playAction(INTERACTIONS.Eating);
         }
         else
@@ -150,6 +152,7 @@ public class CatMenuController : PanelController
         }
 
         _UICollect.refreshInventory(CollectibleType.WATER, inventoryController.getCollectible(CollectibleType.WATER));
+        _UICollect.refreshInventory(CollectibleType.FISH, inventoryController.getCollectible(CollectibleType.FISH));
 
         _UICollect.refreshInventory(PotionType.POTION1, inventoryController.getPotion(PotionType.POTION1));
         _UICollect.refreshInventory(PotionType.POTION2, inventoryController.getPotion(PotionType.POTION2));

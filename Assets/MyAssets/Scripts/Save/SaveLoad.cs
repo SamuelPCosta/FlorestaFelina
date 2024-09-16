@@ -114,10 +114,11 @@ public class SaveLoad : MonoBehaviour
         saveGame(save);
     }
 
-    public void saveInventoryCollectibles(int water, int plant1, int plant2)
+    public void saveInventoryCollectibles(int water, int fish, int plant1, int plant2)
     {
         Save save = loadGameInternal();
         save.water = water;
+        save.fish = fish;
         save.plant1 = plant1;
         save.plant2 = plant2;
 

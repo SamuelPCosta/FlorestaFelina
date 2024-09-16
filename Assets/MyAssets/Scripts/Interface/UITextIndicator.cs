@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum IndicatorText { COLLECT, NPC, WORKBENCH, BARRIER, CAT_MENU, CAT_AFFECTION, CAT_ANALYSE, CAT_BAG, GATE, SUMMON, PORTAL }
+public enum IndicatorText { COLLECT, NPC, WORKBENCH, BARRIER, CAT_MENU, CAT_AFFECTION, CAT_ANALYSE, CAT_BAG, GATE, SUMMON, PORTAL, FISH }
 
 public class UITextIndicator : UIController
 {

@@ -36,6 +36,7 @@ public class Save
 
     //ITEMS
     public int water = 0;
+    public int fish = 0;
     public int plant1 = 0;
     public int plant2 = 0;
     public int potion1 = 0;

@@ -12,6 +12,7 @@ public class UICollect : UIController
 
     [Header("Collectibles texts")]
     public TextMeshProUGUI water;
+    public TextMeshProUGUI fish;
     public TextMeshProUGUI plant1;
     public TextMeshProUGUI plant2;
 
@@ -39,8 +40,13 @@ public class UICollect : UIController
         else
             collectedItemText.text += ".";
 
-        if (!allowed) //excecao da agua no maximo
-            collectedItemText.text = "Seu cantil já está cheio!";
+        if (!allowed) {  //excecao de maximo
+            if (itemName.Equals("Peixe"))
+                itemName = "peixes";
+            else
+                itemName = "água";
+            collectedItemText.text = "Sem espaço para mais "+ itemName+"!";
+        }
 
         //Lista controla comportamento de animacoes em cima de outra
         foreach (Coroutine c in collectCoroutines)
@@ -89,14 +95,16 @@ public class UICollect : UIController
             case CollectibleType.PLANT2:
                 plant2.text = "" + quantity;
                 break;
+            case CollectibleType.FISH:
+                fish.text = "" + quantity;
+                break;
             case CollectibleType.WATER:
                 water.text = "" + quantity;
                 break;
         }
     }
 
-    public void refreshInventory(PotionType type, int quantity)
-    {
+    public void refreshInventory(PotionType type, int quantity){
         switch (type)
         {
             case PotionType.POTION1:
