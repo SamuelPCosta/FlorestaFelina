@@ -49,7 +49,7 @@ public class CameraMovement : MonoBehaviour
                 float lensDistortion = 1+(inputsMovement.acceleration * timeAboveThreshold);
                 lensDistortion = lensDistortion / 1.2f;
 
-                virtualCam.m_Lens.FieldOfView = FOVDefault * lensDistortion;
+                virtualCam.m_Lens.FieldOfView = Mathf.Clamp(FOVDefault * lensDistortion, FOVDefault, 90f);
 
                 var componentBase = virtualCam.GetCinemachineComponent(CinemachineCore.Stage.Body);
                 if (componentBase is Cinemachine3rdPersonFollow)
@@ -63,7 +63,7 @@ public class CameraMovement : MonoBehaviour
     }
 
     private IEnumerator ResetInclination(float start, float fovStart, float distanceStart){
-        float time = Mathf.Clamp(Mathf.Ceil(start/15), 0.2f, 1f);
+        float time = Mathf.Clamp(Mathf.Ceil(start/15), 0.25f, 1f);
         float elapsed = 0f;
         var componentBase = virtualCam.GetCinemachineComponent(CinemachineCore.Stage.Body);
         while (elapsed < time)
@@ -83,18 +83,6 @@ public class CameraMovement : MonoBehaviour
         virtualCam.m_Lens.FieldOfView = FOVDefault;
         if (componentBase is Cinemachine3rdPersonFollow)
             (componentBase as Cinemachine3rdPersonFollow).CameraDistance = distanceDefault;
-        yield return null;
-    }
-
-    private IEnumerator StartInclination(float time)
-    {
-        float elapsed = 0f;
-        while (elapsed < time)
-        {
-            //percent = Mathf.Lerp(0, 1f, elapsed / time);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
         yield return null;
     }
 }
