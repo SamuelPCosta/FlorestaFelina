@@ -17,6 +17,9 @@ public class UITextIndicator : UIController
 
     public void enableIndicator(IndicatorText indicator, bool state)
     {
+        if (state)
+            foreach (var indicatorObj in IndicatorsObject)
+                indicatorObj?.SetActive(false);
         IndicatorsObject[(int)indicator]?.SetActive(state);
     }
 }

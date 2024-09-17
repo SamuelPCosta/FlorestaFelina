@@ -231,8 +231,8 @@ public class InteractionsController : MonoBehaviour
 
             if (save != null) stepOne = save.step;
 
-            checkWaterCollection();
-            checkWay();
+            if (!checkWay())
+                checkWaterCollection();
             checkNPC();
             checkDialogs();
             checkMarker();
@@ -399,6 +399,9 @@ public class InteractionsController : MonoBehaviour
 
     //CONTROLA COLETA E CONEXAO COM INVENTARIO
     private bool checkCollectibles(){
+        if (inDialog || inDynamicDialog)
+            return false;
+
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Collectible"));
         if (collider != null){
             if (collider.GetComponent<Collectible>().getNameOfItem().Equals("Peixe")) {
@@ -482,12 +485,12 @@ public class InteractionsController : MonoBehaviour
     }
 
     //CONTROLA A INTERACAO COM BARREIRAS
-    private void checkWay()
+    private bool checkWay()
     {
         Collider collider = boxcast.checkProximity(LayerMask.NameToLayer("Barrier"));
         if (collider != null)
         {
-            if(!unlock)
+            if (!unlock)
                 _UITextIndicator.enableIndicator(IndicatorText.BARRIER, true);
             else
                 _UITextIndicator.enableIndicator(IndicatorText.BARRIER, false);
@@ -498,11 +501,13 @@ public class InteractionsController : MonoBehaviour
                 unlock = true;
                 _feedbackController.Vibrate(Power.Mid, Duration.Mid);
             }
+            return true;
         }
         else{
             _UITextIndicator.enableIndicator(IndicatorText.BARRIER, false);
             unlock = false;
         }
+        return unlock;
     }
 
     public void setMarker(GameObject cat){
