@@ -39,6 +39,9 @@ public class InteractionsController : MonoBehaviour
     [Header("UITextIndicator")]
     public UITextIndicator _UITextIndicator;
 
+    [Header("UISlider")]
+    public GameObject sliderBlackBars;
+
     [Header("TutorialMovement")]
     public GameObject MovementTutorial;
 
@@ -165,7 +168,7 @@ public class InteractionsController : MonoBehaviour
         _feedbackController = FindObjectOfType<FeedbackController>();
         _journalController = FindObjectOfType<JournalController>();
         _workbenchController = FindObjectOfType<WorkbenchController>();
-        //_inputsMovement = FindObjectOfType<InputsMovement>();
+        _inputsMovement = FindObjectOfType<InputsMovement>();
         _tutorialController = FindObjectOfType<TutorialController>();
 
         catCamera = null;
@@ -307,6 +310,13 @@ public class InteractionsController : MonoBehaviour
         else if (other.CompareTag("EnvironmentView")) {
             setGuidedCam(true);
         }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Slider") && _inputsMovement.acceleration > .4f)
+        {
+            transform.GetComponent<MovementController>().isSlipping = true;
+            Time.timeScale = .4f;
+            sliderBlackBars.SetActive(true);
+
+        }
     }
     void OnTriggerStay(Collider other) {
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
@@ -316,6 +326,12 @@ public class InteractionsController : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Water")) { 
             exitWater();
             currentWater = null;
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Slider"))
+        {
+            transform.GetComponent<MovementController>().isSlipping = false;
+            Time.timeScale = 1f;
+            sliderBlackBars.SetActive(false);
         }
     }
 

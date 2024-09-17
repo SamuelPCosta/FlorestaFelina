@@ -14,6 +14,7 @@ using UnityEngine.InputSystem;
         public float MoveSpeed = 4.0f;
         public float FastMoveSpeed = 12.0f;
         public float SlideSpeed = 16.0f;
+        public bool isSlipping = false;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -218,6 +219,7 @@ using UnityEngine.InputSystem;
             //float targetSpeed = _input.sprint ? 30f : MoveSpeed;
 
             float targetSpeed = moveFast ? FastMoveSpeed : MoveSpeed;
+            targetSpeed = (isSlipping && moveFast) ? SlideSpeed : targetSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 

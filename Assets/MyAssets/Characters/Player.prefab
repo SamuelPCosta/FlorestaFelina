@@ -20394,6 +20394,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 2.5
   FastMoveSpeed: 12
+  SlideSpeed: 22
+  isSlipping: 0
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
   LandingAudioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
@@ -20486,6 +20488,7 @@ MonoBehaviour:
   catMenuController: {fileID: 0}
   camerasController: {fileID: 0}
   _UITextIndicator: {fileID: 0}
+  sliderBlackBars: {fileID: 0}
   MovementTutorial: {fileID: 0}
   catsStatesController: {fileID: 0}
   riverBarrier: {fileID: 0}
