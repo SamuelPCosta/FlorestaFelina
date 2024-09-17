@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour{
 
     private Vector3 position;
 
+    public CatController currentCat = null;
+
     public static GameController instance = null;
     void Start(){
         if (instance == null)

@@ -111,6 +111,10 @@ public class CatMenuController : PanelController
         Mission mission = missionController.getMission();
         int stageMission = missionController.getMissionStage();
 
+        CatController cat = FindObjectOfType<GameController>().currentCat;
+        if (cat != null)
+            cat.eat();
+
         if (option == null)
             return;
         if (option == options[0]){

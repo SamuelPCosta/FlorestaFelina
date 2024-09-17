@@ -12,7 +12,8 @@ using UnityEngine.InputSystem;
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 4.0f;
-        public float FastMoveSpeed = 14.0f;
+        public float FastMoveSpeed = 12.0f;
+        public float SlideSpeed = 16.0f;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -213,9 +214,10 @@ using UnityEngine.InputSystem;
 
         private void Move(){
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? 30f : MoveSpeed;
+            //DEBUG DE VELOCIDADE EXTRA RAPIDA
+            //float targetSpeed = _input.sprint ? 30f : MoveSpeed;
 
-            targetSpeed = moveFast ? FastMoveSpeed : targetSpeed;
+            float targetSpeed = moveFast ? FastMoveSpeed : MoveSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 

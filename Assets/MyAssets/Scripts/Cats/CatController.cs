@@ -25,6 +25,7 @@ public class CatController : MonoBehaviour{
     private void Start()
     {
         createMaterial();
+        //InvokeRepeating("drawAnimation", 6f, 6f);
     }
 
     public void analyzeCat(){
@@ -64,7 +65,21 @@ public class CatController : MonoBehaviour{
         //furPattern.SetInt("_eyesVariation", eyesVariation);
         furPattern.SetTexture("_PelageMask", pelage[numColorVariation]);
         if (gameObject.activeSelf)
-            transform.GetChild(1).GetComponent<Renderer>().material = furPattern;
+            transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>().material = furPattern;
+    }
+
+    public void eat()
+    {
+        Animator animator = GetComponent<Animator>();
+        animator.SetTrigger("isEating");
+    }
+
+    public void drawAnimation()
+    {
+        Animator animator = GetComponent<Animator>();
+        float[] values = { 0f, 0.25f, 0.5f, 0.75f };
+        int index = Random.Range(0, values.Length);
+        animator.SetFloat("idle", values[index]);
     }
 
     public Vector3Int getVariation(){

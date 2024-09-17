@@ -635,6 +635,7 @@ public class InteractionsController : MonoBehaviour
             _UITextIndicator.enableIndicator(IndicatorText.CAT_MENU, false);
             _UITextIndicator.enableIndicator(IndicatorText.CAT_AFFECTION, false);
             _UITextIndicator.enableIndicator(IndicatorText.CAT_ANALYSE, false);
+            gameController.currentCat = cat;
             return true;
         }
         else if ((menu.triggered || exit.triggered || esc.triggered) && (catAnalyzed || catHealed || catHome || catSaved) && _catMenuInteraction){
