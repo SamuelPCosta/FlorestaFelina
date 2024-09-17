@@ -9813,6 +9813,38 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &1481107625445515927
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2266268335606781919}
+  m_Layer: 8
+  m_Name: Marker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2266268335606781919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481107625445515927}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 583002305799983548}
+  m_Father: {fileID: 3525905219994939297}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1775903687938790962
 GameObject:
   m_ObjectHideFlags: 0
@@ -19503,13 +19535,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2534742354012684712}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.213, z: -0.12}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.05, z: -0.11999512}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 3525905219994939297}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 2266268335606781919}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &6242926215820493356
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -24597,7 +24629,7 @@ Transform:
   - {fileID: 100361704798248593}
   - {fileID: 1518210586960419686}
   - {fileID: 2763703702062562777}
-  - {fileID: 583002305799983548}
+  - {fileID: 2266268335606781919}
   - {fileID: 298171613002609236}
   - {fileID: 5157289367576687349}
   - {fileID: 1182575320957162122}
@@ -24745,7 +24777,7 @@ MonoBehaviour:
   PlayerRoot: {fileID: 5962747565615937673}
   boxcast: {fileID: 7581184890736757435}
   bag: {fileID: 1471122655046112029}
-  marker: {fileID: 2534742354012684712}
+  marker: {fileID: 1481107625445515927}
   roomba: {fileID: 3247505944358070115}
   roombaVFX: {fileID: 8422143411332718139}
   roombaHips: {fileID: 8684757968334383367}

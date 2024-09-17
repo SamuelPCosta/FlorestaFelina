@@ -518,7 +518,7 @@ public class InteractionsController : MonoBehaviour
         if (currentCat != null && Vector3.Distance(transform.position, currentCat.transform.position) > distance) {
             marker?.SetActive(true);
             marker.transform.LookAt(currentCat);
-            marker.transform.eulerAngles = new Vector3(-90f, marker.transform.eulerAngles.y, marker.transform.eulerAngles.z);
+            marker.transform.eulerAngles = new Vector3(0f, marker.transform.eulerAngles.y, marker.transform.eulerAngles.z);
         }else
             marker?.SetActive(false);
     }
