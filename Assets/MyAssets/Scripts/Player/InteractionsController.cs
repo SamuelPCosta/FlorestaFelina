@@ -652,7 +652,7 @@ public class InteractionsController : MonoBehaviour
             if (catNotStarted){
                 //seta state desse gato como first interaction e salva pelagem
                 Vector3Int variation = cat.getVariation();
-                catsStatesController.setPelage(cat.getIndex(), variation.x, variation.y, variation.z);
+                //catsStatesController.setPelage(cat.getIndex(), variation.x, variation.y, variation.z);
                 catsStatesController.setMissionState(cat.getIndex(), MISSION_STATE.FIRST_INTERACTION);
                 setMarker(cat.gameObject);
             }
@@ -825,7 +825,7 @@ public class InteractionsController : MonoBehaviour
         Collider portal = boxcast.checkProximity(LayerMask.NameToLayer("Portal"));
         if (portal != null){
             //TODO: se o portal é forest e a posicao de saida eh zero return;
-            if(catsStatesController.getMissionStateByIndex(0) == MISSION_STATE.HOME)
+            if(catsStatesController.getMissionStateByIndex(1) == MISSION_STATE.HOME)
                 _UITextIndicator.enableIndicator(IndicatorText.PORTAL, true);
             if (makeWay.triggered && catsStatesController.getMissionStateByIndex(0) == MISSION_STATE.HOME)
             {

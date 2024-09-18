@@ -50,4 +50,16 @@ public class Save
     public bool objectiveFloorDestroy;
 
     //Salvar estados das plantas coletadas
+
+    public Save()
+    {
+        setPelage();
+    }
+
+    public void setPelage(){
+        for (int i = 0; i < numberOfCats; i++)
+        {
+            numColorVariation[i] = Random.Range(0, 4); ;
+        }
+    }
 }

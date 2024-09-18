@@ -1039,7 +1039,7 @@ PrefabInstance:
     - target: {fileID: 1510889629376485053, guid: fb7f7c2ddca26ba4c87ac4343f2f09d8, type: 3}
       propertyPath: imgs.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1051387717}
     - target: {fileID: 1510889629376485053, guid: fb7f7c2ddca26ba4c87ac4343f2f09d8, type: 3}
       propertyPath: sprites_pc.Array.size
       value: 1
@@ -3180,6 +3180,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
+--- !u!114 &1051387717 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4967106324491635653, guid: 59cce51214b55bb4891c7cc257d0bda0, type: 3}
+  m_PrefabInstance: {fileID: 1401728943}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1057787855
 GameObject:
   m_ObjectHideFlags: 0

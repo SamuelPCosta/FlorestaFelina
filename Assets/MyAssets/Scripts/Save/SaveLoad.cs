@@ -35,7 +35,7 @@ public class SaveLoad : MonoBehaviour
         if (deleteSaveFile)
             DeleteSaveFile();
 
-        save = new Save();
+        //save = new Save();
     }
 
     public bool DeleteSaveFile(){
@@ -87,7 +87,12 @@ public class SaveLoad : MonoBehaviour
 
     private Save loadGameInternal() {
         Save save = loadGame();
-        return save ?? new Save();
+        if(save == null) {
+            save = new Save();
+            saveGame(save);
+            save = loadGameInternal();
+        }
+        return save;
     } 
 
     //void PrintAllDialogs()

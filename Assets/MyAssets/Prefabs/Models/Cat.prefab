@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 346943421125861834}
   serializedVersion: 2
   m_LocalRotation: {x: 0.10461868, y: 0.059633765, z: -0.0062846676, w: 0.992703}
-  m_LocalPosition: {x: 0.61602724, y: 0.32, z: -2.0000298}
+  m_LocalPosition: {x: 0.6160002, y: 0.32, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -127,10 +127,10 @@ MonoBehaviour:
   symptoms: 0
   catMaterial: {fileID: 2100000, guid: 9ea9cc5705ba8b543ae01810f9c8d93c, type: 2}
   pelage:
-  - {fileID: 2800000, guid: 1bd25c7abc2b7cf4795293703618ed86, type: 3}
-  - {fileID: 2800000, guid: c2d7219fc8e164f459510fd506bbba7c, type: 3}
-  - {fileID: 2800000, guid: cd72042dbbbc4d047ab95dccfd0049db, type: 3}
-  - {fileID: 2800000, guid: 6a3b3fe2e041b24418879d726f37697e, type: 3}
+  - {fileID: 2800000, guid: 3da158382cd249842bfa561cf41303ee, type: 3}
+  - {fileID: 2800000, guid: fe7f700ac105882419feab9c9f487774, type: 3}
+  - {fileID: 2800000, guid: c5d0d83d9d6591545831857dc362b705, type: 3}
+  - {fileID: 2800000, guid: 920ad54511ef1874da3eec4a44e9139e, type: 3}
 --- !u!65 &1942556230259932391
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -217,8 +217,8 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.764151, g: 0.7192405, b: 0.40730688, a: 1}
-  m_Intensity: 1.7
+  m_Color: {r: 1, g: 0.9769853, b: 0.8254717, a: 1}
+  m_Intensity: 1
   m_Range: 15
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -422,7 +422,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.9253502, g: 0.9528302, b: 0.63372195, a: 1}
+  m_Color: {r: 0.99551594, g: 1, b: 0.9481132, a: 1}
   m_Intensity: 0.6
   m_Range: 10
   m_SpotAngle: 30
@@ -5398,6 +5398,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 4450628168400790395, guid: 74da932e5e3e83048b516cf174a7b38a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9ea9cc5705ba8b543ae01810f9c8d93c, type: 2}
+    - target: {fileID: 8743813690021804245, guid: 74da932e5e3e83048b516cf174a7b38a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9ea9cc5705ba8b543ae01810f9c8d93c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

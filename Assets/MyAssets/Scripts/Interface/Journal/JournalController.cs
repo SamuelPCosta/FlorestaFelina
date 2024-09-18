@@ -43,7 +43,7 @@ public class JournalController : MonoBehaviour
             pageLimit = save.journal;
         else{
             for (int i = 0; i < newPages.Length; i++){
-                bool active = (int)newPages[i].GetComponent<PagesController>().pageSequence < save.journal;
+                bool active = (int)newPages[i].GetComponent<PagesController>().pageSequence < 4;
                 newPages[i].SetActive(active);
             }
         }
@@ -61,7 +61,7 @@ public class JournalController : MonoBehaviour
 
     private void checkJournal() {
         bool state = !JournalMenu.activeSelf;
-        if (journal.triggered){
+        if (journal != null && journal.triggered){
             openJournal(state);
             return;
         }

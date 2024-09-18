@@ -22,10 +22,22 @@ public class CatController : MonoBehaviour{
     private int numColorVariation;
     private int eyesVariation;
 
+    private bool catSet = false;
+
     private void Start()
     {
-        createMaterial();
+        //createMaterial();
         //InvokeRepeating("drawAnimation", 6f, 6f);
+    }
+
+    private void Update()
+    {
+        if (!catSet){
+            if (gameObject.activeSelf){
+                setPelage();
+                catSet = true;
+            }
+        }
     }
 
     public void analyzeCat(){
@@ -52,20 +64,19 @@ public class CatController : MonoBehaviour{
         FindObjectOfType<MissionController>().setMission(mission);
     }
 
-    private void createMaterial(){
+    private void setPelage(){
         Material furPattern = new Material(catMaterial);
+        Save save = FindObjectOfType<SaveLoad>().loadGame();
+        if(save != null) { 
+            int var = save.numColorVariation[(int)sequence];
 
-        //SORTEIO DE INT EH MaxEXCLUSIVEEE
-        numColorVariation = Random.Range(0, 4);
-        //numColorVariation = (numColors == 1 || numColors == 2) ? Random.Range(0, 3) : 0;
-        //eyesVariation = Random.Range(0, 2);
-
-        //furPattern.SetInt("_numColors", numColors);
-        //furPattern.SetInt("_numColorVariation", numColorVariation);
-        //furPattern.SetInt("_eyesVariation", eyesVariation);
-        furPattern.SetTexture("_PelageMask", pelage[numColorVariation]);
-        if (gameObject.activeSelf)
-            transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>().material = furPattern;
+            //furPattern.SetInt("_numColors", numColors);
+            //furPattern.SetInt("_numColorVariation", numColorVariation);
+            //furPattern.SetInt("_eyesVariation", eyesVariation);
+            furPattern.SetTexture("_PelageMask", pelage[var]);
+            if (gameObject.activeSelf)
+                transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>().material = furPattern;
+        }
     }
 
     public void eat()
