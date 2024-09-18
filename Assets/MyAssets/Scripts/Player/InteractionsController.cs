@@ -24,6 +24,7 @@ public class InteractionsController : MonoBehaviour
     public GameObject fruit;
     public GameObject waterParticles;
     public GameObject waterDrops;
+    public GameObject fireflies;
 
     [Header("Inventory")]
     public InventoryController inventoryController;
@@ -92,6 +93,7 @@ public class InteractionsController : MonoBehaviour
     private ParticleSystem drops;
     private Vector3 lastWavePosition = Vector3.zero;
     private bool isExitWave = false;
+    private bool isSlipping = false;
 
     //Cats Attributes
     private CatController tutorialCat = null;
@@ -218,7 +220,9 @@ public class InteractionsController : MonoBehaviour
                 }
             }
         }
-        
+
+        fireflies.transform.position = gameObject.transform.position;
+
         if (interactions) { 
             bool isCollectible = checkCollectibles();
             bool isPage = checkNewPage();
@@ -313,9 +317,9 @@ public class InteractionsController : MonoBehaviour
         else if (other.gameObject.layer == LayerMask.NameToLayer("Slider") && _inputsMovement.acceleration > .4f)
         {
             transform.GetComponent<MovementController>().isSlipping = true;
-            Time.timeScale = .4f;
+            isSlipping = true;
+            StartCoroutine(slowMotion(0.2f, .5f, .5f));
             sliderBlackBars.SetActive(true);
-
         }
     }
     void OnTriggerStay(Collider other) {
@@ -330,6 +334,8 @@ public class InteractionsController : MonoBehaviour
         else if (other.gameObject.layer == LayerMask.NameToLayer("Slider"))
         {
             transform.GetComponent<MovementController>().isSlipping = false;
+            isSlipping = false;
+            StopAllCoroutines();
             Time.timeScale = 1f;
             sliderBlackBars.SetActive(false);
         }
@@ -411,6 +417,31 @@ public class InteractionsController : MonoBehaviour
         gameController.scheduleResetCam(duration);
 
         camerasController.ActivateCamera(cam);
+    }
+
+    IEnumerator slowMotion(float targetScale, float duration, float holdTime)
+    {
+        float startScale = Time.timeScale;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration){
+            Time.timeScale = Mathf.Lerp(startScale, targetScale, elapsedTime / duration);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        Time.timeScale = targetScale;
+
+        yield return new WaitForSecondsRealtime(holdTime);
+
+        elapsedTime = 0f;
+        while (elapsedTime < duration){
+            Time.timeScale = Mathf.Lerp(targetScale, 1f, elapsedTime / duration);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        Time.timeScale = 1f;
     }
 
     //CONTROLA COLETA E CONEXAO COM INVENTARIO
@@ -624,6 +655,7 @@ public class InteractionsController : MonoBehaviour
                 setMarker(cat.gameObject);
             }
             AudioController.playAction(INTERACTIONS.CatMeow);
+            cat.caressReaction();
             print("carinho no gato "+cat);
             _feedbackController.Vibrate(Power.Mid, Duration.Mid);
             //TODO: ativar animacao
@@ -856,7 +888,9 @@ public class InteractionsController : MonoBehaviour
             if (_workebenchCam)
                 camerasController.ActivateDynamicCamera(workenchCamera);
             else if (!hit.collider.CompareTag("InnerRoom")){ //AREA EXTERNA
-                if (_catMenuInteraction)
+                if(isSlipping)
+                    camerasController.ActivateCamera(CamerasController.cam.Roomba);
+                else if (_catMenuInteraction)
                     camerasController.ActivateDynamicCamera(catCamera);
                 else if (!_catMenuInteraction && !_workebenchCam)
                 {

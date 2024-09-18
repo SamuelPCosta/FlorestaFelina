@@ -6,7 +6,7 @@ public class BarrierController : MonoBehaviour
 {
     public GameObject orb;
     public Material defaultMaterial;
-    public float fadeDuration = .8f;
+    public float fadeDuration = .5f;
 
     private void Start(){
         orb.SetActive(false);

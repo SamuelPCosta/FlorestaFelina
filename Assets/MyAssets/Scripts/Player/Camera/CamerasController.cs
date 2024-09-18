@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class CamerasController : MonoBehaviour
 {
-    public enum cam { Default, Close, Objective, ObjectiveDontReload };
+    public enum cam { Default, Close, Roomba, Objective, ObjectiveDontReload };
     private int lowPriority = 5;
     private int highPriority = 10;
 

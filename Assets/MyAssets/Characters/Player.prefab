@@ -20483,6 +20483,7 @@ MonoBehaviour:
   fruit: {fileID: 6681290893033709033}
   waterParticles: {fileID: 7458996447585610192}
   waterDrops: {fileID: 592968269551785524}
+  fireflies: {fileID: 0}
   inventoryController: {fileID: 0}
   dialogController: {fileID: 0}
   catMenuController: {fileID: 0}

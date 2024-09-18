@@ -74,6 +74,14 @@ public class CatController : MonoBehaviour{
         animator.SetTrigger("isEating");
     }
 
+    public void caressReaction()
+    {
+        ParticleSystem hearts =  transform.GetChild(2).GetComponent<ParticleSystem>();
+        //hearts.Stop();
+        //hearts.Clear();
+        hearts.Play();
+    }
+
     public void drawAnimation()
     {
         Animator animator = GetComponent<Animator>();
