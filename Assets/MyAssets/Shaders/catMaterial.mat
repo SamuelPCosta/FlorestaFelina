@@ -28,15 +28,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: 54778dc270c1aef429d80bf140bf5c82, type: 3}
+        m_Texture: {fileID: 2800000, guid: fb9248b60e2395d42b87be72a84f9da2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PelageMask:
-        m_Texture: {fileID: 2800000, guid: 1bd25c7abc2b7cf4795293703618ed86, type: 3}
+        m_Texture: {fileID: 2800000, guid: c5d0d83d9d6591545831857dc362b705, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PelageMask2:
         m_Texture: {fileID: 2800000, guid: cd72042dbbbc4d047ab95dccfd0049db, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _smoothness:
+        m_Texture: {fileID: 2800000, guid: ae13ed70c4b87974d8f1e5cec42f1a8e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:

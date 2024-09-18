@@ -117,8 +117,10 @@ public class MissionController : MonoBehaviour{
             if (CurrentMission >= 0 && CurrentMission < missionType.Length) {
                 FindObjectOfType<CatsStatesController>().setMissionState(MISSION_STATE.HEALED);
             }
-            if (checkTutorial(mission)) 
+            if (checkTutorial(mission)) { 
                 checkMissionCompletion();
+                FindObjectOfType<TutorialController>().enableNextLevelMission();
+            }
         }
             
         if(CurrentStageMission == 2)
@@ -218,14 +220,16 @@ public class MissionController : MonoBehaviour{
         else return false;
     }
 
-    public void checkMissionCompletion(){
+    public bool checkMissionCompletion(){
         //condicao de conclusao das missoes
         int numberOfSteps = missionType[CurrentMission].description.Length;
         if (CurrentMission >= 0 && CurrentMission < missionType.Length && CurrentStageMission >= numberOfSteps){
             completeMission();
+            return true;
         }
         else{ //atualiza na HUD e salva
             _UIMission.setMissionStage(CurrentStageMission);
+            return false;
         }
     }
 

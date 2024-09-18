@@ -6445,6 +6445,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1275963203281180733, guid: a714458c3cd789c458b31df3b1bc1ce6, type: 3}
   m_PrefabInstance: {fileID: 1169271446}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1172718330 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 390416109320136216, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+  m_PrefabInstance: {fileID: 8122088081571928394}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1174622077
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13940,6 +13945,10 @@ PrefabInstance:
       propertyPath: catDialog2
       value: 
       objectReference: {fileID: 1718229832}
+    - target: {fileID: 45568876632333672, guid: d71ea11be621a8b448f62c2dff8ea7ee, type: 3}
+      propertyPath: nextLevelMission
+      value: 
+      objectReference: {fileID: 1172718330}
     - target: {fileID: 4730007973259988368, guid: d71ea11be621a8b448f62c2dff8ea7ee, type: 3}
       propertyPath: m_LocalPosition.x
       value: 960

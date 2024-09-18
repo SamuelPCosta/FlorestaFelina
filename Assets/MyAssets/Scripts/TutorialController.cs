@@ -8,6 +8,7 @@ public class TutorialController : MonoBehaviour
     public GameObject FirstCat;
     public GameObject catDialog;
     public GameObject catDialog2;
+    public GameObject nextLevelMission;
 
     void Start(){
         if (catDialog2 != null)
@@ -27,5 +28,10 @@ public class TutorialController : MonoBehaviour
 
     public void enableDialog(GameObject dialog, bool stts){
         dialog?.SetActive(stts);
+    }
+
+    public void enableNextLevelMission()
+    {
+        nextLevelMission.SetActive(true);
     }
 }
