@@ -21,9 +21,9 @@ public class TutorialController : MonoBehaviour
     }
 
     //TUTORIAL
-    public void enableTutorialCat(bool state){
-        FirstCat?.SetActive(state);
-    }
+    //public void enableTutorialCat(bool state){
+    //    FirstCat?.SetActive(state);
+    //}
 
     public void enableDialog(GameObject dialog, bool stts){
         dialog?.SetActive(stts);

@@ -41,10 +41,11 @@ public class FeedbackController : MonoBehaviour{
     public void VibrateRoomba(){
         if (!vibration || guidedCam)
             return;
+        float decrease = 3;
         gamepad = Gamepad.current;
         if (gamepad != null){
             float value = move.acceleration * move.acceleration;
-            gamepad.SetMotorSpeeds(Mathf.Clamp(value, 0f, .5f), value);
+            gamepad.SetMotorSpeeds(Mathf.Clamp(value, 0f, .8f)/ decrease, value/ decrease);
             //CancelInvoke("StopVibration");
         }
     }

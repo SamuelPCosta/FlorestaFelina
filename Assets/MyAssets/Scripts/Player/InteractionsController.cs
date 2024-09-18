@@ -318,7 +318,7 @@ public class InteractionsController : MonoBehaviour
         {
             transform.GetComponent<MovementController>().isSlipping = true;
             isSlipping = true;
-            StartCoroutine(slowMotion(0.2f, .5f, .5f));
+            StartCoroutine(slowMotion(1f, 0.2f, .5f, .5f));
             sliderBlackBars.SetActive(true);
         }
     }
@@ -419,8 +419,10 @@ public class InteractionsController : MonoBehaviour
         camerasController.ActivateCamera(cam);
     }
 
-    IEnumerator slowMotion(float targetScale, float duration, float holdTime)
+    IEnumerator slowMotion(float holdStart, float targetScale, float duration, float holdTime)
     {
+        yield return new WaitForSecondsRealtime(holdStart);
+
         float startScale = Time.timeScale;
         float elapsedTime = 0f;
 
@@ -927,15 +929,15 @@ public class InteractionsController : MonoBehaviour
     private void managerElements(string name){
         TutorialController tutorialController = _tutorialController;
 
-        if (name.Equals("MoveTutorial") && tutorialController.catDialog != null){
-            tutorialController.enableDialog(tutorialController.catDialog, false);
-            tutorialController.enableTutorialCat(false);
-        }
+        //if (name.Equals("MoveTutorial") && tutorialController.catDialog != null){
+        //    tutorialController.enableDialog(tutorialController.catDialog, false);
+        //    tutorialController.enableTutorialCat(false);
+        //}
 
-        if (name.Equals("WorkbenchTutorial")){
-            tutorialController.enableTutorialCat(true);
-            tutorialController.enableDialog(tutorialController.catDialog, true);
-        }
+        //if (name.Equals("WorkbenchTutorial")){
+        //    tutorialController.enableTutorialCat(true);
+        //    tutorialController.enableDialog(tutorialController.catDialog, true);
+        //}
 
         if (name.Equals("NextActionDialog")){
             riverBarrier.markDialog();
