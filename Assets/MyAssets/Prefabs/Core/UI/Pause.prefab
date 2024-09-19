@@ -505,7 +505,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 780, y: 260}
-  m_SizeDelta: {x: 400, y: 400}
+  m_SizeDelta: {x: 480, y: 270}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4159725473360907519
 CanvasRenderer:
@@ -603,7 +603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.98039216}
+  m_Color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1033,7 +1033,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5467693092776118529
@@ -1094,7 +1094,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 0
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1 &5664862916710471021
 GameObject:
@@ -1238,7 +1238,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: camera
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 159d06941e5a9004a8a6e4503e6efe00, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 144d75ffb837fc1449ad1bc550731ca6, type: 2}
   m_sharedMaterial: {fileID: -7783989180243108265, guid: 159d06941e5a9004a8a6e4503e6efe00, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1302,7 +1302,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7513963215824701189
@@ -1491,7 +1491,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 0
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1 &8660330678789856259
 GameObject:
@@ -1599,7 +1599,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: sensitivity
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 159d06941e5a9004a8a6e4503e6efe00, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 144d75ffb837fc1449ad1bc550731ca6, type: 2}
   m_sharedMaterial: {fileID: -7783989180243108265, guid: 159d06941e5a9004a8a6e4503e6efe00, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1663,7 +1663,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &2623500452450889712
@@ -1684,7 +1684,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 104791592966091142, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1977317473363624727, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1874,7 +1874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 104791592966091142, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1977317473363624727, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -2156,7 +2156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 104791592966091142, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1977317473363624727, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -2366,7 +2366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 104791592966091142, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1977317473363624727, guid: c0feef4e4074f9c4f8f8f87bd940d58e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

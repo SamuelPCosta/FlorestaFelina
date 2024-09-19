@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baffb74e90a9c1a46af08aaae74fe1ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamepadOn: 0
 --- !u!114 &1977317473363624727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,7 +341,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6988325096246782304}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
@@ -348,11 +349,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 549990785
+      Data2: 1324824700
+      Data3: 19591075
+      Data4: -806393502
+    Path: event:/UI/Refresh
   Event: 
   PlayEvent: 15
   StopEvent: 16
@@ -362,8 +363,8 @@ MonoBehaviour:
   AllowNonRigidbodyDoppler: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: -1
-  OverrideMaxDistance: -1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &8680942909832214302
 GameObject:
   m_ObjectHideFlags: 0

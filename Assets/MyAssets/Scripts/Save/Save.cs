@@ -51,15 +51,15 @@ public class Save
 
     //Salvar estados das plantas coletadas
 
-    public Save()
+    public Save(int[] array)
     {
-        setPelage();
+        numColorVariation = array;
     }
 
-    public void setPelage(){
-        for (int i = 0; i < numberOfCats; i++)
-        {
-            numColorVariation[i] = Random.Range(0, 4); ;
-        }
-    }
+    //public void setPelage(){
+    //    for (int i = 0; i < numberOfCats; i++)
+    //    {
+    //        numColorVariation[i] = Random.Range(0, 4); ;
+    //    }
+    //}
 }

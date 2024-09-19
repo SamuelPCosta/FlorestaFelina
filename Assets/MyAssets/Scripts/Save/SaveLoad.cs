@@ -9,6 +9,7 @@ public class SaveLoad : MonoBehaviour
 {
     //Save jogo
     private Save save;
+    private int numberOfCats = 20;
     private string nameOfSave = "save0";
 
     [Header("Save options")]
@@ -88,7 +89,11 @@ public class SaveLoad : MonoBehaviour
     private Save loadGameInternal() {
         Save save = loadGame();
         if(save == null) {
-            save = new Save();
+            int[] numColorVariation = new int[numberOfCats];
+            for (int i = 0; i < numberOfCats; i++){
+                numColorVariation[i] = Random.Range(0, 4); ;
+            }
+            save = new Save(numColorVariation);
             saveGame(save);
             save = loadGameInternal();
         }

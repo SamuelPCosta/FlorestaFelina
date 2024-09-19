@@ -115,6 +115,7 @@ public class InteractionsController : MonoBehaviour
     private InputAction bagInput;
     private InputAction exit;
     private InputAction esc;
+    private InputAction journal;
 
     //CONTROLLERS
     private MissionController _missionController;
@@ -164,6 +165,7 @@ public class InteractionsController : MonoBehaviour
         bagInput = input.Player.Bag;
         exit = input.Player.Exit;
         esc = input.Player.Esc;
+        journal = input.Player.Journal;
 
         //CONTROLLERS
         _missionController = FindObjectOfType<MissionController>();
@@ -223,23 +225,31 @@ public class InteractionsController : MonoBehaviour
 
         fireflies.transform.position = gameObject.transform.position;
 
-        if (interactions) { 
-            bool isCollectible = checkCollectibles();
-            bool isPage = checkNewPage();
-            bool isFruit = checkFruit();
+        if (journal.triggered)
+            if (interactions)
+                interactions = false;
+            else
+                interactions = true;
 
-            if(!isCollectible && !isPage && !isFruit) { 
-                if(!fishZone && inWater)
-                    _UITextIndicator.enableIndicator(IndicatorText.COLLECT, true);
-                else
-                    _UITextIndicator.enableIndicator(IndicatorText.COLLECT, false);
-                _UITextIndicator.enableIndicator(IndicatorText.FISH, false);
-            }
-
-            if (save != null) stepOne = save.step;
-
+        if (interactions) {
             if (!checkWay())
+            {
                 checkWaterCollection();
+                bool isCollectible = checkCollectibles();
+                bool isPage = checkNewPage();
+                bool isFruit = checkFruit();
+                if (!isCollectible && !isPage && !isFruit)
+                {
+                    if (!fishZone && inWater)
+                        _UITextIndicator.enableIndicator(IndicatorText.COLLECT, true);
+                    else
+                        _UITextIndicator.enableIndicator(IndicatorText.COLLECT, false);
+                    _UITextIndicator.enableIndicator(IndicatorText.FISH, false);
+                }
+
+                if (save != null) stepOne = save.step;
+            }
+            
             checkNPC();
             checkDialogs();
             checkMarker();
