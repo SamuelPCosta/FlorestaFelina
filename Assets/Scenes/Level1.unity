@@ -581,6 +581,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fence (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1916,6 +1920,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LongFence (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 4699391889503357416, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 261.78906
@@ -2189,6 +2197,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LongFence (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 4699391889503357416, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 135.21034
@@ -2245,6 +2257,10 @@ PrefabInstance:
     - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_Name
       value: LongFence (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 4699391889503357416, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2696,6 +2712,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fenceSemicircle (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2774,6 +2794,10 @@ PrefabInstance:
     - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_Name
       value: LongFence (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 4699391889503357416, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3554,6 +3578,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LongFence (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 4699391889503357416, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 101.26903
@@ -4071,7 +4099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1227026293809576008, guid: 3b1bddde64d515d42a6e6adf7fa8f580, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 33.71
+      value: 32.93
       objectReference: {fileID: 0}
     - target: {fileID: 1227026293809576008, guid: 3b1bddde64d515d42a6e6adf7fa8f580, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4424,6 +4452,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1284061605}
+  - {fileID: 1951694981}
+  - {fileID: 856833994}
   - {fileID: 466736711}
   - {fileID: 1186256320}
   - {fileID: 1953486916}
@@ -4434,7 +4464,6 @@ Transform:
   - {fileID: 859391675}
   - {fileID: 1669318770}
   - {fileID: 1674882970}
-  - {fileID: 1951694981}
   - {fileID: 834743292}
   - {fileID: 616930675}
   - {fileID: 779547755}
@@ -4448,7 +4477,6 @@ Transform:
   - {fileID: 345897847}
   - {fileID: 502210274}
   - {fileID: 1503370559}
-  - {fileID: 856833994}
   - {fileID: 1410754591}
   - {fileID: 1517216429}
   - {fileID: 1498244008}
@@ -4456,6 +4484,8 @@ Transform:
   - {fileID: 1532921046}
   - {fileID: 552893081}
   - {fileID: 304242390}
+  - {fileID: 1096188149}
+  - {fileID: 1175792947}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &653051706
@@ -4703,19 +4733,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 651711407}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 383.49
+      value: 223.67903
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.03
+      value: 35.713417
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 749.9
+      value: 117.31616
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4727,7 +4757,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
       propertyPath: m_LocalRotation.z
@@ -4748,6 +4778,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
       propertyPath: m_Name
       value: fenceSemicircle
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4805,6 +4839,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
       propertyPath: m_Name
       value: fence (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4973,6 +5011,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
       propertyPath: m_Name
       value: fence
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5480,6 +5522,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LongFence (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 4699391889503357416, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 188.62904
@@ -5759,6 +5805,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
       propertyPath: m_Name
       value: fence (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6194,6 +6244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fence (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6387,6 +6441,10 @@ PrefabInstance:
     - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_Name
       value: LongFence (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 4699391889503357416, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7292,6 +7350,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fenceSemicircle (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7306,6 +7368,11 @@ Transform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1918874813499859061, guid: 447be2a8abab41a4397b8161c1528b60, type: 3}
   m_PrefabInstance: {fileID: 276216607713795501}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1096188149 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
+  m_PrefabInstance: {fileID: 673313641}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1108182135
 GameObject:
@@ -7575,6 +7642,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 11f7ad6a1c74c6a49a111a0df2e71862, type: 3}
   m_PrefabInstance: {fileID: 1174622077}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1175792947 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
+  m_PrefabInstance: {fileID: 1658650870}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1177569605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7626,6 +7698,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
       propertyPath: m_Name
       value: fence (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9467,6 +9543,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LongFence (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 4699391889503357416, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 127.819046
@@ -9597,6 +9677,10 @@ PrefabInstance:
     - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_Name
       value: LongFence (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_IsActive
@@ -10588,6 +10672,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LongFence (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 4699391889503357416, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 112.04903
@@ -10689,6 +10777,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
       propertyPath: m_Name
       value: fence (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11009,6 +11101,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fence (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11132,6 +11228,10 @@ PrefabInstance:
     - target: {fileID: 1895053668380910322, guid: 3b1bddde64d515d42a6e6adf7fa8f580, type: 3}
       propertyPath: m_Name
       value: fenceRampSlider (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1895053668380910322, guid: 3b1bddde64d515d42a6e6adf7fa8f580, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11823,19 +11923,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 651711407}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 384.9063
+      value: 225.09535
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6
+      value: 36.343414
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 753.4583
+      value: 120.87445
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11868,6 +11968,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
       propertyPath: m_Name
       value: fence
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12494,6 +12598,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fenceSemicircle
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12923,6 +13031,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fence (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13196,6 +13308,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LongFence (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 4699391889503357416, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 268.40906
@@ -13421,6 +13537,10 @@ PrefabInstance:
     - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_Name
       value: LongFence
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 4699391889503357416, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13702,6 +13822,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LongFence (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 4699391889503357416, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 175.15
@@ -13934,6 +14058,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
       propertyPath: m_Name
       value: fence (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd35bcd9b7340674a8863192624bc00c, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14341,6 +14469,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
       propertyPath: m_Name
       value: fenceSemicircle (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15038,6 +15170,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fenceSemicircle (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1c01345560b3a0e4ea82e8e61ac5dd17, type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15483,6 +15619,10 @@ PrefabInstance:
     - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_Name
       value: LongFence (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500184576251120743, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 4699391889503357416, guid: 2a9e42b2cc56285489358ca84509d7be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19619,5 +19759,3 @@ SceneRoots:
   - {fileID: 508671731}
   - {fileID: 532092583}
   - {fileID: 778916712594655810}
-  - {fileID: 673313641}
-  - {fileID: 1658650870}

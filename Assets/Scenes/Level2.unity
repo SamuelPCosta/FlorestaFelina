@@ -3590,6 +3590,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3869237071924980700, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
+      propertyPath: SlideSpeed
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4438006185429135159, guid: 6acb0249259cdef4786584df015ca4e5, type: 3}
       propertyPath: m_IsActive
       value: 0

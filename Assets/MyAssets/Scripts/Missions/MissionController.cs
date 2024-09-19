@@ -89,6 +89,8 @@ public class MissionController : MonoBehaviour{
     }
 
     public void setMissionStage(){
+        if(CurrentMission < 0)
+            return;
         Mission mission = (Mission)CurrentMission;
 
         oldCurrentStageMission = CurrentStageMission;
@@ -240,6 +242,7 @@ public class MissionController : MonoBehaviour{
         Debug.Log("Missao concluida");
         //reseta missao no save
         FindObjectOfType<SaveLoad>().resetMission();
+        CurrentMission = -1;
     }
 
     public void addStage(){

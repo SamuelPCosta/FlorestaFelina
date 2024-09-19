@@ -10,6 +10,7 @@ public class InteractionsController : MonoBehaviour
 {
     bool tutorialFinish = false;
 
+
     [Header("GameController")]
     private GameController gameController;
     
@@ -219,6 +220,7 @@ public class InteractionsController : MonoBehaviour
                     missionController.addStage();
                     missionController.checkMissionCompletion();
                     tutorialFinish = false;
+                    save = FindObjectOfType<SaveLoad>().loadGame();
                 }
             }
         }
@@ -800,8 +802,12 @@ public class InteractionsController : MonoBehaviour
 
             bool isStepOne = nameOfTutorial.Equals(moveTutorial) && playerMovement != Vector2.zero && enableMovement;
             if (isStepOne || this.stepOne) {
-                FindObjectOfType<SaveLoad>().setStepOne();
-                if(MovementTutorial != null)
+                save ??= FindObjectOfType<SaveLoad>().loadGame();
+                if (save.step != true) { 
+                    FindObjectOfType<SaveLoad>().setStepOne();
+                    save = FindObjectOfType<SaveLoad>().loadGame();
+                }
+                if (MovementTutorial != null)
                     MovementTutorial.SetActive(false);
             }
 
@@ -838,7 +844,7 @@ public class InteractionsController : MonoBehaviour
         Collider portal = boxcast.checkProximity(LayerMask.NameToLayer("Portal"));
         if (portal != null){
             //TODO: se o portal é forest e a posicao de saida eh zero return;
-            if(catsStatesController.getMissionStateByIndex(1) == MISSION_STATE.HOME)
+            if(catsStatesController.getMissionStateByIndex(0) == MISSION_STATE.HOME && (catsStatesController.getMissionStateByIndex(1) == MISSION_STATE.HEALED || catsStatesController.getMissionStateByIndex(1) == MISSION_STATE.HOME))
                 _UITextIndicator.enableIndicator(IndicatorText.PORTAL, true);
             if (makeWay.triggered && catsStatesController.getMissionStateByIndex(0) == MISSION_STATE.HOME)
             {

@@ -88,8 +88,8 @@ public class CatsStatesController : MonoBehaviour
             bool shouldActivate = (currentState == homeState);
 
             catsHome[i]?.SetActive(shouldActivate);
-            if (shouldActivate)
-                setMaterialCat(i, catsHome);
+            //if (shouldActivate)
+            //    setMaterialCat(i, catsHome);
         }
     }
 

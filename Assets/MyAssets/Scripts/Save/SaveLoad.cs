@@ -64,6 +64,7 @@ public class SaveLoad : MonoBehaviour
         FileStream file = File.Create(path + "/" + nameOfSave +".save");
         formatter.Serialize(file, save);
         file.Close();
+        print(save.currentMission);
     }
 
     public Save loadGame()
@@ -180,7 +181,7 @@ public class SaveLoad : MonoBehaviour
     {
         Save save = loadGameInternal();
         save.currentMission = -1;
-        save.currentMissionStage = -1;
+        save.currentMissionStage = 0;
 
         saveGame(save);
     }

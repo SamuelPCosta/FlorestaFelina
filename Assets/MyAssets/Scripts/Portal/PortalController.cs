@@ -34,7 +34,7 @@ public class PortalController : MonoBehaviour{
             gameController.setPlayerInHome();
         }
         else if(portalType == PORTAL_DESTINY.FOREST && SceneManager.GetActiveScene().name.Equals(level1)){
-            AudioController.playAction(INTERACTIONS.Portal);
+            
             FindObjectOfType<FeedbackController>().Vibrate(Power.Mid, Duration.Mid);
             gameController.setPlayerInForest();
         } 

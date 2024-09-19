@@ -110,6 +110,9 @@ public class GameController : MonoBehaviour{
         Save save = FindObjectOfType<SaveLoad>().loadGame();
         if (save != null){
             int index = save.previousLevel;
+            if (index <= 0)
+                return;
+            AudioController.playAction(INTERACTIONS.Portal);
             SceneManager.sceneLoaded += (scene, mode) => OnSceneLoadedForForest(scene, mode, save.playerPositionPortal, save.orientation);
             SceneManager.LoadScene(index);
         }
