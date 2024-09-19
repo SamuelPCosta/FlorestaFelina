@@ -137,7 +137,7 @@ public class MenusController : MonoBehaviour{
         GameObject btnSelected = EventSystem.current.currentSelectedGameObject;
         if ((btnSelected == null || btnSelected.GetComponent<Button>() != null && !btnSelected.GetComponent<Button>().interactable) && btnCurrent != null)
         {
-            if (!btnCurrent.name.Contains("Potion")){
+            if (!btnCurrent.name.Contains("Potion") && !btnCurrent.name.Contains("ButtonCat")){
                 btnSelected = btnCurrent;
                 EventSystem.current.SetSelectedGameObject(btnSelected);
             }

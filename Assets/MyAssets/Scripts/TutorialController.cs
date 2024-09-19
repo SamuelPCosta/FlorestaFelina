@@ -10,6 +10,8 @@ public class TutorialController : MonoBehaviour
     public GameObject catDialog2;
     public GameObject nextLevelMission;
 
+    private bool nextMission = false;
+
     void Start(){
         if (catDialog2 != null)
             enableDialog(catDialog2, false);
@@ -18,7 +20,12 @@ public class TutorialController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (nextMission) {
+            if (!GameObject.Find("MissionPanel").activeSelf){ 
+                nextLevelMission.SetActive(true);
+                nextMission = false;
+            }
+        }
     }
 
     //TUTORIAL
@@ -32,6 +39,6 @@ public class TutorialController : MonoBehaviour
 
     public void enableNextLevelMission()
     {
-        nextLevelMission.SetActive(true);
+        nextMission = true;
     }
 }

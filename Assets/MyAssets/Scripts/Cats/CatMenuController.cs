@@ -27,6 +27,9 @@ public class CatMenuController : PanelController
 
     void Update()
     {
+        if (option != null)
+            print(option.name);
+
         if (menu.activeSelf && confirmOption.triggered)
             interactWithCat();
     }
@@ -51,7 +54,6 @@ public class CatMenuController : PanelController
 
         int water = inventoryController.getCollectible(CollectibleType.WATER);
         bool hasfish = inventoryController.getCollectible(CollectibleType.FISH) > 0;
-
         bool hasWater = false;
         bool hasPotion = false;
         switch (mission){
@@ -99,7 +101,6 @@ public class CatMenuController : PanelController
             _UIButtons.enableOption((int)MenuOption.OPTION1);
             firstOption = options[0];
         }
-
         return firstOption;
     }
 
@@ -110,10 +111,6 @@ public class CatMenuController : PanelController
             return;
         Mission mission = missionController.getMission();
         int stageMission = missionController.getMissionStage();
-
-        CatController cat = FindObjectOfType<GameController>().currentCat;
-        if (cat != null)
-            cat.eat();
 
         if (option == null)
             return;
@@ -130,6 +127,9 @@ public class CatMenuController : PanelController
         else
         if (option == options[1]){
             //TODO: cena de alimentacao
+            CatController cat = FindObjectOfType<GameController>().currentCat;
+            if (cat != null)
+                cat.eat();
             inventoryController.consumeCollectible(CollectibleType.FISH, 1);
             AudioController.playAction(INTERACTIONS.Eating);
         }
