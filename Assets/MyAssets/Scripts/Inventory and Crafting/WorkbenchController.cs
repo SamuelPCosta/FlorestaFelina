@@ -212,5 +212,6 @@ public class WorkbenchController : PanelController
     public void exit()
     {
         potion = null;
+        EventSystem.current.SetSelectedGameObject(null);
     }
 }

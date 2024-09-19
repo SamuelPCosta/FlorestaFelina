@@ -65,8 +65,8 @@ public class CatsStatesController : MonoBehaviour
                 shouldActivate = (lastState == finalState && currentState != finalState);
 
             cats[i]?.SetActive(shouldActivate);
-            if (shouldActivate)
-                setMaterialCat(i, cats);
+            //if (shouldActivate)
+            //    setMaterialCat(i, cats);
 
             if (summons[i] != null)
                 summons[i]?.SetActive(shouldActivate);

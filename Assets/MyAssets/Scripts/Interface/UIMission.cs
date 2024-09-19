@@ -13,6 +13,7 @@ public class UIMission : UIController
     public GameObject missionDescription;
     public GameObject missionCompleteIcon;
     public TextMeshProUGUI missionCompleteText;
+    public GameObject refreshUI;
 
     [Header("Alternative text")]
     [Tooltip("Pocoes ja craftadas")]
@@ -41,14 +42,16 @@ public class UIMission : UIController
     public void setMissionStage(int index){
         if (!missionHud.activeSelf)
             return;
-
+        StopAllCoroutines();
+        StartCoroutine(FadeInOut(refreshUI.GetComponent<CanvasGroup>(), 1f));
         missionDescription.GetComponent<TextMeshProUGUI>().text = CurrentMission.description[index];
     }
 
     public void setAlternativeText(string potion){
         if (!missionHud.activeSelf)
             return;
-
+        StopAllCoroutines();
+        StartCoroutine(FadeInOut(refreshUI.GetComponent<CanvasGroup>(), 1f));
         missionDescription.GetComponent<TextMeshProUGUI>().text = stage2AlternativeText +" "+ potion;
     }
 
@@ -66,5 +69,21 @@ public class UIMission : UIController
     private void disableCompleteMission()
     {
         missionCompleteIcon.SetActive(false);
+    }
+
+    IEnumerator FadeInOut(CanvasGroup canvas, float duration)
+    {
+        float elapsed = 0f;
+        float max = .8f;
+
+        while (elapsed < duration * 2)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.PingPong(elapsed, duration) / duration;
+            canvas.alpha = Mathf.Lerp(0f, max, t);
+            yield return null;
+        }
+
+        canvas.alpha = 0f;
     }
 }

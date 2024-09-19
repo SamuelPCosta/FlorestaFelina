@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour{
 
     [Header("CameraGuiada")]
     public bool isGuidedCamera = false;
+    public bool dialog = false;
 
     private Vector3 position;
 

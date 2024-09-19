@@ -169,5 +169,6 @@ public class CatMenuController : PanelController
     public void exit()
     {
         option = null;
+        EventSystem.current.SetSelectedGameObject(null);
     }
 }

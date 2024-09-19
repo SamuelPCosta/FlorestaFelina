@@ -225,12 +225,6 @@ public class InteractionsController : MonoBehaviour
 
         fireflies.transform.position = gameObject.transform.position;
 
-        if (journal.triggered)
-            if (interactions)
-                interactions = false;
-            else
-                interactions = true;
-
         if (interactions) {
             if (!checkWay())
             {
@@ -250,8 +244,17 @@ public class InteractionsController : MonoBehaviour
                 if (save != null) stepOne = save.step;
             }
             
+
             checkNPC();
             checkDialogs();
+            if (inDialog || inDynamicDialog) {
+                checkCameras();
+                AudioController.changeParameter("Move", "Stop");
+                gameController.dialog = true;
+                return;
+            }
+            gameController.dialog = false;
+
             checkMarker();
             checkCat();
             checkWorkbench();
@@ -328,7 +331,7 @@ public class InteractionsController : MonoBehaviour
         {
             transform.GetComponent<MovementController>().isSlipping = true;
             isSlipping = true;
-            StartCoroutine(slowMotion(1f, 0.2f, .5f, .5f));
+           // StartCoroutine(slowMotion(1f, 0.7f, .5f, .5f));
             sliderBlackBars.SetActive(true);
         }
     }

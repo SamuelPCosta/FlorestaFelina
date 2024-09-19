@@ -124,7 +124,8 @@ public class AudioController : MonoBehaviour{
             default:
                 return;
         }
-        if (!FindObjectOfType<GameController>().isGuidedCamera) { 
+        GameController gameController = FindObjectOfType<GameController>();
+        if (!gameController.isGuidedCamera && !gameController.dialog) { 
             eventInstance.start();
             eventInstance.release();
         }

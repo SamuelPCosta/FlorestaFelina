@@ -5616,6 +5616,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2917324741420464681}
     m_Modifications:
+    - target: {fileID: 528711072780951802, guid: dc7318f8a01b4ca49a47799b897f2a8a, type: 3}
+      propertyPath: CameraCollisionFilter.m_Bits
+      value: 23068672
+      objectReference: {fileID: 0}
     - target: {fileID: 710011101679100431, guid: dc7318f8a01b4ca49a47799b897f2a8a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.6043396

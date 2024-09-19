@@ -21,7 +21,7 @@ public class TutorialController : MonoBehaviour
     void Update()
     {
         if (nextMission) {
-            if (!GameObject.Find("MissionPanel").activeSelf){ 
+            if (GameObject.Find("MissionPanel") == null){ 
                 nextLevelMission.SetActive(true);
                 nextMission = false;
             }
